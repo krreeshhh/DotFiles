@@ -1,0 +1,14 @@
+[Unit]
+Description=Hyprland Universal Picture-in-Picture Helper Daemon
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 %h/.local/bin/hypr-pip-helper
+Restart=on-failure
+RestartSec=2s
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=graphical-session.target

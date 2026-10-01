@@ -1,0 +1,14 @@
+[Unit]
+Description=Omarchy Crash Monitor & Agent Diagnostic Daemon
+Documentation=https://github.com/omacom/omarchy
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/home/Krish/.local/bin/omarchy-crash-watch
+Restart=always
+RestartSec=3
+Environment=PATH=/home/Krish/.local/bin:/usr/local/bin:/usr/bin
+
+[Install]
+WantedBy=default.target

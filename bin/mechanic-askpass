@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# mechanic-askpass — Graphical Sudo/Root Password Prompt
+# Uses Quickshell Material You modal screen with automatic Rofi fallback.
+
+set -euo pipefail
+
+PROMPT="${1:-Administrator privileges required for system maintenance.}"
+
+# Ensure runtime directory exists
+RUNDIR="/run/user/$(id -u)/mechanic"
+mkdir -p "$RUNDIR"
+chmod 700 "$RUNDIR"
+
+FIFO=$(mktemp -u "$RUNDIR/auth.XXXXXX")
+mkfifo -m 600 "$FIFO"
+
+cleanup() {
+    rm -f "$FIFO"
+}
+trap cleanup EXIT
+
+# 1. Try Quickshell Native Auth Screen
+if command -v quickshell >/dev/null 2>&1 && pgrep -u "$(id -u)" -x quickshell >/dev/null 2>&1; then
+    quickshell ipc -p "$HOME/.config/quickshell" call shell promptAuth "$FIFO" "$PROMPT" >/dev/null 2>&1 &
+    
+    # Read response with 60s timeout
+    if read -t 60 -r PASSWORD < "$FIFO"; then
+        if [ -n "$PASSWORD" ]; then
+            printf '%s\n' "$PASSWORD"
+            exit 0
+        else
+            exit 1
+        fi
+    fi
+fi
+
+# 2. Fallback to Rofi if Quickshell failed or timed out
+if command -v rofi >/dev/null 2>&1; then
+    PASSWORD=$(rofi -dmenu -password -p "󰌾 Sudo" -mesg "$PROMPT" -lines 0 -theme-str 'window { width: 440px; } mainbox { children: [ message, inputbar ]; }' 2>/dev/null || true)
+    if [ -n "$PASSWORD" ]; then
+        printf '%s\n' "$PASSWORD"
+        exit 0
+    fi
+fi
+
+# 3. Fallback to pinentry-qt
+if command -v pinentry-qt >/dev/null 2>&1; then
+    printf 'SETDESC %s\nGETPIN\n' "$PROMPT" | pinentry-qt 2>/dev/null | sed -n 's/^D //p'
+    exit 0
+fi
+
+exit 1

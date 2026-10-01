@@ -1,0 +1,12 @@
+/* Generated Material You Palette for Rofi / Picker / Launcher */
+* {
+    bg:           #161214;
+    bg-alt:       #211b1e;
+    bg-selected:  #30262b;
+    fg:           #FFFFFF;
+    fg-alt:       #C8C8D0;
+    accent:       #c982a3;
+    accent-sec:   #bc7e7e;
+    border-col:   #c982a3;
+    urgent:       #FF6B6B;
+}

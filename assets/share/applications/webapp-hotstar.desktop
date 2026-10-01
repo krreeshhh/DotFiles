@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Hotstar
+Comment=Hotstar (Web Application)
+Exec=brave-origin --app=https://hotstar.com
+Icon=/home/Krish/.local/share/icons/webapps/hotstar.png
+Terminal=false
+StartupWMClass=hotstar.com
+Categories=Network;WebBrowser;
+X-WebApp=true
+X-WebApp-URL=https://hotstar.com
+X-WebApp-Category=Browser

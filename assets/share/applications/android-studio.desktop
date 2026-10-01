@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio
+Icon=/home/Krish/android-studio/bin/studio.svg
+Exec=env QT_QPA_PLATFORM=xcb /home/Krish/android-studio/bin/studio.sh %u
+Comment=The official Android IDE
+Categories=Development;IDE;
+Terminal=false
+StartupNotify=true
+StartupWMClass=jetbrains-studio

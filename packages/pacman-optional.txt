@@ -1,0 +1,28 @@
+# Alternative File Managers & Tools
+thunar
+thunar-archive-plugin
+
+# Power / Idle Tools (Standby / Testing)
+hypridle
+swayidle
+
+# System Monitoring, Build Tools & Runtime
+btop
+nano
+nodejs
+meson
+ninja
+pacman-contrib
+rust
+bun
+patchelf
+github-cli
+arch-install-scripts
+
+# User Desktop Applications
+obsidian
+qbittorrent
+loupe
+obs-studio
+opencode
+bind

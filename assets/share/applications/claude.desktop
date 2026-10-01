@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Claude Code
+Comment=Anthropic Claude Code CLI Agent
+Exec=ghostty -e claude
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Development;Building;Debugger;
+Keywords=ai;agent;claude;anthropic;llm;code;

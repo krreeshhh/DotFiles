@@ -1,0 +1,217 @@
+#!/usr/bin/env python3
+"""
+omarchy-crash-watch — Real-time crash monitoring daemon.
+Monitors systemd-coredump events, generates structured markdown reports,
+and triggers interactive Dunst/notify-send notifications to launch Antigravity.
+"""
+
+import os
+import sys
+import json
+import time
+import shutil
+import subprocess
+import threading
+from datetime import datetime
+from pathlib import Path
+
+CRASH_DIR = Path.home() / ".local/state/crashes"
+MUTE_FILE = Path.home() / ".config/omarchy/crashes/muted.txt"
+CONFIG_FILE = Path.home() / ".config/omarchy/defaults/agent.json"
+
+CRASH_DIR.mkdir(parents=True, exist_ok=True)
+MUTE_FILE.parent.mkdir(parents=True, exist_ok=True)
+if not MUTE_FILE.exists():
+    MUTE_FILE.touch()
+
+# Track recently handled PIDs to prevent duplicate triggers
+handled_pids = set()
+
+def is_muted(comm, exe):
+    if not MUTE_FILE.exists():
+        return False
+    with open(MUTE_FILE, "r") as f:
+        muted = [line.strip() for line in f if line.strip() and not line.startswith("#")]
+    
+    comm_clean = Path(comm).name if comm else ""
+    exe_clean = Path(exe).name if exe else ""
+    return comm_clean in muted or exe_clean in muted or exe in muted
+
+def get_agent_config():
+    defaults = {
+        "command": "agy",
+        "terminal": "ghostty",
+        "prompt_flag": "-i"
+    }
+    if CONFIG_FILE.exists():
+        try:
+            with open(CONFIG_FILE, "r") as f:
+                data = json.load(f)
+                defaults.update(data)
+        except Exception:
+            pass
+    return defaults
+
+def generate_report(pid, comm, exe, signal_name):
+    timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    safe_comm = "".join(c for c in comm if c.isalnum() or c in "-_")
+    report_file = CRASH_DIR / f"crash_{timestamp_str}_{safe_comm}_{pid}.md"
+    
+    # Wait briefly for coredumpctl to settle
+    time.sleep(0.6)
+    
+    # Fetch coredump info
+    try:
+        core_info = subprocess.check_output(
+            ["coredumpctl", "info", str(pid)],
+            stderr=subprocess.STDOUT,
+            text=True,
+            timeout=10
+        )
+    except Exception as e:
+        core_info = f"Failed to retrieve coredumpctl info: {e}"
+        
+    # Fetch recent journal logs for this PID
+    try:
+        journal_logs = subprocess.check_output(
+            ["journalctl", f"_PID={pid}", "-n", "50", "--no-pager"],
+            stderr=subprocess.STDOUT,
+            text=True,
+            timeout=5
+        )
+    except Exception as e:
+        journal_logs = f"Failed to retrieve journal logs: {e}"
+        
+    report_content = f"""# Crash Diagnostic Report
+
+- **Process Name:** `{comm}`
+- **Executable:** `{exe}`
+- **Process ID (PID):** `{pid}`
+- **Signal:** `{signal_name}`
+- **Timestamp:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+---
+
+## 1. Stack Trace & Coredump Summary
+```text
+{core_info}
+```
+
+---
+
+## 2. Recent Process Logs
+```text
+{journal_logs}
+```
+
+---
+*Report generated automatically by `omarchy-crash-watch`.*
+"""
+    report_file.write_text(report_content)
+    return report_file
+
+def handle_crash(pid, comm, exe, signal_name):
+    if pid in handled_pids:
+        return
+    handled_pids.add(pid)
+    
+    # Clean old pids from cache
+    if len(handled_pids) > 100:
+        handled_pids.clear()
+        
+    if is_muted(comm, exe):
+        print(f"omarchy-crash-watch: Ignoring muted crash for {comm} (PID {pid})")
+        return
+        
+    print(f"omarchy-crash-watch: Detected crash in {comm} (PID {pid}, signal {signal_name})")
+    
+    try:
+        report_path = generate_report(pid, comm, exe, signal_name)
+    except Exception as e:
+        print(f"omarchy-crash-watch: Error generating report: {e}", file=sys.stderr)
+        return
+        
+    # Send desktop notification with action
+    agent_cfg = get_agent_config()
+    cmd = [
+        "notify-send",
+        "-u", "critical",
+        "-a", "Omarchy Crash Reporter",
+        "-i", "dialog-error",
+        "-A", "diagnose=Diagnose with Antigravity",
+        f"Process Crashed: {comm}",
+        f"Terminated by {signal_name} (PID {pid}).\nClick to diagnose with Antigravity."
+    ]
+    
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+        action = result.stdout.strip()
+        if action == "diagnose" or action == "0" or "diagnose" in action.lower():
+            print(f"omarchy-crash-watch: User clicked diagnose for PID {pid}")
+            launch_agent_for_crash(pid, comm, report_path, agent_cfg)
+    except subprocess.TimeoutExpired:
+        pass
+    except Exception as e:
+        print(f"omarchy-crash-watch: Notification error: {e}", file=sys.stderr)
+
+def launch_agent_for_crash(pid, comm, report_path, agent_cfg):
+    agent_cmd = agent_cfg.get("command", "agy")
+    prompt_flag = agent_cfg.get("prompt_flag", "-i")
+    terminal = agent_cfg.get("terminal", "ghostty")
+    prompt = (
+        f"I have a crash report for process '{comm}' (PID {pid}) at {report_path}. "
+        "Please use the diagnose-crash skill to analyze the stack trace and help resolve this issue."
+    )
+    
+    launch_cmd = [
+        terminal,
+        f"--title=Crash Diagnosis - {comm} (PID {pid})",
+        "-e",
+        agent_cmd,
+        prompt_flag,
+        prompt
+    ]
+    subprocess.Popen(launch_cmd, start_new_session=True)
+
+def watch_journal():
+    # MESSAGE_ID=fc2e22bc40e847b08b49f7356c25c08b is systemd-coredump's event ID
+    proc = subprocess.Popen(
+        [
+            "journalctl",
+            "-f",
+            "-o", "json",
+            "_TRANSPORT=journal",
+            "MESSAGE_ID=fc2e22bc40e847b08b49f7356c25c08b"
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        text=True
+    )
+    
+    for line in proc.stdout:
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            data = json.loads(line)
+            pid = data.get("COREDUMP_PID") or data.get("_PID")
+            comm = data.get("COREDUMP_COMM") or data.get("_COMM") or "unknown"
+            exe = data.get("COREDUMP_EXE") or data.get("_EXE") or comm
+            sig = data.get("COREDUMP_SIGNAL_NAME") or data.get("COREDUMP_SIGNAL") or "SIGSEGV"
+            
+            if pid:
+                # Handle in background thread so journal reading isn't blocked
+                t = threading.Thread(target=handle_crash, args=(int(pid), comm, exe, sig), daemon=True)
+                t.start()
+        except Exception as e:
+            print(f"omarchy-crash-watch: parse error: {e}", file=sys.stderr)
+
+def main():
+    print("omarchy-crash-watch: Starting crash monitor daemon...")
+    try:
+        watch_journal()
+    except KeyboardInterrupt:
+        print("\nomarchy-crash-watch: Stopped.")
+
+if __name__ == "__main__":
+    main()

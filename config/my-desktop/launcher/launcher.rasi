@@ -1,0 +1,146 @@
+/**
+ * App Launcher RASI Theme - Spacious Minimal with Separators & Large Typography
+ **/
+configuration {
+    show-icons: true;
+    icon-theme: "Adwaita";
+}
+
+* {
+    bg:           #130f12;
+    bg-card:      #1f181d;
+    bg-hover:     #2c2028;
+    bg-selected:  #401b34;
+    fg:           #FFFFFF;
+    fg-alt:       #A5A5AA;
+    accent:       #e183c2;
+    border-subtle: #412f3b;
+    border-item:   #412f3b44;
+    accent-border: #e183c277;
+
+    font: "JetBrainsMono Nerd Font 13";
+    background-color: transparent;
+    text-color: @fg;
+    margin: 0;
+    padding: 0;
+}
+
+window {
+    width: 480px;
+    background-color: @bg;
+    border: 1.5px;
+    border-color: @border-subtle;
+    border-radius: 8px;
+    padding: 18px 16px;
+    location: center;
+    anchor: center;
+}
+
+mainbox {
+    spacing: 12px;
+    children: [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: transparent;
+    border: 0px 0px 1px 0px;
+    border-color: @border-subtle;
+    padding: 4px 10px 12px 10px;
+    margin: 0px 0px 4px 0px;
+    children: [ entry ];
+}
+
+entry {
+    text-color: @fg;
+    font: "JetBrainsMono Nerd Font 13.5";
+    placeholder: "Go..";
+    placeholder-color: @fg-alt;
+}
+
+listview {
+    columns: 1;
+    lines: 10;
+    fixed-height: false;
+    fixed-num-lines: false;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+    spacing: 6px;
+}
+
+element {
+    background-color: transparent;
+    border: 0px 0px 1px 0px;
+    border-color: @border-item;
+    border-radius: 6px;
+    padding: 10px 16px;
+    spacing: 16px;
+    children: [ element-icon, element-text ];
+    cursor: pointer;
+}
+
+element-icon {
+    size: 26px;
+    cursor: pointer;
+    vertical-align: 0.5;
+}
+
+element-text {
+    background-color: transparent;
+    vertical-align: 0.5;
+    text-color: inherit;
+    font: "JetBrainsMono Nerd Font 13";
+    cursor: pointer;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element normal.urgent {
+    background-color: @bg-hover;
+    text-color: #FF6B6B;
+}
+
+element normal.active {
+    background-color: @bg-card;
+    text-color: @accent;
+}
+
+element selected.normal {
+    background-color: @bg-selected;
+    border: 1px;
+    border-color: @accent-border;
+    border-radius: 6px;
+}
+
+element selected.normal element-text {
+    text-color: @accent;
+    font: "JetBrainsMono Nerd Font Bold 13";
+}
+
+element selected.urgent {
+    background-color: @bg-selected;
+    border-radius: 6px;
+}
+
+element selected.active {
+    background-color: @bg-selected;
+    border-radius: 6px;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element alternate.urgent {
+    background-color: @bg-hover;
+    text-color: #FF6B6B;
+}
+
+element alternate.active {
+    background-color: @bg-card;
+    text-color: @accent;
+}

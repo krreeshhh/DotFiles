@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Clipse
+Comment=Clipboard Manager
+Exec=ghostty --class clipse -e clipse
+Icon=edit-paste
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=clipboard;paste;copy;history;

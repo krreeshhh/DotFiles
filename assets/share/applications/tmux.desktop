@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Tmux
+Comment=Terminal Multiplexer
+Exec=ghostty -e tmux
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=System;Utility;TerminalEmulator;
+Keywords=tmux;terminal;session;multiplexer;

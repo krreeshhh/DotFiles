@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hypr PiP</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+            <rect x="11" y="8" width="8" height="6" rx="1" fill="currentColor" opacity="0.3"></rect>
+          </svg>
+        </div>
+        <span class="brand-title">Hypr PiP</span>
+      </div>
+      <div id="pip-badge" class="badge badge-inactive">Inactive</div>
+    </header>
+
+    <!-- Video Info Card -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-label">CURRENT VIDEO</span>
+        <span id="video-res" class="video-res">--</span>
+      </div>
+      <div id="video-title" class="video-title">Scanning page for videos...</div>
+      
+      <div class="video-meta">
+        <div class="status-indicator">
+          <span id="status-dot" class="dot dot-gray"></span>
+          <span id="status-text">Detecting media...</span>
+        </div>
+        <div id="video-time" class="video-time">--:-- / --:--</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="action-section">
+      <button id="btn-toggle-pip" class="btn btn-primary" disabled>
+        <span class="btn-icon">📺</span>
+        <span id="btn-pip-text">Enter PiP</span>
+      </button>
+
+      <button id="btn-play-pause" class="btn btn-secondary" disabled title="Play/Pause">
+        <span id="play-pause-icon" class="btn-icon">⏯️</span>
+      </button>
+
+      <button id="btn-toggle-captions" class="btn btn-secondary btn-captions" title="Toggle Subtitles/Captions">
+        <span class="btn-icon">💬</span>
+      </button>
+    </div>
+
+    <!-- Footer with Shortcut info -->
+    <footer class="footer">
+      <div class="shortcut-pill">
+        <span class="shortcut-key">Alt</span>
+        <span class="shortcut-plus">+</span>
+        <span class="shortcut-key">P</span>
+      </div>
+      <span class="shortcut-desc">Global shortcut • Live Captions 💬</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+# ─────────────────────────────────────────────
+# Ghostty — Glass / Hyprland Theme (Matched with Kitty)
+# ─────────────────────────────────────────────
+
+# Font
+font-family = JetBrains Mono
+font-size = 11.0
+
+# ─────────────────────────────────────────────
+# GLASS BACKGROUND & OPACITY
+# ─────────────────────────────────────────────
+
+background = #130f12
+foreground = #e6edf3
+background-opacity = 0.20
+
+# ─────────────────────────────────────────────
+# TEXT SELECTION & CURSOR
+# ─────────────────────────────────────────────
+
+selection-foreground = #ffffff
+selection-background = #263238
+
+cursor-color = #00ff99
+cursor-text = #05080a
+cursor-style = block
+cursor-style-blink = false
+
+# ─────────────────────────────────────────────
+# ANSI COLORS (0-15)
+# ─────────────────────────────────────────────
+
+palette = 0=#101416
+palette = 1=#ff5c57
+palette = 2=#5af78e
+palette = 3=#f3f99d
+palette = 4=#57c7ff
+palette = 5=#c792ea
+palette = 6=#5eead4
+palette = 7=#e6edf3
+
+palette = 8=#465057
+palette = 9=#ff6e67
+palette = 10=#5af78e
+palette = 11=#f3f99d
+palette = 12=#57c7ff
+palette = 13=#c792ea
+palette = 14=#5eead4
+palette = 15=#ffffff
+
+# ─────────────────────────────────────────────
+# WINDOW PADDING & DECORATIONS
+# ─────────────────────────────────────────────
+
+window-padding-x = 12
+window-padding-y = 10
+window-decoration = false
+
+# ─────────────────────────────────────────────
+# SCROLLBACK & CUSTOM CSS
+# ─────────────────────────────────────────────
+
+scrollback-limit = 10000
+gtk-custom-css = ?/home/Krish/.config/ghostty/gtk.css
+

@@ -1,0 +1,195 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 36,
+    "spacing": 4,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "margin-bottom": 0,
+
+    // Module Layout
+    "modules-left": [
+        "hyprland/workspaces",
+        "custom/chat"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "mpris",
+        "idle_inhibitor",
+        "custom/notification",
+        "group/tray-drawer",
+        "bluetooth",
+        "network",
+        "pulseaudio",
+        "backlight",
+        "battery"
+    ],
+
+    // Workspaces Module (Dots & Capsule)
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "on-click": "activate",
+        "sort-by-name": true,
+        "all-outputs": true,
+        "active-only": false,
+        "persistent-workspaces": {
+            "*": 5
+        }
+    },
+
+    // Chat / Message indicator
+    "custom/chat": {
+        "format": "󰭹",
+        "tooltip": false,
+        "on-click": "ghostty --title=clipse-clipboard -e /home/Krish/.local/bin/clipse"
+    },
+
+    // Clock (10:16 PM Tue 15 format)
+    "clock": {
+        "format": "{:%I:%M %p  %a %d}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d  %H:%M:%S}"
+    },
+
+    // Mini Media Player (Click to Pause/Resume)
+    "mpris": {
+        "format": "  {title} - {artist}",
+        "format-paused": "⏸  {title} - {artist}",
+        "format-stopped": "",
+        "tooltip-format": "{player} ({status})\n{title}\n{artist} - {album}",
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-click-middle": "playerctl previous",
+        "max-length": 28,
+        "ellipsis": "…"
+    },
+
+    // Caffeine / Idle Inhibitor
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰅶",
+            "deactivated": "󰅶"
+        },
+        "tooltip": false
+    },
+
+    // Notification center indicator
+    "custom/notification": {
+        "format": "󰂚",
+        "tooltip": false,
+        "on-click": "dunstctl history-pop || true",
+        "on-click-right": "dunstctl close-all || true"
+    },
+
+    // System Tray Drawer & Toggle
+    "group/tray-drawer": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 300,
+            "children-class": "tray-child",
+            "transition-left-to-right": false,
+            "click-to-reveal": true
+        },
+        "modules": [
+            "custom/tray-toggle",
+            "tray"
+        ]
+    },
+
+    "custom/tray-toggle": {
+        "format": "󱊖",
+        "tooltip": false
+    },
+
+    // System Tray Icons
+    "tray": {
+        "icon-size": 15,
+        "spacing": 8,
+        "show-passive-items": true,
+        "tooltip": true
+    },
+
+    // Bluetooth (Icon only)
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱",
+        "format-connected-battery": "󰂱",
+        "tooltip": false,
+        "on-click": "python3 /home/Krish/.config/waybar/scripts/bluetooth-menu.py",
+        "on-click-right": "blueman-manager"
+    },
+
+    // Wi-Fi / Network (Icon only)
+    "network": {
+        "format-wifi": "󰤨",
+        "format-ethernet": "󰈀",
+        "format-linked": "󱚵",
+        "format-disconnected": "󰤮",
+        "tooltip": false,
+        "on-click": "python3 /home/Krish/.config/waybar/scripts/wifi-menu.py",
+        "on-click-right": "nm-connection-editor"
+    },
+
+    // RAM / Memory Usage (Circle + Value)
+    "memory": {
+        "interval": 3,
+        "format": "◯ {used:0.1f}G",
+        "format-alt": "◯ {percentage}%",
+        "tooltip": false
+    },
+
+    // CPU Activity & Load
+    "cpu": {
+        "interval": 2,
+        "format": "📈 {usage:02d}%",
+        "tooltip": false
+    },
+
+    // Audio / Volume
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "󰂰 {volume}%",
+        "format-muted": "󰝟 {volume}%",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "scroll-step": 5,
+        "on-click": "python3 /home/Krish/.config/waybar/scripts/quick-settings.py",
+        "on-click-right": "pavucontrol",
+        "tooltip": false
+    },
+
+    // Battery
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "on-click": "python3 /home/Krish/.config/waybar/scripts/quick-settings.py",
+        "on-click-right": "bash /home/Krish/.config/waybar/scripts/battery-popup.sh",
+        "tooltip": false
+    },
+
+    // Screen Backlight
+    "backlight": {
+        "format": "󰃠 {percent}%",
+        "scroll-step": 5,
+        "on-click": "python3 /home/Krish/.config/waybar/scripts/quick-settings.py",
+        "on-click-right": "python3 /home/Krish/.config/waybar/scripts/brightness-popup.py",
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "tooltip": false
+    }
+}

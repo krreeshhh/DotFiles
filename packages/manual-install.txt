@@ -1,0 +1,49 @@
+# ==============================================================================
+# Manual Installation & Standalone Binaries Inventory
+# ==============================================================================
+
+1. awww / awww-daemon
+   - Location: ~/.local/bin/awww, ~/.local/bin/awww-daemon
+   - Symlinks: ~/.local/bin/swww -> awww, ~/.local/bin/swww-daemon -> awww-daemon
+   - Type: Animated wallpaper daemon for Wayland supporting smooth 144Hz cubic-bezier transitions.
+   - Fallback: Standard `swww` or `swaybg` (already implemented in apply-wallpaper.sh).
+   - Reinstallation: Copy from Dotfiles/bin or compile swww/awww from source.
+
+2. clipse
+   - Location: ~/.local/bin/clipse
+   - Type: TUI/GUI clipboard manager binary running in daemon mode (`clipse -listen`) and pinned window mode (`ghostty -e clipse`).
+   - Reinstallation: Copy binary from Dotfiles/bin or download upstream release binary from GitHub.
+
+3. hypr-pip-helper
+   - Location: ~/.local/bin/hypr-pip-helper
+   - Service: ~/.config/systemd/user/hypr-pip-helper.service
+   - Type: Python-based universal Picture-in-Picture window placement daemon.
+   - Reinstallation: Copied automatically by install.sh to ~/.local/bin/hypr-pip-helper.
+
+4. mechanic & mechanic-askpass
+   - Location: ~/.local/bin/mechanic, ~/.local/bin/mechanic-askpass
+   - Type: System maintenance assistant & Quickshell native sudo password prompt.
+   - Reinstallation: Copied automatically by install.sh to ~/.local/bin/.
+
+5. omarchy diagnostic suite
+   - Location: ~/.local/bin/omarchy, omarchy-agent, omarchy-crash, omarchy-crash-watch, omarchy-ledge
+   - Service: ~/.config/systemd/user/omarchy-crash-watch.service
+   - Plugin: ~/.config/quickshell/plugins/omarchy-ledge
+   - Type: System crash diagnostic daemon and Quickshell statusbar widget.
+   - Reinstallation: Copied automatically by install.sh.
+
+6. strata & strata-bin
+   - Location: ~/.local/bin/strata, ~/.local/bin/strata-bin
+   - Libraries: ~/.local/lib/libgtk4-layer-shell.so*, ~/.local/lib/libgtksourceview-5.so*
+   - Type: GTK4 Layer Shell file browser / desktop utility.
+   - Reinstallation: Copy wrapper script and binaries from Dotfiles/bin.
+
+7. yazi & ya
+   - Location: ~/.local/bin/yazi, ~/.local/bin/ya
+   - Type: Terminal file manager binary.
+   - Reinstallation: Copied from Dotfiles/bin or installed via `pacman -S yazi`.
+
+8. SDDM Theme (R1999_1)
+   - Location: /usr/share/sddm/themes/R1999_1
+   - Type: Custom SDDM greeter theme.
+   - Reinstallation: Copy assets from Dotfiles/assets/themes/sddm/R1999_1 to /usr/share/sddm/themes/R1999_1.

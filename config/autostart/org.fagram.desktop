@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=FAgram
+Comment=Telegram client based on Telegram Desktop
+TryExec=/usr/bin/fagram
+Exec=/usr/bin/fagram -autostart
+Icon=org.fagram
+Terminal=false
+StartupWMClass=FAgramDesktop
+Type=Application
+Categories=Chat;Network;InstantMessaging;Qt;
+MimeType=x-scheme-handler/tg;x-scheme-handler/tonsite;
+Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;
+Actions=quit;
+SingleMainWindow=true
+X-GNOME-UsesNotifications=true
+X-GNOME-SingleWindow=true
+

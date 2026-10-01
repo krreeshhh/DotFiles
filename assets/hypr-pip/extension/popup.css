@@ -1,0 +1,260 @@
+/* Hyprland Glass / Catppuccin Aesthetic Extension Popup */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 320px;
+  background-color: #1e1e2e; /* Catppuccin Mocha Base */
+  color: #cdd6f4;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  user-select: none;
+  overflow: hidden;
+}
+
+.container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #cba6f7 0%, #89b4fa 100%);
+  color: #11111b;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(203, 166, 247, 0.3);
+}
+
+.brand-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #cdd6f4;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.badge-inactive {
+  background: rgba(108, 112, 134, 0.2);
+  color: #a6adc8;
+  border: 1px solid rgba(108, 112, 134, 0.3);
+}
+
+.badge-active {
+  background: rgba(166, 227, 161, 0.15);
+  color: #a6e3a1;
+  border: 1px solid rgba(166, 227, 161, 0.4);
+}
+
+/* Card */
+.card {
+  background: #181825;
+  border: 1px solid #313244;
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #89b4fa;
+  letter-spacing: 0.8px;
+}
+
+.video-res {
+  font-size: 10px;
+  color: #9399b2;
+  background: #11111b;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.video-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #f5e0dc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 35px;
+}
+
+.video-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 6px;
+  border-top: 1px solid rgba(49, 50, 68, 0.6);
+  font-size: 11px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #bac2de;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-gray { background-color: #6c7086; }
+.dot-green { background-color: #a6e3a1; box-shadow: 0 0 6px rgba(166, 227, 161, 0.6); }
+.dot-blue { background-color: #89b4fa; box-shadow: 0 0 6px rgba(137, 180, 250, 0.6); }
+.dot-yellow { background-color: #f9e2af; }
+
+.video-time {
+  color: #9399b2;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+/* Actions */
+.action-section {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.btn:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, #cba6f7 0%, #89b4fa 100%);
+  color: #11111b;
+  box-shadow: 0 4px 14px rgba(203, 166, 247, 0.25);
+}
+
+.btn-primary:not(:disabled):hover {
+  box-shadow: 0 6px 18px rgba(203, 166, 247, 0.4);
+}
+
+.btn-secondary {
+  width: 40px;
+  background: #313244;
+  color: #cdd6f4;
+  border: 1px solid #45475a;
+}
+
+.btn-secondary:not(:disabled):hover {
+  background: #45475a;
+}
+
+.btn-captions.captions-active {
+  background: rgba(166, 227, 161, 0.2);
+  border-color: #a6e3a1;
+  color: #a6e3a1;
+}
+
+.btn-icon {
+  font-size: 14px;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.shortcut-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #11111b;
+  border: 1px solid #313244;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.shortcut-key {
+  font-size: 10px;
+  font-weight: 700;
+  color: #cba6f7;
+  font-family: monospace;
+}
+
+.shortcut-plus {
+  font-size: 9px;
+  color: #6c7086;
+}
+
+.shortcut-desc {
+  font-size: 11px;
+  color: #6c7086;
+}

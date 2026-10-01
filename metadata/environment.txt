@@ -1,0 +1,31 @@
+# ==============================================================================
+# Essential Desktop Environment Variables
+# ==============================================================================
+
+# Session & Display Server
+XDG_SESSION_TYPE=wayland
+XDG_CURRENT_DESKTOP=Hyprland
+XDG_SESSION_DESKTOP=Hyprland
+
+# Wayland Toolkits & Frameworks
+QT_QPA_PLATFORM="wayland;xcb"
+QT_QPA_PLATFORMTHEME="gtk3"
+GTK_USE_PORTAL=1
+COLOR_SCHEME=prefer-dark
+MOZ_ENABLE_WAYLAND=1
+_JAVA_AWT_WM_NONREPARENTING=1
+
+# Cursors
+XCURSOR_THEME="Bibata-Modern-Ice"
+XCURSOR_SIZE=24
+HYPRCURSOR_SIZE=24
+
+# NVIDIA & Video Acceleration (/etc/environment)
+LIBVA_DRIVER_NAME=nvidia
+MOZ_DISABLE_RDD_SANDBOX=1
+
+# Default User Applications (~/.bashrc)
+TERMINAL=ghostty
+BROWSER=helium
+EDITOR=nvim
+VISUAL=nvim

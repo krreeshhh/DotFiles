@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Hermes Agent
+Comment=Hermes AI Agent
+Exec=ghostty -e hermes
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Development;Building;Debugger;
+Keywords=ai;agent;hermes;code;

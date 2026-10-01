@@ -1,0 +1,149 @@
+/**
+ * Wallpaper Picker RASI Theme - Dynamic Material You
+ **/
+* {
+    bg:           #130f12;
+    bg-card:      #1f181d;
+    bg-hover:     #2c2028;
+    bg-selected:  #401b34;
+    fg:           #FFFFFF;
+    fg-alt:       #A5A5AA;
+    accent:       #e183c2;
+    border-subtle: #412f3b;
+
+    font: "JetBrainsMono Nerd Font 10";
+    background-color: transparent;
+    text-color: @fg;
+    margin: 0;
+    padding: 0;
+}
+
+window {
+    width: 880px;
+    height: 540px;
+    background-color: @bg;
+    border: 1px;
+    border-color: @border-subtle;
+    border-radius: 14px;
+    padding: 20px;
+    location: center;
+    anchor: center;
+}
+
+mainbox {
+    spacing: 16px;
+    children: [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: @bg-card;
+    border: 1px;
+    border-color: @border-subtle;
+    border-radius: 10px;
+    padding: 10px 14px;
+    spacing: 12px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+    font: "JetBrainsMono Nerd Font Bold 10.5";
+}
+
+entry {
+    text-color: @fg;
+    placeholder: "Search wallpapers...";
+    placeholder-color: @fg-alt;
+}
+
+listview {
+    columns: 4;
+    lines: 2;
+    cycle: true;
+    dynamic: true;
+    scrollbar: false;
+    layout: vertical;
+    flow: horizontal;
+    spacing: 14px;
+}
+
+element {
+    background-color: @bg-card;
+    border: 1px;
+    border-color: @border-subtle;
+    border-radius: 10px;
+    padding: 10px;
+    spacing: 8px;
+    orientation: vertical;
+    children: [ element-icon, element-text ];
+    cursor: pointer;
+}
+
+element-icon {
+    size: 100px;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    text-color: @fg;
+    font: "JetBrainsMono Nerd Font 9.5";
+    cursor: pointer;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element normal.urgent {
+    background-color: @bg-hover;
+    text-color: #FF6B6B;
+}
+
+element normal.active {
+    background-color: @bg-card;
+    text-color: @accent;
+}
+
+element selected.normal {
+    background-color: @bg-selected;
+    border: 1px;
+    border-color: @accent;
+}
+
+element selected.normal element-text {
+    text-color: @accent;
+    font: "JetBrainsMono Nerd Font Bold 9.5";
+}
+
+element selected.urgent {
+    background-color: @bg-selected;
+    border: 1px;
+    border-color: #FF6B6B;
+}
+
+element selected.active {
+    background-color: @bg-selected;
+    border: 1px;
+    border-color: @accent;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element alternate.urgent {
+    background-color: @bg-hover;
+    text-color: #FF6B6B;
+}
+
+element alternate.active {
+    background-color: @bg-card;
+    text-color: @accent;
+}

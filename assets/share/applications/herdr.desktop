@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Herdr
+Comment=Process and Task Orchestration Manager
+Exec=ghostty -e herdr
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Development;System;Utility;
+Keywords=herdr;process;task;manager;

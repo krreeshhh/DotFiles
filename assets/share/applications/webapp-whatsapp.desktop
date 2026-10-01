@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Whatsapp
+Comment=Whatsapp (Web Application)
+Exec=brave-origin --app=https://web.whatsapp.com
+Icon=/home/Krish/.local/share/icons/webapps/whatsapp.png
+Terminal=false
+StartupWMClass=web.whatsapp.com
+Categories=Network;Chat;InstantMessaging;
+X-WebApp=true
+X-WebApp-URL=https://web.whatsapp.com
+X-WebApp-Category=Messaging

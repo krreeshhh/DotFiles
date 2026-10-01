@@ -1,0 +1,62 @@
+@import url("/home/Krish/.config/my-desktop/theme/colors.css");
+
+window {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Outer bar container */
+#outer-box {
+    margin: 0px;
+}
+
+/* Inner bar container - styled like Waybar popups and App launcher */
+#inner-box {
+    background-color: @theme_bg;
+    border: 1px solid @theme_border;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+button {
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+    background-color: @theme_surface;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin: 6px;
+    min-width: 80px;
+    min-height: 80px;
+    transition: all 0.2s ease-in-out;
+}
+
+button image {
+    margin: 0px 0px 6px 0px;
+}
+
+button label {
+    font-family: 'JetBrainsMono Nerd Font', 'JetBrainsMono NF', sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: @theme_on_surface;
+    margin: 0;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+button:hover {
+    background-color: @theme_surface_selected;
+    border-color: @theme_primary;
+}
+
+button:hover label {
+    color: @theme_primary;
+}
+
+button:focus {
+    background-color: @theme_surface_selected;
+    border-color: @theme_primary;
+}

@@ -1,0 +1,52 @@
+[mgr]
+cwd = { fg = "#e183c2", bold = true }
+hovered = { fg = "#e183c2", bg = "#401b34", bold = true }
+preview_hovered = { underline = true }
+find_keyword = { fg = "#e183c2", bold = true, italic = true, underline = true }
+find_position = { fg = "#d8a5ca", italic = true }
+marker_copied = { fg = "#e183c2", bg = "#2c2028" }
+marker_cut = { fg = "#FF6B6B", bg = "#2c2028" }
+marker_selected = { fg = "#e183c2", bg = "#401b34" }
+tab_active = { fg = "#121214", bg = "#e183c2", bold = true }
+tab_inactive = { fg = "#A5A5AA", bg = "#1f181d" }
+border = { fg = "#412f3b" }
+
+[status]
+separator_open = ""
+separator_close = ""
+separator_style = { fg = "#2c2028", bg = "#2c2028" }
+mode_normal = { fg = "#121214", bg = "#e183c2", bold = true }
+mode_select = { fg = "#121214", bg = "#d8a5ca", bold = true }
+mode_unset = { fg = "#FFFFFF", bg = "#2c2028", bold = true }
+progress_label = { fg = "#FFFFFF", bold = true }
+progress_normal = { fg = "#e183c2", bg = "#2c2028" }
+progress_error = { fg = "#FF6B6B", bg = "#2c2028" }
+permissions_t = { fg = "#e183c2" }
+permissions_r = { fg = "#e183c2" }
+permissions_w = { fg = "#d8a5ca" }
+permissions_x = { fg = "#FF6B6B" }
+permissions_s = { fg = "#A5A5AA" }
+
+[input]
+border = { fg = "#e183c2" }
+title = { fg = "#e183c2", bold = true }
+value = { fg = "#FFFFFF" }
+selected = { bg = "#401b34" }
+
+[select]
+border = { fg = "#e183c2" }
+active = { fg = "#e183c2", bold = true }
+inactive = { fg = "#FFFFFF" }
+
+[tasks]
+border = { fg = "#412f3b" }
+title = { fg = "#e183c2", bold = true }
+hovered = { fg = "#e183c2", underline = true }
+
+[which]
+mask = { bg = "#130f12" }
+cand = { fg = "#e183c2" }
+rest = { fg = "#A5A5AA" }
+desc = { fg = "#FFFFFF" }
+separator = " ➜ "
+separator_style = { fg = "#412f3b" }

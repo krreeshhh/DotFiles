@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Web App Manager
+Comment=Create and manage standalone Web Applications (PWAs)
+Exec=python3 /home/Krish/.config/my-desktop/launcher/webapp_manager.py interactive
+Icon=applications-internet
+Terminal=false
+Categories=Utility;Network;

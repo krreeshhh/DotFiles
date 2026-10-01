@@ -1,0 +1,18 @@
+# ==============================================================================
+# Required Systemd System Services (Enable on fresh installation)
+# ==============================================================================
+
+# Display Manager
+sddm.service
+
+# Network & Connectivity
+NetworkManager.service
+bluetooth.service
+
+# Hardware & Power Management (NVIDIA VRAM preservation during sleep/hibernate)
+nvidia-suspend.service
+nvidia-resume.service
+nvidia-hibernate.service
+
+# Time Synchronization
+ntpd.service

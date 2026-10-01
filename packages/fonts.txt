@@ -1,0 +1,6 @@
+# UI, Terminal & Icon Fonts
+ttf-jetbrains-mono-nerd
+adwaita-fonts
+noto-fonts
+noto-fonts-emoji
+terminus-font

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Antigravity CLI
+Comment=Google Antigravity Agentic AI CLI
+Exec=ghostty -e agy
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Development;Building;Debugger;
+Keywords=ai;agent;antigravity;agy;google;code;

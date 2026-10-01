@@ -1,0 +1,99 @@
+# ==============================================================================
+# Silent GRUB Theme
+# Style: Clean Minimalist / Glassmorphism Aesthetic (Matches SilentSDDM)
+# Font: Red Hat Display / Red Hat Mono
+# ==============================================================================
+
+# General Display Settings
+desktop-image: "background.png"
+desktop-color: "#0c0e14"
+terminal-font: "Red Hat Mono Regular 12"
+terminal-box: "terminal_box_*.png"
+terminal-left: "20%"
+terminal-top: "20%"
+terminal-width: "60%"
+terminal-height: "60%"
+terminal-border: "0"
+
+# Header Title Block
++ label {
+    top = 15%
+    left = 0
+    width = 100%
+    height = 36
+    text = "ARCH LINUX"
+    font = "Red Hat Display Bold 24"
+    color = "#ffffff"
+    align = "center"
+}
+
++ label {
+    top = 19%
+    left = 0
+    width = 100%
+    height = 20
+    text = "Select an Operating System"
+    font = "Red Hat Display Regular 12"
+    color = "#99a3b8"
+    align = "center"
+}
+
+# Boot Menu
++ boot_menu {
+    left = 28%
+    top = 27%
+    width = 44%
+    height = 48%
+    item_font = "Red Hat Display Regular 14"
+    selected_item_font = "Red Hat Display Bold 14"
+    item_color = "#99a3b8"
+    selected_item_color = "#ffffff"
+    item_height = 46
+    item_padding = 8
+    item_spacing = 6
+    icon_width = 30
+    icon_height = 30
+    item_icon_space = 14
+    menu_pixmap_style = "menu_box_*.png"
+    selected_item_pixmap_style = "select_*.png"
+    scrollbar = true
+    scrollbar_width = 6
+    scrollbar_thumb = "slider_*.png"
+}
+
+# Timeout Countdown Display
++ label {
+    id = "__timeout__"
+    top = 79%
+    left = 0
+    width = 100%
+    height = 20
+    text = "Booting in %d seconds..."
+    font = "Red Hat Display Regular 12"
+    color = "#c0cbe0"
+    align = "center"
+}
+
++ progress_bar {
+    id = "__timeout__"
+    left = 38%
+    top = 82%
+    width = 24%
+    height = 6
+    show_text = false
+    bg_overlay = false
+    bar_style = "progress_bar_*.png"
+    highlight_style = "progress_highlight_*.png"
+}
+
+# Footer Navigation Hints
++ label {
+    top = 92%
+    left = 0
+    width = 100%
+    height = 20
+    text = "[ ↑ / ↓ ] Select    [ Enter ] Boot    [ E ] Options    [ C ] GRUB CLI"
+    font = "Red Hat Mono Regular 11"
+    color = "#626b80"
+    align = "center"
+}

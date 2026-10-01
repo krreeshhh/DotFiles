@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# mechanic — Quick CLI launcher for Antigravity in /mechanic mode
+
+set -euo pipefail
+
+export SUDO_ASKPASS="/home/Krish/.local/bin/mechanic-askpass"
+export SUDO_ASKPASS_REQUIRE="prefer"
+export SSH_ASKPASS="/home/Krish/.local/bin/mechanic-askpass"
+
+if [ $# -eq 0 ]; then
+  exec omarchy-agent run "/mechanic Ready for system maintenance and tuning."
+else
+  exec omarchy-agent run "/mechanic $*"
+fi

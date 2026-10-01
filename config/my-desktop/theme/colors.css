@@ -1,0 +1,13 @@
+/* Material You Unified CSS Variables */
+@define-color theme_primary #e183c2;
+@define-color theme_on_primary #121214;
+@define-color theme_primary_container #401b34;
+@define-color theme_secondary #d8a5ca;
+@define-color theme_bg #130f12;
+@define-color theme_surface #1f181d;
+@define-color theme_surface_variant #2c2028;
+@define-color theme_surface_selected #401b34;
+@define-color theme_on_surface #FFFFFF;
+@define-color theme_on_surface_variant #A5A5AA;
+@define-color theme_border #412f3b;
+@define-color theme_error #FF6B6B;

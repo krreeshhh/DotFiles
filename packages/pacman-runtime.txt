@@ -1,0 +1,82 @@
+# Core Wayland & Hyprland Compositor
+hyprland
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+polkit-gnome
+wl-clipboard
+grim
+slurp
+swaybg
+brightnessctl
+
+# Desktop Shell, Panels & Notifications
+quickshell
+waybar
+nwg-bar
+dunst
+
+# Terminal & Multiplexer
+ghostty
+tmux
+
+# File Management (Core Desktop)
+nautilus
+file-roller
+
+# Audio Server & Controls
+pipewire
+pipewire-pulse
+pipewire-alsa
+wireplumber
+pavucontrol
+pamixer
+playerctl
+alsa-utils
+
+# Network & Bluetooth
+networkmanager
+network-manager-applet
+bluez
+bluez-utils
+blueman
+
+# Look, Theming & Engine Libraries
+adwaita-icon-theme
+dconf
+sddm
+python-pillow
+python-gobject
+python-cairo
+gtk-layer-shell
+cairo
+
+# Quickshell Qt6 Modules & GTK Support
+qt6-5compat
+qt6-multimedia
+qt6-multimedia-ffmpeg
+qt6-virtualkeyboard
+appmenu-gtk-module
+webkit2gtk-4.1
+lsd
+
+# Kernel, Headers & NVIDIA Open Drivers
+base
+base-devel
+linux-lts
+linux-lts-headers
+linux-firmware
+amd-ucode
+dkms
+nvidia-open-dkms
+nvidia-utils
+libva-nvidia-driver
+efibootmgr
+grub
+
+# Essential Desktop Tools & System Libs
+ntp
+xdg-user-dirs
+wget
+rsync
+git
+neovim

@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# omarchy-crash — Crash Management & Diagnostics Suite
+
+set -euo pipefail
+
+MUTE_FILE="$HOME/.config/omarchy/crashes/muted.txt"
+CRASH_DIR="$HOME/.local/state/crashes"
+
+mkdir -p "$(dirname "$MUTE_FILE")" "$CRASH_DIR"
+touch "$MUTE_FILE"
+
+cmd_list() {
+  printf '=== Recent System Coredumps ===\n'
+  coredumpctl list -n 10 || true
+}
+
+cmd_reports() {
+  printf '=== Generated Crash Reports in %s ===\n' "$CRASH_DIR"
+  ls -lh "$CRASH_DIR"/*.md 2>/dev/null || printf 'No crash reports generated yet.\n'
+}
+
+cmd_mute() {
+  if [ $# -eq 0 ]; then
+    printf '=== Currently Muted Programs ===\n'
+    if [ -s "$MUTE_FILE" ]; then
+      cat "$MUTE_FILE"
+    else
+      printf '(none)\n'
+    fi
+    return 0
+  fi
+
+  local app="$1"
+  local action="${2:-on}"
+
+  if [ "$action" = "off" ] || [ "$action" = "remove" ] || [ "$action" = "unmute" ]; then
+    sed -i "/^${app}$/d" "$MUTE_FILE"
+    printf 'Unmuted crash notifications for: %s\n' "$app"
+  else
+    if grep -Fxq "$app" "$MUTE_FILE"; then
+      printf '%s is already muted.\n' "$app"
+    else
+      echo "$app" >> "$MUTE_FILE"
+      printf 'Muted crash notifications for: %s\n' "$app"
+    fi
+  fi
+}
+
+cmd_toggle() {
+  if systemctl --user is-active --quiet omarchy-crash-watch.service; then
+    systemctl --user stop omarchy-crash-watch.service
+    printf 'Crash Capture Watcher disabled.\n'
+  else
+    systemctl --user start omarchy-crash-watch.service
+    printf 'Crash Capture Watcher enabled.\n'
+  fi
+}
+
+cmd_diagnose() {
+  local pid="${1:-}"
+  exec omarchy-agent crash "$pid"
+}
+
+usage() {
+  cat <<'EOF'
+Usage: omarchy-crash <command> [arguments]
+
+Commands:
+  list                 List recent system core dumps
+  reports              List generated markdown crash reports
+  diagnose [pid]       Launch Antigravity agent to diagnose a crash (or latest)
+  mute                 List currently muted programs
+  mute <app>           Mute crash notifications for an application
+  mute <app> off       Unmute crash notifications for an application
+  toggle               Toggle the background crash watcher on/off
+  help                 Show this help message
+EOF
+}
+
+main() {
+  local sub="${1:-help}"
+  if [ $# -gt 0 ]; then shift; fi
+
+  case "$sub" in
+    list)
+      cmd_list
+      ;;
+    reports)
+      cmd_reports
+      ;;
+    diagnose)
+      cmd_diagnose "$@"
+      ;;
+    mute)
+      cmd_mute "$@"
+      ;;
+    toggle)
+      cmd_toggle
+      ;;
+    help|--help|-h)
+      usage
+      ;;
+    *)
+      usage >&2
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"

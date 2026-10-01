@@ -1,0 +1,52 @@
+/* Hypr PiP In-Page Notification Toast */
+#hypr-pip-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: rgba(24, 24, 37, 0.94);
+  color: #cdd6f4;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(12px) scale(0.96);
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  user-select: none;
+}
+
+#hypr-pip-toast.hypr-pip-show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+#hypr-pip-toast .hypr-pip-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+#hypr-pip-toast.hypr-pip-success {
+  border-left: 3px solid #a6e3a1;
+}
+
+#hypr-pip-toast.hypr-pip-warning {
+  border-left: 3px solid #f9e2af;
+}
+
+#hypr-pip-toast.hypr-pip-error {
+  border-left: 3px solid #f38ba8;
+}
+
+#hypr-pip-toast.hypr-pip-info {
+  border-left: 3px solid #89b4fa;
+}

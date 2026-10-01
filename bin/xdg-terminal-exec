@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# XDG Terminal Execution wrapper
+TERM_BIN="${TERMINAL:-ghostty}"
+
+if [ "$#" -eq 0 ]; then
+    exec "$TERM_BIN"
+fi
+
+if [ "$1" = "-e" ] || [ "$1" = "--" ]; then
+    shift
+fi
+
+exec "$TERM_BIN" -e "$@"

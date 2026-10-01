@@ -1,0 +1,114 @@
+[global]
+    ### Display & Monitor ###
+    monitor = 0
+    follow = none
+
+    ### Geometry & Position ###
+    # Compact card width and height
+    width = (260, 340)
+    height = (40, 200)
+    origin = top-right
+    offset = (12, 0)
+    scale = 0
+    notification_limit = 5
+
+    ### Progress Bar ###
+    progress_bar = true
+    progress_bar_height = 4
+    progress_bar_frame_width = 0
+    progress_bar_min_width = 140
+    progress_bar_max_width = 280
+    progress_bar_corner_radius = 2
+    progress_bar_corners = all
+
+    ### Appearance & Card Style ###
+    transparency = 5
+    separator_height = 2
+    padding = 10
+    horizontal_padding = 14
+    text_icon_padding = 12
+    frame_width = 2
+    frame_color = "#e183c2"
+    gap_size = 8
+    separator_color = frame
+    sort = yes
+    idle_threshold = 120
+
+    ### Text & Font ###
+    font = JetBrainsMono Nerd Font 9.5
+    line_height = 3
+    markup = full
+    format = "<b><span size='10000' color='#e183c2'>%s</span></b>\n<span size='8800' color='#e183c2'>%b</span>"
+    alignment = left
+    vertical_alignment = center
+    show_age_threshold = 60
+    ellipsize = middle
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+
+    ### Icons ###
+    enable_recursive_icon_lookup = true
+    icon_theme = Adwaita
+    icon_position = left
+    min_icon_size = 32
+    max_icon_size = 48
+    icon_corner_radius = 8
+    icon_corners = all
+
+    ### History & Interactions ###
+    sticky_history = yes
+    history_length = 25
+    dmenu = /usr/bin/rofi -dmenu -p "Notification Action:"
+    browser = /usr/bin/xdg-open
+    always_run_script = true
+    corner_radius = 12
+    corners = all
+    ignore_dbusclose = false
+
+    ### Mouse Actions ###
+    mouse_left_click = do_action, close_current
+    mouse_middle_click = context, close_current
+    mouse_right_click = close_all
+
+[urgency_low]
+    background = "#1f181d"
+    foreground = "#aaaaaa"
+    frame_color = "#e183c2"
+    highlight = "#e183c2"
+    format = "<b><span size='9500' color='#e183c2'>%s</span></b>\n<span size='8800' color='#e183c2'>%b</span>"
+    timeout = 5
+    default_icon = dialog-information
+
+[urgency_normal]
+    background = "#1f181d"
+    foreground = "#ffffff"
+    frame_color = "#e183c2"
+    highlight = "#e183c2"
+    format = "<b><span size='10000' color='#e183c2'>%s</span></b>\n<span size='8800' color='#e183c2'>%b</span>"
+    timeout = 7
+    default_icon = dialog-information
+
+[urgency_critical]
+    background = "#1f181d"
+    foreground = "#ffffff"
+    frame_color = "#e183c2"
+    highlight = "#e183c2"
+    format = "<b><span size='10000' color='#e183c2'>%s</span></b>\n<span size='8800' color='#e183c2'>%b</span>"
+    timeout = 0
+    default_icon = dialog-warning
+
+### Custom App Rules ###
+[screenshot]
+    summary = "*Screenshot*"
+    frame_color = "#e183c2"
+    min_icon_size = 44
+    max_icon_size = 54
+    timeout = 5
+
+[spotify]
+    appname = "Spotify*"
+    frame_color = "#e183c2"
+    highlight = "#e183c2"
+    format = "<b><span size='10000' color='#e183c2'>%s</span></b>\n<span size='8800' color='#e183c2'>%b</span>"

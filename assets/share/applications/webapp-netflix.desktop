@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Netflix
+Comment=Netflix (Web Application)
+Exec=brave-origin --app=https://netflix.com
+Icon=/home/Krish/.local/share/icons/webapps/netflix.png
+Terminal=false
+StartupWMClass=netflix.com
+Categories=Graphics;2DGraphics;Viewer;
+X-WebApp=true
+X-WebApp-URL=https://netflix.com
+X-WebApp-Category=Graphics & Media

@@ -1,0 +1,18 @@
+module qs.Ui
+Panel 1.0 Panel.qml
+BarWidget 1.0 BarWidget.qml
+Button 1.0 Button.qml
+ToggleSwitch 1.0 ToggleSwitch.qml
+PopupCard 1.0 PopupCard.qml
+PanelSlider 1.0 PanelSlider.qml
+WidgetButton 1.0 WidgetButton.qml
+BarIconButton 1.0 BarIconButton.qml
+QuickSwitch 1.0 QuickSwitch.qml
+CursorSurface 1.0 CursorSurface.qml
+BorderSurface 1.0 BorderSurface.qml
+KeyboardPanel 1.0 KeyboardPanel.qml
+Toggle 1.0 Toggle.qml
+PanelToolTip 1.0 PanelToolTip.qml
+PanelSeparator 1.0 PanelSeparator.qml
+PanelSectionHeader 1.0 PanelSectionHeader.qml
+PanelKeyCatcher 1.0 PanelKeyCatcher.qml

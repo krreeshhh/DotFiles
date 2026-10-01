@@ -1,0 +1,12 @@
+# Desktop UI & Theming
+bibata-cursor-theme
+whitesur-icon-theme
+
+# Application Launcher & D-Bus Provider
+walker-bin
+elephant-bin
+elephant-desktopapplications-bin
+elephant-runner-bin
+
+# Package Manager
+yay-bin

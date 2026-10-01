@@ -1,0 +1,19 @@
+{
+  "wallpaper": "/home/Krish/.wallpaper/Nezuko Kamado.png",
+  "colors": {
+    "primary": "#e183c2",
+    "on_primary": "#121214",
+    "primary_container": "#401b34",
+    "secondary": "#d8a5ca",
+    "background": "#130f12",
+    "surface": "#1f181d",
+    "surface_variant": "#2c2028",
+    "surface_selected": "#401b34",
+    "on_surface": "#FFFFFF",
+    "on_surface_variant": "#A5A5AA",
+    "outline": "#412f3b",
+    "outline_subtle": "#25252a",
+    "error": "#FF6B6B",
+    "gnome_accent": "pink"
+  }
+}

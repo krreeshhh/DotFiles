@@ -1,0 +1,34 @@
+# Web Browsers & Electron Apps
+brave-origin-bin
+vesktop-bin
+
+# Communication & Utilities
+fagram-bin
+localsend-bin
+ab-download-manager-bin
+ventoy-bin
+zoom
+sidra-bin
+stably-orca-bin
+
+# Media & Creative
+cine
+sonora-bin
+cliamp-bin
+upscayl-bin
+
+# Optional Launcher Providers
+elephant-calc-bin
+elephant-websearch-bin
+
+# Development & AI Platforms
+visual-studio-code-bin
+herdr-bin
+claude-code
+openai-codex-bin
+antigravity-cli
+cline-cli
+hermes-agent-bin
+kiro-cli
+spotify
+yay-bin-debug

@@ -1,0 +1,354 @@
+#!/usr/bin/env python3
+"""
+Hyprland Universal Picture-in-Picture Helper Daemon (hypr-pip-helper)
+====================================================================
+Lightweight, event-driven daemon for managing Picture-in-Picture windows in Hyprland.
+Listens to Hyprland's IPC socket2 for window creation and title update events.
+Ensures PiP windows are:
+ - Automatically floated
+ - Pinned across all workspaces (visible on workspace switch)
+ - Placed in the bottom-right corner of the active monitor
+ - Preserved when the user manually moves or resizes them
+"""
+
+import os
+import sys
+import json
+import time
+import socket
+import select
+import signal
+import asyncio
+import argparse
+import subprocess
+import re
+from typing import Optional, Dict, Any, Set
+
+PIP_TITLE_PATTERN = re.compile(r'^(Picture[- ]in[- ][Pp]icture|Picture in picture)$', re.IGNORECASE)
+PIP_CLASSES = {'google-chrome', 'chromium', 'brave-browser', 'brave-origin', 'brave', 'helium', 'helium-browser', 'firefox', 'floorp', 'zen'}
+
+DEFAULT_WIDTH = 480
+DEFAULT_HEIGHT = 270
+MARGIN_RIGHT = 20
+MARGIN_BOTTOM = 20
+
+PID_FILE = os.path.expanduser('~/.cache/hypr-pip-helper.pid')
+
+
+def get_hyprland_socket_path() -> str:
+    his = os.environ.get("HYPRLAND_INSTANCE_SIGNATURE")
+    xdg_runtime = os.environ.get("XDG_RUNTIME_DIR", f"/run/user/{os.getuid()}")
+    
+    if not his:
+        # Try to find existing hyprland runtime directory
+        hypr_dir = os.path.join(xdg_runtime, "hypr")
+        if os.path.exists(hypr_dir):
+            entries = os.listdir(hypr_dir)
+            if entries:
+                his = entries[0]
+                
+    if not his:
+        raise RuntimeError("HYPRLAND_INSTANCE_SIGNATURE environment variable not found. Is Hyprland running?")
+        
+    socket_path = os.path.join(xdg_runtime, "hypr", his, ".socket2.sock")
+    if not os.path.exists(socket_path):
+        # Fallback to /tmp/hypr
+        socket_path = os.path.join("/tmp/hypr", his, ".socket2.sock")
+        
+    if not os.path.exists(socket_path):
+        raise FileNotFoundError(f"Hyprland socket2 not found at {socket_path}")
+        
+    return socket_path
+
+
+def run_hyprctl(args: list) -> str:
+    try:
+        res = subprocess.run(["hyprctl", "-j"] + args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+        return res.stdout
+    except Exception as e:
+        return ""
+
+
+def get_clients() -> list:
+    try:
+        out = run_hyprctl(["clients"])
+        if out:
+            return json.loads(out)
+    except Exception:
+        pass
+    return []
+
+
+def get_monitors() -> list:
+    try:
+        out = run_hyprctl(["monitors"])
+        if out:
+            return json.loads(out)
+    except Exception:
+        pass
+    return []
+
+
+def dispatch(cmd: str) -> None:
+    try:
+        subprocess.run(["hyprctl", "dispatch", cmd], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception:
+        pass
+
+
+def is_pip_window(client: Dict[str, Any]) -> bool:
+    title = client.get("title", "")
+    initial_title = client.get("initialTitle", "")
+    w_class = client.get("class", "").lower()
+    
+    # Check title match
+    if PIP_TITLE_PATTERN.search(title) or PIP_TITLE_PATTERN.search(initial_title):
+        return True
+        
+    # Check Firefox PiP
+    if "firefox" in w_class or "zen" in w_class or "floorp" in w_class:
+        if "picture-in-picture" in title.lower():
+            return True
+            
+    return False
+
+
+class HyprlandPiPHelper:
+    def __init__(self, debug: bool = False):
+        self.debug = debug
+        self.processed_addresses: Set[str] = set()
+        self.running = True
+
+    def log(self, msg: str):
+        if self.debug:
+            print(f"[HyprPiP-Helper] {msg}", flush=True)
+
+    def handle_pip_client(self, client: Dict[str, Any]):
+        addr = client.get("address", "")
+        if not addr:
+            return
+
+        self.log(f"Configuring PiP window: {addr} (title: '{client.get('title')}', class: '{client.get('class')}')")
+        
+        # 1. Ensure Floating
+        if not client.get("floating", False):
+            self.log(f"Setting floating for {addr}")
+            dispatch(f"setfloating address:{addr}")
+            # Small yield to let hyprland apply float geometry
+            time.sleep(0.04)
+
+        # 2. Ensure Pinned across all workspaces
+        if not client.get("pinned", False):
+            self.log(f"Pinning {addr}")
+            dispatch(f"pin address:{addr}")
+
+        # 3. Calculate position on active monitor
+        monitors = get_monitors()
+        active_mon = None
+        for m in monitors:
+            if m.get("focused", False):
+                active_mon = m
+                break
+        if not active_mon and monitors:
+            active_mon = monitors[0]
+
+        if active_mon:
+            mon_x = active_mon.get("x", 0)
+            mon_y = active_mon.get("y", 0)
+            mon_w = active_mon.get("width", 1920)
+            mon_h = active_mon.get("height", 1080)
+            scale = active_mon.get("scale", 1.0)
+            
+            # Account for monitor scaling if needed
+            effective_w = int(mon_w / scale)
+            effective_h = int(mon_h / scale)
+            
+            # Reserved bar spaces (top, bottom, left, right)
+            reserved = active_mon.get("reserved", [0, 0, 0, 0])
+            res_bottom = reserved[1] if len(reserved) > 1 else 0
+            
+            pip_w = DEFAULT_WIDTH
+            pip_h = DEFAULT_HEIGHT
+            
+            target_x = int(mon_x + effective_w - pip_w - MARGIN_RIGHT)
+            target_y = int(mon_y + effective_h - pip_h - MARGIN_BOTTOM - res_bottom)
+            
+            self.log(f"Positioning PiP to ({target_x}, {target_y}) with size {pip_w}x{pip_h}")
+            
+            # Resize and move
+            dispatch(f"resizewindowpixel exact {pip_w} {pip_h},address:{addr}")
+            dispatch(f"movewindowpixel exact {target_x} {target_y},address:{addr}")
+
+        self.processed_addresses.add(addr)
+
+    def scan_existing_windows(self):
+        clients = get_clients()
+        for client in clients:
+            if is_pip_window(client):
+                addr = client.get("address", "")
+                if addr not in self.processed_addresses:
+                    self.handle_pip_client(client)
+
+    def process_event_line(self, line: str):
+        line = line.strip()
+        if not line:
+            return
+            
+        self.log(f"Hyprland Event: {line}")
+        
+        # openwindow>>[address],[workspace],[class],[title]
+        if line.startswith("openwindow>>"):
+            payload = line[len("openwindow>>"):]
+            parts = payload.split(",", 3)
+            if len(parts) >= 4:
+                addr, ws, w_class, title = parts
+                addr_formatted = f"0x{addr}" if not addr.startswith("0x") else addr
+                if PIP_TITLE_PATTERN.search(title) or "picture" in title.lower():
+                    # Window just opened, give a tiny moment for hyprland state to register
+                    time.sleep(0.05)
+                    clients = get_clients()
+                    for c in clients:
+                        if c.get("address") == addr_formatted or c.get("address", "").lower() == addr_formatted.lower():
+                            self.handle_pip_client(c)
+                            return
+                    # Fallback if address match slightly differed
+                    self.scan_existing_windows()
+
+        # windowtitle>>[address]
+        elif line.startswith("windowtitle>>"):
+            addr = line[len("windowtitle>>"):]
+            addr_formatted = f"0x{addr}" if not addr.startswith("0x") else addr
+            if addr_formatted not in self.processed_addresses:
+                clients = get_clients()
+                for c in clients:
+                    if c.get("address") == addr_formatted:
+                        if is_pip_window(c):
+                            self.handle_pip_client(c)
+                        break
+
+        # closewindow>>[address]
+        elif line.startswith("closewindow>>"):
+            addr = line[len("closewindow>>"):]
+            addr_formatted = f"0x{addr}" if not addr.startswith("0x") else addr
+            self.processed_addresses.discard(addr_formatted)
+
+    def run(self):
+        # Scan initially
+        self.scan_existing_windows()
+
+        while self.running:
+            try:
+                sock_path = get_hyprland_socket_path()
+                self.log(f"Connecting to Hyprland event socket: {sock_path}")
+                
+                sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+                sock.connect(sock_path)
+                sock.setblocking(False)
+                
+                buffer = ""
+                self.log("Connected to Hyprland event stream.")
+
+                while self.running:
+                    readable, _, _ = select.select([sock], [], [], 1.0)
+                    if readable:
+                        data = sock.recv(4096).decode('utf-8', errors='ignore')
+                        if not data:
+                            self.log("Socket closed by remote.")
+                            break
+                        buffer += data
+                        while "\n" in buffer:
+                            line, buffer = buffer.split("\n", 1)
+                            self.process_event_line(line)
+                            
+                sock.close()
+            except Exception as e:
+                self.log(f"Socket connection error: {e}. Reconnecting in 3s...")
+                time.sleep(3)
+
+
+def daemonize():
+    if os.fork() > 0:
+        sys.exit(0)
+    os.setsid()
+    if os.fork() > 0:
+        sys.exit(0)
+        
+    os.makedirs(os.path.dirname(PID_FILE), exist_ok=True)
+    with open(PID_FILE, 'w') as f:
+        f.write(str(os.getpid()))
+
+
+def stop_daemon():
+    if os.path.exists(PID_FILE):
+        try:
+            with open(PID_FILE, 'r') as f:
+                pid = int(f.read().strip())
+            os.kill(pid, signal.SIGTERM)
+            print(f"Stopped hypr-pip-helper (PID {pid})")
+            os.remove(PID_FILE)
+            return True
+        except Exception as e:
+            print(f"Failed to stop daemon: {e}")
+            if os.path.exists(PID_FILE):
+                os.remove(PID_FILE)
+    else:
+        print("hypr-pip-helper is not currently running.")
+    return False
+
+
+def status_daemon():
+    if os.path.exists(PID_FILE):
+        try:
+            with open(PID_FILE, 'r') as f:
+                pid = int(f.read().strip())
+            # Check if process is alive
+            os.kill(pid, 0)
+            print(f"hypr-pip-helper is running (PID: {pid})")
+            return True
+        except OSError:
+            print("hypr-pip-helper is dead (stale PID file found).")
+            os.remove(PID_FILE)
+    else:
+        print("hypr-pip-helper is not running.")
+    return False
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Hyprland Picture-in-Picture Helper Daemon")
+    parser.add_argument("-d", "--daemon", action="store_true", help="Run in background as a daemon")
+    parser.add_argument("--debug", action="store_true", help="Enable verbose debug logs")
+    parser.add_argument("--kill", action="store_true", help="Stop running daemon")
+    parser.add_argument("--status", action="store_true", help="Check daemon running status")
+    
+    args = parser.parse_args()
+
+    if args.kill:
+        stop_daemon()
+        sys.exit(0)
+
+    if args.status:
+        status_daemon()
+        sys.exit(0)
+
+    if args.daemon:
+        daemonize()
+
+    helper = HyprlandPiPHelper(debug=args.debug or not args.daemon)
+
+    def handle_signal(sig, frame):
+        helper.running = False
+        if os.path.exists(PID_FILE):
+            try:
+                os.remove(PID_FILE)
+            except Exception:
+                pass
+        sys.exit(0)
+
+    signal.signal(signal.SIGINT, handle_signal)
+    signal.signal(signal.SIGTERM, handle_signal)
+
+    helper.run()
+
+
+if __name__ == "__main__":
+    main()

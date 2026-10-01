@@ -1,0 +1,205 @@
+@import url("/home/Krish/.config/my-desktop/theme/colors.css");
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", "JetBrainsMono NF", monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: rgba(15, 15, 18, 0.45);
+    color: @theme_on_surface;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* Tooltips */
+tooltip {
+    background: @theme_surface;
+    border: 1px solid @theme_border;
+    border-radius: 10px;
+    padding: 6px 10px;
+}
+
+tooltip label {
+    color: @theme_on_surface;
+    font-size: 12px;
+}
+
+/* Workspaces Module (Capsule for Active, Dots for Inactive) */
+#workspaces {
+    background: transparent;
+    padding: 0 6px;
+    margin: 0 4px;
+}
+
+#workspaces button {
+    font-size: 0px;
+    min-width: 8px;
+    min-height: 8px;
+    border-radius: 50%;
+    margin: 14px 4px;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.32);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#workspaces button label {
+    font-size: 0px;
+    margin: 0;
+    padding: 0;
+}
+
+#workspaces button.active {
+    font-size: 0px;
+    min-width: 28px;
+    min-height: 8px;
+    border-radius: 4px;
+    margin: 14px 4px;
+    padding: 0;
+    background-color: @theme_primary;
+}
+
+#workspaces button:hover {
+    background-color: rgba(255, 255, 255, 0.65);
+}
+
+#workspaces button.urgent {
+    background-color: @theme_error;
+}
+
+/* Left Message / Chat Indicator */
+#custom-chat {
+    color: @theme_on_surface;
+    font-size: 15px;
+    padding: 0 8px;
+    margin-left: 4px;
+    transition: color 0.2s ease;
+}
+
+#custom-chat:hover {
+    color: @theme_primary;
+}
+
+/* Center Clock */
+#clock {
+    color: @theme_on_surface;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 0 12px;
+}
+
+/* Mini Media Player */
+#mpris {
+    color: @theme_primary;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0 6px;
+    margin: 0 3px;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+#mpris:hover {
+    color: @theme_on_surface;
+}
+
+#mpris.paused {
+    color: @theme_on_surface_variant;
+}
+
+#mpris.stopped {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    opacity: 0;
+}
+
+/* System Tray Drawer & Toggle Button */
+#custom-tray-toggle {
+    color: @theme_on_surface;
+    font-size: 14px;
+    padding: 0 6px;
+    margin: 0 2px;
+    background: transparent;
+    transition: color 0.2s ease;
+}
+
+#custom-tray-toggle:hover {
+    color: @theme_primary;
+}
+
+#tray {
+    padding: 0 4px;
+    margin: 0 2px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @theme_error;
+}
+
+/* Right Status Toggles & Hardware Metric Cluster */
+#idle_inhibitor,
+#custom-notification,
+#bluetooth,
+#network,
+#memory,
+#cpu,
+#pulseaudio,
+#battery,
+#backlight {
+    color: @theme_on_surface;
+    font-size: 13px;
+    padding: 0 6px;
+    margin: 0 2px;
+    background: transparent;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+#custom-media:hover,
+#idle_inhibitor:hover,
+#custom-notification:hover,
+#bluetooth:hover,
+#network:hover,
+#memory:hover,
+#cpu:hover,
+#pulseaudio:hover,
+#battery:hover,
+#backlight:hover {
+    color: @theme_primary;
+}
+
+/* Hardware Metrics */
+#memory {
+    font-weight: 500;
+}
+
+#cpu {
+    font-weight: 500;
+}
+
+#battery.warning {
+    color: #f9c384;
+}
+
+#battery.critical {
+    color: @theme_error;
+}
+
+#pulseaudio.muted {
+    color: @theme_on_surface_variant;
+}

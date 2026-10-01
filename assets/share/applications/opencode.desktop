@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Open Code
+Comment=Open Code AI Agent
+Exec=ghostty -e opencode
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Development;Building;Debugger;
+Keywords=ai;agent;opencode;code;
