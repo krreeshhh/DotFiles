@@ -32,9 +32,9 @@ This setup is built for performance, aesthetics, and deterministic reproduction 
 │  │   OSD Overlays   │  │   Live Reloader     │  │   Floating Manager │  │
 │  └──────────────────┘  └─────────────────────┘  └────────────────────┘  │
 │  ┌──────────────────┐  ┌─────────────────────┐  ┌────────────────────┐  │
-│  │ WALKER / ELEPHANT│  │       TERMINAL      │  │    AUDIO & MEDIA   │  │
-│  │   D-Bus Backend  │  │  Ghostty (0.20 op)  │  │ PipeWire / Player  │  │
-│  │ Native Launcher  │  │  Nautilus / Yazi    │  │ MPRIS Mini Player  │  │
+│  │   APP LAUNCHER   │  │       TERMINAL      │  │    AUDIO & MEDIA   │  │
+│  │ Quickshell Native│  │  Ghostty (0.20 op)  │  │ PipeWire / Player  │  │
+│  │ WebApps & Plugins│  │  Nautilus / Yazi    │  │ MPRIS Mini Player  │  │
 │  └──────────────────┘  └─────────────────────┘  └────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -47,7 +47,7 @@ This setup is built for performance, aesthetics, and deterministic reproduction 
 | :--- | :--- | :--- |
 | **Compositor** | Hyprland | Configured with native Lua API (`hyprland.lua`), custom gestures, blur layer rules, and hotkey bindings. |
 | **Desktop Shell** | Quickshell | Modular QML bar, workspace pager, network and bluetooth popups, audio OSD, and control center. |
-| **Launcher** | Walker + Elephant | D-Bus provider backend integrated directly with Quickshell native launcher dialogs. |
+| **Launcher** | Quickshell AppLauncher | Native QML full-screen application launcher with integrated webapps and plugin management. |
 | **Theme Engine** | Material You (`my-desktop`) | K-Means palette extractor generating synchronized color schemes across Hyprland, Ghostty, GTK, Dunst, and Quickshell. |
 | **Wallpaper Picker** | Custom 3D Carousel | OpenGL and Python wallpaper selector with instant theme regeneration and swww transitions. |
 | **Notifications** | Dunst | Minimal notification server synchronized with live palette colors. |
@@ -163,8 +163,7 @@ DotFiles/
 │   ├── my-desktop/          # Material You theme extractor and wallpaper engines
 │   ├── nwg-bar/             # Power menu layout
 │   ├── quickshell/          # Quickshell modular shell (Bar, OSD, Popups, Plugins)
-│   ├── systemd/user/        # Systemd user services (elephant, hypr-pip, quickshell)
-│   ├── walker/              # Walker launcher application provider config
+│   ├── systemd/user/        # Systemd user services (hypr-pip, quickshell, battery-alert)
 │   ├── waybar/              # Fallback Waybar configuration
 │   └── yazi/                # Terminal file manager configuration
 ├── packages/                # Explicit package manifests (pacman, AUR, fonts)

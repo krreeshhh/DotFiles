@@ -56,14 +56,7 @@ if pgrep -x kitty >/dev/null 2>&1; then
     pkill -SIGUSR1 kitty 2>/dev/null || true
 fi
 
-# 4. Update Walker Launcher (reloads dynamic GTK4 style)
-if pgrep -f "walker" >/dev/null 2>&1; then
-    killall walker 2>/dev/null || true
-    sleep 0.1
-    walker --gapplication-service >/dev/null 2>&1 &
-fi
-
-# 5. Update Hyprland Window Borders dynamically
+# 4. Update Hyprland Window Borders dynamically
 if command -v hyprctl >/dev/null 2>&1 && [ -n "${PRIMARY:-}" ] && [ -n "${SECONDARY:-}" ]; then
     CLEAN_PRI="${PRIMARY#\#}"
     CLEAN_SEC="${SECONDARY#\#}"
@@ -72,17 +65,17 @@ if command -v hyprctl >/dev/null 2>&1 && [ -n "${PRIMARY:-}" ] && [ -n "${SECOND
     hyprctl eval "hl.config({ general = { col = { active_border = { colors = {'rgb($CLEAN_PRI)', 'rgb($CLEAN_SEC)'}, angle = 45 }, inactive_border = 'rgba(${CLEAN_OUT}aa)' } } })" >/dev/null 2>&1 || true
 fi
 
-# 6. Update Quickshell Topbar & Popups
+# 5. Update Quickshell Topbar & Popups
 if command -v quickshell >/dev/null 2>&1 && pgrep -x quickshell >/dev/null 2>&1; then
     quickshell ipc -p "$HOME/.config/quickshell" call shell reloadTheme >/dev/null 2>&1 || true
 fi
 
-# 7. Update KDE / Dolphin Theme
+# 6. Update KDE / Dolphin Theme
 if command -v dbus-send >/dev/null 2>&1; then
     dbus-send --type=signal /KGlobalSettings org.kde.KGlobalSettings.notifyChange int32:0 int32:0 2>/dev/null || true
 fi
 
-# 8. Update GTK, GNOME & File Chooser Portal Settings
+# 7. Update GTK, GNOME & File Chooser Portal Settings
 if command -v gsettings >/dev/null 2>&1; then
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita' 2>/dev/null || true
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
@@ -92,6 +85,6 @@ if command -v gsettings >/dev/null 2>&1; then
     fi
 fi
 
-# 9. Nautilus, GTK4 & file chooser portals automatically reload styling dynamically via GSettings & CSS inotify
+# 8. Nautilus, GTK4 & file chooser portals automatically reload styling dynamically via GSettings & CSS inotify
 
 exit 0

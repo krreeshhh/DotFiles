@@ -8,9 +8,9 @@ This guide describes the complete, exact blueprint required to recreate this cus
 1. **Compositor:** Hyprland v0.56.2 configured with native Lua (`hyprland.lua`), fallback config (`hyprland.conf`), and Picture-in-Picture window management (`pip.lua`).
 2. **Desktop Shell:** Quickshell custom topbar, pill workspaces, clock, status cluster, sliding system tray drawer, MPRIS mini player, on-screen display (OSD) popups for volume/brightness/mic, and slide-in popups for Control Center, Wi-Fi, Bluetooth, and AppLauncher.
 3. **Alternative Bar:** Waybar complete setup with Python-backed custom popup menus and toggle switch script (`switch.sh`).
-4. **Dynamic Live Theming:** Material You palette extractor (`generate-theme.py`) and live applicator (`apply-theme.sh`) syncing wallpaper colors across Hyprland borders, Quickshell, Waybar, Dunst, Walker, Ghostty, GTK, Clipse, and Yazi.
+4. **Dynamic Live Theming:** Material You palette extractor (`generate-theme.py`) and live applicator (`apply-theme.sh`) syncing wallpaper colors across Hyprland borders, Quickshell, Waybar, Dunst, Ghostty, GTK, Clipse, and Yazi.
 5. **Wallpaper Engine:** 3D Card Carousel / Cover Flow switcher (`carousel-picker.py`) with 144Hz VSync, powered by `awww` / `awww-daemon`.
-6. **Launchers & Providers:** Quickshell QML AppLauncher, custom Python WebApp and Plugin managers (`webapp_manager.py`, `plugin_manager.py`), and Walker daemon with Elephant backend.
+6. **Launchers & Providers:** Quickshell QML AppLauncher, custom Python WebApp and Plugin managers (`webapp_manager.py`, `plugin_manager.py`).
 7. **Clipboard & Terminals:** Clipse daemon with pinned floating window rules, Ghostty GPU terminal (glass opacity 0.20), and Yazi terminal file manager.
 8. **Audio / Display Controls:** `brightness.sh` and `volume.sh` hardware handlers integrated with Quickshell native OSD.
 9. **Look & Theming:** WhiteSur-dark icons, Bibata-Modern-Ice cursor (24px), Adwaita theme with dynamic text contrast CSS, and SDDM theme `R1999_1`.
@@ -45,7 +45,7 @@ yay -S --needed --noconfirm - < packages/aur-runtime.txt
 
 # 6. Enable system and user services
 sudo systemctl enable sddm.service NetworkManager.service bluetooth.service ntpd.service
-systemctl --user enable pipewire.service pipewire-pulse.service wireplumber.service elephant.service hypr-pip-helper.service quickshell.service
+systemctl --user enable pipewire.service pipewire-pulse.service wireplumber.service hypr-pip-helper.service quickshell.service
 
 # 7. Deploy configurations & binaries
 mkdir -p ~/.config ~/.local/bin ~/.local/lib ~/.wallpaper ~/Pictures/Screenshots

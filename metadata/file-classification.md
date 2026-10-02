@@ -41,12 +41,9 @@ Every file exported in this repository is classified into one of the following c
 | `config/clipse/custom_theme.json` | GENERATED | Clipse clipboard Material You theme |
 | `config/nwg-bar/bar.json` | CORE | Power and logout action buttons |
 | `config/nwg-bar/style.css` | CORE | Nwg-bar styling |
-| `config/walker/config.toml` | CORE | Walker application launcher settings |
-| `config/walker/style.css` | GENERATED | Walker launcher styling |
 | `config/waybar/config.jsonc` | OPTIONAL | Alternative Waybar bar configuration |
 | `config/waybar/style.css` | OPTIONAL / GENERATED | Alternative Waybar styling |
 | `config/waybar/scripts/*` (8 scripts) | OPTIONAL | Waybar interactive popups (Wi-Fi, BT, Quick Settings) |
-| `config/systemd/user/elephant.service` | CORE | Elephant Walker backend service |
 | `config/gtk-3.0/settings.ini` | CORE | GTK3 theme and cursor settings |
 | `config/gtk-3.0/gtk.css` | GENERATED | GTK3 high-contrast dynamic text color overrides |
 | `config/gtk-4.0/settings.ini` | CORE | GTK4 theme and cursor settings |

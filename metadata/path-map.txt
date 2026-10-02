@@ -4,13 +4,11 @@
 ~/.config/quickshell/ <= config/quickshell/
 ~/.config/waybar/ <= config/waybar/
 ~/.config/dunst/ <= config/dunst/
-~/.config/walker/ <= config/walker/
 ~/.config/nwg-bar/ <= config/nwg-bar/
 ~/.config/my-desktop/ <= config/my-desktop/
 ~/.config/ghostty/ <= config/ghostty/
 ~/.config/yazi/ <= config/yazi/
 ~/.config/clipse/ <= config/clipse/
-~/.config/systemd/user/elephant.service <= config/systemd/user/elephant.service
 ~/.config/autostart/ <= config/autostart/
 ~/.config/gtk-3.0/ <= config/gtk-3.0/
 ~/.config/gtk-4.0/ <= config/gtk-4.0/

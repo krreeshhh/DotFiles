@@ -61,7 +61,7 @@ test('brave-origin-bin present in aur-optional.txt', 'brave-origin-bin' in aur_o
 test('helium-browser-bin NOT present in package manifests', 'helium-browser-bin' not in aur_runtime and 'helium-browser-bin' not in aur_optional)
 test('whitesur-icon-theme present in aur-runtime.txt', 'whitesur-icon-theme' in aur_runtime)
 test('bibata-cursor-theme present in aur-runtime.txt', 'bibata-cursor-theme' in aur_runtime)
-test('walker-bin & elephant-bin present in aur-runtime.txt', 'walker-bin' in aur_runtime and 'elephant-bin' in aur_runtime)
+test('walker-bin & elephant-bin NOT in aur-runtime.txt', 'walker-bin' not in aur_runtime and 'elephant-bin' not in aur_runtime)
 test('herdr-bin present in aur-runtime.txt', 'herdr-bin' in aur_runtime)
 test('udisks2 & udiskie present in pacman-runtime.txt', 'udisks2' in pac_runtime and 'udiskie' in pac_runtime)
 test('gvfs & mobile MTP/AFC plugins present in pacman-runtime.txt', 'gvfs' in pac_runtime and 'gvfs-mtp' in pac_runtime and 'gvfs-afc' in pac_runtime)
@@ -133,7 +133,7 @@ test('bin/strata present and executable', os.path.isfile(f'{bin_dir}/strata') an
 sd_dir = f'{DOTFILES}/config/systemd/user'
 test('systemd hypr-pip-helper.service present', os.path.isfile(f'{sd_dir}/hypr-pip-helper.service'))
 test('systemd quickshell.service present', os.path.isfile(f'{sd_dir}/quickshell.service'))
-test('systemd elephant.service present', os.path.isfile(f'{sd_dir}/elephant.service'))
+test('systemd elephant.service NOT present in dotfiles', not os.path.isfile(f'{sd_dir}/elephant.service'))
 test('systemd battery-alert.service present', os.path.isfile(f'{sd_dir}/battery-alert.service'))
 test('systemd omarchy-crash-watch.service present', os.path.isfile(f'{sd_dir}/omarchy-crash-watch.service'))
 

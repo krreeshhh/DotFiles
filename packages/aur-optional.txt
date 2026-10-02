@@ -17,10 +17,6 @@ sonora-bin
 cliamp-bin
 upscayl-bin
 
-# Optional Launcher Providers
-elephant-calc-bin
-elephant-websearch-bin
-
 # Development & AI Platforms
 visual-studio-code-bin
 claude-code

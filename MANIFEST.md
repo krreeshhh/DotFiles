@@ -298,69 +298,10 @@ Total tracked dotfiles items: **395**
 | `config/quickshell/shell.qml` | `DOTFILES/config/quickshell/shell.qml` | Config | Yes |
 | `config/quickshell/switch.sh` | `DOTFILES/config/quickshell/switch.sh` | Script | Yes |
 | `config/systemd/user/battery-alert.service` | `DOTFILES/config/systemd/user/battery-alert.service` | Systemd Unit | Yes |
-| `config/systemd/user/elephant.service` | `DOTFILES/config/systemd/user/elephant.service` | Systemd Unit | Yes |
 | `config/systemd/user/hypr-pip-helper.service` | `DOTFILES/config/systemd/user/hypr-pip-helper.service` | Systemd Unit | Yes |
 | `config/systemd/user/omarchy-crash-watch.service` | `DOTFILES/config/systemd/user/omarchy-crash-watch.service` | Systemd Unit | Yes |
 | `config/systemd/user/pipewire-session-manager.service` | `DOTFILES/config/systemd/user/pipewire-session-manager.service` | Systemd Unit | Yes |
 | `config/systemd/user/quickshell.service` | `DOTFILES/config/systemd/user/quickshell.service` | Systemd Unit | Yes |
-| `config/walker/config.toml` | `DOTFILES/config/walker/config.toml` | Config | Yes |
-| `config/walker/item.xml` | `DOTFILES/config/walker/item.xml` | Data / Source | Yes |
-| `config/walker/item_actionsmenu.xml` | `DOTFILES/config/walker/item_actionsmenu.xml` | Data / Source | Yes |
-| `config/walker/item_aptpackages.xml` | `DOTFILES/config/walker/item_aptpackages.xml` | Data / Source | Yes |
-| `config/walker/item_archlinuxpkgs.xml` | `DOTFILES/config/walker/item_archlinuxpkgs.xml` | Data / Source | Yes |
-| `config/walker/item_bookmarks.xml` | `DOTFILES/config/walker/item_bookmarks.xml` | Data / Source | Yes |
-| `config/walker/item_calc.xml` | `DOTFILES/config/walker/item_calc.xml` | Data / Source | Yes |
-| `config/walker/item_clipboard.xml` | `DOTFILES/config/walker/item_clipboard.xml` | Data / Source | Yes |
-| `config/walker/item_dmenu.xml` | `DOTFILES/config/walker/item_dmenu.xml` | Data / Source | Yes |
-| `config/walker/item_dnfpackages.xml` | `DOTFILES/config/walker/item_dnfpackages.xml` | Data / Source | Yes |
-| `config/walker/item_files.xml` | `DOTFILES/config/walker/item_files.xml` | Data / Source | Yes |
-| `config/walker/item_providerlist.xml` | `DOTFILES/config/walker/item_providerlist.xml` | Data / Source | Yes |
-| `config/walker/item_symbols.xml` | `DOTFILES/config/walker/item_symbols.xml` | Data / Source | Yes |
-| `config/walker/item_symbols_grid.xml` | `DOTFILES/config/walker/item_symbols_grid.xml` | Data / Source | Yes |
-| `config/walker/item_todo.xml` | `DOTFILES/config/walker/item_todo.xml` | Data / Source | Yes |
-| `config/walker/item_unicode.xml` | `DOTFILES/config/walker/item_unicode.xml` | Data / Source | Yes |
-| `config/walker/keybind.xml` | `DOTFILES/config/walker/keybind.xml` | Data / Source | Yes |
-| `config/walker/layout.xml` | `DOTFILES/config/walker/layout.xml` | Data / Source | Yes |
-| `config/walker/preview.xml` | `DOTFILES/config/walker/preview.xml` | Data / Source | Yes |
-| `config/walker/style.css` | `DOTFILES/config/walker/style.css` | Data / Source | Yes |
-| `config/walker/themes/default/item.xml` | `DOTFILES/config/walker/themes/default/item.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_actionsmenu.xml` | `DOTFILES/config/walker/themes/default/item_actionsmenu.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_aptpackages.xml` | `DOTFILES/config/walker/themes/default/item_aptpackages.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_archlinuxpkgs.xml` | `DOTFILES/config/walker/themes/default/item_archlinuxpkgs.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_bookmarks.xml` | `DOTFILES/config/walker/themes/default/item_bookmarks.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_calc.xml` | `DOTFILES/config/walker/themes/default/item_calc.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_clipboard.xml` | `DOTFILES/config/walker/themes/default/item_clipboard.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_dmenu.xml` | `DOTFILES/config/walker/themes/default/item_dmenu.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_dnfpackages.xml` | `DOTFILES/config/walker/themes/default/item_dnfpackages.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_files.xml` | `DOTFILES/config/walker/themes/default/item_files.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_providerlist.xml` | `DOTFILES/config/walker/themes/default/item_providerlist.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_symbols.xml` | `DOTFILES/config/walker/themes/default/item_symbols.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_symbols_grid.xml` | `DOTFILES/config/walker/themes/default/item_symbols_grid.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_todo.xml` | `DOTFILES/config/walker/themes/default/item_todo.xml` | Data / Source | Yes |
-| `config/walker/themes/default/item_unicode.xml` | `DOTFILES/config/walker/themes/default/item_unicode.xml` | Data / Source | Yes |
-| `config/walker/themes/default/keybind.xml` | `DOTFILES/config/walker/themes/default/keybind.xml` | Data / Source | Yes |
-| `config/walker/themes/default/layout.xml` | `DOTFILES/config/walker/themes/default/layout.xml` | Data / Source | Yes |
-| `config/walker/themes/default/preview.xml` | `DOTFILES/config/walker/themes/default/preview.xml` | Data / Source | Yes |
-| `config/walker/themes/default/style.css` | `DOTFILES/config/walker/themes/default/style.css` | Data / Source | Yes |
-| `config/walker/themes/material-you/item.xml` | `DOTFILES/config/walker/themes/material-you/item.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_actionsmenu.xml` | `DOTFILES/config/walker/themes/material-you/item_actionsmenu.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_aptpackages.xml` | `DOTFILES/config/walker/themes/material-you/item_aptpackages.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_archlinuxpkgs.xml` | `DOTFILES/config/walker/themes/material-you/item_archlinuxpkgs.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_bookmarks.xml` | `DOTFILES/config/walker/themes/material-you/item_bookmarks.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_calc.xml` | `DOTFILES/config/walker/themes/material-you/item_calc.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_clipboard.xml` | `DOTFILES/config/walker/themes/material-you/item_clipboard.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_dmenu.xml` | `DOTFILES/config/walker/themes/material-you/item_dmenu.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_dnfpackages.xml` | `DOTFILES/config/walker/themes/material-you/item_dnfpackages.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_files.xml` | `DOTFILES/config/walker/themes/material-you/item_files.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_providerlist.xml` | `DOTFILES/config/walker/themes/material-you/item_providerlist.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_symbols.xml` | `DOTFILES/config/walker/themes/material-you/item_symbols.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_symbols_grid.xml` | `DOTFILES/config/walker/themes/material-you/item_symbols_grid.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_todo.xml` | `DOTFILES/config/walker/themes/material-you/item_todo.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/item_unicode.xml` | `DOTFILES/config/walker/themes/material-you/item_unicode.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/keybind.xml` | `DOTFILES/config/walker/themes/material-you/keybind.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/layout.xml` | `DOTFILES/config/walker/themes/material-you/layout.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/preview.xml` | `DOTFILES/config/walker/themes/material-you/preview.xml` | Data / Source | Yes |
-| `config/walker/themes/material-you/style.css` | `DOTFILES/config/walker/themes/material-you/style.css` | Data / Source | Yes |
 | `config/waybar/config.jsonc` | `DOTFILES/config/waybar/config.jsonc` | Data / Source | Yes |
 | `config/waybar/launch.sh` | `DOTFILES/config/waybar/launch.sh` | Script | Yes |
 | `config/waybar/scripts/battery-popup.py` | `DOTFILES/config/waybar/scripts/battery-popup.py` | Script | Yes |

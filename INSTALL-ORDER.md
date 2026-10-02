@@ -26,7 +26,8 @@ Follow this exact dependency order when rebuilding the desktop environment from 
 * Install `yay-bin` (or `yay`).
 * Install packages from `packages/aur-runtime.txt`:
   * Cursor: `bibata-cursor-theme`.
-  * Launcher: `walker-bin`, `elephant-bin`, `elephant-desktopapplications-bin`, `elephant-runner-bin`.
+  * Icons: `whitesur-icon-theme`.
+  * Terminal Workspace: `herdr-bin`.
 
 ## 5. Enable System & User Daemons
 * System level:
@@ -35,7 +36,7 @@ Follow this exact dependency order when rebuilding the desktop environment from 
   ```
 * User level (as normal user):
   ```bash
-  systemctl --user enable pipewire.service pipewire-pulse.service wireplumber.service elephant.service
+  systemctl --user enable pipewire.service pipewire-pulse.service wireplumber.service
   ```
 
 ## 6. Deploy Standalone Binaries & Libraries
@@ -49,7 +50,7 @@ Follow this exact dependency order when rebuilding the desktop environment from 
 
 ## 7. Deploy Configuration Files
 * Deploy directories from `config/` to `~/.config/`:
-  * `hypr/`, `quickshell/`, `waybar/`, `dunst/`, `walker/`, `nwg-bar/`, `my-desktop/`, `ghostty/`, `yazi/`, `clipse/`, `gtk-3.0/`, `gtk-4.0/`, `environment.d/`, `systemd/user/`.
+  * `hypr/`, `quickshell/`, `waybar/`, `dunst/`, `nwg-bar/`, `my-desktop/`, `ghostty/`, `yazi/`, `clipse/`, `gtk-3.0/`, `gtk-4.0/`, `environment.d/`, `systemd/user/`.
 * Deploy individual files: `dolphinrc`, `kdeglobals`, `mimeapps.list`, `gtkrc-2.0` to `~/.config/` and `~/.gtkrc-2.0`.
 * Deploy `home/.bashrc` and `home/.bash_profile` to `~/`.
 * Set script execution permissions:

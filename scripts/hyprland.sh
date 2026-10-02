@@ -239,7 +239,7 @@ finish_setup() {
     log_step "4/4" "Basic Hyprland Setup Complete"
     echo
     log_success "Base Hyprland environment is ready!"
-    log_info "To install the full dotfiles suite (Quickshell, Walker, Material You theme engine),"
+    log_info "To install the full dotfiles suite (Quickshell, Material You theme engine),"
     log_info "run: ./install.sh"
     echo
 }

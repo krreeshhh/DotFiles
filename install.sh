@@ -4,7 +4,7 @@
 # ==============================================================================
 # Hostname Blueprint: Reze
 # Stack: Hyprland (Lua API), Quickshell (Modular + OSD + Plugins), Waybar fallback,
-#        Material You Engine, Walker/Elephant, Dunst, Ghostty, Clipse, SDDM (Hyprland SDDM Theme),
+#        Material You Engine, Dunst, Ghostty, Clipse, SDDM (Hyprland SDDM Theme),
 #        Universal Picture-in-Picture Helper, WhiteSur-dark Icons.
 # ==============================================================================
 
@@ -275,7 +275,7 @@ configure_system_services() {
     done
 
     # User services
-    local user_services=("pipewire.service" "pipewire-pulse.service" "wireplumber.service" "elephant.service" "hypr-pip-helper.service" "quickshell.service" "hypridle.service" "battery-alert.service")
+    local user_services=("pipewire.service" "pipewire-pulse.service" "wireplumber.service" "hypr-pip-helper.service" "quickshell.service" "hypridle.service" "battery-alert.service")
     for srv in "${user_services[@]}"; do
         log_substep "Enabling user service: ${srv}"
         systemctl --user enable "$srv" 2>/dev/null || true
@@ -294,7 +294,7 @@ deploy_dotfiles() {
 
     # 2. Deploy Configurations from config/
     log_substep "Deploying ~/.config applications..."
-    local config_dirs=("hypr" "quickshell" "waybar" "dunst" "walker" "nwg-bar" "my-desktop" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d" "herdr")
+    local config_dirs=("hypr" "quickshell" "waybar" "dunst" "nwg-bar" "my-desktop" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d" "herdr")
     for d in "${config_dirs[@]}"; do
         if [ -d "$DOTFILES_DIR/config/$d" ]; then
             if [ -d "$HOME/.config/$d" ]; then

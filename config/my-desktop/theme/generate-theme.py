@@ -521,155 +521,7 @@ element alternate.active {{
     with open(os.path.join(ROFI_DIR_CFG, "config.rasi"), "w") as f:
         f.write(launcher_rasi)
 
-    # 8. Walker GTK4 Theme
-    walker_dirs = [
-        os.path.expanduser("~/.config/walker"),
-        os.path.expanduser("~/.config/walker/themes/default"),
-        os.path.expanduser("~/.config/walker/themes/material-you"),
-    ]
-    for wdir in walker_dirs:
-        os.makedirs(wdir, exist_ok=True)
-
-    walker_css = f"""/**
- * Walker Material You Theme - Minimal Clean Aesthetic
- **/
-@define-color window_bg_color {palette['background']};
-@define-color card_bg_color {palette['surface']};
-@define-color hover_bg_color {palette['surface_variant']};
-@define-color selected_bg_color {palette['surface_selected']};
-@define-color accent_color {palette['primary']};
-@define-color text_color {palette['on_surface']};
-@define-color subtext_color {palette['on_surface_variant']};
-@define-color border_color {palette['outline']};
-@define-color error_color {palette['error']};
-
-* {{
-  all: unset;
-  font-family: 'JetBrainsMono Nerd Font', monospace, sans-serif;
-}}
-
-.normal-icons {{
-  -gtk-icon-size: 20px;
-}}
-
-.large-icons {{
-  -gtk-icon-size: 24px;
-}}
-
-scrollbar {{
-  opacity: 0;
-}}
-
-.box-wrapper {{
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-  background: @window_bg_color;
-  padding: 16px 14px 14px 14px;
-  border-radius: 4px;
-  border: 1.5px solid @border_color;
-}}
-
-.preview-box,
-.elephant-hint,
-.placeholder {{
-  color: @subtext_color;
-  font-size: 12px;
-  padding: 8px;
-}}
-
-.search-container {{
-  background: transparent;
-  border: none;
-  padding: 0 4px 6px 4px;
-  margin-bottom: 4px;
-}}
-
-.input placeholder {{
-  color: @accent_color;
-  opacity: 0.85;
-}}
-
-.input selection {{
-  background: @selected_bg_color;
-  color: @accent_color;
-}}
-
-.input {{
-  caret-color: @accent_color;
-  background: transparent;
-  padding: 2px 4px;
-  color: @text_color;
-  font-size: 13.5px;
-  font-weight: 700;
-}}
-
-.list {{
-  color: @text_color;
-}}
-
-.item-box {{
-  background: transparent;
-  border-radius: 4px;
-  padding: 6px 10px;
-  margin: 1px 0;
-  border: 1px solid transparent;
-  transition: all 0.12s ease;
-}}
-
-child:selected .item-box,
-row:selected .item-box {{
-  background: @selected_bg_color;
-  border: 1px solid alpha(@accent_color, 0.35);
-}}
-
-child:hover .item-box,
-row:hover .item-box {{
-  background: @hover_bg_color;
-}}
-
-.item-text-box {{
-  margin-left: 8px;
-}}
-
-.item-text {{
-  color: @text_color;
-  font-weight: 500;
-  font-size: 12.5px;
-}}
-
-child:selected .item-text,
-row:selected .item-text {{
-  color: @accent_color;
-  font-weight: 600;
-}}
-
-.item-subtext {{
-  font-size: 0px;
-  min-height: 0px;
-  margin: 0px;
-  padding: 0px;
-  opacity: 0;
-}}
-
-.item-quick-activation {{
-  display: none;
-}}
-
-.keybinds {{
-  display: none;
-}}
-
-.error {{
-  padding: 8px 12px;
-  background: @error_color;
-  color: #FFFFFF;
-  border-radius: 4px;
-}}
-"""
-    for wdir in walker_dirs:
-        with open(os.path.join(wdir, "style.css"), "w") as f:
-            f.write(walker_css)
-
-    # 9. Clipse Material You Theme
+    # 8. Clipse Material You Theme
     clipse_dir = os.path.expanduser("~/.config/clipse")
     if os.path.isdir(clipse_dir):
         clipse_theme = {
@@ -703,7 +555,7 @@ row:selected .item-text {{
         with open(os.path.join(clipse_dir, "custom_theme.json"), "w") as f:
             json.dump(clipse_theme, f, indent=4)
 
-    # 10. Hyprland Dynamic Window Border Theme
+    # 9. Hyprland Dynamic Window Border Theme
     with open(os.path.join(THEME_DIR, "colors-hyprland.conf"), "w") as f:
         f.write(f"# Material You Hyprland Borders\n")
         f.write(f"$primary = rgb({palette['primary'].lstrip('#')})\n")
@@ -721,7 +573,7 @@ row:selected .item-text {{
         f.write(f"    outline = \"{palette['outline']}\",\n")
         f.write("}\n")
 
-    # 11. KDE / Dolphin Material You Color Scheme (kdeglobals & color-schemes)
+    # 10. KDE / Dolphin Material You Color Scheme (kdeglobals & color-schemes)
     pri_rgb = hex_to_rgb_str(palette['primary'])
     on_pri_rgb = hex_to_rgb_str(palette.get('on_primary', '#121214'))
     sec_rgb = hex_to_rgb_str(palette['secondary'])
@@ -828,7 +680,7 @@ Enabled=false
     with open(os.path.join(color_schemes_dir, "MaterialYou.colors"), "w") as f:
         f.write(kdeglobals_content)
 
-    # 12. GTK 3, GTK 4, and Ghostty Material You Theme
+    # 11. GTK 3, GTK 4, and Ghostty Material You Theme
     gtk3_css_path = os.path.expanduser("~/.config/gtk-3.0/gtk.css")
     gtk4_css_path = os.path.expanduser("~/.config/gtk-4.0/gtk.css")
     ghostty_css_path = os.path.expanduser("~/.config/ghostty/gtk.css")
