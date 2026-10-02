@@ -163,6 +163,41 @@ print('\n\033[1m[10. Installer CLI Interface Checks]\033[0m')
 res_help = subprocess.run([f'{DOTFILES}/install.sh', '--help'], capture_output=True, text=True)
 test('install.sh --help flag works and outputs help menu', res_help.returncode == 0 and 'Usage:' in res_help.stdout)
 
+# 11. Antigravity Agent, Mechanic Skill & Sudo Password Screen
+print('\n\033[1m[11. Antigravity Agent, Mechanic Skill & Sudo Password Screen]\033[0m')
+agent_dir = f'{DOTFILES}/home/.agents'
+test('home/.agents/skills/mechanic/SKILL.md present', os.path.isfile(f'{agent_dir}/skills/mechanic/SKILL.md'))
+test('home/.agents/rules/mechanic.md present', os.path.isfile(f'{agent_dir}/rules/mechanic.md'))
+test('home/.agents/skills/diagnose-crash/SKILL.md present', os.path.isfile(f'{agent_dir}/skills/diagnose-crash/SKILL.md'))
+test('home/.agents/skills/quickshell-dev/SKILL.md present', os.path.isfile(f'{agent_dir}/skills/quickshell-dev/SKILL.md'))
+test('home/.agents/skills/hyprland-config/SKILL.md present', os.path.isfile(f'{agent_dir}/skills/hyprland-config/SKILL.md'))
+test('home/.agents/skills/theme-manager/SKILL.md present', os.path.isfile(f'{agent_dir}/skills/theme-manager/SKILL.md'))
+test('bin/mechanic-askpass present and executable', os.path.isfile(f'{bin_dir}/mechanic-askpass') and os.access(f'{bin_dir}/mechanic-askpass', os.X_OK))
+test('bin/mechanic present and executable', os.path.isfile(f'{bin_dir}/mechanic') and os.access(f'{bin_dir}/mechanic', os.X_OK))
+test('Quickshell native sudo AuthDialog.qml present', os.path.isfile(f'{qs_dir}/popups/AuthDialog.qml'))
+with open(f'{DOTFILES}/home/.bashrc') as f:
+    bashrc_content = f.read()
+test('home/.bashrc configures SUDO_ASKPASS and DEFAULT_AGENT', 'SUDO_ASKPASS' in bashrc_content and 'DEFAULT_AGENT' in bashrc_content)
+
+# 12. Formatting Integrity Check
+print('\n\033[1m[12. Formatting & Compliance Checks]\033[0m')
+em_dash_char = chr(8212)
+tracked_files = glob.glob(f'{DOTFILES}/**/*', recursive=True)
+em_dash_clean = True
+for fpath in tracked_files:
+    if os.path.isfile(fpath) and not fpath.endswith(('.png', '.jpg', '.jpeg', '.webp', '.mp4', '.webm', '.otf', '.ttf', '.pf2', '.zip', '.tar.zst', '.git', '.so', '.so.0', '.so.1', '.so.2', '.a')):
+        try:
+            with open(fpath, 'rb') as bf:
+                if bf.read(4) == b'\x7fELF':
+                    continue
+            with open(fpath, 'r', encoding='utf-8', errors='ignore') as f:
+                if em_dash_char in f.read():
+                    em_dash_clean = False
+                    print(f'Em dash found in: {fpath}')
+        except Exception:
+            pass
+test('Strictly zero em dashes in source and configs', em_dash_clean)
+
 print('\n\033[1;36m======================================================================\033[0m')
 print(f' \033[1mTEST RESULTS: {passed}/{total} checks passed ({failed} failures)\033[0m')
 print('\033[1;36m======================================================================\033[0m\n')

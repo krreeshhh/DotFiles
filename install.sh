@@ -320,6 +320,14 @@ deploy_dotfiles() {
         fi
     fi
 
+    # Deploy Antigravity agent skills, rules & mechanic configs
+    if [ -d "$DOTFILES_DIR/home/.agents" ]; then
+        log_substep "Deploying Antigravity mechanic skill, agent rules & configs..."
+        mkdir -p "$HOME/.agents"
+        cp -r "$DOTFILES_DIR/home/.agents/"* "$HOME/.agents/" 2>/dev/null || true
+        [ -f "$DOTFILES_DIR/home/.agents/.skill-lock.json" ] && cp "$DOTFILES_DIR/home/.agents/.skill-lock.json" "$HOME/.agents/" 2>/dev/null || true
+    fi
+
     # 3. Deploy Standalone Binaries
     log_substep "Deploying custom binaries to ~/.local/bin/..."
     if [ -d "$DOTFILES_DIR/bin" ]; then
