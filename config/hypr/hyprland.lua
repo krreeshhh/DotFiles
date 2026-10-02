@@ -523,14 +523,14 @@ hl.layer_rule({
 -- nwg-bar Power Menu Layer Rule
 hl.layer_rule({
     name         = "nwg-bar-blur",
-    match        = { namespace = "^nwg-bar$" },
+    match        = { namespace = "nwg-bar" },
     blur         = true,
     ignore_alpha = 0.2,
 })
 
 hl.layer_rule({
     name         = "gtk-layer-shell-blur",
-    match        = { namespace = "^gtk-layer-shell$" },
+    match        = { namespace = "gtk-layer-shell" },
     blur         = true,
     ignore_alpha = 0.2,
 })

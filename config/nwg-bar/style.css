@@ -1,40 +1,40 @@
 @import url("/home/Krish/.config/my-desktop/theme/colors.css");
 
-window {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* Outer bar container */
+window,
+window.background,
 #outer-box {
-    margin: 0px;
+    background-color: transparent;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
-/* Inner bar container - styled like Waybar popups and App launcher */
+/* Inner bar container - styled like Quickshell glass cards */
 #inner-box {
-    background-color: @theme_bg;
-    border: 1px solid @theme_border;
-    border-radius: 16px;
+    background-color: alpha(@theme_surface, 0.50);
+    border: 1px solid alpha(@theme_border, 0.40);
+    border-radius: 20px;
     padding: 16px 20px;
     margin: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 }
 
 button {
     background-image: none;
     box-shadow: none;
     text-shadow: none;
-    background-color: @theme_surface;
+    background-color: alpha(@theme_surface_variant, 0.40);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 16px 18px;
     margin: 6px;
     min-width: 80px;
     min-height: 80px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 button image {
-    margin: 0px 0px 6px 0px;
+    margin: 0px 0px 8px 0px;
 }
 
 button label {
@@ -48,8 +48,9 @@ button label {
 }
 
 button:hover {
-    background-color: @theme_surface_selected;
-    border-color: @theme_primary;
+    background-color: alpha(@theme_surface_selected, 0.75);
+    border: 1px solid @theme_primary;
+    box-shadow: 0 4px 16px alpha(@theme_primary, 0.25);
 }
 
 button:hover label {
@@ -57,6 +58,10 @@ button:hover label {
 }
 
 button:focus {
-    background-color: @theme_surface_selected;
-    border-color: @theme_primary;
+    background-color: alpha(@theme_surface_selected, 0.75);
+    border: 1px solid @theme_primary;
+}
+
+button:active {
+    background-color: alpha(@theme_primary_container, 0.85);
 }
