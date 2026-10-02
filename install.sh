@@ -114,7 +114,12 @@ install_pacman_packages_from_file() {
 
     if [ "${#pkgs[@]}" -gt 0 ]; then
         log_substep "Installing ${#pkgs[@]} packages via pacman..."
-        sudo pacman -S --needed --noconfirm "${pkgs[@]}"
+        if ! sudo pacman -S --needed --noconfirm "${pkgs[@]}"; then
+            log_warn "Bulk pacman installation encountered errors. Retrying packages individually..."
+            for pkg in "${pkgs[@]}"; do
+                sudo pacman -S --needed --noconfirm "$pkg" || log_warn "Failed to install '$pkg'. Skipping."
+            done
+        fi
     fi
 }
 
@@ -137,7 +142,12 @@ install_aur_packages_from_file() {
         elif [ "$AUR_HELPER" = "paru" ]; then
             flags+=("--skipreview")
         fi
-        "$AUR_HELPER" -S "${flags[@]}" "${pkgs[@]}"
+        if ! "$AUR_HELPER" -S "${flags[@]}" "${pkgs[@]}"; then
+            log_warn "Bulk AUR installation encountered errors. Retrying packages individually..."
+            for pkg in "${pkgs[@]}"; do
+                "$AUR_HELPER" -S "${flags[@]}" "$pkg" || log_warn "Failed to install AUR package '$pkg'. Skipping."
+            done
+        fi
     fi
 }
 

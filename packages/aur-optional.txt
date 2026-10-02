@@ -31,4 +31,3 @@ cline-cli
 hermes-agent-bin
 kiro-cli
 spotify
-yay-bin-debug
