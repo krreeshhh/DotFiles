@@ -40,7 +40,7 @@ if command -v dunstctl >/dev/null 2>&1 && [ -n "${PRIMARY:-}" ]; then
         if [ -n "${SURFACE:-}" ]; then
             sed -i -E "s/background = \"#[0-9a-fA-F]{6}\"/background = \"${SURFACE}\"/g" "$DUNSTRC" 2>/dev/null || true
         fi
-        killall dunst 2>/dev/null || true
+        dunstctl reload 2>/dev/null || killall dunst 2>/dev/null || true
     fi
 fi
 
@@ -91,10 +91,7 @@ if command -v gsettings >/dev/null 2>&1; then
         gsettings set org.gnome.desktop.interface accent-color "$GNOME_ACCENT" 2>/dev/null || true
     fi
 fi
-if pgrep -f "xdg-desktop-portal-gtk" >/dev/null 2>&1; then
-    pkill -f "xdg-desktop-portal-gtk" 2>/dev/null || true
-fi
 
-# 9. Nautilus & GTK4 apps automatically reload styling dynamically via GSettings & CSS inotify
+# 9. Nautilus, GTK4 & file chooser portals automatically reload styling dynamically via GSettings & CSS inotify
 
 exit 0
