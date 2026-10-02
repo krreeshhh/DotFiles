@@ -211,6 +211,7 @@ Total tracked dotfiles items: **395**
 | `config/gtkrc-2.0` | `DOTFILES/config/gtkrc-2.0` | Data / Source | Yes |
 | `config/herdr/config.toml` | `DOTFILES/config/herdr/config.toml` | Config | Yes |
 | `config/herdr/session.json` | `DOTFILES/config/herdr/session.json` | Config | Yes |
+| `config/hypr/hypridle.conf` | `DOTFILES/config/hypr/hypridle.conf` | Config | Yes |
 | `config/hypr/hyprland.conf` | `DOTFILES/config/hypr/hyprland.conf` | Config | Yes |
 | `config/hypr/hyprland.lua` | `DOTFILES/config/hypr/hyprland.lua` | Config | Yes |
 | `config/hypr/hyprpaper.conf` | `DOTFILES/config/hypr/hyprpaper.conf` | Config | Yes |

@@ -69,6 +69,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("walker --gapplication-service")
     hl.exec_cmd("/home/Krish/.local/bin/clipse -listen")
     hl.exec_cmd("udiskie &")
+    hl.exec_cmd("hypridle &")
     hl.exec_cmd("python3 /home/Krish/.config/hypr/scripts/autostart.py")
 end)
 

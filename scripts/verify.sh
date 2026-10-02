@@ -67,12 +67,14 @@ test('udisks2 & udiskie present in pacman-runtime.txt', 'udisks2' in pac_runtime
 test('gvfs & mobile MTP/AFC plugins present in pacman-runtime.txt', 'gvfs' in pac_runtime and 'gvfs-mtp' in pac_runtime and 'gvfs-afc' in pac_runtime)
 test('USB filesystem drivers (dosfstools, exfatprogs, ntfs-3g) present', 'dosfstools' in pac_runtime and 'exfatprogs' in pac_runtime and 'ntfs-3g' in pac_runtime)
 test('mobile USB udev & daemons (android-udev, usbmuxd, libimobiledevice) present', 'android-udev' in pac_runtime and 'usbmuxd' in pac_runtime and 'libimobiledevice' in pac_runtime)
+test('hypridle present in pacman-runtime.txt', 'hypridle' in pac_runtime)
 
 # 3. Hyprland Configuration
 print('\n\033[1m[3. Hyprland Configuration & Helper Daemons]\033[0m')
 hypr_dir = f'{DOTFILES}/config/hypr'
 test('hyprland.lua present', os.path.isfile(f'{hypr_dir}/hyprland.lua'))
 test('hyprland.conf present', os.path.isfile(f'{hypr_dir}/hyprland.conf'))
+test('hypridle.conf present', os.path.isfile(f'{hypr_dir}/hypridle.conf'))
 test('pip.lua (Universal PiP helper config) present', os.path.isfile(f'{hypr_dir}/pip.lua'))
 test('scripts/autostart.py present', os.path.isfile(f'{hypr_dir}/scripts/autostart.py'))
 test('scripts/brightness.sh present and executable', os.path.isfile(f'{hypr_dir}/scripts/brightness.sh') and os.access(f'{hypr_dir}/scripts/brightness.sh', os.X_OK))
@@ -80,6 +82,7 @@ test('scripts/volume.sh present and executable', os.path.isfile(f'{hypr_dir}/scr
 test('scripts/screenshot.sh present and executable', os.path.isfile(f'{hypr_dir}/scripts/screenshot.sh') and os.access(f'{hypr_dir}/scripts/screenshot.sh', os.X_OK))
 test('scripts/caffeine.sh present and executable', os.path.isfile(f'{hypr_dir}/scripts/caffeine.sh') and os.access(f'{hypr_dir}/scripts/caffeine.sh', os.X_OK))
 test('udiskie USB automount configured in hyprland.lua & hyprland.conf', 'udiskie' in open(f'{hypr_dir}/hyprland.lua').read() and 'udiskie' in open(f'{hypr_dir}/hyprland.conf').read())
+test('hypridle autostart configured in hyprland.lua & hyprland.conf', 'hypridle' in open(f'{hypr_dir}/hyprland.lua').read() and 'hypridle' in open(f'{hypr_dir}/hyprland.conf').read())
 
 # 4. Quickshell Desktop Shell
 print('\n\033[1m[4. Quickshell Components, OSD & Plugins]\033[0m')
