@@ -67,7 +67,7 @@ Row {
                 var match = line.match(/([0-9]+\.[0-9]+|[0-9]+)/);
                 if (match) {
                     var v = parseFloat(match[1]);
-                    root.currentVolume = Math.round(v * 100);
+                    root.currentVolume = Math.min(100, Math.round(v * 100));
                 }
             }
         }
@@ -273,7 +273,7 @@ Row {
             }
             onWheel: (wheel) => {
                 if (wheel.angleDelta.y > 0) {
-                    Quickshell.execDetached(["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+"]);
+                    Quickshell.execDetached(["wpctl", "set-volume", "-l", "1.0", "@DEFAULT_AUDIO_SINK@", "5%+"]);
                     root.currentVolume = Math.min(100, root.currentVolume + 5);
                     volProc.running = true;
                 } else if (wheel.angleDelta.y < 0) {

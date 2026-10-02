@@ -30,7 +30,8 @@ case "$ACTION" in
         ;;
     set)
         VAL="${2:-50}"
-        wpctl set-volume @DEFAULT_AUDIO_SINK@ "${VAL}%" >/dev/null 2>&1 || true
+        VAL=$(python3 -c "print(min(100, max(0, int('$VAL'))))" 2>/dev/null || echo "$VAL")
+        wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ "${VAL}%" >/dev/null 2>&1 || true
         ;;
     get)
         ;;
@@ -48,7 +49,7 @@ if echo "$VOL_RAW" | grep -q '\[MUTED\]'; then
 fi
 
 VOL_NUM=$(echo "$VOL_RAW" | grep -oP '\d+(\.\d+)?' | head -n1 || echo "0.5")
-VOL_PCT=$(python3 -c "import sys; print(round(float('$VOL_NUM') * 100))" 2>/dev/null || echo "50")
+VOL_PCT=$(python3 -c "import sys; print(min(100, round(float('$VOL_NUM') * 100)))" 2>/dev/null || echo "50")
 
 # Dispatch to Quickshell OSD
 if command -v quickshell >/dev/null 2>&1; then

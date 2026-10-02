@@ -162,6 +162,7 @@
             "default": ["󰕿", "󰖀", "󰕾"]
         },
         "scroll-step": 5,
+        "max-volume": 100,
         "on-click": "python3 /home/Krish/.config/waybar/scripts/quick-settings.py",
         "on-click-right": "pavucontrol",
         "tooltip": false

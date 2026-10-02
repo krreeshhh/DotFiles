@@ -64,11 +64,12 @@ def get_volume():
     return 50, False
 
 def set_volume(val):
+    val = max(0, min(100, int(val)))
     try:
-        subprocess.run(["pamixer", "--set-volume", str(int(val))], stderr=subprocess.DEVNULL)
+        subprocess.run(["pamixer", "--set-volume", str(val)], stderr=subprocess.DEVNULL)
     except Exception:
         try:
-            subprocess.run(["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", f"{val/100:.2f}"], stderr=subprocess.DEVNULL)
+            subprocess.run(["wpctl", "set-volume", "-l", "1.0", "@DEFAULT_AUDIO_SINK@", f"{val/100:.2f}"], stderr=subprocess.DEVNULL)
         except Exception:
             pass
 

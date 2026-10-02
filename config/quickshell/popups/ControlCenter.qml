@@ -47,7 +47,7 @@ PanelWindow {
             onRead: (line) => {
                 var match = line.trim().match(/([0-9]+\.[0-9]+|[0-9]+)/);
                 if (match) {
-                    root.currentVolume = Math.round(parseFloat(match[1]) * 100);
+                    root.currentVolume = Math.min(100, Math.round(parseFloat(match[1]) * 100));
                 }
             }
         }
@@ -407,7 +407,7 @@ PanelWindow {
                         to: 100
                         value: root.currentVolume
                         onMoved: {
-                            Quickshell.execDetached(["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", Math.round(volSlider.value) + "%"]);
+                            Quickshell.execDetached(["wpctl", "set-volume", "-l", "1.0", "@DEFAULT_AUDIO_SINK@", Math.round(volSlider.value) + "%"]);
                             root.currentVolume = Math.round(volSlider.value);
                         }
                     }
