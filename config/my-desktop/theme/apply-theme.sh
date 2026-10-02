@@ -95,8 +95,6 @@ if pgrep -f "xdg-desktop-portal-gtk" >/dev/null 2>&1; then
     pkill -f "xdg-desktop-portal-gtk" 2>/dev/null || true
 fi
 
-# 9. Update Nautilus File Manager dynamically
-pkill -USR1 -x nautilus 2>/dev/null || true
-
+# 9. Nautilus & GTK4 apps automatically reload styling dynamically via GSettings & CSS inotify
 
 exit 0
