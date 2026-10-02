@@ -55,7 +55,7 @@ This setup is built for performance, aesthetics, and deterministic reproduction 
 | **Terminal** | Ghostty | High-performance GPU-accelerated terminal running at 0.20 background opacity with blur. |
 | **File Manager** | Nautilus + Yazi | GTK4 graphical manager (Nautilus) alongside terminal file manager (Yazi). |
 | **Clipboard** | Clipse | TUI clipboard manager running with dedicated floating window rules. |
-| **Display Manager** | SDDM | Custom `qylock-sword` theme with video background and virtual keyboard support. |
+| **Display Manager** | SDDM | Custom `hyprland-sddm` theme with dynamic wallpaper autorefresh and reverse-blur focus. |
 | **Bootloader** | GRUB | Minimalist `silent` theme with dynamic wallpaper integration. |
 
 ---
@@ -150,8 +150,7 @@ DotFiles/
 │   ├── hypr-pip/            # Chromium extension for Universal Picture-in-Picture
 │   ├── share/               # Desktop launcher entries (.desktop) and webapp icons
 │   ├── themes/
-│   │   ├── grub/silent/     # Active minimalist GRUB bootloader theme
-│   │   └── sddm/qylock-sword/ # Active video-backed SDDM login theme
+│   │   └── grub/silent/     # Active minimalist GRUB bootloader theme
 │   └── wallpapers/          # Packaged aesthetic wallpaper collection (27 wallpapers)
 ├── bin/                     # Standalone custom binaries (hypr-pip-helper, clipse, strata)
 ├── config/

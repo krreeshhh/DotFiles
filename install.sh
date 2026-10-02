@@ -4,7 +4,7 @@
 # ==============================================================================
 # Hostname Blueprint: Reze
 # Stack: Hyprland (Lua API), Quickshell (Modular + OSD + Plugins), Waybar fallback,
-#        Material You Engine, Walker/Elephant, Dunst, Ghostty, Clipse, SDDM (qylock-sword Theme),
+#        Material You Engine, Walker/Elephant, Dunst, Ghostty, Clipse, SDDM (Hyprland SDDM Theme),
 #        Universal Picture-in-Picture Helper, WhiteSur-dark Icons.
 # ==============================================================================
 
@@ -401,11 +401,21 @@ deploy_dotfiles() {
 configure_sddm_theme() {
     log_step "6/8" "Deploying SDDM Login Manager & GRUB Themes"
 
-    # Deploy SDDM theme (active: qylock-sword)
-    if [ -d "$DOTFILES_DIR/assets/themes/sddm/qylock-sword" ]; then
-        log_substep "Installing qylock-sword theme to /usr/share/sddm/themes/qylock-sword..."
-        sudo mkdir -p /usr/share/sddm/themes/qylock-sword
-        sudo cp -r "$DOTFILES_DIR/assets/themes/sddm/qylock-sword/"* /usr/share/sddm/themes/qylock-sword/
+    # Deploy SDDM theme (active: hyprland-sddm)
+    local sddm_source_dir=""
+    if [ -d "$HOME/hyprland-sddm" ]; then
+        sddm_source_dir="$HOME/hyprland-sddm"
+    elif [ -d "/home/Krish/hyprland-sddm" ]; then
+        sddm_source_dir="/home/Krish/hyprland-sddm"
+    fi
+
+    if [ -n "$sddm_source_dir" ] && [ -f "$sddm_source_dir/install.sh" ]; then
+        log_substep "Deploying Hyprland SDDM theme from $sddm_source_dir..."
+        bash "$sddm_source_dir/install.sh"
+    elif [ -d "/usr/share/sddm/themes/hyprland-sddm" ]; then
+        log_substep "Hyprland SDDM theme is already installed at /usr/share/sddm/themes/hyprland-sddm"
+    else
+        log_warn "Hyprland SDDM theme source directory not found. Skipping theme deployment."
     fi
 
     # Deploy GRUB theme (active: silent)
@@ -422,6 +432,12 @@ configure_sddm_theme() {
             fi
             command -v grub-mkconfig >/dev/null 2>&1 && sudo grub-mkconfig -o /boot/grub/grub.cfg || true
         fi
+    fi
+
+    if [ -f "$DOTFILES_DIR/system/etc/sddm.conf.d/hyprland-sddm.conf" ]; then
+        log_substep "Configuring /etc/sddm.conf.d/hyprland-sddm.conf..."
+        sudo mkdir -p /etc/sddm.conf.d
+        sudo cp "$DOTFILES_DIR/system/etc/sddm.conf.d/hyprland-sddm.conf" /etc/sddm.conf.d/hyprland-sddm.conf
     fi
 
     if [ -f "$DOTFILES_DIR/system/etc/sddm.conf.d/theme.conf" ]; then

@@ -43,7 +43,7 @@
    - Type: Terminal file manager binary.
    - Reinstallation: Copied from Dotfiles/bin or installed via `pacman -S yazi`.
 
-8. SDDM Theme (qylock-sword)
-   - Location: /usr/share/sddm/themes/qylock-sword
-   - Type: Custom SDDM greeter theme.
-   - Reinstallation: Copy assets from Dotfiles/assets/themes/sddm/qylock-sword to /usr/share/sddm/themes/qylock-sword.
+8. SDDM Theme (hyprland-sddm)
+   - Location: /usr/share/sddm/themes/hyprland-sddm (Source: ~/hyprland-sddm)
+   - Type: Custom SDDM greeter theme with dynamic wallpaper auto-refresh and reverse-blur.
+   - Reinstallation: Run ~/hyprland-sddm/install.sh.
