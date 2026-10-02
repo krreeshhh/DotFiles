@@ -77,6 +77,7 @@ test('hyprland.conf present', os.path.isfile(f'{hypr_dir}/hyprland.conf'))
 test('hypridle.conf present', os.path.isfile(f'{hypr_dir}/hypridle.conf'))
 test('pip.lua (Universal PiP helper config) present', os.path.isfile(f'{hypr_dir}/pip.lua'))
 test('scripts/autostart.py present', os.path.isfile(f'{hypr_dir}/scripts/autostart.py'))
+test('scripts/battery-alert.sh present and executable', os.path.isfile(f'{hypr_dir}/scripts/battery-alert.sh') and os.access(f'{hypr_dir}/scripts/battery-alert.sh', os.X_OK))
 test('scripts/brightness.sh present and executable', os.path.isfile(f'{hypr_dir}/scripts/brightness.sh') and os.access(f'{hypr_dir}/scripts/brightness.sh', os.X_OK))
 test('scripts/volume.sh present and executable', os.path.isfile(f'{hypr_dir}/scripts/volume.sh') and os.access(f'{hypr_dir}/scripts/volume.sh', os.X_OK))
 test('scripts/screenshot.sh present and executable', os.path.isfile(f'{hypr_dir}/scripts/screenshot.sh') and os.access(f'{hypr_dir}/scripts/screenshot.sh', os.X_OK))
@@ -133,6 +134,7 @@ sd_dir = f'{DOTFILES}/config/systemd/user'
 test('systemd hypr-pip-helper.service present', os.path.isfile(f'{sd_dir}/hypr-pip-helper.service'))
 test('systemd quickshell.service present', os.path.isfile(f'{sd_dir}/quickshell.service'))
 test('systemd elephant.service present', os.path.isfile(f'{sd_dir}/elephant.service'))
+test('systemd battery-alert.service present', os.path.isfile(f'{sd_dir}/battery-alert.service'))
 test('systemd omarchy-crash-watch.service present', os.path.isfile(f'{sd_dir}/omarchy-crash-watch.service'))
 
 # 8. Script Syntax Compilation Checks

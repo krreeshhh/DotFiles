@@ -217,6 +217,7 @@ Total tracked dotfiles items: **395**
 | `config/hypr/hyprpaper.conf` | `DOTFILES/config/hypr/hyprpaper.conf` | Config | Yes |
 | `config/hypr/pip.lua` | `DOTFILES/config/hypr/pip.lua` | Config | Yes |
 | `config/hypr/scripts/autostart.py` | `DOTFILES/config/hypr/scripts/autostart.py` | Script | Yes |
+| `config/hypr/scripts/battery-alert.sh` | `DOTFILES/config/hypr/scripts/battery-alert.sh` | Script | Yes |
 | `config/hypr/scripts/brightness.sh` | `DOTFILES/config/hypr/scripts/brightness.sh` | Script | Yes |
 | `config/hypr/scripts/caffeine.sh` | `DOTFILES/config/hypr/scripts/caffeine.sh` | Script | Yes |
 | `config/hypr/scripts/screenshot.sh` | `DOTFILES/config/hypr/scripts/screenshot.sh` | Script | Yes |
@@ -296,6 +297,7 @@ Total tracked dotfiles items: **395**
 | `config/quickshell/scripts/wifi.py` | `DOTFILES/config/quickshell/scripts/wifi.py` | Script | Yes |
 | `config/quickshell/shell.qml` | `DOTFILES/config/quickshell/shell.qml` | Config | Yes |
 | `config/quickshell/switch.sh` | `DOTFILES/config/quickshell/switch.sh` | Script | Yes |
+| `config/systemd/user/battery-alert.service` | `DOTFILES/config/systemd/user/battery-alert.service` | Systemd Unit | Yes |
 | `config/systemd/user/elephant.service` | `DOTFILES/config/systemd/user/elephant.service` | Systemd Unit | Yes |
 | `config/systemd/user/hypr-pip-helper.service` | `DOTFILES/config/systemd/user/hypr-pip-helper.service` | Systemd Unit | Yes |
 | `config/systemd/user/omarchy-crash-watch.service` | `DOTFILES/config/systemd/user/omarchy-crash-watch.service` | Systemd Unit | Yes |

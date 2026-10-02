@@ -275,7 +275,7 @@ configure_system_services() {
     done
 
     # User services
-    local user_services=("pipewire.service" "pipewire-pulse.service" "wireplumber.service" "elephant.service" "hypr-pip-helper.service" "quickshell.service" "hypridle.service")
+    local user_services=("pipewire.service" "pipewire-pulse.service" "wireplumber.service" "elephant.service" "hypr-pip-helper.service" "quickshell.service" "hypridle.service" "battery-alert.service")
     for srv in "${user_services[@]}"; do
         log_substep "Enabling user service: ${srv}"
         systemctl --user enable "$srv" 2>/dev/null || true
