@@ -65,11 +65,23 @@ ensure_sudo() {
         exit 1
     fi
 
+    if sudo -n true 2>/dev/null; then
+        log_success "Sudo credentials active."
+        return 0
+    fi
+
     log_info "Authenticating sudo credentials..."
-    sudo -v || {
-        log_error "Sudo authentication failed. Exiting."
-        exit 1
-    }
+    if [ -n "${SUDO_ASKPASS:-}" ]; then
+        sudo -A -v || {
+            log_error "Sudo authentication failed. Exiting."
+            exit 1
+        }
+    else
+        sudo -v || {
+            log_error "Sudo authentication failed. Exiting."
+            exit 1
+        }
+    fi
 
     # Keep sudo timestamp alive during installer execution
     (while true; do sudo -n true; sleep 45; kill -0 "$$" 2>/dev/null || exit; done) &
@@ -228,7 +240,13 @@ configure_nvidia_if_present() {
 # Core Package Installation
 # ------------------------------------------------------------------------------
 install_all_packages() {
-    log_step "2/8" "Installing Core System, Wayland & UI Packages"
+    log_step "2/8" "Installing Base Hyprland Stack & Core System Packages"
+    if [ -f "$DOTFILES_DIR/scripts/hyprland.sh" ]; then
+        log_substep "Running dedicated Hyprland setup script (scripts/hyprland.sh)..."
+        bash "$DOTFILES_DIR/scripts/hyprland.sh" --non-interactive
+    fi
+
+    log_substep "Installing extended dotfiles runtime packages..."
     install_pacman_packages_from_file "$DOTFILES_DIR/packages/pacman-runtime.txt" "Pacman Runtime Packages"
     install_pacman_packages_from_file "$DOTFILES_DIR/packages/fonts.txt" "Font Packages"
 
@@ -546,6 +564,7 @@ show_menu() {
     echo -e "  ${CYAN}1)${NC} ${BOLD}Standard Installation${NC} (Hyprland + Quickshell + Core Drivers & UI)"
     echo -e "  ${CYAN}2)${NC} ${BOLD}Full Desktop + User Applications${NC} (Core + Browsers, Discord, Telegram, Dev tools)"
     echo -e "  ${CYAN}3)${NC} ${BOLD}Deploy Configuration Files Only${NC} (Skip package installation)"
+    echo -e "  ${CYAN}4)${NC} ${BOLD}Basic Hyprland Setup Only${NC} (Run scripts/hyprland.sh)"
     echo -e "  ${CYAN}q)${NC} Quit"
     echo
 }
@@ -586,6 +605,14 @@ case "${1:-}" in
         INSTALL_APPS="false"
         run_install
         ;;
+    --base|-b|--hyprland-base)
+        show_banner
+        check_arch_linux
+        ensure_sudo
+        if [ -f "$DOTFILES_DIR/scripts/hyprland.sh" ]; then
+            bash "$DOTFILES_DIR/scripts/hyprland.sh"
+        fi
+        ;;
     --config-only)
         show_banner
         check_arch_linux
@@ -597,10 +624,11 @@ case "${1:-}" in
         echo "Usage: $0 [OPTION]"
         echo
         echo "Options:"
-        echo "  -c, --core         Install core Hyprland desktop & shell (Standard)"
-        echo "  -a, --all          Install core desktop + all optional applications"
-        echo "      --config-only  Deploy config files only (skip package manager)"
-        echo "  -h, --help         Show this help message"
+        echo "  -c, --core           Install core Hyprland desktop & shell (Standard)"
+        echo "  -a, --all            Install core desktop + all optional applications"
+        echo "  -b, --base           Install foundational Hyprland stack only (scripts/hyprland.sh)"
+        echo "      --config-only    Deploy config files only (skip package manager)"
+        echo "  -h, --help           Show this help message"
         echo
         echo "Run without arguments for interactive selection."
         exit 0
@@ -609,9 +637,9 @@ case "${1:-}" in
         show_menu
         choice=""
         if [ -e /dev/tty ]; then
-            read -rp "Enter selection [1-3 / q]: " choice </dev/tty || choice=""
+            read -rp "Enter selection [1-4 / q]: " choice </dev/tty || choice=""
         else
-            read -rp "Enter selection [1-3 / q]: " choice || choice=""
+            read -rp "Enter selection [1-4 / q]: " choice || choice=""
         fi
         case "$choice" in
             1)
@@ -627,6 +655,13 @@ case "${1:-}" in
                 deploy_dotfiles
                 initialize_theming
                 log_success "Configurations deployed successfully!"
+                ;;
+            4)
+                check_arch_linux
+                ensure_sudo
+                if [ -f "$DOTFILES_DIR/scripts/hyprland.sh" ]; then
+                    bash "$DOTFILES_DIR/scripts/hyprland.sh"
+                fi
                 ;;
             q|Q)
                 log_info "Installation aborted."

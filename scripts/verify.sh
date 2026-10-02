@@ -33,6 +33,7 @@ print('\033[1;36m===============================================================
 print('\033[1m[1. Directory Structure & Core Manifests]\033[0m')
 test('Dotfiles repository path exists', os.path.isdir(DOTFILES))
 test('install.sh exists & is executable', os.path.isfile(f'{DOTFILES}/install.sh') and os.access(f'{DOTFILES}/install.sh', os.X_OK))
+test('scripts/hyprland.sh exists & is executable', os.path.isfile(f'{DOTFILES}/scripts/hyprland.sh') and os.access(f'{DOTFILES}/scripts/hyprland.sh', os.X_OK))
 test('MANIFEST.md documentation present', os.path.isfile(f'{DOTFILES}/MANIFEST.md'))
 test('REPRODUCTION.md reproduction guide present', os.path.isfile(f'{DOTFILES}/REPRODUCTION.md'))
 test('INSTALL-ORDER.md deployment checklist present', os.path.isfile(f'{DOTFILES}/INSTALL-ORDER.md'))

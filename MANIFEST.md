@@ -391,6 +391,7 @@ Total tracked dotfiles items: **395**
 | `packages/pacman-optional.txt` | `DOTFILES/packages/pacman-optional.txt` | Documentation / Manifest | Yes |
 | `packages/pacman-runtime.txt` | `DOTFILES/packages/pacman-runtime.txt` | Documentation / Manifest | Yes |
 | `scripts/grub-wallpaper-randomizer.py` | `DOTFILES/scripts/grub-wallpaper-randomizer.py` | Script | Yes |
+| `scripts/hyprland.sh` | `DOTFILES/scripts/hyprland.sh` | Script | Yes |
 | `scripts/install_apps.sh` | `DOTFILES/scripts/install_apps.sh` | Script | Yes |
 | `scripts/setup_grub_randomizer.sh` | `DOTFILES/scripts/setup_grub_randomizer.sh` | Script | Yes |
 | `scripts/strata.sh` | `DOTFILES/scripts/strata.sh` | Script | Yes |
