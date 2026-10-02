@@ -209,7 +209,7 @@ PanelWindow {
                 var subParts = [pStatus, pVer, pAuthor].filter(function(x) { return x && x.length > 0; });
                 var sub = subParts.join(" • ");
                 if (pDesc) {
-                    sub = sub ? (sub + " — " + pDesc) : pDesc;
+                    sub = sub ? (sub + " : " + pDesc) : pDesc;
                 }
 
                 if (q === "" || pName.toLowerCase().includes(q) || pDesc.toLowerCase().includes(q) || (pl.id && pl.id.toLowerCase().includes(q)) || (pl.dir && pl.dir.toLowerCase().includes(q))) {
@@ -560,7 +560,7 @@ PanelWindow {
                     var subParts = [pStatus, pVer, pAuthor].filter(function(x) { return x && x.length > 0; });
                     var sub = subParts.join(" • ");
                     if (plItem.description) {
-                        sub = sub ? (sub + " — " + plItem.description) : plItem.description;
+                        sub = sub ? (sub + " : " + plItem.description) : plItem.description;
                     }
 
                     var alreadyPl = scored.some(s => s.item.name.toLowerCase() === plItem.name.toLowerCase());

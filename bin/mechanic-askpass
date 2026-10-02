@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# mechanic-askpass — Graphical Sudo/Root Password Prompt
+# mechanic-askpass - Graphical Sudo/Root Password Prompt
 # Uses Quickshell Material You modal screen with automatic Rofi fallback.
 
 set -euo pipefail

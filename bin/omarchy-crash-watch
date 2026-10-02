@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-omarchy-crash-watch — Real-time crash monitoring daemon.
+omarchy-crash-watch - Real-time crash monitoring daemon.
 Monitors systemd-coredump events, generates structured markdown reports,
 and triggers interactive Dunst/notify-send notifications to launch Antigravity.
 """

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# omarchy-crash — Crash Management & Diagnostics Suite
+# omarchy-crash - Crash Management & Diagnostics Suite
 
 set -euo pipefail
 

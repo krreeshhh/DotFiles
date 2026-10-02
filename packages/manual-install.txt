@@ -43,7 +43,7 @@
    - Type: Terminal file manager binary.
    - Reinstallation: Copied from Dotfiles/bin or installed via `pacman -S yazi`.
 
-8. SDDM Theme (R1999_1)
-   - Location: /usr/share/sddm/themes/R1999_1
+8. SDDM Theme (qylock-sword)
+   - Location: /usr/share/sddm/themes/qylock-sword
    - Type: Custom SDDM greeter theme.
-   - Reinstallation: Copy assets from Dotfiles/assets/themes/sddm/R1999_1 to /usr/share/sddm/themes/R1999_1.
+   - Reinstallation: Copy assets from Dotfiles/assets/themes/sddm/qylock-sword to /usr/share/sddm/themes/qylock-sword.

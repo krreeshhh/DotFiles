@@ -4,7 +4,7 @@
 # ==============================================================================
 # Hostname Blueprint: Reze
 # Stack: Hyprland (Lua API), Quickshell (Modular + OSD + Plugins), Waybar fallback,
-#        Material You Engine, Walker/Elephant, Dunst, Ghostty, Clipse, SDDM (R1999_1 Theme),
+#        Material You Engine, Walker/Elephant, Dunst, Ghostty, Clipse, SDDM (qylock-sword Theme),
 #        Universal Picture-in-Picture Helper, WhiteSur-dark Icons.
 # ==============================================================================
 
@@ -109,17 +109,33 @@ install_pacman_packages_from_file() {
         return 0
     fi
 
-    log_info "Reading pacman packages from: ${desc}..."
-    mapfile -t pkgs < <(grep -v -E '^\s*#|^\s*$' "$file")
+    log_info "Checking pacman packages from: ${desc}..."
+    mapfile -t raw_pkgs < <(grep -v -E '^\s*#|^\s*$' "$file")
 
-    if [ "${#pkgs[@]}" -gt 0 ]; then
-        log_substep "Installing ${#pkgs[@]} packages via pacman..."
-        if ! sudo pacman -S --needed --noconfirm "${pkgs[@]}"; then
-            log_warn "Bulk pacman installation encountered errors. Retrying packages individually..."
-            for pkg in "${pkgs[@]}"; do
-                sudo pacman -S --needed --noconfirm "$pkg" || log_warn "Failed to install '$pkg'. Skipping."
-            done
+    if [ "${#raw_pkgs[@]}" -eq 0 ]; then
+        return 0
+    fi
+
+    local needed_pkgs=()
+    for pkg in "${raw_pkgs[@]}"; do
+        if ! pacman -T "$pkg" >/dev/null 2>&1 && ! pacman -Q "$pkg" >/dev/null 2>&1; then
+            needed_pkgs+=("$pkg")
         fi
+    done
+
+    if [ "${#needed_pkgs[@]}" -eq 0 ]; then
+        log_success "All ${#raw_pkgs[@]} packages in ${desc} are already installed."
+        return 0
+    fi
+
+    log_substep "Installing ${#needed_pkgs[@]} missing packages via pacman: ${needed_pkgs[*]}"
+    if ! sudo pacman -S --needed --noconfirm "${needed_pkgs[@]}"; then
+        log_warn "Bulk pacman installation encountered errors. Retrying packages individually..."
+        for pkg in "${needed_pkgs[@]}"; do
+            if ! pacman -T "$pkg" >/dev/null 2>&1 && ! pacman -Q "$pkg" >/dev/null 2>&1; then
+                sudo pacman -S --needed --noconfirm "$pkg" || log_warn "Failed to install '$pkg'. Skipping."
+            fi
+        done
     fi
 }
 
@@ -131,24 +147,39 @@ install_aur_packages_from_file() {
         return 0
     fi
 
-    log_info "Reading AUR packages from: ${desc}..."
-    mapfile -t pkgs < <(grep -v -E '^\s*#|^\s*$' "$file")
+    log_info "Checking AUR packages from: ${desc}..."
+    mapfile -t raw_pkgs < <(grep -v -E '^\s*#|^\s*$' "$file")
 
-    if [ "${#pkgs[@]}" -gt 0 ]; then
-        log_substep "Installing ${#pkgs[@]} packages via ${AUR_HELPER}..."
-        local flags=("--needed" "--noconfirm")
-        if [ "$AUR_HELPER" = "yay" ]; then
-            flags+=("--answerdiff" "None" "--answerclean" "None" "--answeredit" "None" "--answerupgrade" "None")
-        elif [ "$AUR_HELPER" = "paru" ]; then
-            flags+=("--skipreview")
-        fi
-        if ! "$AUR_HELPER" -S "${flags[@]}" "${pkgs[@]}"; then
-            log_warn "Bulk AUR installation encountered errors. Retrying packages individually..."
-            for pkg in "${pkgs[@]}"; do
-                "$AUR_HELPER" -S "${flags[@]}" "$pkg" || log_warn "Failed to install AUR package '$pkg'. Skipping."
-            done
-        fi
+    if [ "${#raw_pkgs[@]}" -eq 0 ]; then
+        return 0
     fi
+
+    local needed_pkgs=()
+    for pkg in "${raw_pkgs[@]}"; do
+        if ! pacman -T "$pkg" >/dev/null 2>&1 && ! pacman -Q "$pkg" >/dev/null 2>&1; then
+            needed_pkgs+=("$pkg")
+        fi
+    done
+
+    if [ "${#needed_pkgs[@]}" -eq 0 ]; then
+        log_success "All ${#raw_pkgs[@]} packages in ${desc} are already installed."
+        return 0
+    fi
+
+    log_substep "Installing ${#needed_pkgs[@]} missing AUR packages via ${AUR_HELPER}: ${needed_pkgs[*]}"
+    local flags=("--needed" "--noconfirm")
+    if [ "$AUR_HELPER" = "yay" ]; then
+        flags+=("--answerdiff" "None" "--answerclean" "None" "--answeredit" "None" "--answerupgrade" "None")
+    elif [ "$AUR_HELPER" = "paru" ]; then
+        flags+=("--skipreview")
+    fi
+
+    for pkg in "${needed_pkgs[@]}"; do
+        if ! pacman -T "$pkg" >/dev/null 2>&1 && ! pacman -Q "$pkg" >/dev/null 2>&1; then
+            log_substep "Installing AUR package: $pkg"
+            "$AUR_HELPER" -S "${flags[@]}" "$pkg" || log_warn "Failed to install AUR package '$pkg'. Skipping."
+        fi
+    done
 }
 
 # ------------------------------------------------------------------------------
@@ -263,7 +294,7 @@ deploy_dotfiles() {
     # Deploy Systemd user services
     if [ -d "$DOTFILES_DIR/config/systemd/user" ]; then
         mkdir -p "$HOME/.config/systemd/user"
-        cp -r "$DOTFILES_DIR/config/systemd/user/"* "$HOME/.config/systemd/user/"
+        cp -r --remove-destination "$DOTFILES_DIR/config/systemd/user/"* "$HOME/.config/systemd/user/" 2>/dev/null || true
     fi
 
     # Deploy Autostart entries
@@ -445,7 +476,7 @@ img.save('$HOME/.wallpaper/Wall.png')
 # CLI Menu & Execution Flow
 # ------------------------------------------------------------------------------
 show_banner() {
-    clear
+    clear 2>/dev/null || true
     echo -e "${BOLD}${CYAN}"
     echo "  ██╗  ██╗██╗   ██╗██████╗ ██████╗ ██╗      █████╗ ███╗   ██╗██████╗ "
     echo "  ██║  ██║╚██╗ ██╔╝██╔══██╗██╔══██╗██║     ██╔══██╗████╗  ██║██╔══██╗"

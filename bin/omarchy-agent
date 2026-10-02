@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# omarchy-agent — Default Agent Manager & Launcher
+# omarchy-agent - Default Agent Manager & Launcher
 
 set -euo pipefail
 

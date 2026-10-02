@@ -234,7 +234,7 @@ Rectangle {
         LedgeIconButton {
             theme: chip.theme
             icon: chip.pinned ? "\u{F0403}" : "\u{F0931}"  // nf-md-pin / nf-md-pin_outline
-            tooltip: chip.pinned ? "Unpin" : "Pin — kept on clear"
+            tooltip: chip.pinned ? "Unpin" : "Pin - kept on clear"
             tooltipEdge: "left"
             active: chip.pinned
             onClicked: chip.pinRequested()

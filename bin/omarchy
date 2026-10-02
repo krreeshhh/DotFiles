@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# omarchy — Unified Omarchy Command & Plugin Dispatcher
+# omarchy - Unified Omarchy Command & Plugin Dispatcher
 
 set -euo pipefail
 

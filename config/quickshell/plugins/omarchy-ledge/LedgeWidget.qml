@@ -165,7 +165,7 @@ Item {
         ledgeModel.setProperty(index, "pinned", pinned)
         compactPinned()
         persist()
-        showToast(pinned ? "Pinned — kept on clear" : "Unpinned")
+        showToast(pinned ? "Pinned - kept on clear" : "Unpinned")
     }
 
     function targetPaths() {
@@ -243,7 +243,7 @@ Item {
         }
         syncSelection()
         persist()
-        showToast(ledgeModel.count > 0 ? "Cleared — pinned files kept" : "Ledge cleared")
+        showToast(ledgeModel.count > 0 ? "Cleared - pinned files kept" : "Ledge cleared")
     }
 
     function copyAsFiles(paths) {

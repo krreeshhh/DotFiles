@@ -1,6 +1,6 @@
 .pragma library
 
-// Ledge — pure helpers for the ledge item list.
+// Ledge - pure helpers for the ledge item list.
 //
 // Kept free of QML object references so the pure logic can be unit tested
 // without Qt (scripts/test-model.mjs). Everything here is a plain function
@@ -12,7 +12,7 @@ var STATE_VERSION = 1
 
 // Nerd Font (Material Design) glyphs, shipped with Omarchy's default font.
 // Names are nf-md-*, and every codepoint below is checked against the font's
-// own glyph names (see docs/icons.md) — the numbering is dense enough that a
+// own glyph names (see docs/icons.md) - the numbering is dense enough that a
 // neighbouring codepoint is a completely unrelated picture.
 var ICONS = {
     file: "\u{F0214}",    // nf-md-file
@@ -218,7 +218,7 @@ function boolSetting(value, fallback) {
 // `omarchy bar set` writes a string, and nothing checks it against the `min`
 // and `max` the manifest advertises, so "abc" arrives intact. Reading that with
 // Number() alone yields NaN, and a NaN timer interval is a timer that fires
-// immediately — the ledge would slam shut the instant it opened. So anything
+// immediately: the ledge would slam shut the instant it opened. So anything
 // unintelligible falls back, and anything out of range is clamped to the bounds
 // the manifest promised rather than obeyed.
 function intSetting(value, fallback, min, max) {
@@ -238,7 +238,7 @@ function intSetting(value, fallback, min, max) {
     return number
 }
 
-// $XDG_STATE_HOME when the session sets one, ~/.local/state otherwise — the
+// $XDG_STATE_HOME when the session sets one, ~/.local/state otherwise: the
 // default the spec names. With neither there is nowhere private to write, and
 // /tmp is no substitute: it is shared, world-writable and entirely predictable,
 // so somebody else can be sitting on the path first. An empty string means "do

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# omarchy-ledge — command line front end for the Ledge plugin in Quickshell.
+# omarchy-ledge - command line front end for the Ledge plugin in Quickshell.
 
 set -euo pipefail
 
@@ -34,7 +34,7 @@ EOF
 
 ledge() {
   quickshell ipc call "$IPC_TARGET" "$@" ||
-    die "the ledge did not answer — is Quickshell running with LedgeWidget on the bar?"
+    die "the ledge did not answer: is Quickshell running with LedgeWidget on the bar?"
 }
 
 json_escape() {
