@@ -2,4 +2,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.log
+*.sock
+session-snapshots/
 .DS_Store

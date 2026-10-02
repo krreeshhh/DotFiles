@@ -62,6 +62,7 @@ test('helium-browser-bin NOT present in package manifests', 'helium-browser-bin'
 test('whitesur-icon-theme present in aur-runtime.txt', 'whitesur-icon-theme' in aur_runtime)
 test('bibata-cursor-theme present in aur-runtime.txt', 'bibata-cursor-theme' in aur_runtime)
 test('walker-bin & elephant-bin present in aur-runtime.txt', 'walker-bin' in aur_runtime and 'elephant-bin' in aur_runtime)
+test('herdr-bin present in aur-runtime.txt', 'herdr-bin' in aur_runtime)
 test('udisks2 & udiskie present in pacman-runtime.txt', 'udisks2' in pac_runtime and 'udiskie' in pac_runtime)
 test('gvfs & mobile MTP/AFC plugins present in pacman-runtime.txt', 'gvfs' in pac_runtime and 'gvfs-mtp' in pac_runtime and 'gvfs-afc' in pac_runtime)
 test('USB filesystem drivers (dosfstools, exfatprogs, ntfs-3g) present', 'dosfstools' in pac_runtime and 'exfatprogs' in pac_runtime and 'ntfs-3g' in pac_runtime)
@@ -114,6 +115,7 @@ test('gtk-4.0/settings.ini present', os.path.isfile(f'{DOTFILES}/config/gtk-4.0/
 test('environment.d configs present', os.path.isfile(f'{DOTFILES}/config/environment.d/theme.conf') and os.path.isfile(f'{DOTFILES}/config/environment.d/quickshell.conf'))
 test('clipse/config.json present', os.path.isfile(f'{DOTFILES}/config/clipse/config.json'))
 test('yazi/theme.toml present', os.path.isfile(f'{DOTFILES}/config/yazi/theme.toml'))
+test('herdr/config.toml present', os.path.isfile(f'{DOTFILES}/config/herdr/config.toml'))
 test('mimeapps.list present', os.path.isfile(f'{DOTFILES}/config/mimeapps.list'))
 
 # 7. Standalone Binaries & Systemd Units

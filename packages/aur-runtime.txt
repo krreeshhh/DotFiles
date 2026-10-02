@@ -8,5 +8,8 @@ elephant-bin
 elephant-desktopapplications-bin
 elephant-runner-bin
 
+# Terminal Workspace & Multi-Agent Supervision
+herdr-bin
+
 # Package Manager
 yay-bin

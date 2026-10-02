@@ -23,7 +23,6 @@ elephant-websearch-bin
 
 # Development & AI Platforms
 visual-studio-code-bin
-herdr-bin
 claude-code
 openai-codex-bin
 antigravity-cli

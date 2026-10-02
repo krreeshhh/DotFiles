@@ -294,7 +294,7 @@ deploy_dotfiles() {
 
     # 2. Deploy Configurations from config/
     log_substep "Deploying ~/.config applications..."
-    local config_dirs=("hypr" "quickshell" "waybar" "dunst" "walker" "nwg-bar" "my-desktop" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d")
+    local config_dirs=("hypr" "quickshell" "waybar" "dunst" "walker" "nwg-bar" "my-desktop" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d" "herdr")
     for d in "${config_dirs[@]}"; do
         if [ -d "$DOTFILES_DIR/config/$d" ]; then
             if [ -d "$HOME/.config/$d" ]; then
