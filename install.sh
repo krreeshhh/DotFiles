@@ -250,7 +250,7 @@ configure_system_services() {
     log_step "4/8" "Enabling Required System & User Services"
 
     # System services
-    local sys_services=("sddm.service" "NetworkManager.service" "bluetooth.service" "ntpd.service")
+    local sys_services=("sddm.service" "NetworkManager.service" "bluetooth.service" "ntpd.service" "udisks2.service" "usbmuxd.service")
     for srv in "${sys_services[@]}"; do
         log_substep "Enabling system service: ${srv}"
         sudo systemctl enable "$srv" 2>/dev/null || true

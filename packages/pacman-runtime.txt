@@ -19,9 +19,32 @@ dunst
 ghostty
 tmux
 
-# File Management (Core Desktop)
+# File Management, Storage & USB Drivers
 nautilus
 file-roller
+udisks2
+udiskie
+gvfs
+gvfs-mtp
+gvfs-gphoto2
+gvfs-afc
+gvfs-smb
+dosfstools
+exfatprogs
+ntfs-3g
+e2fsprogs
+btrfs-progs
+f2fs-tools
+usbutils
+android-udev
+usbmuxd
+libimobiledevice
+libmtp
+mtools
+cifs-utils
+smartmontools
+gptfdisk
+parted
 
 # Audio Server & Controls
 pipewire

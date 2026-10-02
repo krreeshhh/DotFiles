@@ -61,6 +61,10 @@ test('helium-browser-bin NOT present in package manifests', 'helium-browser-bin'
 test('whitesur-icon-theme present in aur-runtime.txt', 'whitesur-icon-theme' in aur_runtime)
 test('bibata-cursor-theme present in aur-runtime.txt', 'bibata-cursor-theme' in aur_runtime)
 test('walker-bin & elephant-bin present in aur-runtime.txt', 'walker-bin' in aur_runtime and 'elephant-bin' in aur_runtime)
+test('udisks2 & udiskie present in pacman-runtime.txt', 'udisks2' in pac_runtime and 'udiskie' in pac_runtime)
+test('gvfs & mobile MTP/AFC plugins present in pacman-runtime.txt', 'gvfs' in pac_runtime and 'gvfs-mtp' in pac_runtime and 'gvfs-afc' in pac_runtime)
+test('USB filesystem drivers (dosfstools, exfatprogs, ntfs-3g) present', 'dosfstools' in pac_runtime and 'exfatprogs' in pac_runtime and 'ntfs-3g' in pac_runtime)
+test('mobile USB udev & daemons (android-udev, usbmuxd, libimobiledevice) present', 'android-udev' in pac_runtime and 'usbmuxd' in pac_runtime and 'libimobiledevice' in pac_runtime)
 
 # 3. Hyprland Configuration
 print('\n\033[1m[3. Hyprland Configuration & Helper Daemons]\033[0m')
@@ -73,6 +77,7 @@ test('scripts/brightness.sh present and executable', os.path.isfile(f'{hypr_dir}
 test('scripts/volume.sh present and executable', os.path.isfile(f'{hypr_dir}/scripts/volume.sh') and os.access(f'{hypr_dir}/scripts/volume.sh', os.X_OK))
 test('scripts/screenshot.sh present and executable', os.path.isfile(f'{hypr_dir}/scripts/screenshot.sh') and os.access(f'{hypr_dir}/scripts/screenshot.sh', os.X_OK))
 test('scripts/caffeine.sh present and executable', os.path.isfile(f'{hypr_dir}/scripts/caffeine.sh') and os.access(f'{hypr_dir}/scripts/caffeine.sh', os.X_OK))
+test('udiskie USB automount configured in hyprland.lua & hyprland.conf', 'udiskie' in open(f'{hypr_dir}/hyprland.lua').read() and 'udiskie' in open(f'{hypr_dir}/hyprland.conf').read())
 
 # 4. Quickshell Desktop Shell
 print('\n\033[1m[4. Quickshell Components, OSD & Plugins]\033[0m')

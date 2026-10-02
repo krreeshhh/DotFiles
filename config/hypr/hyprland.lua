@@ -68,6 +68,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("bash -c \"if command -v quickshell >/dev/null 2>&1; then bash /home/Krish/.config/quickshell/launch.sh; else bash /home/Krish/.config/waybar/launch.sh; fi\"")
     hl.exec_cmd("walker --gapplication-service")
     hl.exec_cmd("/home/Krish/.local/bin/clipse -listen")
+    hl.exec_cmd("udiskie &")
     hl.exec_cmd("python3 /home/Krish/.config/hypr/scripts/autostart.py")
 end)
 
