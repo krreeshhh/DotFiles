@@ -370,6 +370,31 @@ deploy_dotfiles() {
         cp -r "$DOTFILES_DIR/assets/hypr-pip/"* "$HOME/.local/share/hypr-pip/" 2>/dev/null || true
     fi
 
+    # Automatically configure browser flags to install extension directly into default browser
+    local ext_path="$HOME/.local/share/hypr-pip/extension"
+    if [ -d "$ext_path" ]; then
+        log_substep "Installing Picture-in-Picture extension directly into default browser..."
+        for flag_file in \
+            "$HOME/.config/brave-origin-flags.conf" \
+            "$HOME/.config/brave-flags.conf" \
+            "$HOME/.config/chromium-flags.conf" \
+            "$HOME/.config/chrome-flags.conf" \
+            "$HOME/.config/helium-flags.conf"; do
+
+            mkdir -p "$(dirname "$flag_file")"
+            if [ -f "$flag_file" ]; then
+                if ! grep -q -- "--load-extension=" "$flag_file"; then
+                    echo "--load-extension=$ext_path" >> "$flag_file"
+                elif ! grep -q "$ext_path" "$flag_file"; then
+                    sed -i "s|--load-extension=\([^ ]*\)|--load-extension=\1,$ext_path|" "$flag_file"
+                fi
+            else
+                echo "--load-extension=$ext_path" > "$flag_file"
+            fi
+        done
+        log_info "Directly installed PiP extension into browser configurations"
+    fi
+
     log_substep "Deploying custom system and user fonts..."
     if [ -d "$DOTFILES_DIR/assets/fonts" ]; then
         mkdir -p "$HOME/.local/share/fonts"
