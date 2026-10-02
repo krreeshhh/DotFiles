@@ -433,6 +433,21 @@ deploy_dotfiles() {
     chmod +x "$HOME/.config/quickshell/"*.sh "$HOME/.config/quickshell/scripts/"* 2>/dev/null || true
     chmod +x "$HOME/.config/waybar/"*.sh "$HOME/.config/waybar/scripts/"*.py "$HOME/.config/waybar/scripts/"*.sh 2>/dev/null || true
 
+    # 6. Build & Install Nautilus Dynamic Theme Reloader Extension
+    if [ -d "$HOME/.config/my-desktop/theme/nautilus-extension" ] && command -v gcc >/dev/null 2>&1; then
+        log_substep "Compiling and installing Nautilus Dynamic Theme Reloader extension..."
+        (
+            cd "$HOME/.config/my-desktop/theme/nautilus-extension"
+            make clean >/dev/null 2>&1 || true
+            make >/dev/null 2>&1 || true
+            if [ -f "libnautilus-theme-reloader.so" ]; then
+                sudo mkdir -p /usr/lib/nautilus/extensions-4
+                sudo cp -f libnautilus-theme-reloader.so /usr/lib/nautilus/extensions-4/libnautilus-theme-reloader.so
+                sudo chmod 755 /usr/lib/nautilus/extensions-4/libnautilus-theme-reloader.so
+            fi
+        ) || log_warn "Could not automatically compile Nautilus theme reloader extension."
+    fi
+
     if [ -d "$BACKUP_DIR" ]; then
         log_info "Previous existing configuration backed up to: ${BACKUP_DIR}"
     fi
@@ -446,7 +461,9 @@ configure_sddm_theme() {
 
     # Deploy SDDM theme (active: hyprland-sddm)
     local sddm_source_dir=""
-    if [ -d "$HOME/hyprland-sddm" ]; then
+    if [ -d "$DOTFILES_DIR/assets/themes/sddm/hyprland-sddm" ]; then
+        sddm_source_dir="$DOTFILES_DIR/assets/themes/sddm/hyprland-sddm"
+    elif [ -d "$HOME/hyprland-sddm" ]; then
         sddm_source_dir="$HOME/hyprland-sddm"
     elif [ -d "/home/Krish/hyprland-sddm" ]; then
         sddm_source_dir="/home/Krish/hyprland-sddm"

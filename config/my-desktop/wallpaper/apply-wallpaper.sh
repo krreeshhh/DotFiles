@@ -136,6 +136,12 @@ elif [ -f "$HOME/Dotfiles/scripts/grub-wallpaper-randomizer.py" ]; then
     python3 "$HOME/Dotfiles/scripts/grub-wallpaper-randomizer.py" --quiet >/dev/null 2>&1 &
 fi
 
+# Update SDDM theme background dynamically
+SDDM_BG="/usr/share/sddm/themes/hyprland-sddm/background.png"
+if [ -w "$SDDM_BG" ]; then
+    cp -f "$TARGET_WALLPAPER" "$SDDM_BG" 2>/dev/null || true
+fi
+
 # Send desktop notification
 WP_BASENAME=$(basename "$TARGET_WALLPAPER")
 if command -v notify-send >/dev/null 2>&1; then
