@@ -10,6 +10,11 @@
 
 set -euo pipefail
 
+# Reconnect stdin to controlling terminal if piped (e.g. curl ... | sh)
+if [ ! -t 0 ] && [ -e /dev/tty ]; then
+    exec </dev/tty 2>/dev/null || true
+fi
+
 # ------------------------------------------------------------------------------
 # Colors & Logging Helpers
 # ------------------------------------------------------------------------------
@@ -512,7 +517,12 @@ case "${1:-}" in
         ;;
     "")
         show_menu
-        read -rp "Enter selection [1-3 / q]: " choice
+        choice=""
+        if [ -e /dev/tty ]; then
+            read -rp "Enter selection [1-3 / q]: " choice </dev/tty || choice=""
+        else
+            read -rp "Enter selection [1-3 / q]: " choice || choice=""
+        fi
         case "$choice" in
             1)
                 INSTALL_APPS="false"
