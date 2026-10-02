@@ -461,18 +461,65 @@ configure_sddm_theme() {
         log_warn "Hyprland SDDM theme source directory not found. Skipping theme deployment."
     fi
 
-    # Deploy GRUB theme (active: silent)
+    # Deploy GRUB theme & local bootloader isolation (active: silent)
     if [ -d "$DOTFILES_DIR/assets/themes/grub/silent" ]; then
         log_substep "Installing silent theme to /boot/grub/themes/silent..."
         sudo mkdir -p /boot/grub/themes/silent
         sudo cp -r "$DOTFILES_DIR/assets/themes/grub/silent/"* /boot/grub/themes/silent/
         
         if [ -f /etc/default/grub ]; then
-            if ! grep -q "GRUB_THEME=" /etc/default/grub; then
-                echo 'GRUB_THEME="/boot/grub/themes/silent/theme.txt"' | sudo tee -a /etc/default/grub >/dev/null
+            log_substep "Configuring GRUB to only show local machine bootloaders..."
+
+            # 1. Set GRUB theme
+            if ! grep -q "^GRUB_THEME=" /etc/default/grub; then
+                if grep -q "^#GRUB_THEME=" /etc/default/grub; then
+                    sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME="/boot/grub/themes/silent/theme.txt"|' /etc/default/grub
+                else
+                    echo 'GRUB_THEME="/boot/grub/themes/silent/theme.txt"' | sudo tee -a /etc/default/grub >/dev/null
+                fi
             else
-                sudo sed -i 's|^#\?GRUB_THEME=.*|GRUB_THEME="/boot/grub/themes/silent/theme.txt"|' /etc/default/grub
+                sudo sed -i 's|^GRUB_THEME=.*|GRUB_THEME="/boot/grub/themes/silent/theme.txt"|' /etc/default/grub
             fi
+
+            # 2. Set GRUB graphics resolution
+            if ! grep -q "^GRUB_GFXMODE=" /etc/default/grub; then
+                if grep -q "^#GRUB_GFXMODE=" /etc/default/grub; then
+                    sudo sed -i 's|^#GRUB_GFXMODE=.*|GRUB_GFXMODE="1920x1080,auto"|' /etc/default/grub
+                else
+                    echo 'GRUB_GFXMODE="1920x1080,auto"' | sudo tee -a /etc/default/grub >/dev/null
+                fi
+            else
+                sudo sed -i 's|^GRUB_GFXMODE=.*|GRUB_GFXMODE="1920x1080,auto"|' /etc/default/grub
+            fi
+
+            # 3. Disable external / stale NVRAM BootNext entries (Debian, Windows, Limine, PXE/HTTP network boots)
+            if ! grep -q "^GRUB_DISABLE_BOOTNEXT=" /etc/default/grub; then
+                if grep -q "^#GRUB_DISABLE_BOOTNEXT=" /etc/default/grub; then
+                    sudo sed -i 's|^#GRUB_DISABLE_BOOTNEXT=.*|GRUB_DISABLE_BOOTNEXT="true"|' /etc/default/grub
+                else
+                    echo 'GRUB_DISABLE_BOOTNEXT="true"' | sudo tee -a /etc/default/grub >/dev/null
+                fi
+            else
+                sudo sed -i 's|^GRUB_DISABLE_BOOTNEXT=.*|GRUB_DISABLE_BOOTNEXT="true"|' /etc/default/grub
+            fi
+
+            # 4. Disable OS Prober (prevents scanning or listing foreign operating systems from other drives/USBs)
+            if ! grep -q "^GRUB_DISABLE_OS_PROBER=" /etc/default/grub; then
+                if grep -q "^#GRUB_DISABLE_OS_PROBER=" /etc/default/grub; then
+                    sudo sed -i 's|^#GRUB_DISABLE_OS_PROBER=.*|GRUB_DISABLE_OS_PROBER="true"|' /etc/default/grub
+                else
+                    echo 'GRUB_DISABLE_OS_PROBER="true"' | sudo tee -a /etc/default/grub >/dev/null
+                fi
+            else
+                sudo sed -i 's|^GRUB_DISABLE_OS_PROBER=.*|GRUB_DISABLE_OS_PROBER="true"|' /etc/default/grub
+            fi
+
+            # 5. Disable execution of 31_efi_bootnext helper if present
+            if [ -f /etc/grub.d/31_efi_bootnext ]; then
+                sudo chmod -x /etc/grub.d/31_efi_bootnext 2>/dev/null || true
+            fi
+
+            log_substep "Regenerating GRUB configuration..."
             command -v grub-mkconfig >/dev/null 2>&1 && sudo grub-mkconfig -o /boot/grub/grub.cfg || true
         fi
     fi

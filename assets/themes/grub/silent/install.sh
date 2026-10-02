@@ -65,6 +65,20 @@ if [ -f /etc/default/grub ]; then
     else
         echo 'GRUB_DISABLE_SUBMENU=y' | sudo tee -a /etc/default/grub
     fi
+
+    # Disable OS-prober (prevent detecting foreign bootloaders on other disks/USBs)
+    if grep -q '^GRUB_DISABLE_OS_PROBER=' /etc/default/grub; then
+        sudo sed -i 's|^GRUB_DISABLE_OS_PROBER=.*|GRUB_DISABLE_OS_PROBER=true|' /etc/default/grub
+    elif grep -q '^#GRUB_DISABLE_OS_PROBER=' /etc/default/grub; then
+        sudo sed -i 's|^#GRUB_DISABLE_OS_PROBER=.*|GRUB_DISABLE_OS_PROBER=true|' /etc/default/grub
+    else
+        echo 'GRUB_DISABLE_OS_PROBER=true' | sudo tee -a /etc/default/grub
+    fi
+
+    # Disable execution of 31_efi_bootnext helper if present
+    if [ -f /etc/grub.d/31_efi_bootnext ]; then
+        sudo chmod -x /etc/grub.d/31_efi_bootnext 2>/dev/null || true
+    fi
 fi
 
 # 4. Rebuild GRUB config

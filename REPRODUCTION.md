@@ -27,6 +27,8 @@ sudo pacman -Syu --needed \
 
 # 2. Configure NVIDIA kernel parameters and environment
 sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 nvidia.NVreg_PreserveVideoMemoryAllocations=1"/' /etc/default/grub
+echo -e 'GRUB_DISABLE_BOOTNEXT="true"\nGRUB_DISABLE_OS_PROBER="true"\nGRUB_DISABLE_SUBMENU="y"' | sudo tee -a /etc/default/grub
+[ -f /etc/grub.d/31_efi_bootnext ] && sudo chmod -x /etc/grub.d/31_efi_bootnext
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service
 echo -e "LIBVA_DRIVER_NAME=nvidia\nMOZ_DISABLE_RDD_SANDBOX=1" | sudo tee -a /etc/environment
