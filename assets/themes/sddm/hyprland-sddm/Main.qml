@@ -32,7 +32,10 @@ Item {
     }
 
     property bool capsLockOn: false
-    property string activeWallpaperSource: ""
+    property string activeWallpaperSource: {
+        var dir = Config.wallpaperDirectory || "/home/Krish/.wallpaper";
+        return dir.indexOf("file://") === 0 ? (dir + "/Wall.png") : ("file://" + dir + "/Wall.png");
+    }
 
     function resolveSource(src) {
         if (!src || src.length === 0) return "";
@@ -55,7 +58,7 @@ Item {
         showDotAndDotDot: false
         onStatusChanged: {
             if (status === FolderListModel.Ready && count > 0) {
-                if (Config.randomWallpaper && (!activeWallpaperSource || activeWallpaperSource.length === 0 || activeWallpaperSource.indexOf("backgrounds/") === 0)) {
+                if (Config.randomWallpaper) {
                     pickRandomWallpaper();
                 }
             }
@@ -72,8 +75,9 @@ Item {
                 return;
             }
         }
-        activeWallpaperSource = resolveSource(Config.lockScreenBackground);
-        console.log("[SilentSDDM] Fallback wallpaper:", activeWallpaperSource);
+        if (Config.lockScreenBackground && Config.lockScreenBackground.length > 0) {
+            activeWallpaperSource = resolveSource(Config.lockScreenBackground);
+        }
     }
 
     Timer {
@@ -92,10 +96,8 @@ Item {
         if (Config.randomWallpaper) {
             if (wallpaperFolderModel.status === FolderListModel.Ready && wallpaperFolderModel.count > 0) {
                 pickRandomWallpaper();
-            } else {
-                activeWallpaperSource = resolveSource(Config.lockScreenBackground);
             }
-        } else {
+        } else if (Config.lockScreenBackground && Config.lockScreenBackground.length > 0) {
             activeWallpaperSource = resolveSource(Config.lockScreenBackground);
         }
     }
@@ -175,19 +177,21 @@ Item {
         }
     }
 
+    // Solid pitch-black background prevents window clear-color / white flash during SDDM boot
+    Rectangle {
+        id: rootBackground
+        anchors.fill: parent
+        color: "#000000"
+        z: 0
+    }
+
     Item {
         id: mainFrame
-
-        property variant geometry: screenModel.geometry(screenModel.primary)
-        // x: geometry.x
-        // y: geometry.y
-        // width: geometry.width
-        // height: geometry.height
         anchors.fill: parent
+        z: 1
 
-        // AnimatedImage { // `.gif`s are seg faulting with multi monitors... QT/SDDM issue?
         Image {
-            // Background
+            // Background image (source for MultiEffect shader)
             id: backgroundImage
             property string tsource: Config.randomWallpaper ? activeWallpaperSource : (root.state === "lockState" ? resolveSource(Config.lockScreenBackground) : resolveSource(Config.loginScreenBackground))
 
@@ -206,7 +210,9 @@ Item {
             anchors.fill: parent
             source: !isVideo ? tsource : ""
             cache: true
+            asynchronous: true
             mipmap: true
+            visible: false // Hidden so only MultiEffect renders to prevent duplicate draw & flash
             fillMode: {
                 if (Config.backgroundFillMode === "stretch") {
                     return Image.Stretch;
@@ -236,14 +242,6 @@ Item {
                 if (status === Image.Error) {
                     displayColor = true;
                 }
-            }
-
-            Rectangle {
-                id: backgroundColor
-                anchors.fill: parent
-                anchors.margins: 0
-                color: root.state === "lockState" && Config.lockScreenUseBackgroundColor ? Config.lockScreenBackgroundColor : root.state === "loginState" && Config.loginScreenUseBackgroundColor ? Config.loginScreenBackgroundColor : "black"
-                visible: parent.displayColor || (backgroundVideo.visible && parent.placeholder.length === 0)
             }
 
             // Video background support
@@ -284,15 +282,23 @@ Item {
                 }
             }
         }
+
         MultiEffect {
             // Background effects
             id: backgroundEffect
             source: backgroundImage
             anchors.fill: parent
             blurMax: Math.max(Config.lockScreenBlur, Config.loginScreenBlur, 32)
-            blurEnabled: backgroundImage.visible && (Config.lockScreenBlur > 0 || Config.loginScreenBlur > 0)
+            blurEnabled: (Config.lockScreenBlur > 0 || Config.loginScreenBlur > 0)
             blur: Config.lockScreenBlur > 0 ? (Config.lockScreenBlur / blurMax) : 0.0
             autoPaddingEnabled: false
+            opacity: (backgroundImage.status === Image.Ready || backgroundImage.isVideo) ? 1.0 : 0.0
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 300
+                    easing.type: Easing.OutCubic
+                }
+            }
         }
 
         Item {
