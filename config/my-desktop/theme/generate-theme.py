@@ -555,12 +555,14 @@ element alternate.active {{
         with open(os.path.join(clipse_dir, "custom_theme.json"), "w") as f:
             json.dump(clipse_theme, f, indent=4)
 
-    # 9. Hyprland Dynamic Window Border Theme
+    # 9. Hyprland & Hyprlock Dynamic Theme
     with open(os.path.join(THEME_DIR, "colors-hyprland.conf"), "w") as f:
-        f.write(f"# Material You Hyprland Borders\n")
+        f.write(f"# Material You Hyprland & Hyprlock Colors\n")
         f.write(f"$primary = rgb({palette['primary'].lstrip('#')})\n")
         f.write(f"$secondary = rgb({palette['secondary'].lstrip('#')})\n")
         f.write(f"$surface = rgb({palette['surface'].lstrip('#')})\n")
+        f.write(f"$surface_variant = rgb({palette.get('surface_variant', '#28282e').lstrip('#')})\n")
+        f.write(f"$background = rgb({palette['background'].lstrip('#')})\n")
         f.write(f"$outline = rgb({palette['outline'].lstrip('#')})\n")
         f.write(f"$active_border = rgb({palette['primary'].lstrip('#')}) rgb({palette['secondary'].lstrip('#')}) 45deg\n")
         f.write(f"$inactive_border = rgba({palette['outline'].lstrip('#')}aa)\n")

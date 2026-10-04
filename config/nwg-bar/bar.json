@@ -1,17 +1,17 @@
 [
   {
     "label": "Lock",
-    "exec": "loginctl lock-session || hyprctl dispatch dpms off",
+    "exec": "/home/Krish/.config/hypr/scripts/lock.sh",
     "icon": "/usr/share/nwg-bar/images/system-lock-screen.svg"
   },
   {
     "label": "Logout",
-    "exec": "hyprctl dispatch exit",
+    "exec": "/home/Krish/.config/hypr/scripts/logout.sh",
     "icon": "/usr/share/nwg-bar/images/system-log-out.svg"
   },
   {
     "label": "Suspend",
-    "exec": "systemctl suspend",
+    "exec": "/home/Krish/.config/hypr/scripts/suspend.sh",
     "icon": "/usr/share/nwg-bar/images/system-suspend.svg"
   },
   {

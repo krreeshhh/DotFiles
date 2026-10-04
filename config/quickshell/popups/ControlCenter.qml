@@ -227,7 +227,7 @@ PanelWindow {
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
                                 root.closeImmediate();
-                                Quickshell.execDetached(["bash", "-c", "loginctl lock-session || hyprctl dispatch dpms off"]);
+                                Quickshell.execDetached(["hyprlock"]);
                             }
                         }
                     }

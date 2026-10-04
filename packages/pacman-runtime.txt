@@ -9,6 +9,7 @@ slurp
 swaybg
 brightnessctl
 hypridle
+hyprlock
 
 # Desktop Shell, Panels & Notifications
 quickshell

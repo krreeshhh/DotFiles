@@ -212,13 +212,17 @@ Total tracked dotfiles items: **395**
 | `config/hypr/hypridle.conf` | `DOTFILES/config/hypr/hypridle.conf` | Config | Yes |
 | `config/hypr/hyprland.conf` | `DOTFILES/config/hypr/hyprland.conf` | Config | Yes |
 | `config/hypr/hyprland.lua` | `DOTFILES/config/hypr/hyprland.lua` | Config | Yes |
+| `config/hypr/hyprlock.conf` | `DOTFILES/config/hypr/hyprlock.conf` | Config | Yes |
 | `config/hypr/hyprpaper.conf` | `DOTFILES/config/hypr/hyprpaper.conf` | Config | Yes |
 | `config/hypr/pip.lua` | `DOTFILES/config/hypr/pip.lua` | Config | Yes |
 | `config/hypr/scripts/autostart.py` | `DOTFILES/config/hypr/scripts/autostart.py` | Script | Yes |
 | `config/hypr/scripts/battery-alert.sh` | `DOTFILES/config/hypr/scripts/battery-alert.sh` | Script | Yes |
 | `config/hypr/scripts/brightness.sh` | `DOTFILES/config/hypr/scripts/brightness.sh` | Script | Yes |
 | `config/hypr/scripts/caffeine.sh` | `DOTFILES/config/hypr/scripts/caffeine.sh` | Script | Yes |
+| `config/hypr/scripts/lock.sh` | `DOTFILES/config/hypr/scripts/lock.sh` | Script | Yes |
+| `config/hypr/scripts/logout.sh` | `DOTFILES/config/hypr/scripts/logout.sh` | Script | Yes |
 | `config/hypr/scripts/screenshot.sh` | `DOTFILES/config/hypr/scripts/screenshot.sh` | Script | Yes |
+| `config/hypr/scripts/suspend.sh` | `DOTFILES/config/hypr/scripts/suspend.sh` | Script | Yes |
 | `config/hypr/scripts/volume.sh` | `DOTFILES/config/hypr/scripts/volume.sh` | Script | Yes |
 | `config/kdeglobals` | `DOTFILES/config/kdeglobals` | Data / Source | Yes |
 | `config/mimeapps.list` | `DOTFILES/config/mimeapps.list` | Data / Source | Yes |

@@ -161,6 +161,8 @@ install_base_packages() {
         grim
         slurp
         brightnessctl
+        hypridle
+        hyprlock
         pamixer
         pavucontrol
         file-roller
