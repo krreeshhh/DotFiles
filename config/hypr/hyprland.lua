@@ -376,6 +376,10 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 hl.bind("Print",                       hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/screenshot.sh area"))
 hl.bind("SHIFT + Print",               hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/screenshot.sh full"))
 
+-- Laptop Lid Switch (Turn screen on/off when opening/closing lid)
+hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("hyprctl dispatch dpms on"), { locked = true })
+hl.bind("switch:on:Lid Switch", hl.dsp.exec_cmd("hyprctl dispatch dpms off"), { locked = true })
+
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
