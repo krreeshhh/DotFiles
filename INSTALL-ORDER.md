@@ -59,8 +59,8 @@ Follow this exact dependency order when rebuilding the desktop environment from 
   ```
 
 ## 8. Deploy Assets & Display Manager Themes
-* Copy SDDM theme `assets/themes/sddm/R1999_1` to `/usr/share/sddm/themes/R1999_1/`.
-* Deploy `/etc/sddm.conf.d/theme.conf` pointing to `R1999_1`.
+* Copy SDDM theme `assets/themes/sddm/hyprland-sddm` to `/usr/share/sddm/themes/hyprland-sddm/`.
+* Deploy `/etc/sddm.conf.d/theme.conf` and `/etc/sddm.conf.d/hyprland-sddm.conf` pointing to `hyprland-sddm`.
 * Populate `~/.wallpaper/` with wallpapers (see `assets/wallpapers/WALLPAPER_MANIFEST.txt`).
 
 ## 9. Initialize GSettings & Theme Generator

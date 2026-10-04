@@ -13,14 +13,14 @@ if [[ "$1" =~ ^(debug|-debug|--debug|-d)$ ]]; then
     QT_IM_MODULE=qtvirtualkeyboard QML2_IMPORT_PATH=./components/ sddm-greeter-qt6 --test-mode --theme .
 else
     config_file=$(awk -F '=' '/^ConfigFile=/ {print $2}' metadata.desktop)
-    echo -e "${green}Testing Silent theme...${reset}\nLoading config: ${config_file}\nDon't worry about the infinite loading, SDDM won't let you log in while in 'test-mode'."
+    echo -e "${green}Testing hyprland-sddm theme...${reset}\nLoading config: ${config_file}\nDon't worry about the infinite loading, SDDM won't let you log in while in 'test-mode'."
     QT_IM_MODULE=qtvirtualkeyboard QML2_IMPORT_PATH=./components/ sddm-greeter-qt6 --test-mode --theme . > /dev/null 2>&1
 fi
 
-if [ ! -d "${THEMES_DIR}/silent" ]; then
+if [ ! -d "${THEMES_DIR}/hyprland-sddm" ]; then
     echo -e "\n${bred}[WARNING]: ${red}theme not installed!${reset}"
-    echo -e "Run ${cyan}'./install.sh'${reset} or copy the contents of the theme to ${cyan}'${THEMES_DIR}/silent/'${reset} and set the current theme to ${cyan}'silent'${reset} in ${cyan}'/etc/sddm.conf'${reset}:\n"
+    echo -e "Run ${cyan}'./install.sh'${reset} or copy the contents of the theme to ${cyan}'${THEMES_DIR}/hyprland-sddm/'${reset} and set the current theme to ${cyan}'hyprland-sddm'${reset} in ${cyan}'/etc/sddm.conf'${reset}:\n"
     echo -e "    ${grey}# /etc/sddm.conf${reset}"
     echo -e "    [Theme]"
-    echo -e "    Current=silent"
+    echo -e "    Current=hyprland-sddm"
 fi

@@ -143,13 +143,11 @@ Total tracked dotfiles items: **395**
 | `assets/themes/grub/silent/terminal_box_sw.png` | `DOTFILES/assets/themes/grub/silent/terminal_box_sw.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/terminal_box_w.png` | `DOTFILES/assets/themes/grub/silent/terminal_box_w.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/theme.txt` | `DOTFILES/assets/themes/grub/silent/theme.txt` | Documentation / Manifest | Yes |
-| `assets/themes/sddm/qylock-sword/BackgroundVideo.qml` | `DOTFILES/assets/themes/sddm/qylock-sword/BackgroundVideo.qml` | Config | Yes |
-| `assets/themes/sddm/qylock-sword/Main.qml` | `DOTFILES/assets/themes/sddm/qylock-sword/Main.qml` | Config | Yes |
-| `assets/themes/sddm/qylock-sword/apply.sh` | `DOTFILES/assets/themes/sddm/qylock-sword/apply.sh` | Script | Yes |
-| `assets/themes/sddm/qylock-sword/bg.mp4` | `DOTFILES/assets/themes/sddm/qylock-sword/bg.mp4` | Asset / Media | Yes |
-| `assets/themes/sddm/qylock-sword/font/The Last Shuriken.ttf` | `DOTFILES/assets/themes/sddm/qylock-sword/font/The Last Shuriken.ttf` | Asset / Media | Yes |
-| `assets/themes/sddm/qylock-sword/metadata.desktop` | `DOTFILES/assets/themes/sddm/qylock-sword/metadata.desktop` | Desktop Entry | Yes |
-| `assets/themes/sddm/qylock-sword/theme.conf` | `DOTFILES/assets/themes/sddm/qylock-sword/theme.conf` | Config | Yes |
+| `assets/themes/sddm/hyprland-sddm/Main.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/Main.qml` | Config | Yes |
+| `assets/themes/sddm/hyprland-sddm/configs/default.conf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/configs/default.conf` | Config | Yes |
+| `assets/themes/sddm/hyprland-sddm/install.sh` | `DOTFILES/assets/themes/sddm/hyprland-sddm/install.sh` | Script | Yes |
+| `assets/themes/sddm/hyprland-sddm/metadata.desktop` | `DOTFILES/assets/themes/sddm/hyprland-sddm/metadata.desktop` | Desktop Entry | Yes |
+| `assets/themes/sddm/hyprland-sddm/test.sh` | `DOTFILES/assets/themes/sddm/hyprland-sddm/test.sh` | Script | Yes |
 | `assets/wallpapers/15.png` | `DOTFILES/assets/wallpapers/15.png` | Asset / Media | Yes |
 | `assets/wallpapers/Blue Girl.png` | `DOTFILES/assets/wallpapers/Blue Girl.png` | Asset / Media | Yes |
 | `assets/wallpapers/Focus.png` | `DOTFILES/assets/wallpapers/Focus.png` | Asset / Media | Yes |

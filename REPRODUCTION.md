@@ -65,8 +65,9 @@ ln -sf ~/.config/quickshell/qs/Commons ~/.config/quickshell/Commons
 ln -sf ~/.config/quickshell/qs/Ui ~/.config/quickshell/Ui
 
 # 8. Deploy SDDM Theme
-sudo mkdir -p /usr/share/sddm/themes/R1999_1 /etc/sddm.conf.d
-sudo cp -r assets/themes/sddm/R1999_1/* /usr/share/sddm/themes/R1999_1/
+sudo mkdir -p /usr/share/sddm/themes/hyprland-sddm /etc/sddm.conf.d
+sudo cp -r assets/themes/sddm/hyprland-sddm/* /usr/share/sddm/themes/hyprland-sddm/
+sudo cp system/etc/sddm.conf.d/hyprland-sddm.conf /etc/sddm.conf.d/hyprland-sddm.conf
 sudo cp system/etc/sddm.conf.d/theme.conf /etc/sddm.conf.d/theme.conf
 
 # 9. Configure GTK & Cursor GSettings

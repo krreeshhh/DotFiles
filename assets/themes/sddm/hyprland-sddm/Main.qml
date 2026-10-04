@@ -35,7 +35,7 @@ Item {
     property string activeWallpaperSource: ""
 
     function resolveSource(src) {
-        if (!src || src.length === 0) return "backgrounds/default.jpg";
+        if (!src || src.length === 0) return "";
         var str = src.toString();
         if (str.indexOf("file://") === 0 || str.indexOf("/") === 0) {
             return str.indexOf("file://") === 0 ? str : ("file://" + str);
@@ -234,12 +234,7 @@ Item {
             }
             onStatusChanged: {
                 if (status === Image.Error) {
-                    if (source !== "backgrounds/default.jpg" && source !== "") {
-                        source = "backgrounds/default.jpg";
-                    } else if (source === "backgrounds/default.jpg") {
-                        // If even default fails, show color background
-                        displayColor = true;
-                    }
+                    displayColor = true;
                 }
             }
 
