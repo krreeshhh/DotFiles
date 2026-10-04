@@ -552,6 +552,12 @@ configure_sddm_theme() {
         sudo mkdir -p /etc/sddm.conf.d
         sudo cp "$DOTFILES_DIR/system/etc/sddm.conf.d/theme.conf" /etc/sddm.conf.d/theme.conf
     fi
+
+    if [ -f "$DOTFILES_DIR/system/etc/systemd/logind.conf.d/lid.conf" ]; then
+        log_substep "Configuring /etc/systemd/logind.conf.d/lid.conf..."
+        sudo mkdir -p /etc/systemd/logind.conf.d
+        sudo cp "$DOTFILES_DIR/system/etc/systemd/logind.conf.d/lid.conf" /etc/systemd/logind.conf.d/lid.conf
+    fi
 }
 
 # ------------------------------------------------------------------------------

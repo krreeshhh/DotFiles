@@ -61,6 +61,7 @@ Follow this exact dependency order when rebuilding the desktop environment from 
 ## 8. Deploy Assets & Display Manager Themes
 * Copy SDDM theme `assets/themes/sddm/hyprland-sddm` to `/usr/share/sddm/themes/hyprland-sddm/`.
 * Deploy `/etc/sddm.conf.d/theme.conf` and `/etc/sddm.conf.d/hyprland-sddm.conf` pointing to `hyprland-sddm`.
+* Deploy `/etc/systemd/logind.conf.d/lid.conf` to configure lid close DPMS power handling.
 * Populate `~/.wallpaper/` with wallpapers (see `assets/wallpapers/WALLPAPER_MANIFEST.txt`).
 
 ## 9. Initialize GSettings & Theme Generator

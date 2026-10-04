@@ -169,6 +169,8 @@ test('assets/wallpapers/ directory present with >20 wallpapers', os.path.isdir(f
 test('assets/fonts/ custom fonts present (The Last Shuriken & Torus)', os.path.isfile(f'{DOTFILES}/assets/fonts/qylock-sword/The Last Shuriken.ttf') and os.path.isfile(f'{DOTFILES}/assets/fonts/osu/Torus Regular.otf'))
 test('assets/share/applications/ custom desktop entries present', os.path.isfile(f'{DOTFILES}/assets/share/applications/webapp-whatsapp.desktop'))
 test('active SDDM theme (hyprland-sddm) present', os.path.isfile(f'{DOTFILES}/assets/themes/sddm/hyprland-sddm/Main.qml') or os.path.isfile('/home/Krish/hyprland-sddm/Main.qml') or os.path.isfile('/usr/share/sddm/themes/hyprland-sddm/Main.qml'))
+test('systemd logind lid.conf present in system/etc/systemd/logind.conf.d/', os.path.isfile(f'{DOTFILES}/system/etc/systemd/logind.conf.d/lid.conf'))
+test('sddm hyprland-sddm.conf present in system/etc/sddm.conf.d/', os.path.isfile(f'{DOTFILES}/system/etc/sddm.conf.d/hyprland-sddm.conf'))
 test('legacy SDDM themes (qylock-sword, R1999_1) NOT present in dotfiles', not os.path.exists(f'{DOTFILES}/assets/themes/sddm/qylock-sword') and not os.path.exists(f'{DOTFILES}/assets/themes/sddm/R1999_1'))
 test('active GRUB theme (silent) present', os.path.isfile(f'{DOTFILES}/assets/themes/grub/silent/theme.txt'))
 test('unused GRUB theme (qylock-sword) NOT present in dotfiles', not os.path.exists(f'{DOTFILES}/assets/themes/grub/qylock-sword'))

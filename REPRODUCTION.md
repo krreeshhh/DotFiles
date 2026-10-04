@@ -64,11 +64,12 @@ ln -sf ~/.local/bin/omarchy-agent ~/.local/bin/agent
 ln -sf ~/.config/quickshell/qs/Commons ~/.config/quickshell/Commons
 ln -sf ~/.config/quickshell/qs/Ui ~/.config/quickshell/Ui
 
-# 8. Deploy SDDM Theme
-sudo mkdir -p /usr/share/sddm/themes/hyprland-sddm /etc/sddm.conf.d
+# 8. Deploy SDDM Theme & System Power Management Configs
+sudo mkdir -p /usr/share/sddm/themes/hyprland-sddm /etc/sddm.conf.d /etc/systemd/logind.conf.d
 sudo cp -r assets/themes/sddm/hyprland-sddm/* /usr/share/sddm/themes/hyprland-sddm/
 sudo cp system/etc/sddm.conf.d/hyprland-sddm.conf /etc/sddm.conf.d/hyprland-sddm.conf
 sudo cp system/etc/sddm.conf.d/theme.conf /etc/sddm.conf.d/theme.conf
+sudo cp system/etc/systemd/logind.conf.d/lid.conf /etc/systemd/logind.conf.d/lid.conf
 
 # 9. Configure GTK & Cursor GSettings
 gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'

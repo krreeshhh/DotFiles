@@ -22,6 +22,8 @@
 ~/.local/bin/ <= bin/
 ~/.local/lib/ <= lib/
 ~/.wallpaper/ <= (files listed in assets/wallpapers/WALLPAPER_MANIFEST.txt)
-/usr/share/sddm/themes/R1999_1/ <= assets/themes/sddm/R1999_1/
+/usr/share/sddm/themes/hyprland-sddm/ <= assets/themes/sddm/hyprland-sddm/
+/etc/sddm.conf.d/hyprland-sddm.conf <= system/etc/sddm.conf.d/hyprland-sddm.conf
 /etc/sddm.conf.d/theme.conf <= system/etc/sddm.conf.d/theme.conf
+/etc/systemd/logind.conf.d/lid.conf <= system/etc/systemd/logind.conf.d/lid.conf
 /etc/environment <= system/etc/environment

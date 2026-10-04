@@ -54,6 +54,8 @@ Every file exported in this repository is classified into one of the following c
 | `config/mimeapps.list` | PERSONAL / OPTIONAL | Default file format and URI associations |
 | `config/yazi/theme.toml` | GENERATED | Yazi terminal file manager theme |
 | `assets/wallpapers/WALLPAPER_MANIFEST.txt` | ASSET | List of 25 wallpaper filenames |
-| `assets/themes/sddm/R1999_1/*` | ASSET | SDDM Greeter theme files |
-| `system/etc/sddm.conf.d/theme.conf` | CORE | Directs SDDM to load R1999_1 |
+| `assets/themes/sddm/hyprland-sddm/*` | ASSET | SDDM Greeter dynamic wallpaper theme files |
+| `system/etc/sddm.conf.d/hyprland-sddm.conf` | CORE | Directs SDDM to load hyprland-sddm |
+| `system/etc/sddm.conf.d/theme.conf` | CORE | Directs SDDM to load hyprland-sddm |
+| `system/etc/systemd/logind.conf.d/lid.conf` | CORE | Configures systemd-logind to ignore lid switch for Hyprland DPMS power management |
 | `system/etc/environment` | HARDWARE-SPECIFIC (NVIDIA) | `LIBVA_DRIVER_NAME=nvidia` |
