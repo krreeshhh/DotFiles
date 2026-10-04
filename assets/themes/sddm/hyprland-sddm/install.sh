@@ -69,8 +69,22 @@ apply_theme () {
     fi
 }
 
+setup_permissions () {
+    echo -e "${grey}Setting up SDDM wallpaper permissions and fallback...${reset}"
+    if id sddm &>/dev/null && [ -n "${HOME:-}" ]; then
+        sudo setfacl -m u:sddm:x "$HOME" 2>/dev/null || true
+        if [ -d "$HOME/.wallpaper" ]; then
+            sudo setfacl -R -m u:sddm:rX "$HOME/.wallpaper" 2>/dev/null || true
+            sudo setfacl -R -d -m u:sddm:rX "$HOME/.wallpaper" 2>/dev/null || true
+        fi
+    fi
+    sudo touch "${THEMES_DIR}/hyprland-sddm/background.png" 2>/dev/null || true
+    sudo chmod 666 "${THEMES_DIR}/hyprland-sddm/background.png" 2>/dev/null || true
+}
+
 install_dependencies ;
 copy_files &&
 copy_fonts ;
 apply_theme &&
+setup_permissions &&
 echo -e "\n${green} Theme successfully installed!${reset}"

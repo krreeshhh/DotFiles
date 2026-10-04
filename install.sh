@@ -504,6 +504,18 @@ configure_sddm_theme() {
         log_warn "Hyprland SDDM theme source directory not found. Skipping theme deployment."
     fi
 
+    # Ensure SDDM user has access to wallpapers and fallback
+    if id sddm &>/dev/null && [ -n "${HOME:-}" ]; then
+        log_substep "Configuring SDDM user permissions and wallpaper access..."
+        sudo setfacl -m u:sddm:x "$HOME" 2>/dev/null || true
+        if [ -d "$HOME/.wallpaper" ]; then
+            sudo setfacl -R -m u:sddm:rX "$HOME/.wallpaper" 2>/dev/null || true
+            sudo setfacl -R -d -m u:sddm:rX "$HOME/.wallpaper" 2>/dev/null || true
+        fi
+    fi
+    sudo touch /usr/share/sddm/themes/hyprland-sddm/background.png 2>/dev/null || true
+    sudo chmod 666 /usr/share/sddm/themes/hyprland-sddm/background.png 2>/dev/null || true
+
     # Deploy GRUB theme & local bootloader isolation (active: silent)
     if [ -d "$DOTFILES_DIR/assets/themes/grub/silent" ]; then
         log_substep "Installing silent theme to /boot/grub/themes/silent..."
