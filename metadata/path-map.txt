@@ -25,5 +25,7 @@
 /usr/share/sddm/themes/hyprland-sddm/ <= assets/themes/sddm/hyprland-sddm/
 /etc/sddm.conf.d/hyprland-sddm.conf <= system/etc/sddm.conf.d/hyprland-sddm.conf
 /etc/sddm.conf.d/theme.conf <= system/etc/sddm.conf.d/theme.conf
+/etc/modprobe.d/nvidia.conf <= system/etc/modprobe.d/nvidia.conf
 /etc/systemd/logind.conf.d/lid.conf <= system/etc/systemd/logind.conf.d/lid.conf
+/usr/lib/systemd/system-sleep/hyprland-suspend <= system/usr/lib/systemd/system-sleep/hyprland-suspend
 /etc/environment <= system/etc/environment

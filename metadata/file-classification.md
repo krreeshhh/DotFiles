@@ -57,5 +57,7 @@ Every file exported in this repository is classified into one of the following c
 | `assets/themes/sddm/hyprland-sddm/*` | ASSET | SDDM Greeter dynamic wallpaper theme files |
 | `system/etc/sddm.conf.d/hyprland-sddm.conf` | CORE | Directs SDDM to load hyprland-sddm |
 | `system/etc/sddm.conf.d/theme.conf` | CORE | Directs SDDM to load hyprland-sddm |
-| `system/etc/systemd/logind.conf.d/lid.conf` | CORE | Configures systemd-logind to ignore lid switch for Hyprland DPMS power management |
+| `system/etc/modprobe.d/nvidia.conf` | CORE / HARDWARE | Configures NVIDIA driver S0ix power management and VRAM allocation preservation |
+| `system/etc/systemd/logind.conf.d/lid.conf` | CORE | Configures systemd-logind to trigger suspend on laptop lid switch |
+| `system/usr/lib/systemd/system-sleep/hyprland-suspend` | CORE | Freezes and resumes Hyprland rendering around GPU sleep transitions |
 | `system/etc/environment` | HARDWARE-SPECIFIC (NVIDIA) | `LIBVA_DRIVER_NAME=nvidia` |

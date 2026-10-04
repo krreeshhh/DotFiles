@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+# Hyprland session freeze / resume helper for clean GPU power transitions
+
+case "$1" in
+    pre)
+        # Pause Hyprland render loop before GPU enters low power state
+        killall -STOP Hyprland 2>/dev/null || true
+        ;;
+    post)
+        # Resume Hyprland render loop after GPU restores VRAM allocations
+        killall -CONT Hyprland 2>/dev/null || true
+        ;;
+esac

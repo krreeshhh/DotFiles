@@ -205,25 +205,51 @@ configure_nvidia_if_present() {
         log_substep "Installing NVIDIA Open DKMS driver & VA-API utilities..."
         sudo pacman -S --needed --noconfirm nvidia-open-dkms nvidia-utils libva-nvidia-driver dkms
 
-        # 1. Kernel parameter in GRUB
+        # 1. Kernel parameter in GRUB for S0ix Modern Standby and VRAM preservation
         if [ -f /etc/default/grub ]; then
-            if ! grep -q "nvidia.NVreg_PreserveVideoMemoryAllocations=1" /etc/default/grub; then
-                log_substep "Configuring NVIDIA VRAM preservation parameter in /etc/default/grub..."
-                sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 nvidia.NVreg_PreserveVideoMemoryAllocations=1"/' /etc/default/grub
+            if ! grep -q "NVreg_EnableS0ixPowerManagement=1" /etc/default/grub; then
+                log_substep "Configuring NVIDIA S0ix power management parameters in /etc/default/grub..."
+                sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 nvidia.NVreg_EnableS0ixPowerManagement=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1 nvidia.NVreg_TemporaryFilePath=\/var\/tmp nvidia_drm.modeset=1 nvidia_drm.fbdev=1"/' /etc/default/grub
                 if command -v grub-mkconfig >/dev/null 2>&1; then
                     log_substep "Regenerating GRUB configuration..."
                     sudo grub-mkconfig -o /boot/grub/grub.cfg || true
                 fi
             else
-                log_info "GRUB already configured with NVIDIA VRAM preservation."
+                log_info "GRUB already configured with NVIDIA S0ix and VRAM preservation."
             fi
         fi
 
-        # 2. System services for suspend/resume
+        # 2. Deploy modprobe options and sleep hooks
+        if [ -f "$DOTFILES_DIR/system/etc/modprobe.d/nvidia.conf" ]; then
+            log_substep "Configuring /etc/modprobe.d/nvidia.conf..."
+            sudo mkdir -p /etc/modprobe.d
+            sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/nvidia.conf" /etc/modprobe.d/nvidia.conf
+        fi
+
+        if [ -f "$DOTFILES_DIR/system/usr/lib/systemd/system-sleep/hyprland-suspend" ]; then
+            log_substep "Configuring /usr/lib/systemd/system-sleep/hyprland-suspend..."
+            sudo mkdir -p /usr/lib/systemd/system-sleep
+            sudo cp "$DOTFILES_DIR/system/usr/lib/systemd/system-sleep/hyprland-suspend" /usr/lib/systemd/system-sleep/hyprland-suspend
+            sudo chmod +x /usr/lib/systemd/system-sleep/hyprland-suspend
+        fi
+
+        # 3. Early KMS in mkinitcpio
+        if [ -f /etc/mkinitcpio.conf ]; then
+            if ! grep -q "nvidia nvidia_modeset" /etc/mkinitcpio.conf; then
+                log_substep "Adding NVIDIA early KMS modules to /etc/mkinitcpio.conf..."
+                sudo sed -i 's/^MODULES=(\(.*\))/MODULES=(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
+                if command -v mkinitcpio >/dev/null 2>&1; then
+                    log_substep "Regenerating initramfs with early NVIDIA KMS..."
+                    sudo mkinitcpio -P || true
+                fi
+            fi
+        fi
+
+        # 4. System services for suspend/resume
         log_substep "Enabling NVIDIA power management services (sleep/hibernate/wake)..."
         sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service 2>/dev/null || true
 
-        # 3. /etc/environment
+        # 5. /etc/environment
         if [ -f "$DOTFILES_DIR/system/etc/environment" ]; then
             log_substep "Configuring VA-API hardware acceleration environment in /etc/environment..."
             if ! grep -q "LIBVA_DRIVER_NAME=nvidia" /etc/environment 2>/dev/null; then

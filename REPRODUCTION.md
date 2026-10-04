@@ -65,11 +65,14 @@ ln -sf ~/.config/quickshell/qs/Commons ~/.config/quickshell/Commons
 ln -sf ~/.config/quickshell/qs/Ui ~/.config/quickshell/Ui
 
 # 8. Deploy SDDM Theme & System Power Management Configs
-sudo mkdir -p /usr/share/sddm/themes/hyprland-sddm /etc/sddm.conf.d /etc/systemd/logind.conf.d
+sudo mkdir -p /usr/share/sddm/themes/hyprland-sddm /etc/sddm.conf.d /etc/systemd/logind.conf.d /etc/modprobe.d /usr/lib/systemd/system-sleep
 sudo cp -r assets/themes/sddm/hyprland-sddm/* /usr/share/sddm/themes/hyprland-sddm/
 sudo cp system/etc/sddm.conf.d/hyprland-sddm.conf /etc/sddm.conf.d/hyprland-sddm.conf
 sudo cp system/etc/sddm.conf.d/theme.conf /etc/sddm.conf.d/theme.conf
 sudo cp system/etc/systemd/logind.conf.d/lid.conf /etc/systemd/logind.conf.d/lid.conf
+sudo cp system/etc/modprobe.d/nvidia.conf /etc/modprobe.d/nvidia.conf
+sudo cp system/usr/lib/systemd/system-sleep/hyprland-suspend /usr/lib/systemd/system-sleep/hyprland-suspend
+sudo chmod +x /usr/lib/systemd/system-sleep/hyprland-suspend
 
 # 9. Configure GTK & Cursor GSettings
 gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'

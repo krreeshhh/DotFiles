@@ -346,7 +346,9 @@ Total tracked dotfiles items: **395**
 | `scripts/verify.sh` | `DOTFILES/scripts/verify.sh` | Script | Yes |
 | `scripts/webapp-manager.sh` | `DOTFILES/scripts/webapp-manager.sh` | Script | Yes |
 | `system/etc/environment` | `DOTFILES/system/etc/environment` | Data / Source | Yes |
+| `system/etc/modprobe.d/nvidia.conf` | `DOTFILES/system/etc/modprobe.d/nvidia.conf` | Config | Yes |
 | `system/etc/sddm.conf.d/hyprland-sddm.conf` | `DOTFILES/system/etc/sddm.conf.d/hyprland-sddm.conf` | Config | Yes |
 | `system/etc/sddm.conf.d/theme.conf` | `DOTFILES/system/etc/sddm.conf.d/theme.conf` | Config | Yes |
 | `system/etc/systemd/logind.conf.d/lid.conf` | `DOTFILES/system/etc/systemd/logind.conf.d/lid.conf` | Config | Yes |
 | `system/system-services.txt` | `DOTFILES/system/system-services.txt` | Documentation / Manifest | Yes |
+| `system/usr/lib/systemd/system-sleep/hyprland-suspend` | `DOTFILES/system/usr/lib/systemd/system-sleep/hyprland-suspend` | Script | Yes |

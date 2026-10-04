@@ -170,6 +170,8 @@ test('assets/fonts/ custom fonts present (The Last Shuriken & Torus)', os.path.i
 test('assets/share/applications/ custom desktop entries present', os.path.isfile(f'{DOTFILES}/assets/share/applications/webapp-whatsapp.desktop'))
 test('active SDDM theme (hyprland-sddm) present', os.path.isfile(f'{DOTFILES}/assets/themes/sddm/hyprland-sddm/Main.qml') or os.path.isfile('/home/Krish/hyprland-sddm/Main.qml') or os.path.isfile('/usr/share/sddm/themes/hyprland-sddm/Main.qml'))
 test('systemd logind lid.conf present in system/etc/systemd/logind.conf.d/', os.path.isfile(f'{DOTFILES}/system/etc/systemd/logind.conf.d/lid.conf'))
+test('nvidia power management config present in system/etc/modprobe.d/', os.path.isfile(f'{DOTFILES}/system/etc/modprobe.d/nvidia.conf'))
+test('hyprland-suspend sleep hook present and executable in system/usr/lib/', os.path.isfile(f'{DOTFILES}/system/usr/lib/systemd/system-sleep/hyprland-suspend') and os.access(f'{DOTFILES}/system/usr/lib/systemd/system-sleep/hyprland-suspend', os.X_OK))
 test('sddm hyprland-sddm.conf present in system/etc/sddm.conf.d/', os.path.isfile(f'{DOTFILES}/system/etc/sddm.conf.d/hyprland-sddm.conf'))
 test('legacy SDDM themes (qylock-sword, R1999_1) NOT present in dotfiles', not os.path.exists(f'{DOTFILES}/assets/themes/sddm/qylock-sword') and not os.path.exists(f'{DOTFILES}/assets/themes/sddm/R1999_1'))
 test('active GRUB theme (silent) present', os.path.isfile(f'{DOTFILES}/assets/themes/grub/silent/theme.txt'))
