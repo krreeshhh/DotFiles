@@ -73,6 +73,7 @@ python-pillow
 python-gobject
 python-cairo
 gtk-layer-shell
+gtk4
 cairo
 
 # Quickshell Qt6 Modules & GTK Support

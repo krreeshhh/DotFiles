@@ -87,4 +87,9 @@ fi
 
 # 8. Nautilus, GTK4 & file chooser portals automatically reload styling dynamically via GSettings & CSS inotify
 
+# 9. Update ASUS TUF Keyboard Backlight to Material You
+if [ -x "$HOME/.local/bin/asus-tuf-aura" ]; then
+    "$HOME/.local/bin/asus-tuf-aura" --restore >/dev/null 2>&1 || true
+fi
+
 exit 0

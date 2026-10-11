@@ -195,10 +195,97 @@ install_aur_packages_from_file() {
 }
 
 # ------------------------------------------------------------------------------
+# System Swap Space Configuration (8GB)
+# ------------------------------------------------------------------------------
+configure_swap() {
+    log_step "1/9" "Configuring System Swap Space (8GB)"
+
+    local target_swap_gb=8
+    local target_swap_bytes=$(( target_swap_gb * 1024 * 1024 * 1024 ))
+    local current_swap_bytes=0
+
+    if command -v free >/dev/null 2>&1; then
+        current_swap_bytes=$(free -b 2>/dev/null | awk '/^Swap:/ {print $2}')
+    fi
+
+    # Check if swap space is already active and sufficient (>= 8GB) unless forced
+    if [ "${FORCE_SWAP:-false}" = "false" ] && [ -n "$current_swap_bytes" ] && [ "$current_swap_bytes" -ge "$target_swap_bytes" ]; then
+        local readable_swap
+        readable_swap=$(numfmt --to=iec-i --suffix=B "$current_swap_bytes" 2>/dev/null || echo "${target_swap_gb}GB")
+        log_info "Swap space already active: ${readable_swap} (>= ${target_swap_gb}GB). Preserving existing swap configuration."
+
+        # Ensure active /swapfile is recorded in /etc/fstab
+        if swapon --show=NAME --noheadings 2>/dev/null | grep -q "^/swapfile"; then
+            if ! grep -q "^/swapfile" /etc/fstab 2>/dev/null; then
+                log_substep "Adding active /swapfile to /etc/fstab for boot persistence..."
+                echo "/swapfile none swap defaults 0 0" | sudo tee -a /etc/fstab >/dev/null
+            fi
+        fi
+        return 0
+    fi
+
+    # Check available root filesystem disk space (need ~8.5GB free: 8912896 KB)
+    local avail_kb
+    avail_kb=$(df -k / 2>/dev/null | awk 'NR==2 {print $4}' || echo "99999999")
+    if [ "$avail_kb" -lt 8912896 ]; then
+        log_warn "Insufficient free disk space on / to allocate an 8GB swapfile (available: $(( avail_kb / 1024 ))MB). Skipping swap setup."
+        return 0
+    fi
+
+    log_substep "Configuring ${target_swap_gb}GB swapfile at /swapfile..."
+
+    # Deactivate existing /swapfile if currently active
+    if swapon --show=NAME --noheadings 2>/dev/null | grep -q "^/swapfile"; then
+        log_substep "Temporarily deactivating existing /swapfile..."
+        sudo swapoff /swapfile 2>/dev/null || true
+    fi
+
+    # Detect filesystem type of root partition
+    local fstype
+    fstype=$(findmnt -no FSTYPE / 2>/dev/null || echo "ext4")
+
+    if [ "$fstype" = "btrfs" ]; then
+        log_substep "Detected Btrfs root filesystem. Creating Btrfs-compatible swapfile..."
+        sudo rm -f /swapfile
+        if command -v btrfs >/dev/null 2>&1 && btrfs filesystem mkswapfile --help >/dev/null 2>&1; then
+            sudo btrfs filesystem mkswapfile --size 8g /swapfile
+        else
+            sudo truncate -s 0 /swapfile
+            sudo chattr +C /swapfile 2>/dev/null || true
+            sudo btrfs property set /swapfile compression none 2>/dev/null || true
+            sudo dd if=/dev/zero of=/swapfile bs=1M count=8192 status=progress
+            sudo chmod 600 /swapfile
+            sudo mkswap /swapfile
+        fi
+    else
+        log_substep "Allocating 8GB swapfile on ${fstype}..."
+        sudo rm -f /swapfile
+        if ! sudo fallocate -l 8G /swapfile 2>/dev/null; then
+            log_substep "fallocate unsupported or failed, creating swapfile with dd..."
+            sudo dd if=/dev/zero of=/swapfile bs=1M count=8192 status=progress
+        fi
+        sudo chmod 600 /swapfile
+        sudo mkswap /swapfile
+    fi
+
+    # Activate swapfile
+    log_substep "Activating 8GB swapfile..."
+    sudo swapon /swapfile
+
+    # Ensure /swapfile is recorded in /etc/fstab
+    if ! grep -q "^/swapfile" /etc/fstab 2>/dev/null; then
+        log_substep "Registering /swapfile in /etc/fstab..."
+        echo "/swapfile none swap defaults 0 0" | sudo tee -a /etc/fstab >/dev/null
+    fi
+
+    log_success "8GB swapfile successfully created, activated, and registered in /etc/fstab."
+}
+
+# ------------------------------------------------------------------------------
 # NVIDIA Hardware Configuration
 # ------------------------------------------------------------------------------
 configure_nvidia_if_present() {
-    log_step "1/8" "Checking Graphics Hardware & Drivers"
+    log_step "2/9" "Checking Graphics Hardware & Drivers"
 
     if lspci -k | grep -E -i "vga|3d|display" | grep -iq "nvidia"; then
         log_info "NVIDIA GPU hardware detected!"
@@ -266,7 +353,7 @@ configure_nvidia_if_present() {
 # Core Package Installation
 # ------------------------------------------------------------------------------
 install_all_packages() {
-    log_step "2/8" "Installing Base Hyprland Stack & Core System Packages"
+    log_step "3/9" "Installing Base Hyprland Stack & Core System Packages"
     if [ -f "$DOTFILES_DIR/scripts/hyprland.sh" ]; then
         log_substep "Running dedicated Hyprland setup script (scripts/hyprland.sh)..."
         bash "$DOTFILES_DIR/scripts/hyprland.sh" --non-interactive
@@ -276,12 +363,12 @@ install_all_packages() {
     install_pacman_packages_from_file "$DOTFILES_DIR/packages/pacman-runtime.txt" "Pacman Runtime Packages"
     install_pacman_packages_from_file "$DOTFILES_DIR/packages/fonts.txt" "Font Packages"
 
-    log_step "3/8" "Installing AUR Desktop, Theming & Launcher Packages"
+    log_step "4/9" "Installing AUR Desktop, Theming & Launcher Packages"
     detect_or_install_aur_helper
     install_aur_packages_from_file "$DOTFILES_DIR/packages/aur-runtime.txt" "AUR Runtime Packages"
 
     if [ "$INSTALL_APPS" = "true" ]; then
-        log_step "3b" "Installing Optional Desktop Applications & AI Agents"
+        log_step "4b" "Installing Optional Desktop Applications & AI Agents"
         install_pacman_packages_from_file "$DOTFILES_DIR/packages/pacman-optional.txt" "Pacman Optional Apps"
         install_aur_packages_from_file "$DOTFILES_DIR/packages/aur-optional.txt" "AUR Optional Apps & Tools"
     fi
@@ -291,7 +378,7 @@ install_all_packages() {
 # System Services Configuration
 # ------------------------------------------------------------------------------
 configure_system_services() {
-    log_step "4/8" "Enabling Required System & User Services"
+    log_step "5/9" "Enabling Required System & User Services"
 
     # System services
     local sys_services=("sddm.service" "NetworkManager.service" "bluetooth.service" "ntpd.service" "udisks2.service" "usbmuxd.service")
@@ -301,7 +388,7 @@ configure_system_services() {
     done
 
     # User services
-    local user_services=("pipewire.service" "pipewire-pulse.service" "wireplumber.service" "hypr-pip-helper.service" "quickshell.service" "hypridle.service" "battery-alert.service")
+    local user_services=("pipewire.service" "pipewire-pulse.service" "wireplumber.service" "hypr-pip-helper.service" "quickshell.service" "hypridle.service" "battery-alert.service" "asus-tuf-aura-restore.service")
     for srv in "${user_services[@]}"; do
         log_substep "Enabling user service: ${srv}"
         systemctl --user enable "$srv" 2>/dev/null || true
@@ -312,7 +399,7 @@ configure_system_services() {
 # Deploy Configurations, Binaries & Assets
 # ------------------------------------------------------------------------------
 deploy_dotfiles() {
-    log_step "5/8" "Deploying Configuration Files, Standalone Binaries & Assets"
+    log_step "6/9" "Deploying Configuration Files, Standalone Binaries & Assets"
 
     # 1. Create Target Directory Tree
     log_substep "Creating user directories..."
@@ -383,6 +470,7 @@ deploy_dotfiles() {
     ln -sf "$HOME/.local/bin/awww" "$HOME/.local/bin/swww" 2>/dev/null || true
     ln -sf "$HOME/.local/bin/awww-daemon" "$HOME/.local/bin/swww-daemon" 2>/dev/null || true
     ln -sf "$HOME/.local/bin/omarchy-agent" "$HOME/.local/bin/agent" 2>/dev/null || true
+    ln -sf "$HOME/.local/bin/asus-tuf-aura" "$HOME/.local/bin/armoury-crate" 2>/dev/null || true
 
     # Deploy local libraries
     if [ -d "$DOTFILES_DIR/lib" ]; then
@@ -406,6 +494,11 @@ deploy_dotfiles() {
         mkdir -p "$HOME/.local/share/applications"
         cp -r "$DOTFILES_DIR/assets/share/applications/"* "$HOME/.local/share/applications/" 2>/dev/null || true
         command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
+    fi
+    if [ -d "$DOTFILES_DIR/assets/share/asus-tuf-aura" ]; then
+        log_substep "Deploying ASUS TUF Gaming Armoury Crate lighting controller..."
+        mkdir -p "$HOME/.local/share/asus-tuf-aura"
+        cp -r "$DOTFILES_DIR/assets/share/asus-tuf-aura/"* "$HOME/.local/share/asus-tuf-aura/" 2>/dev/null || true
     fi
 
     log_substep "Deploying Universal Picture-in-Picture browser extension..."
@@ -483,7 +576,7 @@ deploy_dotfiles() {
 # SDDM Greeter & GRUB Themes Setup
 # ------------------------------------------------------------------------------
 configure_sddm_theme() {
-    log_step "6/8" "Deploying SDDM Login Manager & GRUB Themes"
+    log_step "7/9" "Deploying SDDM Login Manager & GRUB Themes"
 
     # Deploy SDDM theme (active: hyprland-sddm)
     local sddm_source_dir=""
@@ -596,13 +689,21 @@ configure_sddm_theme() {
         sudo mkdir -p /etc/systemd/logind.conf.d
         sudo cp "$DOTFILES_DIR/system/etc/systemd/logind.conf.d/lid.conf" /etc/systemd/logind.conf.d/lid.conf
     fi
+
+    if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-asus-kbd-backlight.rules" ]; then
+        log_substep "Configuring /etc/udev/rules.d/99-asus-kbd-backlight.rules (ASUS Keyboard Backlight Permissions)..."
+        sudo mkdir -p /etc/udev/rules.d
+        sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-asus-kbd-backlight.rules" /etc/udev/rules.d/99-asus-kbd-backlight.rules
+        sudo udevadm control --reload-rules 2>/dev/null || true
+        sudo udevadm trigger --subsystem-match=leds 2>/dev/null || true
+    fi
 }
 
 # ------------------------------------------------------------------------------
 # GSettings, Wallpaper & Live Theme Initialization
 # ------------------------------------------------------------------------------
 initialize_theming() {
-    log_step "7/8" "Configuring GNOME/GTK Interface Settings"
+    log_step "8/9" "Configuring GNOME/GTK Interface Settings"
 
     if command -v gsettings >/dev/null 2>&1; then
         log_substep "Applying Bibata-Modern-Ice cursor, WhiteSur-dark icons, and Adwaita theme..."
@@ -614,7 +715,7 @@ initialize_theming() {
         gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
     fi
 
-    log_step "8/8" "Initializing Dynamic Material You Palette & Wallpaper"
+    log_step "9/9" "Initializing Dynamic Material You Palette & Wallpaper"
 
     local wp_target=""
     # Check if user already has wallpapers
@@ -673,6 +774,7 @@ show_menu() {
     echo -e "  ${CYAN}2)${NC} ${BOLD}Full Desktop + User Applications${NC} (Core + Browsers, Discord, Telegram, Dev tools)"
     echo -e "  ${CYAN}3)${NC} ${BOLD}Deploy Configuration Files Only${NC} (Skip package installation)"
     echo -e "  ${CYAN}4)${NC} ${BOLD}Basic Hyprland Setup Only${NC} (Run scripts/hyprland.sh)"
+    echo -e "  ${CYAN}5)${NC} ${BOLD}Configure 8GB Swap Space Only${NC} (Create and activate /swapfile)"
     echo -e "  ${CYAN}q)${NC} Quit"
     echo
 }
@@ -680,6 +782,7 @@ show_menu() {
 run_install() {
     check_arch_linux
     ensure_sudo
+    configure_swap
     configure_nvidia_if_present
     install_all_packages
     configure_system_services
@@ -717,9 +820,16 @@ case "${1:-}" in
         show_banner
         check_arch_linux
         ensure_sudo
+        configure_swap
         if [ -f "$DOTFILES_DIR/scripts/hyprland.sh" ]; then
             bash "$DOTFILES_DIR/scripts/hyprland.sh"
         fi
+        ;;
+    --swap|-s)
+        show_banner
+        check_arch_linux
+        ensure_sudo
+        FORCE_SWAP="true" configure_swap
         ;;
     --config-only)
         show_banner
@@ -735,6 +845,7 @@ case "${1:-}" in
         echo "  -c, --core           Install core Hyprland desktop & shell (Standard)"
         echo "  -a, --all            Install core desktop + all optional applications"
         echo "  -b, --base           Install foundational Hyprland stack only (scripts/hyprland.sh)"
+        echo "  -s, --swap           Configure 8GB system swap space (/swapfile)"
         echo "      --config-only    Deploy config files only (skip package manager)"
         echo "  -h, --help           Show this help message"
         echo
@@ -745,9 +856,9 @@ case "${1:-}" in
         show_menu
         choice=""
         if [ -e /dev/tty ]; then
-            read -rp "Enter selection [1-4 / q]: " choice </dev/tty || choice=""
+            read -rp "Enter selection [1-5 / q]: " choice </dev/tty || choice=""
         else
-            read -rp "Enter selection [1-4 / q]: " choice || choice=""
+            read -rp "Enter selection [1-5 / q]: " choice || choice=""
         fi
         case "$choice" in
             1)
@@ -767,9 +878,15 @@ case "${1:-}" in
             4)
                 check_arch_linux
                 ensure_sudo
+                configure_swap
                 if [ -f "$DOTFILES_DIR/scripts/hyprland.sh" ]; then
                     bash "$DOTFILES_DIR/scripts/hyprland.sh"
                 fi
+                ;;
+            5)
+                check_arch_linux
+                ensure_sudo
+                FORCE_SWAP="true" configure_swap
                 ;;
             q|Q)
                 log_info "Installation aborted."

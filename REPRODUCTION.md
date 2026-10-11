@@ -14,6 +14,7 @@ This guide describes the complete, exact blueprint required to recreate this cus
 7. **Clipboard & Terminals:** Clipse daemon with pinned floating window rules, Ghostty GPU terminal (glass opacity 0.20), and Yazi terminal file manager.
 8. **Audio / Display Controls:** `brightness.sh` and `volume.sh` hardware handlers integrated with Quickshell native OSD.
 9. **Look & Theming:** WhiteSur-dark icons, Bibata-Modern-Ice cursor (24px), Adwaita theme with dynamic text contrast CSS, and SDDM theme `R1999_1`.
+10. **ASUS TUF Keyboard Lighting:** Armoury Crate GUI (`asus-tuf-aura` / `armoury-crate`), rootless sysfs udev rule, systemd user restore service, and dynamic Material You wallpaper sync hook.
 
 ---
 
@@ -25,7 +26,14 @@ sudo pacman -Syu --needed \
   base base-devel linux-lts linux-lts-headers linux-firmware amd-ucode dkms git efibootmgr grub \
   nvidia-open-dkms nvidia-utils libva-nvidia-driver
 
-# 2. Configure NVIDIA kernel parameters and environment
+# 2. Configure 8GB system swap space
+sudo fallocate -l 8G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=8192 status=progress
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+grep -q "^/swapfile" /etc/fstab || echo "/swapfile none swap defaults 0 0" | sudo tee -a /etc/fstab
+
+# 3. Configure NVIDIA kernel parameters and environment
 sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 nvidia.NVreg_PreserveVideoMemoryAllocations=1"/' /etc/default/grub
 echo -e 'GRUB_DISABLE_BOOTNEXT="true"\nGRUB_DISABLE_OS_PROBER="true"\nGRUB_DISABLE_SUBMENU="y"' | sudo tee -a /etc/default/grub
 [ -f /etc/grub.d/31_efi_bootnext ] && sudo chmod -x /etc/grub.d/31_efi_bootnext
@@ -33,25 +41,26 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service
 echo -e "LIBVA_DRIVER_NAME=nvidia\nMOZ_DISABLE_RDD_SANDBOX=1" | sudo tee -a /etc/environment
 
-# 3. Install core packages from package manifests
+# 4. Install core packages from package manifests
 sudo pacman -S --needed - < packages/pacman-runtime.txt
 sudo pacman -S --needed - < packages/fonts.txt
 
-# 4. Install yay AUR helper
+# 5. Install yay AUR helper
 git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin && cd /tmp/yay-bin && makepkg -si --noconfirm
 
-# 5. Install AUR runtime packages
+# 6. Install AUR runtime packages
 yay -S --needed --noconfirm - < packages/aur-runtime.txt
 
-# 6. Enable system and user services
+# 7. Enable system and user services
 sudo systemctl enable sddm.service NetworkManager.service bluetooth.service ntpd.service
-systemctl --user enable pipewire.service pipewire-pulse.service wireplumber.service hypr-pip-helper.service quickshell.service
+systemctl --user enable pipewire.service pipewire-pulse.service wireplumber.service hypr-pip-helper.service quickshell.service asus-tuf-aura-restore.service
 
-# 7. Deploy configurations & binaries
-mkdir -p ~/.config ~/.local/bin ~/.local/lib ~/.wallpaper ~/Pictures/Screenshots
+# 8. Deploy configurations & binaries
+mkdir -p ~/.config ~/.local/bin ~/.local/lib ~/.local/share/asus-tuf-aura ~/.wallpaper ~/Pictures/Screenshots
 cp -r config/* ~/.config/
 cp -r bin/* ~/.local/bin/
 cp -r lib/* ~/.local/lib/ 2>/dev/null || true
+cp -r assets/share/asus-tuf-aura/* ~/.local/share/asus-tuf-aura/ 2>/dev/null || true
 cp home/.bashrc ~/.bashrc
 cp home/.bash_profile ~/.bash_profile
 chmod +x ~/.local/bin/*
@@ -61,20 +70,23 @@ chmod +x ~/.config/hypr/scripts/* ~/.config/my-desktop/wallpaper/* ~/.config/my-
 ln -sf ~/.local/bin/awww ~/.local/bin/swww
 ln -sf ~/.local/bin/awww-daemon ~/.local/bin/swww-daemon
 ln -sf ~/.local/bin/omarchy-agent ~/.local/bin/agent
+ln -sf ~/.local/bin/asus-tuf-aura ~/.local/bin/armoury-crate
 ln -sf ~/.config/quickshell/qs/Commons ~/.config/quickshell/Commons
 ln -sf ~/.config/quickshell/qs/Ui ~/.config/quickshell/Ui
 
-# 8. Deploy SDDM Theme & System Power Management Configs
-sudo mkdir -p /usr/share/sddm/themes/hyprland-sddm /etc/sddm.conf.d /etc/systemd/logind.conf.d /etc/modprobe.d /usr/lib/systemd/system-sleep
+# 9. Deploy SDDM Theme & System Power Management Configs
+sudo mkdir -p /usr/share/sddm/themes/hyprland-sddm /etc/sddm.conf.d /etc/systemd/logind.conf.d /etc/modprobe.d /usr/lib/systemd/system-sleep /etc/udev/rules.d
 sudo cp -r assets/themes/sddm/hyprland-sddm/* /usr/share/sddm/themes/hyprland-sddm/
 sudo cp system/etc/sddm.conf.d/hyprland-sddm.conf /etc/sddm.conf.d/hyprland-sddm.conf
 sudo cp system/etc/sddm.conf.d/theme.conf /etc/sddm.conf.d/theme.conf
 sudo cp system/etc/systemd/logind.conf.d/lid.conf /etc/systemd/logind.conf.d/lid.conf
 sudo cp system/etc/modprobe.d/nvidia.conf /etc/modprobe.d/nvidia.conf
 sudo cp system/usr/lib/systemd/system-sleep/hyprland-suspend /usr/lib/systemd/system-sleep/hyprland-suspend
+sudo cp system/etc/udev/rules.d/99-asus-kbd-backlight.rules /etc/udev/rules.d/99-asus-kbd-backlight.rules
+sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=leds
 sudo chmod +x /usr/lib/systemd/system-sleep/hyprland-suspend
 
-# 9. Configure GTK & Cursor GSettings
+# 10. Configure GTK & Cursor GSettings
 gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
 gsettings set org.gnome.desktop.interface icon-theme 'WhiteSur-dark'
 gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Modern-Ice'
@@ -82,6 +94,6 @@ gsettings set org.gnome.desktop.interface cursor-size 24
 gsettings set org.gnome.desktop.interface font-name 'Adwaita Sans 11'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
-# 10. Place a wallpaper into ~/.wallpaper/ and initialize the theme engine
+# 11. Place a wallpaper into ~/.wallpaper/ and initialize the theme engine
 bash ~/.config/my-desktop/wallpaper/apply-wallpaper.sh ~/.wallpaper/Reze.png
 ```

@@ -454,6 +454,15 @@ hl.window_rule({
     center = true,
 })
 
+-- ASUS TUF Gaming Armoury Crate Floating Window Rule
+hl.window_rule({
+    name   = "armoury-crate-floating",
+    match  = { class = "com.asus.tuf.armoury_crate" },
+    float  = true,
+    center = true,
+    size   = "940 680",
+})
+
 -- File Pickers & Dialogs Floating & Transparency Window Rules
 hl.window_rule({
     name    = "dialog-pickers-floating",

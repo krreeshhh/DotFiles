@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=Armoury Crate - TUF Lighting
+GenericName=Keyboard RGB Lighting
+Comment=Control ASUS TUF Gaming A15 Keyboard Backlight & Aura Sync
+Exec=/home/Krish/.local/bin/asus-tuf-aura
+Icon=asus-tuf-aura
+Terminal=false
+Type=Application
+Categories=Settings;HardwareSettings;Utility;
+StartupWMClass=com.asus.tuf.armoury_crate
+Keywords=asus;tuf;rgb;keyboard;backlight;lighting;aura;armoury;crate;
+Actions=Restore;
+
+[Desktop Action Restore]
+Name=Restore Saved Lighting
+Exec=/home/Krish/.local/bin/asus-tuf-aura --restore

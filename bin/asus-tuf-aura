@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# ASUS TUF Gaming Armoury Crate - Keyboard Lighting Controller Launcher
+APP_DIR="/home/Krish/.local/share/asus-tuf-aura"
+
+if [ "${1:-}" = "--restore" ]; then
+    # Silent restore of saved profile
+    exec python3 "$APP_DIR/backend.py" >/dev/null 2>&1
+fi
+
+exec python3 "$APP_DIR/app.py" "$@"

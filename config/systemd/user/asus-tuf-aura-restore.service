@@ -1,0 +1,11 @@
+[Unit]
+Description=Restore ASUS TUF Gaming Keyboard RGB Lighting
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/Krish/.local/bin/asus-tuf-aura --restore
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical-session.target default.target

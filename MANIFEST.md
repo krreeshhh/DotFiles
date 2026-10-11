@@ -1,6 +1,6 @@
 # Dotfiles Manifest
 
-Total tracked dotfiles items: **395**
+Total tracked dotfiles items: **403**
 
 | Export Path | Original Source / Role | Type | Required |
 | :--- | :--- | :--- | :--- |
@@ -25,6 +25,7 @@ Total tracked dotfiles items: **395**
 | `assets/hypr-pip/extension/popup.js` | `DOTFILES/assets/hypr-pip/extension/popup.js` | Data / Source | Yes |
 | `assets/share/applications/agy.desktop` | `DOTFILES/assets/share/applications/agy.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/android-studio.desktop` | `DOTFILES/assets/share/applications/android-studio.desktop` | Desktop Entry | Yes |
+| `assets/share/applications/asus-tuf-aura.desktop` | `DOTFILES/assets/share/applications/asus-tuf-aura.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/claude.desktop` | `DOTFILES/assets/share/applications/claude.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/cline.desktop` | `DOTFILES/assets/share/applications/cline.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/clipse.desktop` | `DOTFILES/assets/share/applications/clipse.desktop` | Desktop Entry | Yes |
@@ -40,6 +41,10 @@ Total tracked dotfiles items: **395**
 | `assets/share/applications/webapp-manager.desktop` | `DOTFILES/assets/share/applications/webapp-manager.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/webapp-netflix.desktop` | `DOTFILES/assets/share/applications/webapp-netflix.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/webapp-whatsapp.desktop` | `DOTFILES/assets/share/applications/webapp-whatsapp.desktop` | Desktop Entry | Yes |
+| `assets/share/asus-tuf-aura/app.py` | `DOTFILES/assets/share/asus-tuf-aura/app.py` | Script / UI | Yes |
+| `assets/share/asus-tuf-aura/backend.py` | `DOTFILES/assets/share/asus-tuf-aura/backend.py` | Script / Hardware | Yes |
+| `assets/share/icons/asus-tuf-aura.svg` | `DOTFILES/assets/share/icons/asus-tuf-aura.svg` | Asset / Media | Yes |
+| `assets/share/icons/hicolor/scalable/apps/asus-tuf-aura.svg` | `DOTFILES/assets/share/icons/hicolor/scalable/apps/asus-tuf-aura.svg` | Asset / Media | Yes |
 | `assets/share/icons/webapps/hotstar.png` | `DOTFILES/assets/share/icons/webapps/hotstar.png` | Asset / Media | Yes |
 | `assets/share/icons/webapps/netflix.png` | `DOTFILES/assets/share/icons/webapps/netflix.png` | Asset / Media | Yes |
 | `assets/share/icons/webapps/whatsapp.png` | `DOTFILES/assets/share/icons/webapps/whatsapp.png` | Asset / Media | Yes |
@@ -176,6 +181,7 @@ Total tracked dotfiles items: **395**
 | `assets/wallpapers/Wings Dark.png` | `DOTFILES/assets/wallpapers/Wings Dark.png` | Asset / Media | Yes |
 | `assets/wallpapers/wall1.png` | `DOTFILES/assets/wallpapers/wall1.png` | Asset / Media | Yes |
 | `assets/wallpapers/wall2.png` | `DOTFILES/assets/wallpapers/wall2.png` | Asset / Media | Yes |
+| `bin/asus-tuf-aura` | `DOTFILES/bin/asus-tuf-aura` | Script / Binary | Yes |
 | `bin/awww` | `DOTFILES/bin/awww` | Binary | Yes |
 | `bin/awww-daemon` | `DOTFILES/bin/awww-daemon` | Binary | Yes |
 | `bin/clipse` | `DOTFILES/bin/clipse` | Binary | Yes |
@@ -299,6 +305,7 @@ Total tracked dotfiles items: **395**
 | `config/quickshell/scripts/wifi.py` | `DOTFILES/config/quickshell/scripts/wifi.py` | Script | Yes |
 | `config/quickshell/shell.qml` | `DOTFILES/config/quickshell/shell.qml` | Config | Yes |
 | `config/quickshell/switch.sh` | `DOTFILES/config/quickshell/switch.sh` | Script | Yes |
+| `config/systemd/user/asus-tuf-aura-restore.service` | `DOTFILES/config/systemd/user/asus-tuf-aura-restore.service` | Systemd Unit | Yes |
 | `config/systemd/user/battery-alert.service` | `DOTFILES/config/systemd/user/battery-alert.service` | Systemd Unit | Yes |
 | `config/systemd/user/hypr-pip-helper.service` | `DOTFILES/config/systemd/user/hypr-pip-helper.service` | Systemd Unit | Yes |
 | `config/systemd/user/omarchy-crash-watch.service` | `DOTFILES/config/systemd/user/omarchy-crash-watch.service` | Systemd Unit | Yes |
@@ -350,5 +357,6 @@ Total tracked dotfiles items: **395**
 | `system/etc/sddm.conf.d/hyprland-sddm.conf` | `DOTFILES/system/etc/sddm.conf.d/hyprland-sddm.conf` | Config | Yes |
 | `system/etc/sddm.conf.d/theme.conf` | `DOTFILES/system/etc/sddm.conf.d/theme.conf` | Config | Yes |
 | `system/etc/systemd/logind.conf.d/lid.conf` | `DOTFILES/system/etc/systemd/logind.conf.d/lid.conf` | Config | Yes |
+| `system/etc/udev/rules.d/99-asus-kbd-backlight.rules` | `DOTFILES/system/etc/udev/rules.d/99-asus-kbd-backlight.rules` | Udev Rule | Yes |
 | `system/system-services.txt` | `DOTFILES/system/system-services.txt` | Documentation / Manifest | Yes |
 | `system/usr/lib/systemd/system-sleep/hyprland-suspend` | `DOTFILES/system/usr/lib/systemd/system-sleep/hyprland-suspend` | Script | Yes |
