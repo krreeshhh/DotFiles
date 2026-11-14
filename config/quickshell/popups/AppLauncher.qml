@@ -38,7 +38,7 @@ PanelWindow {
     // Process to fetch installed Web Apps dynamically
     Process {
         id: webappProc
-        command: ["python3", "-c", "import sys, json, os; sys.path.insert(0, '/home/Krish/.config/my-desktop/launcher'); import webapp_manager; print(json.dumps(webapp_manager.list_webapps()))"]
+        command: ["python3", "-c", "import sys, json, os; sys.path.insert(0, '/home/Krish/.config/DotFiles/launcher'); import webapp_manager; print(json.dumps(webapp_manager.list_webapps()))"]
         stdout: SplitParser {
             onRead: (line) => {
                 try {
@@ -107,30 +107,31 @@ PanelWindow {
         }
     }
 
+    // Material Symbols Rounded names used as icon fallbacks
     function getFallbackGlyph(item) {
-        if (!item) return "󰣆";
-        if (item.type === "folder" || item.isFolder) return "󰉋";
-        if (item.type === "webapp") return "󰖟";
-        if (item.type === "delete_webapp") return "󰩺";
-        if (item.action === "create") return "󰐕";
-        if (item.action === "back" || item.action === "back_to_webapps") return "󰁮";
+        if (!item) return "apps";
+        if (item.type === "folder" || item.isFolder) return "folder";
+        if (item.type === "webapp") return "language";
+        if (item.type === "delete_webapp") return "delete";
+        if (item.action === "create") return "add_circle";
+        if (item.action === "back" || item.action === "back_to_webapps") return "arrow_back";
 
         var n = (item.name || "").toLowerCase();
         var s = (item.subtitle || "").toLowerCase();
         var combined = n + " " + s;
 
-        if (combined.includes("terminal") || combined.includes("cli") || combined.includes("bash") || combined.includes("zsh") || combined.includes("ghostty") || combined.includes("kitty") || combined.includes("alacritty") || combined.includes("console")) return "󰆍";
-        if (combined.includes("android") || combined.includes("studio") || combined.includes("code") || combined.includes("dev") || combined.includes("ide") || combined.includes("nvim") || combined.includes("editor")) return "󰅩";
-        if (combined.includes("network") || combined.includes("wifi") || combined.includes("connection") || combined.includes("bluetooth") || combined.includes("vpn")) return "󰖩";
-        if (combined.includes("setting") || combined.includes("config") || combined.includes("preference") || combined.includes("control") || combined.includes("tuf") || combined.includes("armoury")) return "󰒓";
-        if (combined.includes("audio") || combined.includes("sound") || combined.includes("music") || combined.includes("volume")) return "󰝚";
-        if (combined.includes("video") || combined.includes("movie") || combined.includes("cine") || combined.includes("player")) return "󰐌";
-        if (combined.includes("browser") || combined.includes("web") || combined.includes("internet") || combined.includes("brave") || combined.includes("chrome") || combined.includes("firefox")) return "󰖟";
-        if (combined.includes("file") || combined.includes("folder") || combined.includes("archive") || combined.includes("roller") || combined.includes("rename") || combined.includes("nautilus") || combined.includes("yazi")) return "󰉋";
-        if (combined.includes("clip") || combined.includes("paste") || combined.includes("history")) return "󰅍";
-        if (combined.includes("image") || combined.includes("photo") || combined.includes("view") || combined.includes("gimp")) return "󰋩";
-        if (combined.includes("chat") || combined.includes("telegram") || combined.includes("fagram") || combined.includes("discord") || combined.includes("message")) return "󰭹";
-        return "󰣆";
+        if (combined.includes("terminal") || combined.includes("cli") || combined.includes("bash") || combined.includes("zsh") || combined.includes("ghostty") || combined.includes("kitty") || combined.includes("alacritty") || combined.includes("console")) return "terminal";
+        if (combined.includes("android") || combined.includes("studio") || combined.includes("code") || combined.includes("dev") || combined.includes("ide") || combined.includes("nvim") || combined.includes("editor")) return "code";
+        if (combined.includes("network") || combined.includes("wifi") || combined.includes("connection") || combined.includes("bluetooth") || combined.includes("vpn")) return "wifi";
+        if (combined.includes("setting") || combined.includes("config") || combined.includes("preference") || combined.includes("control") || combined.includes("tuf") || combined.includes("armoury")) return "settings";
+        if (combined.includes("audio") || combined.includes("sound") || combined.includes("music") || combined.includes("volume")) return "volume_up";
+        if (combined.includes("video") || combined.includes("movie") || combined.includes("cine") || combined.includes("player")) return "movie";
+        if (combined.includes("browser") || combined.includes("web") || combined.includes("internet") || combined.includes("brave") || combined.includes("chrome") || combined.includes("firefox")) return "language";
+        if (combined.includes("file") || combined.includes("folder") || combined.includes("archive") || combined.includes("roller") || combined.includes("rename") || combined.includes("nautilus") || combined.includes("yazi")) return "folder";
+        if (combined.includes("clip") || combined.includes("paste") || combined.includes("history")) return "content_paste";
+        if (combined.includes("image") || combined.includes("photo") || combined.includes("view") || combined.includes("gimp")) return "image";
+        if (combined.includes("chat") || combined.includes("telegram") || combined.includes("fagram") || combined.includes("discord") || combined.includes("message")) return "chat_bubble";
+        return "apps";
     }
 
     Timer {
@@ -458,7 +459,7 @@ PanelWindow {
                 root.selectedIndex = 0;
             } else if (item.action === "create") {
                 root.closeImmediate();
-                Quickshell.execDetached(["python3", "/home/Krish/.config/my-desktop/launcher/webapp_manager.py", "interactive"]);
+                Quickshell.execDetached(["python3", "/home/Krish/.config/DotFiles/launcher/webapp_manager.py", "interactive"]);
             } else if (item.action === "remove") {
                 root.currentView = "remove_webapps";
                 root.searchText = "";
@@ -473,7 +474,7 @@ PanelWindow {
             if (item.webapp) {
                 var delWaFile = item.webapp.file || "";
                 var delWaName = item.webapp.name || "Web App";
-                Quickshell.execDetached(["python3", "-c", "import sys, subprocess, os; sys.path.insert(0, '/home/Krish/.config/my-desktop/launcher'); import webapp_manager; webapp_manager.remove_webapp_file(sys.argv[1]) if sys.argv[1] else None; subprocess.run(['notify-send', 'Web App Removed', 'Removed web app ' + sys.argv[2], '-i', 'user-trash-symbolic'])", delWaFile, delWaName]);
+                Quickshell.execDetached(["python3", "-c", "import sys, subprocess, os; sys.path.insert(0, '/home/Krish/.config/DotFiles/launcher'); import webapp_manager; webapp_manager.remove_webapp_file(sys.argv[1]) if sys.argv[1] else None; subprocess.run(['notify-send', 'Web App Removed', 'Removed web app ' + sys.argv[2], '-i', 'user-trash-symbolic'])", delWaFile, delWaName]);
                 removeRefreshTimer.restart();
             }
             return;
@@ -528,7 +529,11 @@ PanelWindow {
         }
     }
 
-    // Full screen background dismisser
+    // Backdrop scrim + click-to-dismiss
+    Rectangle {
+        anchors.fill: parent
+        color: Qt.rgba(0, 0, 0, 0.20)
+    }
     MouseArea {
         anchors.fill: parent
         hoverEnabled: false
@@ -537,80 +542,105 @@ PanelWindow {
         onClicked: root.closeMenu()
     }
 
-    // Main Launcher Card
+    // Dotfiles Material Symbol (variable font)
+    component Sym: Text {
+        property int symbolSize: 22
+        property real fillAmount: 0
+        property color symbolColor: Theme.colOnLayer0
+        renderType: Text.NativeRendering
+        font {
+            family: "Material Symbols Rounded"
+            hintingPreference: Font.PreferNoHinting
+            weight: Font.Normal + (Font.DemiBold - Font.Normal) * fillAmount
+        }
+        font.pixelSize: symbolSize
+        font.variableAxes: ({ "FILL": fillAmount, "opsz": symbolSize })
+        color: symbolColor
+    }
+
+    // Main launcher card (tonal layers, rounded, soft border)
     Rectangle {
         id: card
-        width: 540
-        height: 520
+        width: 560
+        height: 536
         anchors.centerIn: parent
-        radius: 16
-        color: Theme.popupSurface
-        border.color: Theme.popupBorder
-        border.width: 1.5
+        radius: Theme.roundingLarge
+        color: Theme.colLayer0
+        border.color: Theme.colLayer1Border
+        border.width: 1
         clip: true
 
         opacity: root.shown ? 1.0 : 0.0
-        Behavior on opacity {
-            NumberAnimation {
-                duration: root.shown ? 160 : 120
-                easing.type: Easing.OutCubic
-            }
-        }
+        scale: root.shown ? 1.0 : 0.96
+        Behavior on opacity { NumberAnimation { duration: root.shown ? 180 : 120; easing.type: Easing.OutCubic } }
+        Behavior on scale { NumberAnimation { duration: root.shown ? 180 : 120; easing.type: Easing.OutCubic } }
 
-        // Catch clicks inside card so they don't dismiss
         MouseArea {
             anchors.fill: parent
             onClicked: {}
         }
 
-        // 1. Top Search Header
+        // 1. Pill search bar (ii style)
         Rectangle {
-            id: searchHeader
-            anchors.top: parent.top
-            anchors.left: parent.left
-            anchors.right: parent.right
+            id: searchBar
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+                margins: 12
+            }
             height: 56
-            color: "transparent"
+            radius: Theme.roundingFull
+            color: Theme.colLayer1
+            border.color: Theme.colLayer2Border
+            border.width: 1
 
             RowLayout {
                 anchors.fill: parent
-                anchors.leftMargin: 18
-                anchors.rightMargin: 18
+                anchors.leftMargin: 12
+                anchors.rightMargin: 9
                 spacing: 12
 
-                // Search Icon
-                Text {
-                    text: root.currentView.startsWith("remove") ? "󰩺" : (root.currentView === "webapps" ? "󰖟" : "󰍉")
-                    font.family: Theme.fontFamily
-                    font.pixelSize: 18
-                    color: root.currentView.startsWith("remove") ? Theme.colorError : (root.currentView === "webapps" ? Theme.secondary : Theme.primary)
-                    Layout.alignment: Qt.AlignVCenter
+                // Morphed symbol tile (changes shape with view)
+                Rectangle {
+                    Layout.preferredWidth: 36
+                    Layout.preferredHeight: 36
+                    radius: Theme.roundingFull
+                    color: root.currentView.startsWith("remove") ? Theme.colErrorContainer : root.currentView === "webapps" ? Theme.colSecondaryContainer : Theme.colLayer2
+                    Behavior on color { ColorAnimation { duration: 120 } }
+
+                    Sym {
+                        anchors.centerIn: parent
+                        text: root.currentView.startsWith("remove") ? "delete_forever" : root.currentView === "webapps" ? "language" : "search"
+                        symbolSize: 20
+                        fillAmount: 1
+                        symbolColor: root.currentView.startsWith("remove") ? Theme.colOnErrorContainer : root.currentView === "webapps" ? Theme.colOnSecondaryContainer : Theme.colSubtext
+                    }
                 }
 
-                // Search Input Field
+                // Search field
                 TextInput {
                     id: searchField
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignVCenter
                     font.family: Theme.fontFamily
-                    font.pixelSize: 14
-                    color: Theme.colOnSurface
+                    font.pixelSize: 15
+                    color: Theme.colOnLayer0
                     selectionColor: Theme.primary
                     selectedTextColor: Theme.colOnPrimary
                     clip: true
                     focus: true
 
-                    // Placeholder text
                     Text {
                         anchors.fill: parent
                         text: {
-                            if (root.currentView === "remove_webapps") return "Select web app to remove or press Left / Escape..";
+                            if (root.currentView === "remove_webapps") return "Select a web app to uninstall, or press Left / Escape..";
                             if (root.currentView === "webapps") return "Search Web Apps or press Left to go back..";
                             return "Search applications, web apps, tools..";
                         }
                         font.family: Theme.fontFamily
-                        font.pixelSize: 14
-                        color: Theme.colOnSurfaceVariant
+                        font.pixelSize: 15
+                        color: Theme.colSubtext
                         visible: !searchField.text && !searchField.inputMethodComposing
                         verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
@@ -642,15 +672,8 @@ PanelWindow {
                         event.accepted = true;
                     }
 
-                    Keys.onReturnPressed: (event) => {
-                        root.launchCurrentItem();
-                        event.accepted = true;
-                    }
-
-                    Keys.onEnterPressed: (event) => {
-                        root.launchCurrentItem();
-                        event.accepted = true;
-                    }
+                    Keys.onReturnPressed: (event) => { root.launchCurrentItem(); event.accepted = true; }
+                    Keys.onEnterPressed: (event) => { root.launchCurrentItem(); event.accepted = true; }
 
                     Keys.onRightPressed: (event) => {
                         var items = root.getFilteredItems(root.currentView, root.searchText, root.webappsList, DesktopEntries.applications.values);
@@ -685,10 +708,7 @@ PanelWindow {
                         }
                     }
 
-                    Keys.onEscapePressed: (event) => {
-                        root.closeMenu();
-                        event.accepted = true;
-                    }
+                    Keys.onEscapePressed: (event) => { root.closeMenu(); event.accepted = true; }
 
                     Keys.onPressed: (event) => {
                         if (event.key === Qt.Key_Tab) {
@@ -725,44 +745,45 @@ PanelWindow {
                     }
                 }
 
-                // Mode pill badge when in webapps or remove mode
+                // Mode pill badge
                 Rectangle {
                     visible: root.currentView !== "main"
-                    Layout.preferredHeight: 22
-                    Layout.preferredWidth: modeLabel.implicitWidth + 14
-                    radius: 6
-                    color: root.currentView === "remove_webapps" ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.25) : Qt.rgba(Theme.secondary.r, Theme.secondary.g, Theme.secondary.b, 0.25)
-                    Layout.alignment: Qt.AlignVCenter
-
+                    height: 24
+                    Layout.preferredWidth: modeLabel.implicitWidth + 18
+                    radius: Theme.roundingFull
+                    color: root.currentView === "remove_webapps" ? Theme.colErrorContainer : Theme.colSecondaryContainer
                     Text {
                         id: modeLabel
                         anchors.centerIn: parent
                         text: root.currentView === "remove_webapps" ? "Remove Mode" : "Web Apps"
                         font.family: Theme.fontFamily
                         font.pixelSize: 10
-                        font.bold: true
-                        color: root.currentView === "remove_webapps" ? Theme.colorError : Theme.secondary
+                        font.weight: Font.Medium
+                        color: root.currentView === "remove_webapps" ? Theme.colOnErrorContainer : Theme.colOnSecondaryContainer
                     }
                 }
 
-                // Clear button
+                // Clear button (circular, ii state-layer style)
                 Rectangle {
                     visible: searchField.text.length > 0
-                    width: 22
-                    height: 22
-                    radius: 11
-                    color: Theme.surfaceVariant
+                    Layout.preferredWidth: 30
+                    Layout.preferredHeight: 30
+                    radius: Theme.roundingFull
+                    color: clearMouse.containsMouse ? Theme.colLayer2Hover : "transparent"
                     Layout.alignment: Qt.AlignVCenter
+                    Behavior on color { ColorAnimation { duration: 100 } }
 
-                    Text {
+                    Sym {
                         anchors.centerIn: parent
-                        text: "✕"
-                        font.pixelSize: 10
-                        color: Theme.colOnSurfaceVariant
+                        text: "close"
+                        symbolSize: 17
+                        symbolColor: Theme.colSubtext
                     }
 
                     MouseArea {
+                        id: clearMouse
                         anchors.fill: parent
+                        hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             searchField.text = "";
@@ -773,208 +794,79 @@ PanelWindow {
             }
         }
 
-        // Top Divider Line
-        Rectangle {
-            id: topDivider
-            anchors.top: searchHeader.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.leftMargin: 16
-            anchors.rightMargin: 16
-            height: 1
-            color: Theme.popupBorder
-            opacity: 0.6
-        }
-
-        // 2. Bottom Footer / Status Bar
-        Rectangle {
-            id: footerBar
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: 38
-            color: "transparent"
-
-            // Footer Divider
-            Rectangle {
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: 16
-                anchors.rightMargin: 16
-                height: 1
-                color: Theme.popupBorder
-                opacity: 0.4
-            }
-
-            RowLayout {
-                anchors.fill: parent
-                anchors.leftMargin: 18
-                anchors.rightMargin: 18
-
-                // Result count
-                Text {
-                    text: {
-                        var c = itemList.count;
-                        if (root.currentView === "webapps") return c + (c === 1 ? " web app" : " web apps");
-                        if (root.currentView === "remove_webapps") return "Select an app to uninstall";
-                        if (root.searchText.length > 0) return c + (c === 1 ? " match" : " matches");
-                        return c + " applications";
-                    }
-                    font.family: Theme.fontFamily
-                    font.pixelSize: 11
-                    color: Theme.colOnSurfaceVariant
-                    opacity: 0.8
-                    Layout.alignment: Qt.AlignVCenter
-                }
-
-                Item { Layout.fillWidth: true }
-
-                // Keyboard hints
-                Row {
-                    spacing: 12
-                    Layout.alignment: Qt.AlignVCenter
-
-                    Row {
-                        spacing: 4
-                        anchors.verticalCenter: parent.verticalCenter
-                        Rectangle {
-                            width: 20; height: 18; radius: 4
-                            color: Theme.surfaceVariant
-                            Text {
-                                anchors.centerIn: parent
-                                text: "↑↓"
-                                font.family: Theme.fontFamily
-                                font.pixelSize: 9
-                                color: Theme.colOnSurfaceVariant
-                            }
-                        }
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: "navigate"
-                            font.family: Theme.fontFamily
-                            font.pixelSize: 10
-                            color: Theme.colOnSurfaceVariant
-                            opacity: 0.7
-                        }
-                    }
-
-                    Row {
-                        spacing: 4
-                        anchors.verticalCenter: parent.verticalCenter
-                        Rectangle {
-                            width: 20; height: 18; radius: 4
-                            color: Theme.surfaceVariant
-                            Text {
-                                anchors.centerIn: parent
-                                text: "↵"
-                                font.family: Theme.fontFamily
-                                font.pixelSize: 10
-                                color: Theme.colOnSurfaceVariant
-                            }
-                        }
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: "launch"
-                            font.family: Theme.fontFamily
-                            font.pixelSize: 10
-                            color: Theme.colOnSurfaceVariant
-                            opacity: 0.7
-                        }
-                    }
-
-                    Row {
-                        spacing: 4
-                        anchors.verticalCenter: parent.verticalCenter
-                        Rectangle {
-                            width: 28; height: 18; radius: 4
-                            color: Theme.surfaceVariant
-                            Text {
-                                anchors.centerIn: parent
-                                text: "esc"
-                                font.family: Theme.fontFamily
-                                font.pixelSize: 9
-                                color: Theme.colOnSurfaceVariant
-                            }
-                        }
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: "close"
-                            font.family: Theme.fontFamily
-                            font.pixelSize: 10
-                            color: Theme.colOnSurfaceVariant
-                            opacity: 0.7
-                        }
-                    }
-                }
-            }
-        }
-
-        // 3. Application & Results List
+        // 2. Results list
         ListView {
             id: itemList
-            anchors.top: topDivider.bottom
+            anchors.top: searchBar.bottom
             anchors.bottom: footerBar.top
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.topMargin: 8
-            anchors.bottomMargin: 8
+            anchors.bottomMargin: 6
             anchors.leftMargin: 10
             anchors.rightMargin: 10
             clip: true
-            spacing: 3
+            spacing: 2
             boundsBehavior: Flickable.StopAtBounds
 
             model: root.getFilteredItems(root.currentView, root.searchText, root.webappsList, DesktopEntries.applications.values)
 
-            delegate: Rectangle {
+            delegate: Item {
                 id: itemDelegate
                 width: itemList.width
-                height: 46
-                radius: 8
+                height: 50
                 property bool isSelected: index === root.selectedIndex
                 property bool isDelete: modelData.type === "delete_webapp"
 
-                color: isSelected ? (isDelete ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.22) : Theme.popupSurfaceSelected) : (mouseArea.containsMouse ? Theme.popupSurfaceVariant : "transparent")
-                border.width: isSelected ? 1 : 0
-                border.color: isDelete ? Theme.colorError : Theme.primary
-
-                Behavior on color {
-                    ColorAnimation { duration: 80 }
+                // ii-style rounded selection tile
+                Rectangle {
+                    id: rowBg
+                    anchors.fill: parent
+                    anchors.leftMargin: 6
+                    anchors.rightMargin: 6
+                    radius: Theme.roundingNormal
+                    color: isSelected ? (isDelete ? Theme.colErrorContainer : Theme.colPrimaryContainer)
+                                      : (mouseArea.containsMouse ? Theme.colLayer1 : "transparent")
+                    Behavior on color { ColorAnimation { duration: 90 } }
                 }
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: 12
-                    anchors.rightMargin: 12
+                    anchors.leftMargin: 17
+                    anchors.rightMargin: 15
                     spacing: 12
 
-                    // Icon Component
+                    // Icon slot
                     Item {
-                        Layout.preferredWidth: 28
-                        Layout.preferredHeight: 28
+                        Layout.preferredWidth: 36
+                        Layout.preferredHeight: 36
                         Layout.alignment: Qt.AlignVCenter
 
-                        // Fallback glyph tile when system icon is missing or loading
-                        Rectangle {
+                        Rectangle { // Fallback tile when icon missing/ready
+                            id: fallbackTile
                             anchors.fill: parent
-                            radius: 6
-                            color: itemDelegate.isSelected ? Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.22) : Theme.surfaceVariant
+                            radius: 9
+                            color: {
+                                if (isSelected) return isDelete ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.28) : Qt.rgba(Theme.primaryContainer.r, Theme.primaryContainer.g, Theme.primaryContainer.b, 0.55);
+                                return Theme.colLayer2;
+                            }
                             visible: !appIcon.visible || appIcon.status !== Image.Ready
+                            Behavior on color { ColorAnimation { duration: 90 } }
 
-                            Text {
+                            Sym {
                                 anchors.centerIn: parent
                                 text: root.getFallbackGlyph(modelData)
-                                font.family: Theme.fontFamily
-                                font.pixelSize: 15
-                                color: itemDelegate.isSelected ? (itemDelegate.isDelete ? Theme.colorError : Theme.primary) : Theme.colOnSurfaceVariant
+                                symbolSize: 19
+                                fillAmount: 1
+                                symbolColor: isSelected ? (isDelete ? Theme.colOnErrorContainer : Theme.colOnPrimaryContainer) : Theme.colSubtext
                             }
                         }
 
-                        // System icon
                         IconImage {
                             id: appIcon
-                            anchors.fill: parent
+                            anchors.centerIn: parent
+                            width: 30
+                            height: 30
                             source: {
                                 var ic = modelData.icon || "";
                                 if (!ic) return Quickshell.iconPath("application-x-executable");
@@ -986,58 +878,56 @@ PanelWindow {
                         }
                     }
 
-                    // App Title & Subtitle Column
                     ColumnLayout {
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignVCenter
                         spacing: 1
 
-                        Text {
-                            text: modelData.name || ""
-                            font.family: Theme.fontFamily
-                            font.pixelSize: 13
-                            font.bold: itemDelegate.isSelected
-                            color: itemDelegate.isSelected ? (itemDelegate.isDelete ? Theme.colorError : Theme.primary) : Theme.colOnSurface
-                            elide: Text.ElideRight
-                            Layout.fillWidth: true
-                        }
-
-                        Text {
+                        Text { // small type/subtitle line (ii puts the type above the name)
                             text: modelData.subtitle || ""
                             font.family: Theme.fontFamily
                             font.pixelSize: 10
-                            color: itemDelegate.isSelected ? (itemDelegate.isDelete ? Qt.lighter(Theme.colorError, 1.2) : Qt.lighter(Theme.primary, 1.2)) : Theme.colOnSurfaceVariant
+                            color: isSelected ? (isDelete ? Qt.lighter(Theme.colOnErrorContainer, 1.1) : Qt.lighter(Theme.colOnPrimaryContainer, 1.1)) : Theme.colSubtext
+                            visible: text.length > 0
                             elide: Text.ElideRight
-                            visible: text.length > 0 && !itemDelegate.isSelected
                             Layout.fillWidth: true
-                            opacity: 0.85
+                        }
+
+                        Text { // app name
+                            text: modelData.name || ""
+                            font.family: Theme.fontFamily
+                            font.pixelSize: 13
+                            font.weight: isSelected ? Font.Medium : Font.Normal
+                            color: isSelected ? (isDelete ? Theme.colOnErrorContainer : Theme.colOnPrimaryContainer) : Theme.colOnLayer0
+                            elide: Text.ElideRight
+                            Layout.fillWidth: true
                         }
                     }
 
-                    // Right Badge / Indicator
+                    // Right chip indicator
                     Rectangle {
                         visible: modelData.type === "folder" || modelData.type === "webapp" || modelData.type === "delete_webapp" || (modelData.type === "action" && modelData.action !== "back" && modelData.action !== "back_to_webapps")
-                        Layout.preferredHeight: 20
-                        Layout.preferredWidth: badgeText.implicitWidth + 12
-                        radius: 4
-                        color: itemDelegate.isDelete ? (itemDelegate.isSelected ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.35) : Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.18)) : (itemDelegate.isSelected ? Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.25) : Theme.surfaceVariant)
-                        Layout.alignment: Qt.AlignVCenter
+                        height: 22
+                        Layout.preferredWidth: chipText.implicitWidth + 16
+                        radius: Theme.roundingFull
+                        color: isSelected ? (isDelete ? Theme.colErrorContainer : Theme.colPrimaryContainerActive) : Theme.colLayer2
+                        Behavior on color { ColorAnimation { duration: 90 } }
 
                         Text {
-                            id: badgeText
+                            id: chipText
                             anchors.centerIn: parent
                             text: {
-                                if (modelData.type === "delete_webapp") return "Remove ✕";
-                                if (modelData.type === "folder") return "Folder ›";
+                                if (modelData.type === "delete_webapp") return "Remove";
+                                if (modelData.type === "folder") return "Folder";
                                 if (modelData.type === "webapp") return "PWA";
                                 if (modelData.action === "create") return "Add";
                                 if (modelData.action === "remove") return "Remove";
                                 return "";
                             }
                             font.family: Theme.fontFamily
-                            font.pixelSize: 10
-                            font.bold: true
-                            color: itemDelegate.isDelete ? Theme.colorError : (itemDelegate.isSelected ? Theme.primary : Theme.colOnSurfaceVariant)
+                            font.pixelSize: 9
+                            font.weight: Font.Medium
+                            color: isSelected ? (isDelete ? Theme.colOnErrorContainer : Theme.colOnPrimaryContainer) : Theme.colSubtext
                         }
                     }
                 }
@@ -1057,40 +947,166 @@ PanelWindow {
             }
         }
 
-        // 4. Empty state placeholder overlay
+        // 3. Empty state
         Item {
             anchors.fill: itemList
             visible: itemList.count === 0
 
             ColumnLayout {
                 anchors.centerIn: parent
-                spacing: 8
+                spacing: 10
 
-                Text {
-                    text: "󰮗"
-                    font.family: Theme.fontFamily
-                    font.pixelSize: 36
-                    color: Theme.colOnSurfaceVariant
+                Sym {
+                    text: "search_off"
+                    symbolSize: 46
+                    fillAmount: 1
+                    symbolColor: Theme.colSubtext
+                    opacity: 0.75
                     Layout.alignment: Qt.AlignHCenter
-                    opacity: 0.5
                 }
 
                 Text {
                     text: root.currentView === "webapps" ? "No web apps installed" : "No applications found"
                     font.family: Theme.fontFamily
-                    font.pixelSize: 14
-                    font.bold: true
-                    color: Theme.colOnSurface
+                    font.pixelSize: 15
+                    font.weight: Font.Medium
+                    color: Theme.colOnLayer0
                     Layout.alignment: Qt.AlignHCenter
                 }
 
                 Text {
-                    text: "Try searching with a different term"
+                    text: "Try a different search term"
                     font.family: Theme.fontFamily
                     font.pixelSize: 11
-                    color: Theme.colOnSurfaceVariant
+                    color: Theme.colSubtext
                     Layout.alignment: Qt.AlignHCenter
-                    opacity: 0.7
+                }
+            }
+        }
+
+        // 4. Footer / key hints
+        Rectangle {
+            id: footerBar
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 42
+            color: "transparent"
+
+            Rectangle {
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: 14
+                anchors.rightMargin: 14
+                height: 1
+                color: Theme.colLayer1Border
+                opacity: 0.6
+            }
+
+            RowLayout {
+                anchors.fill: parent
+                anchors.leftMargin: 17
+                anchors.rightMargin: 17
+
+                // Result count with small app glyph
+                RowLayout {
+                    spacing: 7
+                    Layout.alignment: Qt.AlignVCenter
+                    Sym {
+                        text: "apps"
+                        symbolSize: 14
+                        symbolColor: Theme.colSubtext
+                    }
+                    Text {
+                        text: {
+                            var c = itemList.count;
+                            if (root.currentView === "webapps") return c + (c === 1 ? " web app" : " web apps");
+                            if (root.currentView === "remove_webapps") return "Select an app to uninstall";
+                            if (root.searchText.length > 0) return c + (c === 1 ? " match" : " matches");
+                            return c + " applications";
+                        }
+                        font.family: Theme.fontFamily
+                        font.pixelSize: 11
+                        color: Theme.colSubtext
+                    }
+                }
+
+                Item { Layout.fillWidth: true }
+
+                // Keyboard hints (ii-style key chips)
+                Row {
+                    spacing: 14
+                    Layout.alignment: Qt.AlignVCenter
+
+                    Row {
+                        spacing: 6
+                        Rectangle {
+                            width: 24; height: 19; radius: 6
+                            color: Theme.colLayer2
+                            border.color: Theme.colLayer2Border; border.width: 1
+                            Text {
+                                anchors.centerIn: parent
+                                text: "\u2191\u2193"
+                                font.family: Theme.fontFamily
+                                font.pixelSize: 9
+                                color: Theme.colOnLayer1
+                            }
+                        }
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "navigate"
+                            font.family: Theme.fontFamily
+                            font.pixelSize: 10
+                            color: Theme.colSubtext
+                        }
+                    }
+
+                    Row {
+                        spacing: 6
+                        Rectangle {
+                            width: 24; height: 19; radius: 6
+                            color: Theme.colLayer2
+                            border.color: Theme.colLayer2Border; border.width: 1
+                            Text {
+                                anchors.centerIn: parent
+                                text: "\u21B5"
+                                font.family: Theme.fontFamily
+                                font.pixelSize: 10
+                                color: Theme.colOnLayer1
+                            }
+                        }
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "launch"
+                            font.family: Theme.fontFamily
+                            font.pixelSize: 10
+                            color: Theme.colSubtext
+                        }
+                    }
+
+                    Row {
+                        spacing: 6
+                        Rectangle {
+                            width: 30; height: 19; radius: 6
+                            color: Theme.colLayer2
+                            border.color: Theme.colLayer2Border; border.width: 1
+                            Text {
+                                anchors.centerIn: parent
+                                text: "esc"
+                                font.family: Theme.fontFamily
+                                font.pixelSize: 9
+                                color: Theme.colOnLayer1
+                            }
+                        }
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "close"
+                            font.family: Theme.fontFamily
+                            font.pixelSize: 10
+                            color: Theme.colSubtext
+                        }
+                    }
                 }
             }
         }

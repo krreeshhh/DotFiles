@@ -8,3 +8,8 @@ herdr-bin
 
 # Package Manager
 yay-bin
+
+# Dotfiles shell fonts
+otf-space-grotesk
+ttf-readex-pro
+ttf-rubik-vf

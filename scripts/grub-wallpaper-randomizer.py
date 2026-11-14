@@ -151,7 +151,7 @@ def main():
             print(f"Error: Specified wallpaper not found: {args.wallpaper}", file=sys.stderr)
             sys.exit(1)
     elif args.sync_current:
-        current_file = os.path.expanduser("~/.config/my-desktop/wallpaper/current")
+        current_file = os.path.expanduser("~/.config/DotFiles/wallpaper/current")
         if os.path.isfile(current_file):
             try:
                 with open(current_file, "r", encoding="utf-8") as f:

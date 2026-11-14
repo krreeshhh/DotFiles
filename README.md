@@ -4,7 +4,7 @@
 
 ### Arch Linux · Hyprland · Quickshell · Material You
 
-A reproducible, fully-integrated Wayland desktop environment built on Arch Linux. Featuring a modular Quickshell desktop shell, native Lua-configured Hyprland compositor, automated Material You dynamic color scheme generation from wallpapers, and custom helper daemons.
+A reproducible, fully-integrated Wayland desktop environment built on Arch Linux. Featuring the Dotfiles Quickshell shell (a fork of upstream dots-hyprland, GPL-3.0) with a Lua-configured Hyprland compositor, automated Material You dynamic color scheme generation from wallpapers, and custom helper daemons.
 
 <p align="center">
   <img src="https://img.shields.io/badge/OS-Arch%20Linux-1793D1?style=flat-square&logo=arch-linux&logoColor=white" alt="Arch Linux" />
@@ -26,10 +26,11 @@ This setup is built for performance, aesthetics, and deterministic reproduction 
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                           HYPRLAND (LUA API)                            │
 │  ┌──────────────────┐  ┌─────────────────────┐  ┌────────────────────┐  │
-│  │    QUICKSHELL    │  │    DYNAMIC THEME    │  │   UNIVERSAL PiP    │  │
-│  │   Desktop Bar    │  │   Palette Extractor │  │   Helper Daemon    │  │
-│  │  Control Center  │  │   Wallpaper Picker  │  │  Browser Extension │  │
-│  │   OSD Overlays   │  │   Live Reloader     │  │   Floating Manager │  │
+│  │    DOTFILES      │  │    DYNAMIC THEME    │  │   UNIVERSAL PiP    │  │
+│  │  Desktop Bar     │  │   Palette Extractor │  │   Helper Daemon    │  │
+│  │  Right Sidebar   │  │   Wallpaper Picker  │  │  Browser Extension │  │
+│  │   OSD / Session  │  │   Matugen + Live    │  │   Floating Manager │  │
+│  │  Launcher Host   │  │   Reloader          │  │                    │  │
 │  └──────────────────┘  └─────────────────────┘  └────────────────────┘  │
 │  ┌──────────────────┐  ┌─────────────────────┐  ┌────────────────────┐  │
 │  │   APP LAUNCHER   │  │       TERMINAL      │  │    AUDIO & MEDIA   │  │
@@ -46,11 +47,11 @@ This setup is built for performance, aesthetics, and deterministic reproduction 
 | Layer | Component | Implementation Details |
 | :--- | :--- | :--- |
 | **Compositor** | Hyprland | Configured with native Lua API (`hyprland.lua`), custom gestures, blur layer rules, and hotkey bindings. |
-| **Desktop Shell** | Quickshell | Modular QML bar, workspace pager, network and bluetooth popups, audio OSD, and control center. |
-| **Launcher** | Quickshell AppLauncher | Native QML full-screen application launcher with integrated webapps and plugin management. |
-| **Theme Engine** | Material You (`my-desktop`) | K-Means palette extractor generating synchronized color schemes across Hyprland, Ghostty, GTK, Dunst, and Quickshell. |
+| **Desktop Shell** | Quickshell (Dotfiles fork of upstream dots-hyprland, GPL-3.0) | QML bar with pill workspace pager, right sidebar (uptime, quick toggles, notification centre, calendar/To-Do/Timer), network and bluetooth controls, audio OSD, and session menu. |
+| **Launcher** | Quickshell AppLauncher (legacy host) | Native QML full-screen application launcher with integrated webapps and plugin management, with an ii-style command palette available via `SUPER + TAB`. |
+| **Theme Engine** | Material You (`config/DotFiles`) + `matugen` | Dual engine: `generate-theme.py` for Hyprland/GTK/Dunst/Ghostty, and `matugen` (with `materialyoucolor` venv) for the Dotfiles shell palette. |
 | **Wallpaper Picker** | Custom 3D Carousel | OpenGL and Python wallpaper selector with instant theme regeneration and swww transitions. |
-| **Notifications** | Dunst | Minimal notification server synchronized with live palette colors. |
+| **Notifications** | Quickshell (`ii` notification server) | Notifications are owned by the Dotfiles shell; unread badge in the bar, top-right popups. |
 | **Picture-in-Picture**| Hypr-PiP | Background Python daemon + Chromium browser extension for universal floating video pin management. |
 | **Terminal** | Ghostty | High-performance GPU-accelerated terminal running at 0.20 background opacity with blur. |
 | **File Manager** | Nautilus + Yazi | GTK4 graphical manager (Nautilus) alongside terminal file manager (Yazi). |
@@ -85,23 +86,25 @@ The default modifier key is `SUPER` (`Mod4`).
 | :--- | :--- |
 | `SUPER + RETURN` | Launch Ghostty terminal |
 | `SUPER + SPACE` | Toggle Quickshell application launcher |
-| `SUPER + C` | Toggle Quickshell control center |
+| `SUPER + C` / `SUPER + N` | Toggle Dotfiles right sidebar |
+| `SUPER + SHIFT + N` | Close Dotfiles right sidebar |
+| `SUPER + TAB` | Toggle Dotfiles overview/search palette |
 | `SUPER + E` | Open Nautilus file manager |
 | `SUPER + B` | Launch default browser |
-| `SUPER + ESCAPE` | Toggle Quickshell session & power menu |
+| `SUPER + ESCAPE` | Toggle Dotfiles session & power menu |
 | `SUPER + V` (Clipboard) | Open Clipse clipboard history |
 | `SUPER + SHIFT + S` | Interactive area screenshot (slurp + grim) |
-| `SUPER + SHIFT + W` | Open 3D wallpaper carousel picker |
+| `SUPER + W` | Open 3D wallpaper carousel picker |
 
 ### ◇ Media & Hardware Keys
 
 | Key | Action |
 | :--- | :--- |
-| `XF86AudioRaiseVolume` / `F8` | Volume +5% (Triggers Quickshell OSD) |
-| `XF86AudioLowerVolume` / `F7` | Volume -5% (Triggers Quickshell OSD) |
+| `XF86AudioRaiseVolume` | Volume +5% (Triggers Dotfiles OSD) |
+| `XF86AudioLowerVolume` | Volume -5% (Triggers Dotfiles OSD) |
 | `XF86AudioMute` | Toggle audio mute |
-| `XF86MonBrightnessUp` | Brightness +5% (Triggers Quickshell OSD) |
-| `XF86MonBrightnessDown` | Brightness -5% (Triggers Quickshell OSD) |
+| `XF86MonBrightnessUp` / `F8` | Brightness +5% (Triggers Dotfiles OSD) |
+| `XF86MonBrightnessDown` / `F7` | Brightness -5% (Triggers Dotfiles OSD) |
 | `XF86AudioPlay` / `Pause` | Play / Pause active MPRIS player |
 | `XF86AudioNext` / `Prev` | Next / Previous track |
 
@@ -160,15 +163,17 @@ DotFiles/
 │   ├── ghostty/             # Ghostty terminal config
 │   ├── gtk-3.0/ & gtk-4.0/  # GTK interface themes and icons
 │   ├── hypr/                # Hyprland configuration (hyprland.lua, pip.lua, scripts)
-│   ├── my-desktop/          # Material You theme extractor and wallpaper engines
-│   ├── quickshell/          # Quickshell modular shell (Bar, OSD, Popups, Ledge, SessionMenu)
+│   ├── DotFiles/          # Material You theme extractor, DOTFILES-INSTALL.md, wallpaper engines
+│   ├── matugen/             # Matugen templates & config (Dotfiles shell palette)
+│   ├── dotfiles/            # Dotfiles shell config (Material You palette, toggles, transparency)
+│   ├── quickshell/          # Launcher/auth host + Dotfiles fork of upstream dots-hyprland (GPL-3.0)
 │   ├── systemd/user/        # Systemd user services (hypr-pip, quickshell, battery-alert)
 │   └── yazi/                # Terminal file manager configuration
 ├── packages/                # Explicit package manifests (pacman, AUR, fonts)
 ├── scripts/                 # System verify test runner and maintenance utilities
 ├── system/                  # System-level configuration (/etc/sddm.conf.d, etc.)
 ├── install.sh               # Automated deployment script
-├── MANIFEST.md              # Complete catalog of all 392 tracked files
+├── MANIFEST.md              # Complete catalog of all tracked files
 ├── REPRODUCTION.md          # Step-by-step fresh install guide
 └── INSTALL-ORDER.md         # Deterministic dependency execution order
 ```
@@ -197,4 +202,4 @@ This runs a test suite (72 automated checks) covering:
 
 ## License
 
-This configuration is released under the [MIT License](LICENSE).
+This configuration is released under the [MIT License](LICENSE), except the vendored Dotfiles shell tree under `config/quickshell/dotfiles/`, which is GPL-3.0 and is based on [`end-4/dots-hyprland`](https://github.com/end-4/dots-hyprland) (see `NOTICE.md` and `LICENSE-GPL-3.0` inside that tree).

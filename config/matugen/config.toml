@@ -1,0 +1,18 @@
+# Reduced matugen config for the Dotfiles Quickshell shell.
+# Only generates what the shell itself consumes, so the existing
+# ~/.config/DotFiles theme pipeline keeps owning GTK/Hyprland locks etc.
+
+[config]
+version_check = false
+
+[templates.m3colors]
+input_path = '~/.config/matugen/templates/colors.json'
+output_path = '~/.local/state/quickshell/user/generated/colors.json'
+
+[templates.kde_colors]
+input_path = '~/.config/matugen/templates/kde/color.txt'
+output_path = '~/.local/state/quickshell/user/generated/color.txt'
+
+[templates.wallpaper]
+input_path = '~/.config/matugen/templates/wallpaper.txt'
+output_path = '~/.local/state/quickshell/user/generated/wallpaper/path.txt'

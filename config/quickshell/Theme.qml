@@ -31,12 +31,38 @@ QtObject {
     property color popupSurfaceSelected: Qt.rgba(theme.surfaceSelected.r, theme.surfaceSelected.g, theme.surfaceSelected.b, 0.60)
     property color popupBorder: Qt.rgba(theme.outline.r, theme.outline.g, theme.outline.b, 0.30)
 
+    // Dotfiles-inspired layer system (all derived from the dynamic colors above)
+    property color colLayer0: Qt.rgba(theme.background.r, theme.background.g, theme.background.b, 0.55)
+    property color colLayer0Border: Qt.rgba(theme.outline.r, theme.outline.g, theme.outline.b, 0.35)
+    property color colLayer1: Qt.rgba(theme.surface.r, theme.surface.g, theme.surface.b, 0.42)
+    property color colLayer1Hover: Qt.rgba(theme.surface.r, theme.surface.g, theme.surface.b, 0.55)
+    property color colLayer1Active: Qt.rgba(theme.surface.r, theme.surface.g, theme.surface.b, 0.68)
+    property color colLayer1Border: Qt.rgba(theme.outline.r, theme.outline.g, theme.outline.b, 0.50)
+    property color colLayer2: Qt.rgba(theme.surfaceVariant.r, theme.surfaceVariant.g, theme.surfaceVariant.b, 0.35)
+    property color colLayer2Hover: Qt.rgba(theme.surfaceVariant.r, theme.surfaceVariant.g, theme.surfaceVariant.b, 0.50)
+    property color colLayer2Border: Qt.rgba(theme.outline.r, theme.outline.g, theme.outline.b, 0.45)
+    property color colOnLayer0: theme.colOnSurface
+    property color colOnLayer1: theme.colOnSurface
+    property color colSubtext: theme.colOnSurfaceVariant
+    property color colPrimaryContainer: theme.primaryContainer
+    property color colPrimaryContainerActive: Qt.lighter(theme.primaryContainer, 1.3)
+    property color colOnPrimaryContainer: Qt.lighter(theme.primaryContainer, 2.1)
+    property color colSecondaryContainer: Qt.rgba(theme.secondary.r, theme.secondary.g, theme.secondary.b, 0.26)
+    property color colOnSecondaryContainer: theme.secondary
+    property color colErrorContainer: Qt.rgba(theme.colorError.r, theme.colorError.g, theme.colorError.b, 0.26)
+    property color colOnErrorContainer: theme.colorError
+    property color colOutline: theme.outline
+    property color colOutlineVariant: Qt.rgba(theme.outline.r, theme.outline.g, theme.outline.b, 0.6)
+    property real roundingNormal: 12
+    property real roundingLarge: 16
+    property real roundingFull: 1000
+
     // Typography
     property string fontFamily: "JetBrainsMono Nerd Font"
 
     // Process to dynamically read generated Material You colors
     property var themeProc: Process {
-        command: ["python3", "-c", "import json; d = json.load(open('/home/Krish/.config/my-desktop/theme/colors.json'))['colors']; print('|'.join([d.get(k,'') for k in ['primary','on_primary','primary_container','secondary','background','surface','surface_variant','surface_selected','on_surface','on_surface_variant','outline','outline_subtle','error']]))"]
+        command: ["python3", "-c", "import json; d = json.load(open('/home/Krish/.config/DotFiles/theme/colors.json'))['colors']; print('|'.join([d.get(k,'') for k in ['primary','on_primary','primary_container','secondary','background','surface','surface_variant','surface_selected','on_surface','on_surface_variant','outline','outline_subtle','error']]))"]
         stdout: SplitParser {
             onRead: (line) => {
                 line = line.trim();

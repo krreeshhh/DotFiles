@@ -1,28 +1,29 @@
 # Dotfiles Manifest
 
-Total tracked dotfiles items: **334**
+Total tracked dotfiles items: **1425**
 
 | Export Path | Original Source / Role | Type | Required |
 | :--- | :--- | :--- | :--- |
-| `.gitignore` | `DOTFILES/.gitignore` | Data / Source | Yes |
 | `INSTALL-ORDER.md` | `DOTFILES/INSTALL-ORDER.md` | Documentation / Manifest | Yes |
-| `LICENSE` | `DOTFILES/LICENSE` | Data / Source | Yes |
+| `LICENSE` | `DOTFILES/LICENSE` | Documentation / Manifest | Yes |
 | `MANIFEST.md` | `DOTFILES/MANIFEST.md` | Documentation / Manifest | Yes |
+| `NOTICE.md` | `DOTFILES/NOTICE.md` | Documentation / Manifest | Yes |
 | `README.md` | `DOTFILES/README.md` | Documentation / Manifest | Yes |
 | `REPRODUCTION.md` | `DOTFILES/REPRODUCTION.md` | Documentation / Manifest | Yes |
+| `assets/fonts/GoogleSansFlex.ttf` | `DOTFILES/assets/fonts/GoogleSansFlex.ttf` | Asset / Media | Yes |
 | `assets/fonts/osu/Torus Regular.otf` | `DOTFILES/assets/fonts/osu/Torus Regular.otf` | Asset / Media | Yes |
 | `assets/fonts/qylock-sword/The Last Shuriken.ttf` | `DOTFILES/assets/fonts/qylock-sword/The Last Shuriken.ttf` | Asset / Media | Yes |
-| `assets/hypr-pip/extension/background.js` | `DOTFILES/assets/hypr-pip/extension/background.js` | Data / Source | Yes |
-| `assets/hypr-pip/extension/content.css` | `DOTFILES/assets/hypr-pip/extension/content.css` | Data / Source | Yes |
-| `assets/hypr-pip/extension/content.js` | `DOTFILES/assets/hypr-pip/extension/content.js` | Data / Source | Yes |
+| `assets/hypr-pip/extension/background.js` | `DOTFILES/assets/hypr-pip/extension/background.js` | Config / Data | Yes |
+| `assets/hypr-pip/extension/content.css` | `DOTFILES/assets/hypr-pip/extension/content.css` | Config / Data | Yes |
+| `assets/hypr-pip/extension/content.js` | `DOTFILES/assets/hypr-pip/extension/content.js` | Config / Data | Yes |
 | `assets/hypr-pip/extension/icons/icon128.png` | `DOTFILES/assets/hypr-pip/extension/icons/icon128.png` | Asset / Media | Yes |
 | `assets/hypr-pip/extension/icons/icon16.png` | `DOTFILES/assets/hypr-pip/extension/icons/icon16.png` | Asset / Media | Yes |
 | `assets/hypr-pip/extension/icons/icon32.png` | `DOTFILES/assets/hypr-pip/extension/icons/icon32.png` | Asset / Media | Yes |
 | `assets/hypr-pip/extension/icons/icon48.png` | `DOTFILES/assets/hypr-pip/extension/icons/icon48.png` | Asset / Media | Yes |
-| `assets/hypr-pip/extension/manifest.json` | `DOTFILES/assets/hypr-pip/extension/manifest.json` | Config | Yes |
-| `assets/hypr-pip/extension/popup.css` | `DOTFILES/assets/hypr-pip/extension/popup.css` | Data / Source | Yes |
-| `assets/hypr-pip/extension/popup.html` | `DOTFILES/assets/hypr-pip/extension/popup.html` | Data / Source | Yes |
-| `assets/hypr-pip/extension/popup.js` | `DOTFILES/assets/hypr-pip/extension/popup.js` | Data / Source | Yes |
+| `assets/hypr-pip/extension/manifest.json` | `DOTFILES/assets/hypr-pip/extension/manifest.json` | Config / Data | Yes |
+| `assets/hypr-pip/extension/popup.css` | `DOTFILES/assets/hypr-pip/extension/popup.css` | Config / Data | Yes |
+| `assets/hypr-pip/extension/popup.html` | `DOTFILES/assets/hypr-pip/extension/popup.html` | Config / Data | Yes |
+| `assets/hypr-pip/extension/popup.js` | `DOTFILES/assets/hypr-pip/extension/popup.js` | Config / Data | Yes |
 | `assets/share/applications/asus-tuf-aura.desktop` | `DOTFILES/assets/share/applications/asus-tuf-aura.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/clipse.desktop` | `DOTFILES/assets/share/applications/clipse.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/herdr.desktop` | `DOTFILES/assets/share/applications/herdr.desktop` | Desktop Entry | Yes |
@@ -33,10 +34,11 @@ Total tracked dotfiles items: **334**
 | `assets/share/applications/webapp-manager.desktop` | `DOTFILES/assets/share/applications/webapp-manager.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/webapp-netflix.desktop` | `DOTFILES/assets/share/applications/webapp-netflix.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/webapp-whatsapp.desktop` | `DOTFILES/assets/share/applications/webapp-whatsapp.desktop` | Desktop Entry | Yes |
-| `assets/share/asus-tuf-aura/app.py` | `DOTFILES/assets/share/asus-tuf-aura/app.py` | Script / UI | Yes |
-| `assets/share/asus-tuf-aura/backend.py` | `DOTFILES/assets/share/asus-tuf-aura/backend.py` | Script / Hardware | Yes |
+| `assets/share/asus-tuf-aura/app.py` | `DOTFILES/assets/share/asus-tuf-aura/app.py` | Asset / Media | Yes |
+| `assets/share/asus-tuf-aura/backend.py` | `DOTFILES/assets/share/asus-tuf-aura/backend.py` | Asset / Media | Yes |
 | `assets/share/icons/asus-tuf-aura.svg` | `DOTFILES/assets/share/icons/asus-tuf-aura.svg` | Asset / Media | Yes |
 | `assets/share/icons/hicolor/scalable/apps/asus-tuf-aura.svg` | `DOTFILES/assets/share/icons/hicolor/scalable/apps/asus-tuf-aura.svg` | Asset / Media | Yes |
+| `assets/share/icons/hicolor/scalable/apps/dotfiles.svg` | `DOTFILES/assets/share/icons/hicolor/scalable/apps/dotfiles.svg` | Asset / Media | Yes |
 | `assets/share/icons/webapps/hotstar.png` | `DOTFILES/assets/share/icons/webapps/hotstar.png` | Asset / Media | Yes |
 | `assets/share/icons/webapps/netflix.png` | `DOTFILES/assets/share/icons/webapps/netflix.png` | Asset / Media | Yes |
 | `assets/share/icons/webapps/whatsapp.png` | `DOTFILES/assets/share/icons/webapps/whatsapp.png` | Asset / Media | Yes |
@@ -49,7 +51,7 @@ Total tracked dotfiles items: **334**
 | `assets/themes/grub/silent/fonts/redhat_display_bold_24.pf2` | `DOTFILES/assets/themes/grub/silent/fonts/redhat_display_bold_24.pf2` | Asset / Media | Yes |
 | `assets/themes/grub/silent/fonts/redhat_mono_11.pf2` | `DOTFILES/assets/themes/grub/silent/fonts/redhat_mono_11.pf2` | Asset / Media | Yes |
 | `assets/themes/grub/silent/fonts/redhat_mono_12.pf2` | `DOTFILES/assets/themes/grub/silent/fonts/redhat_mono_12.pf2` | Asset / Media | Yes |
-| `assets/themes/grub/silent/generate_assets.py` | `DOTFILES/assets/themes/grub/silent/generate_assets.py` | Script | Yes |
+| `assets/themes/grub/silent/generate_assets.py` | `DOTFILES/assets/themes/grub/silent/generate_assets.py` | Asset / Media | Yes |
 | `assets/themes/grub/silent/icons/advanced.png` | `DOTFILES/assets/themes/grub/silent/icons/advanced.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/icons/arch.png` | `DOTFILES/assets/themes/grub/silent/icons/arch.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/icons/archlinux.png` | `DOTFILES/assets/themes/grub/silent/icons/archlinux.png` | Asset / Media | Yes |
@@ -65,7 +67,7 @@ Total tracked dotfiles items: **334**
 | `assets/themes/grub/silent/icons/uefi.png` | `DOTFILES/assets/themes/grub/silent/icons/uefi.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/icons/windows.png` | `DOTFILES/assets/themes/grub/silent/icons/windows.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/icons/windows11.png` | `DOTFILES/assets/themes/grub/silent/icons/windows11.png` | Asset / Media | Yes |
-| `assets/themes/grub/silent/install.sh` | `DOTFILES/assets/themes/grub/silent/install.sh` | Script | Yes |
+| `assets/themes/grub/silent/install.sh` | `DOTFILES/assets/themes/grub/silent/install.sh` | Asset / Media | Yes |
 | `assets/themes/grub/silent/menu_box_c.png` | `DOTFILES/assets/themes/grub/silent/menu_box_c.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/menu_box_e.png` | `DOTFILES/assets/themes/grub/silent/menu_box_e.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/menu_box_n.png` | `DOTFILES/assets/themes/grub/silent/menu_box_n.png` | Asset / Media | Yes |
@@ -129,7 +131,7 @@ Total tracked dotfiles items: **334**
 | `assets/themes/grub/silent/slider_c.png` | `DOTFILES/assets/themes/grub/silent/slider_c.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/slider_n.png` | `DOTFILES/assets/themes/grub/silent/slider_n.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/slider_s.png` | `DOTFILES/assets/themes/grub/silent/slider_s.png` | Asset / Media | Yes |
-| `assets/themes/grub/silent/sync_wallpaper.sh` | `DOTFILES/assets/themes/grub/silent/sync_wallpaper.sh` | Script | Yes |
+| `assets/themes/grub/silent/sync_wallpaper.sh` | `DOTFILES/assets/themes/grub/silent/sync_wallpaper.sh` | Asset / Media | Yes |
 | `assets/themes/grub/silent/terminal_box_c.png` | `DOTFILES/assets/themes/grub/silent/terminal_box_c.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/terminal_box_e.png` | `DOTFILES/assets/themes/grub/silent/terminal_box_e.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/terminal_box_n.png` | `DOTFILES/assets/themes/grub/silent/terminal_box_n.png` | Asset / Media | Yes |
@@ -139,12 +141,108 @@ Total tracked dotfiles items: **334**
 | `assets/themes/grub/silent/terminal_box_se.png` | `DOTFILES/assets/themes/grub/silent/terminal_box_se.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/terminal_box_sw.png` | `DOTFILES/assets/themes/grub/silent/terminal_box_sw.png` | Asset / Media | Yes |
 | `assets/themes/grub/silent/terminal_box_w.png` | `DOTFILES/assets/themes/grub/silent/terminal_box_w.png` | Asset / Media | Yes |
-| `assets/themes/grub/silent/theme.txt` | `DOTFILES/assets/themes/grub/silent/theme.txt` | Documentation / Manifest | Yes |
-| `assets/themes/sddm/hyprland-sddm/Main.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/Main.qml` | Config | Yes |
-| `assets/themes/sddm/hyprland-sddm/configs/default.conf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/configs/default.conf` | Config | Yes |
-| `assets/themes/sddm/hyprland-sddm/install.sh` | `DOTFILES/assets/themes/sddm/hyprland-sddm/install.sh` | Script | Yes |
+| `assets/themes/grub/silent/theme.txt` | `DOTFILES/assets/themes/grub/silent/theme.txt` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/LICENSE` | `DOTFILES/assets/themes/sddm/hyprland-sddm/LICENSE` | Documentation / Manifest | Yes |
+| `assets/themes/sddm/hyprland-sddm/Main.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/Main.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/README.md` | `DOTFILES/assets/themes/sddm/hyprland-sddm/README.md` | Documentation / Manifest | Yes |
+| `assets/themes/sddm/hyprland-sddm/backgrounds/default.png` | `DOTFILES/assets/themes/sddm/hyprland-sddm/backgrounds/default.png` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/change_avatar.sh` | `DOTFILES/assets/themes/sddm/hyprland-sddm/change_avatar.sh` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/Avatar.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/Avatar.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/CVKeyboard.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/CVKeyboard.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/Config.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/Config.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/IconButton.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/IconButton.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/Input.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/Input.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/Languages.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/Languages.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/LayoutSelector.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/LayoutSelector.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/LockScreen.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/LockScreen.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/LoginScreen.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/LoginScreen.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/MenuArea.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/MenuArea.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/PowerMenu.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/PowerMenu.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/QtQuick/VirtualKeyboard/Styles/vkeyboardStyle/style.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/QtQuick/VirtualKeyboard/Styles/vkeyboardStyle/style.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/SessionSelector.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/SessionSelector.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/Spinner.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/Spinner.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/UserSelector.qml` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/UserSelector.qml` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/components/qmldir` | `DOTFILES/assets/themes/sddm/hyprland-sddm/components/qmldir` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/configs/default.conf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/configs/default.conf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/OFL.txt` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/OFL.txt` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatDisplay-Italic[wght].ttf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatDisplay-Italic[wght].ttf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatDisplay[wght].ttf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatDisplay[wght].ttf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatMono-Italic[wght].ttf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatMono-Italic[wght].ttf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatMono[wght].ttf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatMono[wght].ttf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatText-Italic[wght].ttf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatText-Italic[wght].ttf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatText[wght].ttf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat-vf/RedHatText[wght].ttf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Black.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Black.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-BlackItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-BlackItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Bold.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Bold.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-BoldItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-BoldItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-ExtraBold.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-ExtraBold.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-ExtraBoldItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-ExtraBoldItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Italic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Italic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Light.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Light.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-LightItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-LightItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Medium.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Medium.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-MediumItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-MediumItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Regular.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-Regular.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-SemiBold.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-SemiBold.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-SemiBoldItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatDisplay-SemiBoldItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-Bold.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-Bold.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-BoldItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-BoldItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-Italic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-Italic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-Light.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-Light.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-LightItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-LightItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-Medium.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-Medium.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-MediumItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-MediumItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-Regular.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-Regular.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-SemiBold.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-SemiBold.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-SemiBoldItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatMono-SemiBoldItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-Bold.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-Bold.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-BoldItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-BoldItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-Italic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-Italic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-Light.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-Light.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-LightItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-LightItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-Medium.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-Medium.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-MediumItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-MediumItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-Regular.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-Regular.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-SemiBold.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-SemiBold.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-SemiBoldItalic.otf` | `DOTFILES/assets/themes/sddm/hyprland-sddm/fonts/redhat/RedHatText-SemiBoldItalic.otf` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/arrow-right.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/arrow-right.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/backspace.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/backspace.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/enter-key.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/enter-key.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/enter.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/enter.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/handwriting.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/handwriting.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/hidekeyboard.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/hidekeyboard.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/keyboard.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/keyboard.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/language.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/language.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/password.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/password.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/power-reboot.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/power-reboot.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/power-suspend.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/power-suspend.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/power.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/power.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/selectionhandle.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/selectionhandle.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/awesome.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/awesome.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/bspwm.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/bspwm.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/cinnamon.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/cinnamon.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/default.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/default.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/dwm.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/dwm.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/gnome.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/gnome.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/hyprland.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/hyprland.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/i3.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/i3.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/niri.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/niri.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/plasma.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/plasma.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/qtile.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/qtile.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/sway.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/sway.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/ubuntu.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/ubuntu.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/sessions/xfce.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/sessions/xfce.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/settings.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/settings.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/shift-fill.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/shift-fill.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/shift-upper.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/shift-upper.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/shift.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/shift.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/spinner.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/spinner.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/textmode.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/textmode.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/icons/user-default.svg` | `DOTFILES/assets/themes/sddm/hyprland-sddm/icons/user-default.svg` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/install.sh` | `DOTFILES/assets/themes/sddm/hyprland-sddm/install.sh` | Asset / Media | Yes |
 | `assets/themes/sddm/hyprland-sddm/metadata.desktop` | `DOTFILES/assets/themes/sddm/hyprland-sddm/metadata.desktop` | Desktop Entry | Yes |
-| `assets/themes/sddm/hyprland-sddm/test.sh` | `DOTFILES/assets/themes/sddm/hyprland-sddm/test.sh` | Script | Yes |
+| `assets/themes/sddm/hyprland-sddm/qmldir` | `DOTFILES/assets/themes/sddm/hyprland-sddm/qmldir` | Asset / Media | Yes |
+| `assets/themes/sddm/hyprland-sddm/test.sh` | `DOTFILES/assets/themes/sddm/hyprland-sddm/test.sh` | Asset / Media | Yes |
 | `assets/wallpapers/15.png` | `DOTFILES/assets/wallpapers/15.png` | Asset / Media | Yes |
 | `assets/wallpapers/Blue Girl.png` | `DOTFILES/assets/wallpapers/Blue Girl.png` | Asset / Media | Yes |
 | `assets/wallpapers/Focus.png` | `DOTFILES/assets/wallpapers/Focus.png` | Asset / Media | Yes |
@@ -167,51 +265,78 @@ Total tracked dotfiles items: **334**
 | `assets/wallpapers/Sword Silver Hair.png` | `DOTFILES/assets/wallpapers/Sword Silver Hair.png` | Asset / Media | Yes |
 | `assets/wallpapers/Tokyo Pink.png` | `DOTFILES/assets/wallpapers/Tokyo Pink.png` | Asset / Media | Yes |
 | `assets/wallpapers/Ultrakill.png` | `DOTFILES/assets/wallpapers/Ultrakill.png` | Asset / Media | Yes |
-| `assets/wallpapers/WALLPAPER_MANIFEST.txt` | `DOTFILES/assets/wallpapers/WALLPAPER_MANIFEST.txt` | Documentation / Manifest | Yes |
+| `assets/wallpapers/WALLPAPER_MANIFEST.txt` | `DOTFILES/assets/wallpapers/WALLPAPER_MANIFEST.txt` | Asset / Media | Yes |
 | `assets/wallpapers/Waifu Pink.png` | `DOTFILES/assets/wallpapers/Waifu Pink.png` | Asset / Media | Yes |
 | `assets/wallpapers/Wall.png` | `DOTFILES/assets/wallpapers/Wall.png` | Asset / Media | Yes |
 | `assets/wallpapers/Wings Dark.png` | `DOTFILES/assets/wallpapers/Wings Dark.png` | Asset / Media | Yes |
-| `assets/wallpapers/wall1.png` | `DOTFILES/assets/wallpapers/wall1.png` | Asset / Media | Yes |
-| `assets/wallpapers/wall2.png` | `DOTFILES/assets/wallpapers/wall2.png` | Asset / Media | Yes |
-| `bin/asus-tuf-aura` | `DOTFILES/bin/asus-tuf-aura` | Script / Binary | Yes |
+| `bin/agent` | `DOTFILES/bin/agent` | Binary | Yes |
+| `bin/asus-tuf-aura` | `DOTFILES/bin/asus-tuf-aura` | Binary | Yes |
 | `bin/awww` | `DOTFILES/bin/awww` | Binary | Yes |
 | `bin/awww-daemon` | `DOTFILES/bin/awww-daemon` | Binary | Yes |
 | `bin/clipse` | `DOTFILES/bin/clipse` | Binary | Yes |
-| `bin/hypr-pip-helper` | `DOTFILES/bin/hypr-pip-helper` | Binary | Yes |
-| `bin/mechanic` | `DOTFILES/bin/mechanic` | Binary | Yes |
-| `bin/mechanic-askpass` | `DOTFILES/bin/mechanic-askpass` | Binary | Yes |
-| `bin/agent` | `DOTFILES/bin/agent` | Binary | Yes |
 | `bin/crash` | `DOTFILES/bin/crash` | Binary | Yes |
 | `bin/crash-watch` | `DOTFILES/bin/crash-watch` | Binary | Yes |
+| `bin/hypr-pip-helper` | `DOTFILES/bin/hypr-pip-helper` | Binary | Yes |
 | `bin/ledge` | `DOTFILES/bin/ledge` | Binary | Yes |
+| `bin/mechanic` | `DOTFILES/bin/mechanic` | Binary | Yes |
+| `bin/mechanic-askpass` | `DOTFILES/bin/mechanic-askpass` | Binary | Yes |
+| `bin/patch-hyprland-blur` | `DOTFILES/bin/patch-hyprland-blur` | Binary | Yes |
 | `bin/webapp-manager` | `DOTFILES/bin/webapp-manager` | Binary | Yes |
 | `bin/xdg-terminal-exec` | `DOTFILES/bin/xdg-terminal-exec` | Binary | Yes |
 | `bin/ya` | `DOTFILES/bin/ya` | Binary | Yes |
 | `bin/yazi` | `DOTFILES/bin/yazi` | Binary | Yes |
-| `bin/patch-hyprland-blur` | `DOTFILES/bin/patch-hyprland-blur` | Script / Binary | Yes |
+| `config/DotFiles/DOTFILES-INSTALL.md` | `DOTFILES/config/DotFiles/DOTFILES-INSTALL.md` | Documentation / Manifest | Yes |
+| `config/DotFiles/PLAN-end4-ui-port.md` | `DOTFILES/config/DotFiles/PLAN-end4-ui-port.md` | Documentation / Manifest | Yes |
+| `config/DotFiles/launcher/launcher.rasi` | `DOTFILES/config/DotFiles/launcher/launcher.rasi` | DotFiles / Config | Yes |
+| `config/DotFiles/launcher/launcher.sh` | `DOTFILES/config/DotFiles/launcher/launcher.sh` | Script | Yes |
+| `config/DotFiles/launcher/webapp_manager.py` | `DOTFILES/config/DotFiles/launcher/webapp_manager.py` | Script / Python | Yes |
+| `config/DotFiles/theme/apply-theme.sh` | `DOTFILES/config/DotFiles/theme/apply-theme.sh` | Script | Yes |
+| `config/DotFiles/theme/colors-hyprland.conf` | `DOTFILES/config/DotFiles/theme/colors-hyprland.conf` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/colors-hyprland.lua` | `DOTFILES/config/DotFiles/theme/colors-hyprland.lua` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/colors-kitty.conf` | `DOTFILES/config/DotFiles/theme/colors-kitty.conf` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/colors.conf` | `DOTFILES/config/DotFiles/theme/colors.conf` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/colors.css` | `DOTFILES/config/DotFiles/theme/colors.css` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/colors.json` | `DOTFILES/config/DotFiles/theme/colors.json` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/colors.lua` | `DOTFILES/config/DotFiles/theme/colors.lua` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/colors.rasi` | `DOTFILES/config/DotFiles/theme/colors.rasi` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/current` | `DOTFILES/config/DotFiles/theme/current` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/generate-theme.py` | `DOTFILES/config/DotFiles/theme/generate-theme.py` | Script / Python | Yes |
+| `config/DotFiles/theme/nautilus-extension/Makefile` | `DOTFILES/config/DotFiles/theme/nautilus-extension/Makefile` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/nautilus-extension/libnautilus-theme-reloader.so` | `DOTFILES/config/DotFiles/theme/nautilus-extension/libnautilus-theme-reloader.so` | DotFiles / Config | Yes |
+| `config/DotFiles/theme/nautilus-extension/nautilus-theme-reloader.c` | `DOTFILES/config/DotFiles/theme/nautilus-extension/nautilus-theme-reloader.c` | DotFiles / Config | Yes |
+| `config/DotFiles/wallpaper/apply-wallpaper.sh` | `DOTFILES/config/DotFiles/wallpaper/apply-wallpaper.sh` | Script | Yes |
+| `config/DotFiles/wallpaper/carousel-picker.py` | `DOTFILES/config/DotFiles/wallpaper/carousel-picker.py` | Script / Python | Yes |
+| `config/DotFiles/wallpaper/config.env` | `DOTFILES/config/DotFiles/wallpaper/config.env` | DotFiles / Config | Yes |
+| `config/DotFiles/wallpaper/current` | `DOTFILES/config/DotFiles/wallpaper/current` | DotFiles / Config | Yes |
+| `config/DotFiles/wallpaper/generate-thumbnails.py` | `DOTFILES/config/DotFiles/wallpaper/generate-thumbnails.py` | Script / Python | Yes |
+| `config/DotFiles/wallpaper/picker.rasi` | `DOTFILES/config/DotFiles/wallpaper/picker.rasi` | DotFiles / Config | Yes |
+| `config/DotFiles/wallpaper/wallpaper-picker.sh` | `DOTFILES/config/DotFiles/wallpaper/wallpaper-picker.sh` | Script | Yes |
 | `config/autostart/com.abdownloadmanager.desktop` | `DOTFILES/config/autostart/com.abdownloadmanager.desktop` | Desktop Entry | Yes |
 | `config/autostart/org.fagram.desktop` | `DOTFILES/config/autostart/org.fagram.desktop` | Desktop Entry | Yes |
-| `config/clipse/config.json` | `DOTFILES/config/clipse/config.json` | Config | Yes |
-| `config/clipse/custom_theme.json` | `DOTFILES/config/clipse/custom_theme.json` | Config | Yes |
-| `config/dunst/dunstrc` | `DOTFILES/config/dunst/dunstrc` | Data / Source | Yes |
-| `config/environment.d/quickshell.conf` | `DOTFILES/config/environment.d/quickshell.conf` | Config | Yes |
-| `config/environment.d/theme.conf` | `DOTFILES/config/environment.d/theme.conf` | Config | Yes |
-| `config/ghostty/config` | `DOTFILES/config/ghostty/config` | Data / Source | Yes |
-| `config/ghostty/gtk.css` | `DOTFILES/config/ghostty/gtk.css` | Data / Source | Yes |
-| `config/gtk-3.0/gtk.css` | `DOTFILES/config/gtk-3.0/gtk.css` | Data / Source | Yes |
-| `config/gtk-3.0/settings.ini` | `DOTFILES/config/gtk-3.0/settings.ini` | Config | Yes |
-| `config/gtk-4.0/gtk.css` | `DOTFILES/config/gtk-4.0/gtk.css` | Data / Source | Yes |
-| `config/gtk-4.0/settings.ini` | `DOTFILES/config/gtk-4.0/settings.ini` | Config | Yes |
-| `config/gtkrc-2.0` | `DOTFILES/config/gtkrc-2.0` | Data / Source | Yes |
-| `config/herdr/config.toml` | `DOTFILES/config/herdr/config.toml` | Config | Yes |
-| `config/herdr/session.json` | `DOTFILES/config/herdr/session.json` | Config | Yes |
-| `config/hypr/hypridle.conf` | `DOTFILES/config/hypr/hypridle.conf` | Config | Yes |
-| `config/hypr/hyprland.conf` | `DOTFILES/config/hypr/hyprland.conf` | Config | Yes |
-| `config/hypr/hyprland.lua` | `DOTFILES/config/hypr/hyprland.lua` | Config | Yes |
-| `config/hypr/hyprlock.conf` | `DOTFILES/config/hypr/hyprlock.conf` | Config | Yes |
-| `config/hypr/hyprpaper.conf` | `DOTFILES/config/hypr/hyprpaper.conf` | Config | Yes |
-| `config/hypr/pip.lua` | `DOTFILES/config/hypr/pip.lua` | Config | Yes |
-| `config/hypr/scripts/autostart.py` | `DOTFILES/config/hypr/scripts/autostart.py` | Script | Yes |
+| `config/clipse/config.json` | `DOTFILES/config/clipse/config.json` | Config / Data | Yes |
+| `config/clipse/custom_theme.json` | `DOTFILES/config/clipse/custom_theme.json` | Config / Data | Yes |
+| `config/dotfiles/config.json` | `DOTFILES/config/dotfiles/config.json` | Config / Data | Yes |
+| `config/dunst/dunstrc` | `DOTFILES/config/dunst/dunstrc` | Config / Data | Yes |
+| `config/environment.d/quickshell.conf` | `DOTFILES/config/environment.d/quickshell.conf` | Config / Data | Yes |
+| `config/environment.d/theme.conf` | `DOTFILES/config/environment.d/theme.conf` | Config / Data | Yes |
+| `config/ghostty/config` | `DOTFILES/config/ghostty/config` | Config / Data | Yes |
+| `config/ghostty/gtk.css` | `DOTFILES/config/ghostty/gtk.css` | Config / Data | Yes |
+| `config/gtk-3.0/gtk.css` | `DOTFILES/config/gtk-3.0/gtk.css` | Config / Data | Yes |
+| `config/gtk-3.0/settings.ini` | `DOTFILES/config/gtk-3.0/settings.ini` | Config / Data | Yes |
+| `config/gtk-4.0/gtk.css` | `DOTFILES/config/gtk-4.0/gtk.css` | Config / Data | Yes |
+| `config/gtk-4.0/settings.ini` | `DOTFILES/config/gtk-4.0/settings.ini` | Config / Data | Yes |
+| `config/gtkrc-2.0` | `DOTFILES/config/gtkrc-2.0` | Config / Data | Yes |
+| `config/herdr/.plugins.lock` | `DOTFILES/config/herdr/.plugins.lock` | Config / Data | Yes |
+| `config/herdr/config.toml` | `DOTFILES/config/herdr/config.toml` | Config / Data | Yes |
+| `config/herdr/session.json` | `DOTFILES/config/herdr/session.json` | Config / Data | Yes |
+| `config/hypr/hypridle.conf` | `DOTFILES/config/hypr/hypridle.conf` | Config / Data | Yes |
+| `config/hypr/hyprland.conf` | `DOTFILES/config/hypr/hyprland.conf` | Config / Data | Yes |
+| `config/hypr/hyprland.lua` | `DOTFILES/config/hypr/hyprland.lua` | Config / Data | Yes |
+| `config/hypr/hyprland.lua.bak-end4-2026-11-14-2005` | `DOTFILES/config/hypr/hyprland.lua.bak-end4-2026-11-14-2005` | Config / Data | Yes |
+| `config/hypr/hyprlock.conf` | `DOTFILES/config/hypr/hyprlock.conf` | Config / Data | Yes |
+| `config/hypr/hyprpaper.conf` | `DOTFILES/config/hypr/hyprpaper.conf` | Config / Data | Yes |
+| `config/hypr/pip.lua` | `DOTFILES/config/hypr/pip.lua` | Config / Data | Yes |
+| `config/hypr/scripts/autostart.py` | `DOTFILES/config/hypr/scripts/autostart.py` | Script / Python | Yes |
 | `config/hypr/scripts/battery-alert.sh` | `DOTFILES/config/hypr/scripts/battery-alert.sh` | Script | Yes |
 | `config/hypr/scripts/brightness.sh` | `DOTFILES/config/hypr/scripts/brightness.sh` | Script | Yes |
 | `config/hypr/scripts/caffeine.sh` | `DOTFILES/config/hypr/scripts/caffeine.sh` | Script | Yes |
@@ -220,119 +345,1087 @@ Total tracked dotfiles items: **334**
 | `config/hypr/scripts/screenshot.sh` | `DOTFILES/config/hypr/scripts/screenshot.sh` | Script | Yes |
 | `config/hypr/scripts/suspend.sh` | `DOTFILES/config/hypr/scripts/suspend.sh` | Script | Yes |
 | `config/hypr/scripts/volume.sh` | `DOTFILES/config/hypr/scripts/volume.sh` | Script | Yes |
-| `config/kdeglobals` | `DOTFILES/config/kdeglobals` | Data / Source | Yes |
-| `config/mimeapps.list` | `DOTFILES/config/mimeapps.list` | Data / Source | Yes |
-| `config/my-desktop/launcher/launcher.rasi` | `DOTFILES/config/my-desktop/launcher/launcher.rasi` | Config | Yes |
-| `config/my-desktop/launcher/launcher.sh` | `DOTFILES/config/my-desktop/launcher/launcher.sh` | Script | Yes |
-| `config/my-desktop/launcher/webapp_manager.py` | `DOTFILES/config/my-desktop/launcher/webapp_manager.py` | Script | Yes |
-| `config/my-desktop/theme/apply-theme.sh` | `DOTFILES/config/my-desktop/theme/apply-theme.sh` | Script | Yes |
-| `config/my-desktop/theme/colors-hyprland.conf` | `DOTFILES/config/my-desktop/theme/colors-hyprland.conf` | Config | Yes |
-| `config/my-desktop/theme/colors-hyprland.lua` | `DOTFILES/config/my-desktop/theme/colors-hyprland.lua` | Config | Yes |
-| `config/my-desktop/theme/colors-kitty.conf` | `DOTFILES/config/my-desktop/theme/colors-kitty.conf` | Config | Yes |
-| `config/my-desktop/theme/colors.conf` | `DOTFILES/config/my-desktop/theme/colors.conf` | Config | Yes |
-| `config/my-desktop/theme/colors.css` | `DOTFILES/config/my-desktop/theme/colors.css` | Data / Source | Yes |
-| `config/my-desktop/theme/colors.json` | `DOTFILES/config/my-desktop/theme/colors.json` | Config | Yes |
-| `config/my-desktop/theme/colors.lua` | `DOTFILES/config/my-desktop/theme/colors.lua` | Config | Yes |
-| `config/my-desktop/theme/colors.rasi` | `DOTFILES/config/my-desktop/theme/colors.rasi` | Config | Yes |
-| `config/my-desktop/theme/current` | `DOTFILES/config/my-desktop/theme/current` | Data / Source | Yes |
-| `config/my-desktop/theme/generate-theme.py` | `DOTFILES/config/my-desktop/theme/generate-theme.py` | Script | Yes |
-| `config/my-desktop/wallpaper/apply-wallpaper.sh` | `DOTFILES/config/my-desktop/wallpaper/apply-wallpaper.sh` | Script | Yes |
-| `config/my-desktop/wallpaper/carousel-picker.py` | `DOTFILES/config/my-desktop/wallpaper/carousel-picker.py` | Script | Yes |
-| `config/my-desktop/wallpaper/config.env` | `DOTFILES/config/my-desktop/wallpaper/config.env` | Data / Source | Yes |
-| `config/my-desktop/wallpaper/current` | `DOTFILES/config/my-desktop/wallpaper/current` | Data / Source | Yes |
-| `config/my-desktop/wallpaper/generate-thumbnails.py` | `DOTFILES/config/my-desktop/wallpaper/generate-thumbnails.py` | Script | Yes |
-| `config/my-desktop/wallpaper/picker.rasi` | `DOTFILES/config/my-desktop/wallpaper/picker.rasi` | Config | Yes |
-| `config/my-desktop/wallpaper/wallpaper-picker.sh` | `DOTFILES/config/my-desktop/wallpaper/wallpaper-picker.sh` | Script | Yes |
-| `config/quickshell/Theme.qml` | `DOTFILES/config/quickshell/Theme.qml` | Config | Yes |
-| `config/quickshell/bar/Bar.qml` | `DOTFILES/config/quickshell/bar/Bar.qml` | Config | Yes |
-| `config/quickshell/bar/ChatButton.qml` | `DOTFILES/config/quickshell/bar/ChatButton.qml` | Config | Yes |
-| `config/quickshell/bar/Clock.qml` | `DOTFILES/config/quickshell/bar/Clock.qml` | Config | Yes |
-| `config/quickshell/bar/MiniPlayer.qml` | `DOTFILES/config/quickshell/bar/MiniPlayer.qml` | Config | Yes |
-| `config/quickshell/bar/StatusCluster.qml` | `DOTFILES/config/quickshell/bar/StatusCluster.qml` | Config | Yes |
-| `config/quickshell/bar/TrayDrawer.qml` | `DOTFILES/config/quickshell/bar/TrayDrawer.qml` | Config | Yes |
-| `config/quickshell/bar/Workspaces.qml` | `DOTFILES/config/quickshell/bar/Workspaces.qml` | Config | Yes |
+| `config/kdeglobals` | `DOTFILES/config/kdeglobals` | Config / Data | Yes |
+| `config/matugen/config.toml` | `DOTFILES/config/matugen/config.toml` | Matugen / Config | Yes |
+| `config/matugen/templates/ags/_material.scss` | `DOTFILES/config/matugen/templates/ags/_material.scss` | Matugen / Config | Yes |
+| `config/matugen/templates/ags/sourceviewtheme-light.xml` | `DOTFILES/config/matugen/templates/ags/sourceviewtheme-light.xml` | Matugen / Config | Yes |
+| `config/matugen/templates/ags/sourceviewtheme.xml` | `DOTFILES/config/matugen/templates/ags/sourceviewtheme.xml` | Matugen / Config | Yes |
+| `config/matugen/templates/colors.json` | `DOTFILES/config/matugen/templates/colors.json` | Matugen / Config | Yes |
+| `config/matugen/templates/fuzzel/fuzzel_theme.ini` | `DOTFILES/config/matugen/templates/fuzzel/fuzzel_theme.ini` | Matugen / Config | Yes |
+| `config/matugen/templates/gtk-3.0/gtk.css` | `DOTFILES/config/matugen/templates/gtk-3.0/gtk.css` | Matugen / Config | Yes |
+| `config/matugen/templates/gtk-4.0/gtk.css` | `DOTFILES/config/matugen/templates/gtk-4.0/gtk.css` | Matugen / Config | Yes |
+| `config/matugen/templates/hyprland/colors.lua` | `DOTFILES/config/matugen/templates/hyprland/colors.lua` | Matugen / Config | Yes |
+| `config/matugen/templates/hyprland/hyprlock-colors.conf` | `DOTFILES/config/matugen/templates/hyprland/hyprlock-colors.conf` | Matugen / Config | Yes |
+| `config/matugen/templates/kde/color.txt` | `DOTFILES/config/matugen/templates/kde/color.txt` | Matugen / Config | Yes |
+| `config/matugen/templates/kde/kde-material-you-colors-wrapper.sh` | `DOTFILES/config/matugen/templates/kde/kde-material-you-colors-wrapper.sh` | Script | Yes |
+| `config/matugen/templates/wallpaper.txt` | `DOTFILES/config/matugen/templates/wallpaper.txt` | Matugen / Config | Yes |
+| `config/mimeapps.list` | `DOTFILES/config/mimeapps.list` | Config / Data | Yes |
+| `config/quickshell/Theme.qml` | `DOTFILES/config/quickshell/Theme.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/ActiveWindow.qml` | `DOTFILES/config/quickshell/bar/ActiveWindow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/Bar.qml` | `DOTFILES/config/quickshell/bar/Bar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/BarContent.qml` | `DOTFILES/config/quickshell/bar/BarContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/BarGroup.qml` | `DOTFILES/config/quickshell/bar/BarGroup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/BatteryIndicator.qml` | `DOTFILES/config/quickshell/bar/BatteryIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/ChatButton.qml` | `DOTFILES/config/quickshell/bar/ChatButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/Clock.qml` | `DOTFILES/config/quickshell/bar/Clock.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/ClockWidget.qml` | `DOTFILES/config/quickshell/bar/ClockWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/Media.qml` | `DOTFILES/config/quickshell/bar/Media.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/MiniPlayer.qml` | `DOTFILES/config/quickshell/bar/MiniPlayer.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/Resource.qml` | `DOTFILES/config/quickshell/bar/Resource.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/Resources.qml` | `DOTFILES/config/quickshell/bar/Resources.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/StatusCluster.qml` | `DOTFILES/config/quickshell/bar/StatusCluster.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/TrayDrawer.qml` | `DOTFILES/config/quickshell/bar/TrayDrawer.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/UtilButtons.qml` | `DOTFILES/config/quickshell/bar/UtilButtons.qml` | Quickshell / QML | Yes |
+| `config/quickshell/bar/Workspaces.qml` | `DOTFILES/config/quickshell/bar/Workspaces.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/.qmlformat.ini` | `DOTFILES/config/quickshell/dotfiles/.qmlformat.ini` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/GlobalStates.qml` | `DOTFILES/config/quickshell/dotfiles/GlobalStates.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/LICENSE-GPL-3.0` | `DOTFILES/config/quickshell/dotfiles/LICENSE-GPL-3.0` | Legal / Attribution | Yes |
+| `config/quickshell/dotfiles/ReloadPopup.qml` | `DOTFILES/config/quickshell/dotfiles/ReloadPopup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/assets/icons/ai-openai-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/ai-openai-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/arch-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/arch-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/cachyos-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/cachyos-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/cloudflare-dns-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/cloudflare-dns-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/crosshair-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/crosshair-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/debian-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/debian-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/deepseek-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/deepseek-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/desktop-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/desktop-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/endeavouros-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/endeavouros-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fedora-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fedora-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/flatpak-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/flatpak-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/README.md` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/README.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/add-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/add-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/add.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/add.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/alert-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/alert-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/alert-off-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/alert-off-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/alert-off.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/alert-off.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/alert-snooze-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/alert-snooze-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/alert-snooze.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/alert-snooze.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/alert.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/alert.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/app-generic-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/app-generic-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/app-generic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/app-generic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/apps-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/apps-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/apps.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/apps.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-clockwise-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-clockwise-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-clockwise.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-clockwise.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-counterclockwise-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-counterclockwise-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-counterclockwise.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-counterclockwise.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-enter-left-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-enter-left-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-enter-left.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-enter-left.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-left-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-left-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-left.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-left.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-right-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-right-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-right.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-right.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-sync.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-sync.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-up-left-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-up-left-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/arrow-up-left.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/arrow-up-left.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/auto-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/auto-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/auto.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/auto.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-0.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-0.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-1.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-1.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-2.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-2.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-3.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-3.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-4.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-4.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-5.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-5.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-6.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-6.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-7.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-7.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-8.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-8.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-9.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-9.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-charge.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-charge.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-full.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-full.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-saver.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-saver.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/battery-warning.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/battery-warning.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/bluetooth-connected-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/bluetooth-connected-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/bluetooth-connected.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/bluetooth-connected.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/bluetooth-disabled-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/bluetooth-disabled-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/bluetooth-disabled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/bluetooth-disabled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/bluetooth-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/bluetooth-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/bluetooth-searching.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/bluetooth-searching.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/bluetooth.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/bluetooth.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/calculator-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/calculator-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/calculator.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/calculator.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/calendar-add-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/calendar-add-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/calendar-add.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/calendar-add.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/camera-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/camera-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/camera.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/camera.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/caret-down-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/caret-down-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/caret-down.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/caret-down.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/caret-up-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/caret-up-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/caret-up.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/caret-up.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/checkmark-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/checkmark-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/checkmark.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/checkmark.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/chevron-down-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/chevron-down-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/chevron-down.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/chevron-down.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/chevron-left-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/chevron-left-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/chevron-left.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/chevron-left.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/chevron-right-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/chevron-right-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/chevron-right.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/chevron-right.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/chevron-up-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/chevron-up-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/chevron-up.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/chevron-up.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/cloudflare-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/cloudflare-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/cloudflare.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/cloudflare.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/corporation.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/corporation.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/crop-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/crop-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/crop.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/crop.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/cut-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/cut-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/cut.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/cut.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/dark-theme-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/dark-theme-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/dark-theme.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/dark-theme.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/desktop-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/desktop-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/desktop-speaker-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/desktop-speaker-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/desktop-speaker.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/desktop-speaker.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/desktop.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/desktop.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/device-eq-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/device-eq-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/device-eq.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/device-eq.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/dismiss.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/dismiss.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/drink-coffee-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/drink-coffee-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/drink-coffee.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/drink-coffee.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/empty.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/empty.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/ethernet-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/ethernet-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/ethernet.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/ethernet.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/eye-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/eye-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/eye-off-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/eye-off-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/eye-off.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/eye-off.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/eye.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/eye.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/eyedropper-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/eyedropper-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/eyedropper.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/eyedropper.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/fire-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/fire-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/fire.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/fire.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/flash-off-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/flash-off-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/flash-off.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/flash-off.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/flash-on-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/flash-on-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/flash-on.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/flash-on.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/games-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/games-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/games.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/games.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/globe-search-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/globe-search-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/globe-search.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/globe-search.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/globe-shield-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/globe-shield-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/globe-shield.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/globe-shield.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/headphones-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/headphones-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/headphones.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/headphones.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/image-copy-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/image-copy-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/image-copy.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/image-copy.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/image-edit-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/image-edit-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/image-edit.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/image-edit.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/image-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/image-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/image.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/image.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/keyboard-dock-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/keyboard-dock-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/keyboard-dock.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/keyboard-dock.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/keyboard-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/keyboard-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/keyboard.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/keyboard.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/leaf-two-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/leaf-two-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/leaf-two.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/leaf-two.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/library-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/library-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/library.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/library.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/lock-closed-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/lock-closed-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/lock-closed.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/lock-closed.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/lock-open-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/lock-open-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/lock-open.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/lock-open.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/mic-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/mic-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/mic-off-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/mic-off-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/mic-off.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/mic-off.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/mic-on.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/mic-on.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/mic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/mic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/more-horizontal-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/more-horizontal-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/more-horizontal.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/more-horizontal.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/music-note-2-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/music-note-2-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/music-note-2.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/music-note-2.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/news-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/news-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/news.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/news.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/next-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/next-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/next.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/next.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/open-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/open-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/open.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/open.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/options-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/options-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/options.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/options.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/pause-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/pause-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/pause.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/pause.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/people-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/people-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/people-settings-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/people-settings-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/people-settings.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/people-settings.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/people-team-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/people-team-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/people-team.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/people-team.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/people.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/people.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/phone-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/phone-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/phone.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/phone.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/pin-off.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/pin-off.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/pin.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/pin.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/play-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/play-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/play.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/play.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/power-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/power-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/power.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/power.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/previous-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/previous-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/previous.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/previous.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/record-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/record-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/record.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/record.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/scan-text-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/scan-text-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/scan-text.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/scan-text.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/search-visual-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/search-visual-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/search-visual.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/search-visual.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/server-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/server-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/server.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/server.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/settings-cog-multiple-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/settings-cog-multiple-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/settings-cog-multiple.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/settings-cog-multiple.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/settings.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/settings.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/shield-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/shield-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/shield-lock-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/shield-lock-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/shield-lock.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/shield-lock.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/shield.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/shield.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/speaker-0.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/speaker-0.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/speaker-1.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/speaker-1.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/speaker-2-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/speaker-2-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/speaker-mute-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/speaker-mute-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/speaker-mute.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/speaker-mute.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/speaker-none.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/speaker-none.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/speaker-off.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/speaker-off.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/speaker-settings.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/speaker-settings.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/speaker.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/speaker.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/start-here-pressed.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/start-here-pressed.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/start-here.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/start-here.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/stop-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/stop-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/stop.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/stop.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/store-microsoft-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/store-microsoft-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/store-microsoft.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/store-microsoft.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/subtract-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/subtract-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/subtract.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/subtract.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/system-search-checked-dark.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/system-search-checked-dark.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/system-search-checked-light.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/system-search-checked-light.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/system-search-dark.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/system-search-dark.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/system-search-light.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/system-search-light.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/task-view-dark.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/task-view-dark.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/task-view-light.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/task-view-light.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/task-view-pressed-dark.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/task-view-pressed-dark.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/task-view-pressed-light.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/task-view-pressed-light.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/temperature-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/temperature-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/temperature.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/temperature.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/video-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/video-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/video.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/video.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wand-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wand-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wand.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wand.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/weather-moon-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/weather-moon-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/weather-moon-off-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/weather-moon-off-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/weather-moon-off.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/weather-moon-off.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/weather-moon.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/weather-moon.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/weather-sunny-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/weather-sunny-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/weather-sunny.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/weather-sunny.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/widgets.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/widgets.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-1-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-1-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-1.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-1.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-2-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-2-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-2.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-2.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-3-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-3-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-3.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-3.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-4-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-4-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-4.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-4.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-lock-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-lock-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-lock.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-lock.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-off-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-off-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-off.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-off.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-warning-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-warning-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/wifi-warning.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/wifi-warning.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/window-shield-filled.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/window-shield-filled.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/fluent/window-shield.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/fluent/window-shield.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/gentoo-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/gentoo-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/github-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/github-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/google-gemini-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/google-gemini-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/linux-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/linux-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/manjaro-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/manjaro-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/microsoft-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/microsoft-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/mistral-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/mistral-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/nixos-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/nixos-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/nyarch-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/nyarch-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/ollama-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/ollama-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/openai-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/openai-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/openrouter-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/openrouter-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/spark-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/spark-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/icons/ubuntu-symbolic.svg` | `DOTFILES/config/quickshell/dotfiles/assets/icons/ubuntu-symbolic.svg` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/assets/images/default_wallpaper.png` | `DOTFILES/config/quickshell/dotfiles/assets/images/default_wallpaper.png` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/defaults/ai/README.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/README.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/defaults/ai/prompts/NoPrompt.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/NoPrompt.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/defaults/ai/prompts/ii-Default.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/ii-Default.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/defaults/ai/prompts/ii-Imouto.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/ii-Imouto.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/defaults/ai/prompts/nyarch-Acchan.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/nyarch-Acchan.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/defaults/ai/prompts/w-FourPointedSparkle.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/w-FourPointedSparkle.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/defaults/ai/prompts/w-OpenMechanicalFlower.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/w-OpenMechanicalFlower.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/killDialog.qml` | `DOTFILES/config/quickshell/dotfiles/killDialog.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/Appearance.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/Appearance.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/Config.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/Config.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/Directories.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/Directories.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/Icons.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/Icons.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/Images.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/Images.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/Persistent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/Persistent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/ColorUtils.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/ColorUtils.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/DateUtils.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/DateUtils.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/FileUtils.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/FileUtils.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/Fuzzy.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/Fuzzy.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/Levendist.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/Levendist.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/NotificationUtils.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/NotificationUtils.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/NumberUtils.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/NumberUtils.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/ObjectUtils.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/ObjectUtils.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/Session.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/Session.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/StringUtils.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/StringUtils.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/fuzzysort.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/fuzzysort.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/functions/levendist.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/functions/levendist.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/models/AdaptedMaterialScheme.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/AdaptedMaterialScheme.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/AnimatedTabIndexPair.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/AnimatedTabIndexPair.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/FolderListModelWithHistory.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/FolderListModelWithHistory.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/IndexModel.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/IndexModel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/LauncherSearchResult.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/LauncherSearchResult.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/NestableObject.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/NestableObject.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/WorkspaceModel.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/WorkspaceModel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/gCloud/GCloudApi.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/gCloud/GCloudApi.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/gCloud/GCloudTranslate.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/gCloud/GCloudTranslate.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/gCloud/GCloudVision.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/gCloud/GCloudVision.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/gCloud/GCloudVisionResult.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/gCloud/GCloudVisionResult.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/hyprland/HyprlandConfigOption.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/hyprland/HyprlandConfigOption.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/AntiFlashbangToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/AntiFlashbangToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/AudioToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/AudioToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/BluetoothToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/BluetoothToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/CloudflareWarpToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/CloudflareWarpToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/ColorPickerToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/ColorPickerToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/DarkModeToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/DarkModeToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/EasyEffectsToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/EasyEffectsToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/GameModeToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/GameModeToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/IdleInhibitorToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/IdleInhibitorToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/MicToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/MicToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/MusicRecognitionToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/MusicRecognitionToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/NetworkToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/NetworkToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/NightLightToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/NightLightToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/NotificationToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/NotificationToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/OnScreenKeyboardToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/OnScreenKeyboardToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/PowerProfilesToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/PowerProfilesToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/QuickToggleModel.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/QuickToggleModel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/models/quickToggles/ScreenSnipToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/models/quickToggles/ScreenSnipToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/panels/lock/LockContext.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/panels/lock/LockContext.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/panels/lock/LockScreen.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/panels/lock/LockScreen.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/panels/lock/pam/fprintd.conf` | `DOTFILES/config/quickshell/dotfiles/modules/common/panels/lock/pam/fprintd.conf` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/utils/ImageDownloaderProcess.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/utils/ImageDownloaderProcess.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/utils/MultiTurnProcess.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/utils/MultiTurnProcess.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/utils/ScreenshotAction.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/utils/ScreenshotAction.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/utils/TempScreenshotProcess.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/utils/TempScreenshotProcess.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/AddressBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/AddressBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/AddressBreadcrumb.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/AddressBreadcrumb.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/AppIcon.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/AppIcon.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/Box.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/Box.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/BoxLayout.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/BoxLayout.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ButtonGroup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ButtonGroup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ButtonMouseArea.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ButtonMouseArea.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/CalendarView.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/CalendarView.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/Circle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/Circle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/CircularProgress.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/CircularProgress.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/CliphistImage.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/CliphistImage.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ClippedFilledCircularProgress.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ClippedFilledCircularProgress.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ClippedProgressBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ClippedProgressBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/Colorizer.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/Colorizer.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ConfigRow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ConfigRow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ConfigSelectionArray.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ConfigSelectionArray.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ConfigSlider.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ConfigSlider.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ConfigSpinBox.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ConfigSpinBox.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ConfigSwitch.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ConfigSwitch.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ContentPage.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ContentPage.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ContentSection.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ContentSection.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ContentSubsection.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ContentSubsection.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ContentSubsectionLabel.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ContentSubsectionLabel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/CustomIcon.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/CustomIcon.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/DashedBorder.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/DashedBorder.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/DialogButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/DialogButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/DialogListItem.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/DialogListItem.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/DirectoryIcon.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/DirectoryIcon.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/DragManager.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/DragManager.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ErrorShakeAnimation.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ErrorShakeAnimation.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/FadeLoader.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/FadeLoader.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/Favicon.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/Favicon.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/FloatingActionButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/FloatingActionButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/FlowButtonGroup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/FlowButtonGroup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/FocusedScrollMouseArea.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/FocusedScrollMouseArea.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/FullscreenPolkitWindow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/FullscreenPolkitWindow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/Graph.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/Graph.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/GroupButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/GroupButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/IconAndTextToolbarButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/IconAndTextToolbarButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/IconToolbarButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/IconToolbarButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/KeyboardKey.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/KeyboardKey.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/LightDarkPreferenceButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/LightDarkPreferenceButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/MaskMultiEffect.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/MaskMultiEffect.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/MaterialCookie.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/MaterialCookie.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/MaterialLoadingIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/MaterialLoadingIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/MaterialShape.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/MaterialShape.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/MaterialShapeWrappedMaterialSymbol.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/MaterialShapeWrappedMaterialSymbol.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/MaterialSymbol.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/MaterialSymbol.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/MaterialTextArea.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/MaterialTextArea.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/MaterialTextField.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/MaterialTextField.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/MenuButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/MenuButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NavigationRail.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NavigationRail.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NavigationRailButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NavigationRailButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NavigationRailExpandButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NavigationRailExpandButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NavigationRailTabArray.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NavigationRailTabArray.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NoticeBox.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NoticeBox.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NotificationActionButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NotificationActionButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NotificationAppIcon.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NotificationAppIcon.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NotificationGroup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NotificationGroup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NotificationGroupExpandButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NotificationGroupExpandButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NotificationItem.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NotificationItem.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/NotificationListView.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/NotificationListView.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/OptionalMaterialSymbol.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/OptionalMaterialSymbol.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/PagePlaceholder.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/PagePlaceholder.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/Pill.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/Pill.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/PointingHandInteraction.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/PointingHandInteraction.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/PointingHandLinkHover.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/PointingHandLinkHover.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/PopupToolTip.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/PopupToolTip.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/Revealer.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/Revealer.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/RippleButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/RippleButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/RippleButtonWithIcon.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/RippleButtonWithIcon.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/RoundCorner.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/RoundCorner.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ScrollEdgeFade.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ScrollEdgeFade.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/SecondaryTabBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/SecondaryTabBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/SecondaryTabButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/SecondaryTabButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/SelectionDialog.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/SelectionDialog.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/SelectionGroupButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/SelectionGroupButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/SineCookie.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/SineCookie.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/SqueezedAnnotationStyledText.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/SqueezedAnnotationStyledText.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StateLayer.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StateLayer.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StateOverlay.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StateOverlay.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledBlurEffect.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledBlurEffect.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledComboBox.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledComboBox.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledDropShadow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledDropShadow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledFlickable.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledFlickable.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledImage.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledImage.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledIndeterminateProgressBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledIndeterminateProgressBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledListView.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledListView.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledProgressBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledProgressBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledRadioButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledRadioButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledRectangle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledRectangle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledRectangularShadow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledRectangularShadow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledScrollBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledScrollBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledSlider.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledSlider.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledSpinBox.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledSpinBox.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledSwitch.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledSwitch.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledText.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledText.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledTextArea.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledTextArea.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledTextInput.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledTextInput.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledToolTip.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledToolTip.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/StyledToolTipContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/StyledToolTipContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ThumbnailImage.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ThumbnailImage.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/Toolbar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/Toolbar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ToolbarButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ToolbarButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ToolbarPairedFab.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ToolbarPairedFab.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ToolbarTabBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ToolbarTabBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ToolbarTabButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ToolbarTabButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/ToolbarTextField.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/ToolbarTextField.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/VerticalButtonGroup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/VerticalButtonGroup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/VibrantToolbarButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/VibrantToolbarButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/WaveVisualizer.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/WaveVisualizer.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/WavyLine.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/WavyLine.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/WeekRow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/WeekRow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/WindowDialog.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/WindowDialog.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/WindowDialogButtonRow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/WindowDialogButtonRow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/WindowDialogParagraph.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/WindowDialogParagraph.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/WindowDialogSectionHeader.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/WindowDialogSectionHeader.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/WindowDialogSeparator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/WindowDialogSeparator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/WindowDialogSlider.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/WindowDialogSlider.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/WindowDialogTitle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/WindowDialogTitle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/.gitignore` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/.gitignore` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/LICENSE` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/LICENSE` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/README.md` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/README.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/ShapeCanvas.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/ShapeCanvas.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/example-squircle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/example-squircle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/example.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/example.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/geometry/offset.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/geometry/offset.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/graphics/matrix.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/graphics/matrix.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/material-shapes.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/material-shapes.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/corner-rounding.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/corner-rounding.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/cubic.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/cubic.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/feature-mapping.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/feature-mapping.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/feature.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/feature.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/float-mapping.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/float-mapping.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/morph.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/morph.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/point.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/point.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/polygon-measure.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/polygon-measure.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/rounded-corner.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/rounded-corner.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/rounded-polygon.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/rounded-polygon.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/utils.js` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/shapes/shapes/utils.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/widgetCanvas/AbstractOverlayWidget.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/widgetCanvas/AbstractOverlayWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/widgetCanvas/AbstractWidget.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/widgetCanvas/AbstractWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/common/widgets/widgetCanvas/WidgetCanvas.qml` | `DOTFILES/config/quickshell/dotfiles/modules/common/widgets/widgetCanvas/WidgetCanvas.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/Background.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/Background.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/AbstractBackgroundWidget.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/AbstractBackgroundWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/ClockText.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/ClockText.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/ClockWidget.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/ClockWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/CookieClock.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/CookieClock.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/CookieQuote.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/CookieQuote.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/DigitalClock.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/DigitalClock.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/HourHand.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/HourHand.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/HourMarks.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/HourMarks.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/MinuteHand.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/MinuteHand.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/SecondHand.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/SecondHand.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/TimeColumn.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/TimeColumn.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/dateIndicator/BubbleDate.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/dateIndicator/BubbleDate.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/dateIndicator/DateIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/dateIndicator/DateIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/dateIndicator/RectangleDate.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/dateIndicator/RectangleDate.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/dateIndicator/RotatingDate.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/dateIndicator/RotatingDate.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/minuteMarks/BigHourNumbers.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/minuteMarks/BigHourNumbers.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/minuteMarks/Dots.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/minuteMarks/Dots.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/minuteMarks/Lines.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/minuteMarks/Lines.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/minuteMarks/MinuteMarks.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/clock/minuteMarks/MinuteMarks.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/background/widgets/weather/WeatherWidget.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/background/widgets/weather/WeatherWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/ActiveWindow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/ActiveWindow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/Bar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/Bar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/BarContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/BarContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/BarGroup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/BarGroup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/BatteryIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/BatteryIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/BatteryPopup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/BatteryPopup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/CircleUtilButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/CircleUtilButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/ClockWidget.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/ClockWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/ClockWidgetPopup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/ClockWidgetPopup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/HyprlandXkbIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/HyprlandXkbIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/LeftSidebarButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/LeftSidebarButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/Media.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/Media.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/NotificationUnreadCount.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/NotificationUnreadCount.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/Resource.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/Resource.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/Resources.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/Resources.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/ResourcesPopup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/ResourcesPopup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/ScrollHint.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/ScrollHint.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/StyledPopup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/StyledPopup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/StyledPopupHeaderRow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/StyledPopupHeaderRow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/StyledPopupValueRow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/StyledPopupValueRow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/SysTray.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/SysTray.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/SysTrayItem.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/SysTrayItem.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/SysTrayMenu.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/SysTrayMenu.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/SysTrayMenuEntry.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/SysTrayMenuEntry.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/UtilButtons.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/UtilButtons.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/Workspaces.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/Workspaces.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/weather/WeatherBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/weather/WeatherBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/weather/WeatherCard.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/weather/WeatherCard.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/weather/WeatherPopup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/bar/weather/WeatherPopup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/cheatsheet/Cheatsheet.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/cheatsheet/Cheatsheet.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/cheatsheet/CheatsheetKeybinds.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/cheatsheet/CheatsheetKeybinds.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/cheatsheet/CheatsheetKeybindsCategory.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/cheatsheet/CheatsheetKeybindsCategory.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/cheatsheet/CheatsheetPeriodicTable.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/cheatsheet/CheatsheetPeriodicTable.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/cheatsheet/ElementTile.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/cheatsheet/ElementTile.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/cheatsheet/periodic_table.js` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/cheatsheet/periodic_table.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/dock/Dock.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/dock/Dock.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/dock/DockAppButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/dock/DockAppButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/dock/DockApps.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/dock/DockApps.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/dock/DockButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/dock/DockButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/dock/DockSeparator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/dock/DockSeparator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/lock/Lock.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/lock/Lock.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/lock/LockSurface.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/lock/LockSurface.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/lock/PasswordChars.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/lock/PasswordChars.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/mediaControls/MediaControls.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/mediaControls/MediaControls.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/mediaControls/PlayerControl.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/mediaControls/PlayerControl.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/notificationPopup/NotificationPopup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/notificationPopup/NotificationPopup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/OnScreenDisplay.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/OnScreenDisplay.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/OsdValueIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/OsdValueIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/indicators/BrightnessIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/indicators/BrightnessIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/indicators/GammaIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/indicators/GammaIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/indicators/VolumeIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/indicators/VolumeIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/onScreenKeyboard/OnScreenKeyboard.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/onScreenKeyboard/OnScreenKeyboard.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/onScreenKeyboard/OskContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/onScreenKeyboard/OskContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/onScreenKeyboard/OskKey.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/onScreenKeyboard/OskKey.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/onScreenKeyboard/layouts.js` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/onScreenKeyboard/layouts.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/Overlay.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/Overlay.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/OverlayBackground.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/OverlayBackground.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/OverlayContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/OverlayContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/OverlayContext.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/OverlayContext.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/OverlayTaskbar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/OverlayTaskbar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/OverlayWidgetDelegateChooser.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/OverlayWidgetDelegateChooser.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/StyledOverlayWidget.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/StyledOverlayWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/crosshair/Crosshair.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/crosshair/Crosshair.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/crosshair/CrosshairContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/crosshair/CrosshairContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/floatingImage/FloatingImage.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/floatingImage/FloatingImage.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/fpsLimiter/FpsLimiter.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/fpsLimiter/FpsLimiter.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/fpsLimiter/FpsLimiterContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/fpsLimiter/FpsLimiterContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/notes/Notes.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/notes/Notes.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/notes/NotesContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/notes/NotesContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/recorder/Recorder.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/recorder/Recorder.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/resources/Resources.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/resources/Resources.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/overlay/volumeMixer/VolumeMixer.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/overlay/volumeMixer/VolumeMixer.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/polkit/Polkit.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/polkit/Polkit.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/polkit/PolkitContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/polkit/PolkitContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/regionSelector/CircleSelectionDetails.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/regionSelector/CircleSelectionDetails.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/regionSelector/CursorGuide.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/regionSelector/CursorGuide.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/regionSelector/OptionsToolbar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/regionSelector/OptionsToolbar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/regionSelector/RectCornersSelectionDetails.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/regionSelector/RectCornersSelectionDetails.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/regionSelector/RegionFunctions.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/regionSelector/RegionFunctions.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/regionSelector/RegionSelection.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/regionSelector/RegionSelection.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/regionSelector/RegionSelector.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/regionSelector/RegionSelector.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/regionSelector/TargetRegion.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/regionSelector/TargetRegion.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/screenCorners/ScreenCorners.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/screenCorners/ScreenCorners.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/screenTranslator/ScreenTextOverlay.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/screenTranslator/ScreenTextOverlay.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/screenTranslator/ScreenTranslator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/screenTranslator/ScreenTranslator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/screenTranslator/ScreenTranslatorPanel.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/screenTranslator/ScreenTranslatorPanel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sessionScreen/SessionActionButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sessionScreen/SessionActionButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sessionScreen/SessionScreen.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sessionScreen/SessionScreen.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/AiChat.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/AiChat.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/Anime.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/Anime.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/ApiCommandButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/ApiCommandButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/ApiInputBoxIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/ApiInputBoxIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/DescriptionBox.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/DescriptionBox.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/ScrollToBottomButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/ScrollToBottomButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/SidebarLeft.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/SidebarLeft.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/SidebarLeftContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/SidebarLeftContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/Translator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/Translator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/AiMessage.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/AiMessage.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/AiMessageControlButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/AiMessageControlButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/AnnotationSourceButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/AnnotationSourceButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/AttachedFileIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/AttachedFileIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/MessageCodeBlock.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/MessageCodeBlock.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/MessageTextBlock.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/MessageTextBlock.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/MessageThinkBlock.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/MessageThinkBlock.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/SearchQueryButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/aiChat/SearchQueryButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/anime/BooruImage.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/anime/BooruImage.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/anime/BooruResponse.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/anime/BooruResponse.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/translator/LanguageSelectorButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/translator/LanguageSelectorButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/translator/TextCanvas.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarLeft/translator/TextCanvas.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/CenterWidgetGroup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/CenterWidgetGroup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/QuickSliders.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/QuickSliders.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/SidebarRight.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/SidebarRight.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/SidebarRightContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/SidebarRightContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/bluetoothDevices/BluetoothDeviceItem.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/bluetoothDevices/BluetoothDeviceItem.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/bluetoothDevices/BluetoothDialog.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/bluetoothDevices/BluetoothDialog.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/nightLight/NightLightDialog.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/nightLight/NightLightDialog.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/notifications/NotificationList.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/notifications/NotificationList.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/notifications/NotificationStatusButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/notifications/NotificationStatusButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/AbstractQuickPanel.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/AbstractQuickPanel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/AndroidQuickPanel.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/AndroidQuickPanel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/ClassicQuickPanel.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/ClassicQuickPanel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidAntiFlashbangToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidAntiFlashbangToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidAudioToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidAudioToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidBluetoothToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidBluetoothToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidCloudflareWarpToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidCloudflareWarpToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidColorPickerToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidColorPickerToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidDarkModeToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidDarkModeToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidEasyEffectsToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidEasyEffectsToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidGameModeToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidGameModeToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidIdleInhibitorToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidIdleInhibitorToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidMicToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidMicToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidMusicRecognition.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidMusicRecognition.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidNetworkToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidNetworkToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidNightLightToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidNightLightToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidNotificationToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidNotificationToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidOnScreenKeyboardToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidOnScreenKeyboardToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidPowerProfileToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidPowerProfileToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidQuickToggleButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidQuickToggleButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidScreenSnipToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidScreenSnipToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidToggleDelegateChooser.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/androidStyle/AndroidToggleDelegateChooser.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/BluetoothToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/BluetoothToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/CloudflareWarp.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/CloudflareWarp.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/EasyEffectsToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/EasyEffectsToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/GameMode.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/GameMode.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/IdleInhibitor.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/IdleInhibitor.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/NetworkToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/NetworkToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/NightLight.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/NightLight.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/QuickToggleButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/quickToggles/classicStyle/QuickToggleButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/volumeMixer/AudioDeviceSelectorButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/volumeMixer/AudioDeviceSelectorButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/volumeMixer/VolumeDialog.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/volumeMixer/VolumeDialog.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/volumeMixer/VolumeDialogContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/volumeMixer/VolumeDialogContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/volumeMixer/VolumeMixerEntry.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/volumeMixer/VolumeMixerEntry.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/wifiNetworks/WifiDialog.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/wifiNetworks/WifiDialog.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/wifiNetworks/WifiNetworkItem.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/sidebarRight/wifiNetworks/WifiNetworkItem.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/verticalBar/BatteryIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/verticalBar/BatteryIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/verticalBar/Resource.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/verticalBar/Resource.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/verticalBar/Resources.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/verticalBar/Resources.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/verticalBar/VerticalBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/verticalBar/VerticalBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/verticalBar/VerticalBarContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/verticalBar/VerticalBarContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/verticalBar/VerticalClockWidget.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/verticalBar/VerticalClockWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/verticalBar/VerticalMedia.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/verticalBar/VerticalMedia.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/wallpaperSelector/WallpaperDirectoryItem.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/wallpaperSelector/WallpaperDirectoryItem.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/wallpaperSelector/WallpaperSelector.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/wallpaperSelector/WallpaperSelector.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/dotfiles/wallpaperSelector/WallpaperSelectorContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/dotfiles/wallpaperSelector/WallpaperSelectorContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/settings/AllConfig.qml` | `DOTFILES/config/quickshell/dotfiles/modules/settings/AllConfig.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/README.md` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/README.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/ActionCenterContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/ActionCenterContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/ActionCenterContext.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/ActionCenterContext.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/ExpandableChoiceButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/ExpandableChoiceButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/HeaderRow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/HeaderRow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/MediaPaneContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/MediaPaneContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/SectionText.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/SectionText.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/ToggleItem.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/ToggleItem.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/WaffleActionCenter.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/WaffleActionCenter.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/bluetooth/BluetoothControl.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/bluetooth/BluetoothControl.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/bluetooth/BluetoothDeviceItem.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/bluetooth/BluetoothDeviceItem.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/mainPage/MainPageBody.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/mainPage/MainPageBody.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/mainPage/MainPageBodySliders.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/mainPage/MainPageBodySliders.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/mainPage/MainPageBodyToggles.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/mainPage/MainPageBodyToggles.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/mainPage/MainPageFooter.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/mainPage/MainPageFooter.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/nightLight/NightLightControl.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/nightLight/NightLightControl.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/toggles/ActionCenterToggleButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/toggles/ActionCenterToggleButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/toggles/ActionCenterTogglesDelegateChooser.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/toggles/ActionCenterTogglesDelegateChooser.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/toggles/WNetworkToggle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/toggles/WNetworkToggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/volumeControl/VolumeControl.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/volumeControl/VolumeControl.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/volumeControl/VolumeEntry.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/volumeControl/VolumeEntry.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/wifi/WWifiNetworkItem.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/wifi/WWifiNetworkItem.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/actionCenter/wifi/WifiControl.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/actionCenter/wifi/WifiControl.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/background/WaffleBackground.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/background/WaffleBackground.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/AppButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/AppButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/BarButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/BarButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/BarIconButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/BarIconButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/BarMenu.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/BarMenu.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/BarPopup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/BarPopup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/BarToolTip.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/BarToolTip.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/SearchButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/SearchButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/StartButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/StartButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/SystemButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/SystemButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/TaskViewButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/TaskViewButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/TimeButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/TimeButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/UpdatesButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/UpdatesButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/WaffleBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/WaffleBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/WaffleBarContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/WaffleBarContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/WidgetsButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/WidgetsButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/tasks/TaskAppButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/tasks/TaskAppButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/tasks/TaskPreview.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/tasks/TaskPreview.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/tasks/Tasks.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/tasks/Tasks.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/tasks/WindowPreview.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/tasks/WindowPreview.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/tray/Tray.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/tray/Tray.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/tray/TrayButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/tray/TrayButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/bar/tray/TrayOverflowMenu.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/bar/tray/TrayOverflowMenu.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/lock/WaffleLock.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/lock/WaffleLock.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/AcrylicButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/AcrylicButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/AcrylicRectangle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/AcrylicRectangle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/BodyRectangle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/BodyRectangle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/CloseButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/CloseButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/FluentIcon.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/FluentIcon.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/FooterRectangle.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/FooterRectangle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/Looks.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/Looks.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/VerticalPageIndicator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/VerticalPageIndicator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WAmbientShadow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WAmbientShadow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WAppIcon.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WAppIcon.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WBarAttachedPanelContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WBarAttachedPanelContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WBorderedButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WBorderedButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WBorderlessButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WBorderlessButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WChoiceButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WChoiceButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WFadeLoader.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WFadeLoader.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WIcons.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WIcons.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WIndeterminateProgressBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WIndeterminateProgressBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WListView.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WListView.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WMenu.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WMenu.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WMenuItem.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WMenuItem.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WMouseAreaButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WMouseAreaButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WPane.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WPane.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WPanelIconButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WPanelIconButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WPanelPageColumn.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WPanelPageColumn.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WPanelSeparator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WPanelSeparator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WPopupToolTip.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WPopupToolTip.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WProgressBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WProgressBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WRectangularShadow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WRectangularShadow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WRectangularShadowThis.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WRectangularShadowThis.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WScrollBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WScrollBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WSlider.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WSlider.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WStackView.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WStackView.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WSwitch.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WSwitch.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WText.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WText.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WTextButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WTextButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WTextField.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WTextField.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WTextInput.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WTextInput.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WTextWithFixedWidth.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WTextWithFixedWidth.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WToolTip.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WToolTip.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WToolTipContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WToolTipContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WToolbar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WToolbar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WToolbarButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WToolbarButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WToolbarIconButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WToolbarIconButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WToolbarIconTabButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WToolbarIconTabButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WToolbarSeparator.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WToolbarSeparator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WToolbarTabBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WToolbarTabBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/looks/WUserAvatar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/looks/WUserAvatar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/CalendarWidget.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/CalendarWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/DateHeader.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/DateHeader.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/FocusFooter.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/FocusFooter.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/NotificationCenterContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/NotificationCenterContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/NotificationHeaderButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/NotificationHeaderButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/NotificationPaneContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/NotificationPaneContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/SmallBorderedIconAndTextButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/SmallBorderedIconAndTextButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/SmallBorderedIconButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/SmallBorderedIconButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/WNotificationAppIcon.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/WNotificationAppIcon.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/WNotificationDismissAnim.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/WNotificationDismissAnim.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/WNotificationGroup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/WNotificationGroup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/WSingleNotification.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/WSingleNotification.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationCenter/WaffleNotificationCenter.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationCenter/WaffleNotificationCenter.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/notificationPopup/WaffleNotificationPopup.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/notificationPopup/WaffleNotificationPopup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/onScreenDisplay/BrightnessOSD.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/onScreenDisplay/BrightnessOSD.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/onScreenDisplay/OSDValue.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/onScreenDisplay/OSDValue.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/onScreenDisplay/VolumeOSD.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/onScreenDisplay/VolumeOSD.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/onScreenDisplay/WaffleOSD.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/onScreenDisplay/WaffleOSD.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/polkit/WPolkitContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/polkit/WPolkitContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/polkit/WafflePolkit.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/polkit/WafflePolkit.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/screenSnip/WRectangularSelection.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/screenSnip/WRectangularSelection.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/screenSnip/WRegionSelectionPanel.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/screenSnip/WRegionSelectionPanel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/screenSnip/WScreenSnip.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/screenSnip/WScreenSnip.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/sessionScreen/PowerButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/sessionScreen/PowerButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/sessionScreen/SessionScreenContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/sessionScreen/SessionScreenContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/sessionScreen/WSessionScreenTextButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/sessionScreen/WSessionScreenTextButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/sessionScreen/WaffleSessionScreen.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/sessionScreen/WaffleSessionScreen.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/SearchBar.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/SearchBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/StartMenuContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/StartMenuContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/StartMenuContext.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/StartMenuContext.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/WaffleStartMenu.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/WaffleStartMenu.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/searchPage/SearchEntryIcon.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/searchPage/SearchEntryIcon.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/searchPage/SearchPageContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/searchPage/SearchPageContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/searchPage/SearchResultButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/searchPage/SearchResultButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/searchPage/SearchResults.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/searchPage/SearchResults.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/searchPage/TagStrip.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/searchPage/TagStrip.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/startPage/AggregatedAppCategoryModel.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/startPage/AggregatedAppCategoryModel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/startPage/AllAppsGrid.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/startPage/AllAppsGrid.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/startPage/AppCategoryGrid.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/startPage/AppCategoryGrid.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/startPage/BigAppGrid.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/startPage/BigAppGrid.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/startPage/StartAppButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/startPage/StartAppButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/startPage/StartPageApps.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/startPage/StartPageApps.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/startPage/StartPageContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/startPage/StartPageContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/startMenu/startPage/StartUserButton.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/startMenu/startPage/StartUserButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/taskView/TaskViewContent.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/taskView/TaskViewContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/taskView/TaskViewWindow.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/taskView/TaskViewWindow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/taskView/TaskViewWorkspace.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/taskView/TaskViewWorkspace.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/taskView/WaffleTaskView.qml` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/taskView/WaffleTaskView.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/modules/waffle/taskView/window-layout.js` | `DOTFILES/config/quickshell/dotfiles/modules/waffle/taskView/window-layout.js` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/panelFamilies/DotfilesFamily.qml` | `DOTFILES/config/quickshell/dotfiles/panelFamilies/DotfilesFamily.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/panelFamilies/PanelLoader.qml` | `DOTFILES/config/quickshell/dotfiles/panelFamilies/PanelLoader.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/panelFamilies/WaffleFamily.qml` | `DOTFILES/config/quickshell/dotfiles/panelFamilies/WaffleFamily.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/scripts/ai/gemini-categorize-wallpaper.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/ai/gemini-categorize-wallpaper.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/ai/gemini-translate.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/ai/gemini-translate.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/ai/show-installed-ollama-models.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/ai/show-installed-ollama-models.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/cava/raw_output_config.txt` | `DOTFILES/config/quickshell/dotfiles/scripts/cava/raw_output_config.txt` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/scripts/colors/applycolor.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/colors/applycolor.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/colors/code/material-code-set-color.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/colors/code/material-code-set-color.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/colors/generate_colors_material.py` | `DOTFILES/config/quickshell/dotfiles/scripts/colors/generate_colors_material.py` | Script / Python | Yes |
+| `config/quickshell/dotfiles/scripts/colors/random/random_konachan_wall.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/colors/random/random_konachan_wall.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/colors/random/random_osu_wall.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/colors/random/random_osu_wall.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/colors/scheme_for_image.py` | `DOTFILES/config/quickshell/dotfiles/scripts/colors/scheme_for_image.py` | Script / Python | Yes |
+| `config/quickshell/dotfiles/scripts/colors/switchwall.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/colors/switchwall.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/colors/terminal/kitty-theme.conf` | `DOTFILES/config/quickshell/dotfiles/scripts/colors/terminal/kitty-theme.conf` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/scripts/colors/terminal/scheme-base.json` | `DOTFILES/config/quickshell/dotfiles/scripts/colors/terminal/scheme-base.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/scripts/colors/terminal/sequences.txt` | `DOTFILES/config/quickshell/dotfiles/scripts/colors/terminal/sequences.txt` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/scripts/hyprland/hyprconfigurator.py` | `DOTFILES/config/quickshell/dotfiles/scripts/hyprland/hyprconfigurator.py` | Script / Python | Yes |
+| `config/quickshell/dotfiles/scripts/images/find-regions-venv.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/images/find-regions-venv.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/images/find_regions.py` | `DOTFILES/config/quickshell/dotfiles/scripts/images/find_regions.py` | Script / Python | Yes |
+| `config/quickshell/dotfiles/scripts/images/least-busy-region-venv.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/images/least-busy-region-venv.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/images/least_busy_region.py` | `DOTFILES/config/quickshell/dotfiles/scripts/images/least_busy_region.py` | Script / Python | Yes |
+| `config/quickshell/dotfiles/scripts/images/text-color-venv.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/images/text-color-venv.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/images/text_color.py` | `DOTFILES/config/quickshell/dotfiles/scripts/images/text_color.py` | Script / Python | Yes |
+| `config/quickshell/dotfiles/scripts/keyring/is_unlocked.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/keyring/is_unlocked.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/keyring/try_lookup.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/keyring/try_lookup.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/keyring/unlock.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/keyring/unlock.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/musicRecognition/recognize-music.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/musicRecognition/recognize-music.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/thumbnails/generate-thumbnails-magick.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/thumbnails/generate-thumbnails-magick.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/thumbnails/thumbgen-venv.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/thumbnails/thumbgen-venv.sh` | Script | Yes |
+| `config/quickshell/dotfiles/scripts/thumbnails/thumbgen.py` | `DOTFILES/config/quickshell/dotfiles/scripts/thumbnails/thumbgen.py` | Script / Python | Yes |
+| `config/quickshell/dotfiles/scripts/videos/record.sh` | `DOTFILES/config/quickshell/dotfiles/scripts/videos/record.sh` | Script | Yes |
+| `config/quickshell/dotfiles/services/Ai.qml` | `DOTFILES/config/quickshell/dotfiles/services/Ai.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/AppSearch.qml` | `DOTFILES/config/quickshell/dotfiles/services/AppSearch.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Audio.qml` | `DOTFILES/config/quickshell/dotfiles/services/Audio.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Battery.qml` | `DOTFILES/config/quickshell/dotfiles/services/Battery.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/BluetoothStatus.qml` | `DOTFILES/config/quickshell/dotfiles/services/BluetoothStatus.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Booru.qml` | `DOTFILES/config/quickshell/dotfiles/services/Booru.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/BooruResponseData.qml` | `DOTFILES/config/quickshell/dotfiles/services/BooruResponseData.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Brightness.qml` | `DOTFILES/config/quickshell/dotfiles/services/Brightness.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Cliphist.qml` | `DOTFILES/config/quickshell/dotfiles/services/Cliphist.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/ConflictKiller.qml` | `DOTFILES/config/quickshell/dotfiles/services/ConflictKiller.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/DateTime.qml` | `DOTFILES/config/quickshell/dotfiles/services/DateTime.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/EasyEffects.qml` | `DOTFILES/config/quickshell/dotfiles/services/EasyEffects.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Emojis.qml` | `DOTFILES/config/quickshell/dotfiles/services/Emojis.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/FirstRunExperience.qml` | `DOTFILES/config/quickshell/dotfiles/services/FirstRunExperience.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/GlobalFocusGrab.qml` | `DOTFILES/config/quickshell/dotfiles/services/GlobalFocusGrab.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/GoogleCloud.qml` | `DOTFILES/config/quickshell/dotfiles/services/GoogleCloud.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/HyprlandAntiFlashbangShader.qml` | `DOTFILES/config/quickshell/dotfiles/services/HyprlandAntiFlashbangShader.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/HyprlandConfig.qml` | `DOTFILES/config/quickshell/dotfiles/services/HyprlandConfig.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/HyprlandData.qml` | `DOTFILES/config/quickshell/dotfiles/services/HyprlandData.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/HyprlandKeybinds.qml` | `DOTFILES/config/quickshell/dotfiles/services/HyprlandKeybinds.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/HyprlandXkb.qml` | `DOTFILES/config/quickshell/dotfiles/services/HyprlandXkb.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Hyprsunset.qml` | `DOTFILES/config/quickshell/dotfiles/services/Hyprsunset.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Idle.qml` | `DOTFILES/config/quickshell/dotfiles/services/Idle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/KeyringStorage.qml` | `DOTFILES/config/quickshell/dotfiles/services/KeyringStorage.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/LatexRenderer.qml` | `DOTFILES/config/quickshell/dotfiles/services/LatexRenderer.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/LauncherApps.qml` | `DOTFILES/config/quickshell/dotfiles/services/LauncherApps.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/LauncherSearch.qml` | `DOTFILES/config/quickshell/dotfiles/services/LauncherSearch.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/MaterialThemeLoader.qml` | `DOTFILES/config/quickshell/dotfiles/services/MaterialThemeLoader.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/MprisController.qml` | `DOTFILES/config/quickshell/dotfiles/services/MprisController.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Network.qml` | `DOTFILES/config/quickshell/dotfiles/services/Network.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Notifications.qml` | `DOTFILES/config/quickshell/dotfiles/services/Notifications.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/PolkitService.qml` | `DOTFILES/config/quickshell/dotfiles/services/PolkitService.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Privacy.qml` | `DOTFILES/config/quickshell/dotfiles/services/Privacy.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/ResourceUsage.qml` | `DOTFILES/config/quickshell/dotfiles/services/ResourceUsage.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/SessionWarnings.qml` | `DOTFILES/config/quickshell/dotfiles/services/SessionWarnings.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/SongRec.qml` | `DOTFILES/config/quickshell/dotfiles/services/SongRec.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/SystemInfo.qml` | `DOTFILES/config/quickshell/dotfiles/services/SystemInfo.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/TaskbarApps.qml` | `DOTFILES/config/quickshell/dotfiles/services/TaskbarApps.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/TimerService.qml` | `DOTFILES/config/quickshell/dotfiles/services/TimerService.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Todo.qml` | `DOTFILES/config/quickshell/dotfiles/services/Todo.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Translation.qml` | `DOTFILES/config/quickshell/dotfiles/services/Translation.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/TrayService.qml` | `DOTFILES/config/quickshell/dotfiles/services/TrayService.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Updates.qml` | `DOTFILES/config/quickshell/dotfiles/services/Updates.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Wallpapers.qml` | `DOTFILES/config/quickshell/dotfiles/services/Wallpapers.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Weather.qml` | `DOTFILES/config/quickshell/dotfiles/services/Weather.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/Ydotool.qml` | `DOTFILES/config/quickshell/dotfiles/services/Ydotool.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/ai/AiMessageData.qml` | `DOTFILES/config/quickshell/dotfiles/services/ai/AiMessageData.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/ai/AiModel.qml` | `DOTFILES/config/quickshell/dotfiles/services/ai/AiModel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/ai/ApiStrategy.qml` | `DOTFILES/config/quickshell/dotfiles/services/ai/ApiStrategy.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/ai/GeminiApiStrategy.qml` | `DOTFILES/config/quickshell/dotfiles/services/ai/GeminiApiStrategy.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/ai/MistralApiStrategy.qml` | `DOTFILES/config/quickshell/dotfiles/services/ai/MistralApiStrategy.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/ai/OpenAiApiStrategy.qml` | `DOTFILES/config/quickshell/dotfiles/services/ai/OpenAiApiStrategy.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/services/gCloud/token-from-key-venv.sh` | `DOTFILES/config/quickshell/dotfiles/services/gCloud/token-from-key-venv.sh` | Script | Yes |
+| `config/quickshell/dotfiles/services/gCloud/token_from_key.py` | `DOTFILES/config/quickshell/dotfiles/services/gCloud/token_from_key.py` | Script / Python | Yes |
+| `config/quickshell/dotfiles/services/hyprlandAntiFlashbangShader/anti-flashbang-weak.glsl` | `DOTFILES/config/quickshell/dotfiles/services/hyprlandAntiFlashbangShader/anti-flashbang-weak.glsl` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/services/hyprlandAntiFlashbangShader/anti-flashbang.glsl` | `DOTFILES/config/quickshell/dotfiles/services/hyprlandAntiFlashbangShader/anti-flashbang.glsl` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/services/network/WifiAccessPoint.qml` | `DOTFILES/config/quickshell/dotfiles/services/network/WifiAccessPoint.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/settings.qml` | `DOTFILES/config/quickshell/dotfiles/settings.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/shell.qml` | `DOTFILES/config/quickshell/dotfiles/shell.qml` | Quickshell / QML | Yes |
+| `config/quickshell/dotfiles/translations/de_DE.json` | `DOTFILES/config/quickshell/dotfiles/translations/de_DE.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/en_US.json` | `DOTFILES/config/quickshell/dotfiles/translations/en_US.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/es_MX.json` | `DOTFILES/config/quickshell/dotfiles/translations/es_MX.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/fr_FR.json` | `DOTFILES/config/quickshell/dotfiles/translations/fr_FR.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/he_HE.json` | `DOTFILES/config/quickshell/dotfiles/translations/he_HE.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/id_ID.json` | `DOTFILES/config/quickshell/dotfiles/translations/id_ID.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/it_IT.json` | `DOTFILES/config/quickshell/dotfiles/translations/it_IT.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/ja_JP.json` | `DOTFILES/config/quickshell/dotfiles/translations/ja_JP.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/pt_BR.json` | `DOTFILES/config/quickshell/dotfiles/translations/pt_BR.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/ru_RU.json` | `DOTFILES/config/quickshell/dotfiles/translations/ru_RU.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/tools/README.md` | `DOTFILES/config/quickshell/dotfiles/translations/tools/README.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/translations/tools/guide/translation-tools-guide-zh_CN.md` | `DOTFILES/config/quickshell/dotfiles/translations/tools/guide/translation-tools-guide-zh_CN.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/translations/tools/guide/translation-tools-guide.md` | `DOTFILES/config/quickshell/dotfiles/translations/tools/guide/translation-tools-guide.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/translations/tools/manage-translations.sh` | `DOTFILES/config/quickshell/dotfiles/translations/tools/manage-translations.sh` | Script | Yes |
+| `config/quickshell/dotfiles/translations/tools/translation-cleaner.py` | `DOTFILES/config/quickshell/dotfiles/translations/tools/translation-cleaner.py` | Script / Python | Yes |
+| `config/quickshell/dotfiles/translations/tools/translation-manager.py` | `DOTFILES/config/quickshell/dotfiles/translations/tools/translation-manager.py` | Script / Python | Yes |
+| `config/quickshell/dotfiles/translations/tr_TR.json` | `DOTFILES/config/quickshell/dotfiles/translations/tr_TR.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/uk_UA.json` | `DOTFILES/config/quickshell/dotfiles/translations/uk_UA.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/vi_VN.json` | `DOTFILES/config/quickshell/dotfiles/translations/vi_VN.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/translations/zh_CN.json` | `DOTFILES/config/quickshell/dotfiles/translations/zh_CN.json` | Quickshell / Data | Yes |
+| `config/quickshell/dotfiles/welcome.qml` | `DOTFILES/config/quickshell/dotfiles/welcome.qml` | Quickshell / QML | Yes |
 | `config/quickshell/launch.sh` | `DOTFILES/config/quickshell/launch.sh` | Script | Yes |
-| `config/quickshell/ledge/LedgeChip.qml` | `DOTFILES/config/quickshell/ledge/LedgeChip.qml` | Config | Yes |
-| `config/quickshell/ledge/LedgeIconButton.qml` | `DOTFILES/config/quickshell/ledge/LedgeIconButton.qml` | Config | Yes |
-| `config/quickshell/ledge/LedgeModel.js` | `DOTFILES/config/quickshell/ledge/LedgeModel.js` | Data / Source | Yes |
-| `config/quickshell/ledge/LedgePopup.qml` | `DOTFILES/config/quickshell/ledge/LedgePopup.qml` | Config | Yes |
-| `config/quickshell/ledge/LedgeTheme.qml` | `DOTFILES/config/quickshell/ledge/LedgeTheme.qml` | Config | Yes |
-| `config/quickshell/ledge/LedgeWidget.qml` | `DOTFILES/config/quickshell/ledge/LedgeWidget.qml` | Config | Yes |
-| `config/quickshell/ledge/manifest.json` | `DOTFILES/config/quickshell/ledge/manifest.json` | Config | Yes |
-| `config/quickshell/popups/AppLauncher.qml` | `DOTFILES/config/quickshell/popups/AppLauncher.qml` | Config | Yes |
-| `config/quickshell/popups/AuthDialog.qml` | `DOTFILES/config/quickshell/popups/AuthDialog.qml` | Config | Yes |
-| `config/quickshell/popups/BluetoothMenu.qml` | `DOTFILES/config/quickshell/popups/BluetoothMenu.qml` | Config | Yes |
-| `config/quickshell/popups/ControlCenter.qml` | `DOTFILES/config/quickshell/popups/ControlCenter.qml` | Config | Yes |
-| `config/quickshell/popups/Osd.qml` | `DOTFILES/config/quickshell/popups/Osd.qml` | Config | Yes |
-| `config/quickshell/popups/PromptDialog.qml` | `DOTFILES/config/quickshell/popups/PromptDialog.qml` | Config | Yes |
-| `config/quickshell/popups/SessionMenu.qml` | `DOTFILES/config/quickshell/popups/SessionMenu.qml` | Config | Yes |
-| `config/quickshell/popups/WifiMenu.qml` | `DOTFILES/config/quickshell/popups/WifiMenu.qml` | Config | Yes |
-| `config/quickshell/qmldir` | `DOTFILES/config/quickshell/qmldir` | Data / Source | Yes |
-| `config/quickshell/qs/Commons/Border.qml` | `DOTFILES/config/quickshell/qs/Commons/Border.qml` | Config | Yes |
-| `config/quickshell/qs/Commons/Color.qml` | `DOTFILES/config/quickshell/qs/Commons/Color.qml` | Config | Yes |
-| `config/quickshell/qs/Commons/Style.qml` | `DOTFILES/config/quickshell/qs/Commons/Style.qml` | Config | Yes |
-| `config/quickshell/qs/Commons/qmldir` | `DOTFILES/config/quickshell/qs/Commons/qmldir` | Data / Source | Yes |
-| `config/quickshell/qs/Ui/BarIconButton.qml` | `DOTFILES/config/quickshell/qs/Ui/BarIconButton.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/BarWidget.qml` | `DOTFILES/config/quickshell/qs/Ui/BarWidget.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/BorderSurface.qml` | `DOTFILES/config/quickshell/qs/Ui/BorderSurface.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/Button.qml` | `DOTFILES/config/quickshell/qs/Ui/Button.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/CursorSurface.qml` | `DOTFILES/config/quickshell/qs/Ui/CursorSurface.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/KeyboardPanel.qml` | `DOTFILES/config/quickshell/qs/Ui/KeyboardPanel.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/Panel.qml` | `DOTFILES/config/quickshell/qs/Ui/Panel.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/PanelKeyCatcher.qml` | `DOTFILES/config/quickshell/qs/Ui/PanelKeyCatcher.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/PanelSectionHeader.qml` | `DOTFILES/config/quickshell/qs/Ui/PanelSectionHeader.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/PanelSeparator.qml` | `DOTFILES/config/quickshell/qs/Ui/PanelSeparator.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/PanelSlider.qml` | `DOTFILES/config/quickshell/qs/Ui/PanelSlider.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/PanelToolTip.qml` | `DOTFILES/config/quickshell/qs/Ui/PanelToolTip.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/PopupCard.qml` | `DOTFILES/config/quickshell/qs/Ui/PopupCard.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/QuickSwitch.qml` | `DOTFILES/config/quickshell/qs/Ui/QuickSwitch.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/Toggle.qml` | `DOTFILES/config/quickshell/qs/Ui/Toggle.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/ToggleSwitch.qml` | `DOTFILES/config/quickshell/qs/Ui/ToggleSwitch.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/WidgetButton.qml` | `DOTFILES/config/quickshell/qs/Ui/WidgetButton.qml` | Config | Yes |
-| `config/quickshell/qs/Ui/qmldir` | `DOTFILES/config/quickshell/qs/Ui/qmldir` | Data / Source | Yes |
-| `config/quickshell/scripts/wifi.py` | `DOTFILES/config/quickshell/scripts/wifi.py` | Script | Yes |
-| `config/quickshell/shell.qml` | `DOTFILES/config/quickshell/shell.qml` | Config | Yes |
+| `config/quickshell/ledge/LedgeChip.qml` | `DOTFILES/config/quickshell/ledge/LedgeChip.qml` | Quickshell / QML | Yes |
+| `config/quickshell/ledge/LedgeIconButton.qml` | `DOTFILES/config/quickshell/ledge/LedgeIconButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/ledge/LedgeModel.js` | `DOTFILES/config/quickshell/ledge/LedgeModel.js` | Quickshell / Data | Yes |
+| `config/quickshell/ledge/LedgePopup.qml` | `DOTFILES/config/quickshell/ledge/LedgePopup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/ledge/LedgeTheme.qml` | `DOTFILES/config/quickshell/ledge/LedgeTheme.qml` | Quickshell / QML | Yes |
+| `config/quickshell/ledge/LedgeWidget.qml` | `DOTFILES/config/quickshell/ledge/LedgeWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/ledge/manifest.json` | `DOTFILES/config/quickshell/ledge/manifest.json` | Quickshell / Data | Yes |
+| `config/quickshell/lib/ButtonGroup.qml` | `DOTFILES/config/quickshell/lib/ButtonGroup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/ClippedFilledCircularProgress.qml` | `DOTFILES/config/quickshell/lib/ClippedFilledCircularProgress.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/ClippedProgressBar.qml` | `DOTFILES/config/quickshell/lib/ClippedProgressBar.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/ConfigSwitch.qml` | `DOTFILES/config/quickshell/lib/ConfigSwitch.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/GroupButton.qml` | `DOTFILES/config/quickshell/lib/GroupButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/IconAndText.qml` | `DOTFILES/config/quickshell/lib/IconAndText.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/IconToolbarButton.qml` | `DOTFILES/config/quickshell/lib/IconToolbarButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/MaskMultiEffect.qml` | `DOTFILES/config/quickshell/lib/MaskMultiEffect.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/MaterialShapeWrappedMaterialSymbol.qml` | `DOTFILES/config/quickshell/lib/MaterialShapeWrappedMaterialSymbol.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/MaterialSymbol.qml` | `DOTFILES/config/quickshell/lib/MaterialSymbol.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/NavigationRailButton.qml` | `DOTFILES/config/quickshell/lib/NavigationRailButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/Pill.qml` | `DOTFILES/config/quickshell/lib/Pill.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/PointingHandInteraction.qml` | `DOTFILES/config/quickshell/lib/PointingHandInteraction.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/Revealer.qml` | `DOTFILES/config/quickshell/lib/Revealer.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/RippleButton.qml` | `DOTFILES/config/quickshell/lib/RippleButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/RoundCorner.qml` | `DOTFILES/config/quickshell/lib/RoundCorner.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/StateLayer.qml` | `DOTFILES/config/quickshell/lib/StateLayer.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/StyledRectangularShadow.qml` | `DOTFILES/config/quickshell/lib/StyledRectangularShadow.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/StyledSlider.qml` | `DOTFILES/config/quickshell/lib/StyledSlider.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/StyledText.qml` | `DOTFILES/config/quickshell/lib/StyledText.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/StyledToolTip.qml` | `DOTFILES/config/quickshell/lib/StyledToolTip.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/StyledToolTipContent.qml` | `DOTFILES/config/quickshell/lib/StyledToolTipContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/ToolbarButton.qml` | `DOTFILES/config/quickshell/lib/ToolbarButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/lib/ToolbarTextField.qml` | `DOTFILES/config/quickshell/lib/ToolbarTextField.qml` | Quickshell / QML | Yes |
+| `config/quickshell/popups/AppLauncher.qml` | `DOTFILES/config/quickshell/popups/AppLauncher.qml` | Quickshell / QML | Yes |
+| `config/quickshell/popups/AuthDialog.qml` | `DOTFILES/config/quickshell/popups/AuthDialog.qml` | Quickshell / QML | Yes |
+| `config/quickshell/popups/BluetoothMenu.qml` | `DOTFILES/config/quickshell/popups/BluetoothMenu.qml` | Quickshell / QML | Yes |
+| `config/quickshell/popups/ControlCenter.qml` | `DOTFILES/config/quickshell/popups/ControlCenter.qml` | Quickshell / QML | Yes |
+| `config/quickshell/popups/Osd.qml` | `DOTFILES/config/quickshell/popups/Osd.qml` | Quickshell / QML | Yes |
+| `config/quickshell/popups/PromptDialog.qml` | `DOTFILES/config/quickshell/popups/PromptDialog.qml` | Quickshell / QML | Yes |
+| `config/quickshell/popups/SessionMenu.qml` | `DOTFILES/config/quickshell/popups/SessionMenu.qml` | Quickshell / QML | Yes |
+| `config/quickshell/popups/WifiMenu.qml` | `DOTFILES/config/quickshell/popups/WifiMenu.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qmldir` | `DOTFILES/config/quickshell/qmldir` | Quickshell / Data | Yes |
+| `config/quickshell/qs/Commons/Border.qml` | `DOTFILES/config/quickshell/qs/Commons/Border.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Commons/Color.qml` | `DOTFILES/config/quickshell/qs/Commons/Color.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Commons/Style.qml` | `DOTFILES/config/quickshell/qs/Commons/Style.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Commons/qmldir` | `DOTFILES/config/quickshell/qs/Commons/qmldir` | Quickshell / Data | Yes |
+| `config/quickshell/qs/Ui/BarIconButton.qml` | `DOTFILES/config/quickshell/qs/Ui/BarIconButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/BarWidget.qml` | `DOTFILES/config/quickshell/qs/Ui/BarWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/BorderSurface.qml` | `DOTFILES/config/quickshell/qs/Ui/BorderSurface.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/Button.qml` | `DOTFILES/config/quickshell/qs/Ui/Button.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/CursorSurface.qml` | `DOTFILES/config/quickshell/qs/Ui/CursorSurface.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/KeyboardPanel.qml` | `DOTFILES/config/quickshell/qs/Ui/KeyboardPanel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/Panel.qml` | `DOTFILES/config/quickshell/qs/Ui/Panel.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/PanelKeyCatcher.qml` | `DOTFILES/config/quickshell/qs/Ui/PanelKeyCatcher.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/PanelSectionHeader.qml` | `DOTFILES/config/quickshell/qs/Ui/PanelSectionHeader.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/PanelSeparator.qml` | `DOTFILES/config/quickshell/qs/Ui/PanelSeparator.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/PanelSlider.qml` | `DOTFILES/config/quickshell/qs/Ui/PanelSlider.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/PanelToolTip.qml` | `DOTFILES/config/quickshell/qs/Ui/PanelToolTip.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/PopupCard.qml` | `DOTFILES/config/quickshell/qs/Ui/PopupCard.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/QuickSwitch.qml` | `DOTFILES/config/quickshell/qs/Ui/QuickSwitch.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/Toggle.qml` | `DOTFILES/config/quickshell/qs/Ui/Toggle.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/ToggleSwitch.qml` | `DOTFILES/config/quickshell/qs/Ui/ToggleSwitch.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/WidgetButton.qml` | `DOTFILES/config/quickshell/qs/Ui/WidgetButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/qs/Ui/qmldir` | `DOTFILES/config/quickshell/qs/Ui/qmldir` | Quickshell / Data | Yes |
+| `config/quickshell/scripts/wifi.py` | `DOTFILES/config/quickshell/scripts/wifi.py` | Script / Python | Yes |
+| `config/quickshell/services/Audio.qml` | `DOTFILES/config/quickshell/services/Audio.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/Battery.qml` | `DOTFILES/config/quickshell/services/Battery.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/BluetoothStatus.qml` | `DOTFILES/config/quickshell/services/BluetoothStatus.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/Brightness.qml` | `DOTFILES/config/quickshell/services/Brightness.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/Config.qml` | `DOTFILES/config/quickshell/services/Config.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/DateTime.qml` | `DOTFILES/config/quickshell/services/DateTime.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/GlobalFocusGrab.qml` | `DOTFILES/config/quickshell/services/GlobalFocusGrab.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/GlobalStates.qml` | `DOTFILES/config/quickshell/services/GlobalStates.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/MprisController.qml` | `DOTFILES/config/quickshell/services/MprisController.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/Network.qml` | `DOTFILES/config/quickshell/services/Network.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/Notifications.qml` | `DOTFILES/config/quickshell/services/Notifications.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/ResourceUsage.qml` | `DOTFILES/config/quickshell/services/ResourceUsage.qml` | Quickshell / QML | Yes |
+| `config/quickshell/services/Session.qml` | `DOTFILES/config/quickshell/services/Session.qml` | Quickshell / QML | Yes |
+| `config/quickshell/shell.qml` | `DOTFILES/config/quickshell/shell.qml` | Quickshell / QML | Yes |
+| `config/quickshell/sidebar/BottomWidgetGroup.qml` | `DOTFILES/config/quickshell/sidebar/BottomWidgetGroup.qml` | Quickshell / QML | Yes |
+| `config/quickshell/sidebar/CalendarWidget.qml` | `DOTFILES/config/quickshell/sidebar/CalendarWidget.qml` | Quickshell / QML | Yes |
+| `config/quickshell/sidebar/CenterArea.qml` | `DOTFILES/config/quickshell/sidebar/CenterArea.qml` | Quickshell / QML | Yes |
+| `config/quickshell/sidebar/NotificationList.qml` | `DOTFILES/config/quickshell/sidebar/NotificationList.qml` | Quickshell / QML | Yes |
+| `config/quickshell/sidebar/QuickSliders.qml` | `DOTFILES/config/quickshell/sidebar/QuickSliders.qml` | Quickshell / QML | Yes |
+| `config/quickshell/sidebar/QuickToggleButton.qml` | `DOTFILES/config/quickshell/sidebar/QuickToggleButton.qml` | Quickshell / QML | Yes |
+| `config/quickshell/sidebar/QuickToggleGrid.qml` | `DOTFILES/config/quickshell/sidebar/QuickToggleGrid.qml` | Quickshell / QML | Yes |
+| `config/quickshell/sidebar/SidebarRight.qml` | `DOTFILES/config/quickshell/sidebar/SidebarRight.qml` | Quickshell / QML | Yes |
+| `config/quickshell/sidebar/SidebarRightContent.qml` | `DOTFILES/config/quickshell/sidebar/SidebarRightContent.qml` | Quickshell / QML | Yes |
+| `config/quickshell/sidebar/SystemButtonRow.qml` | `DOTFILES/config/quickshell/sidebar/SystemButtonRow.qml` | Quickshell / QML | Yes |
 | `config/systemd/user/asus-tuf-aura-restore.service` | `DOTFILES/config/systemd/user/asus-tuf-aura-restore.service` | Systemd Unit | Yes |
 | `config/systemd/user/battery-alert.service` | `DOTFILES/config/systemd/user/battery-alert.service` | Systemd Unit | Yes |
-| `config/systemd/user/hypr-pip-helper.service` | `DOTFILES/config/systemd/user/hypr-pip-helper.service` | Systemd Unit | Yes |
 | `config/systemd/user/crash-watch.service` | `DOTFILES/config/systemd/user/crash-watch.service` | Systemd Unit | Yes |
-| `config/systemd/user/pipewire-session-manager.service` | `DOTFILES/config/systemd/user/pipewire-session-manager.service` | Systemd Unit | Yes |
+| `config/systemd/user/hypr-pip-helper.service` | `DOTFILES/config/systemd/user/hypr-pip-helper.service` | Systemd Unit | Yes |
 | `config/systemd/user/quickshell.service` | `DOTFILES/config/systemd/user/quickshell.service` | Systemd Unit | Yes |
-| `config/yazi/theme.toml` | `DOTFILES/config/yazi/theme.toml` | Config | Yes |
-| `home/.bash_profile` | `DOTFILES/home/.bash_profile` | Data / Source | Yes |
-| `home/.bashrc` | `DOTFILES/home/.bashrc` | Data / Source | Yes |
+| `config/yazi/theme.toml` | `DOTFILES/config/yazi/theme.toml` | Config / Data | Yes |
+| `gitignore` | `DOTFILES/gitignore` | Config / Data | Yes |
+| `home/.agents/.skill-lock.json` | `DOTFILES/home/.agents/.skill-lock.json` | Config / Data | Yes |
+| `home/.agents/rules/mechanic.md` | `DOTFILES/home/.agents/rules/mechanic.md` | Documentation / Manifest | Yes |
+| `home/.agents/skills/diagnose-crash/SKILL.md` | `DOTFILES/home/.agents/skills/diagnose-crash/SKILL.md` | Documentation / Manifest | Yes |
+| `home/.agents/skills/find-skills/SKILL.md` | `DOTFILES/home/.agents/skills/find-skills/SKILL.md` | Documentation / Manifest | Yes |
+| `home/.agents/skills/hyprland-config/SKILL.md` | `DOTFILES/home/.agents/skills/hyprland-config/SKILL.md` | Documentation / Manifest | Yes |
+| `home/.agents/skills/mechanic/SKILL.md` | `DOTFILES/home/.agents/skills/mechanic/SKILL.md` | Documentation / Manifest | Yes |
+| `home/.agents/skills/quickshell-dev/SKILL.md` | `DOTFILES/home/.agents/skills/quickshell-dev/SKILL.md` | Documentation / Manifest | Yes |
+| `home/.agents/skills/theme-manager/SKILL.md` | `DOTFILES/home/.agents/skills/theme-manager/SKILL.md` | Documentation / Manifest | Yes |
+| `home/.bash_profile` | `DOTFILES/home/.bash_profile` | Config / Data | Yes |
+| `home/.bashrc` | `DOTFILES/home/.bashrc` | Config / Data | Yes |
 | `install.sh` | `DOTFILES/install.sh` | Script | Yes |
-| `lib/libgtk4-layer-shell.so` | `DOTFILES/lib/libgtk4-layer-shell.so` | Data / Source | Yes |
-| `lib/libgtk4-layer-shell.so.0` | `DOTFILES/lib/libgtk4-layer-shell.so.0` | Data / Source | Yes |
-| `lib/libgtk4-layer-shell.so.1.3.0` | `DOTFILES/lib/libgtk4-layer-shell.so.1.3.0` | Data / Source | Yes |
-| `lib/libgtksourceview-5.so` | `DOTFILES/lib/libgtksourceview-5.so` | Data / Source | Yes |
-| `lib/libgtksourceview-5.so.0` | `DOTFILES/lib/libgtksourceview-5.so.0` | Data / Source | Yes |
-| `lib/libgtksourceview-5.so.0.0.0` | `DOTFILES/lib/libgtksourceview-5.so.0.0.0` | Data / Source | Yes |
-| `lib/liblayer-shell-preload.so` | `DOTFILES/lib/liblayer-shell-preload.so` | Data / Source | Yes |
-| `metadata/environment.txt` | `DOTFILES/metadata/environment.txt` | Documentation / Manifest | Yes |
+| `lib/libgtk4-layer-shell.so` | `DOTFILES/lib/libgtk4-layer-shell.so` | Binary | Yes |
+| `lib/libgtk4-layer-shell.so.0` | `DOTFILES/lib/libgtk4-layer-shell.so.0` | Binary | Yes |
+| `lib/libgtk4-layer-shell.so.1.3.0` | `DOTFILES/lib/libgtk4-layer-shell.so.1.3.0` | Binary | Yes |
+| `lib/libgtksourceview-5.so` | `DOTFILES/lib/libgtksourceview-5.so` | Binary | Yes |
+| `lib/libgtksourceview-5.so.0` | `DOTFILES/lib/libgtksourceview-5.so.0` | Binary | Yes |
+| `lib/libgtksourceview-5.so.0.0.0` | `DOTFILES/lib/libgtksourceview-5.so.0.0.0` | Binary | Yes |
+| `lib/liblayer-shell-preload.so` | `DOTFILES/lib/liblayer-shell-preload.so` | Binary | Yes |
+| `metadata/environment.txt` | `DOTFILES/metadata/environment.txt` | Metadata / Documentation | Yes |
 | `metadata/file-classification.md` | `DOTFILES/metadata/file-classification.md` | Documentation / Manifest | Yes |
-| `metadata/file-permissions.txt` | `DOTFILES/metadata/file-permissions.txt` | Documentation / Manifest | Yes |
+| `metadata/file-permissions.txt` | `DOTFILES/metadata/file-permissions.txt` | Metadata / Documentation | Yes |
 | `metadata/hardware-specific.md` | `DOTFILES/metadata/hardware-specific.md` | Documentation / Manifest | Yes |
 | `metadata/missing-dependencies.md` | `DOTFILES/metadata/missing-dependencies.md` | Documentation / Manifest | Yes |
-| `metadata/path-map.txt` | `DOTFILES/metadata/path-map.txt` | Documentation / Manifest | Yes |
-| `packages/aur-optional.txt` | `DOTFILES/packages/aur-optional.txt` | Documentation / Manifest | Yes |
-| `packages/aur-runtime.txt` | `DOTFILES/packages/aur-runtime.txt` | Documentation / Manifest | Yes |
-| `packages/fonts.txt` | `DOTFILES/packages/fonts.txt` | Documentation / Manifest | Yes |
-| `packages/manual-install.txt` | `DOTFILES/packages/manual-install.txt` | Documentation / Manifest | Yes |
-| `packages/pacman-optional.txt` | `DOTFILES/packages/pacman-optional.txt` | Documentation / Manifest | Yes |
-| `packages/pacman-runtime.txt` | `DOTFILES/packages/pacman-runtime.txt` | Documentation / Manifest | Yes |
+| `metadata/path-map.txt` | `DOTFILES/metadata/path-map.txt` | Metadata / Documentation | Yes |
+| `packages/aur-optional.txt` | `DOTFILES/packages/aur-optional.txt` | Package Manifest | Yes |
+| `packages/aur-runtime.txt` | `DOTFILES/packages/aur-runtime.txt` | Package Manifest | Yes |
+| `packages/fonts.txt` | `DOTFILES/packages/fonts.txt` | Package Manifest | Yes |
+| `packages/manual-install.txt` | `DOTFILES/packages/manual-install.txt` | Package Manifest | Yes |
+| `packages/pacman-optional.txt` | `DOTFILES/packages/pacman-optional.txt` | Package Manifest | Yes |
+| `packages/pacman-runtime.txt` | `DOTFILES/packages/pacman-runtime.txt` | Package Manifest | Yes |
 | `scripts/grub-wallpaper-randomizer.py` | `DOTFILES/scripts/grub-wallpaper-randomizer.py` | Script | Yes |
 | `scripts/hyprland.sh` | `DOTFILES/scripts/hyprland.sh` | Script | Yes |
 | `scripts/install_apps.sh` | `DOTFILES/scripts/install_apps.sh` | Script | Yes |
 | `scripts/setup_grub_randomizer.sh` | `DOTFILES/scripts/setup_grub_randomizer.sh` | Script | Yes |
 | `scripts/verify.sh` | `DOTFILES/scripts/verify.sh` | Script | Yes |
 | `scripts/webapp-manager.sh` | `DOTFILES/scripts/webapp-manager.sh` | Script | Yes |
-| `system/etc/environment` | `DOTFILES/system/etc/environment` | Data / Source | Yes |
-| `system/etc/modprobe.d/nvidia.conf` | `DOTFILES/system/etc/modprobe.d/nvidia.conf` | Config | Yes |
-| `system/etc/sddm.conf.d/hyprland-sddm.conf` | `DOTFILES/system/etc/sddm.conf.d/hyprland-sddm.conf` | Config | Yes |
-| `system/etc/sddm.conf.d/theme.conf` | `DOTFILES/system/etc/sddm.conf.d/theme.conf` | Config | Yes |
-| `system/etc/systemd/logind.conf.d/lid.conf` | `DOTFILES/system/etc/systemd/logind.conf.d/lid.conf` | Config | Yes |
-| `system/etc/udev/rules.d/99-asus-kbd-backlight.rules` | `DOTFILES/system/etc/udev/rules.d/99-asus-kbd-backlight.rules` | Udev Rule | Yes |
-| `system/etc/pacman.d/hooks/99-hyprland-blur.hook` | `DOTFILES/system/etc/pacman.d/hooks/99-hyprland-blur.hook` | ALPM Hook | Yes |
-| `system/system-services.txt` | `DOTFILES/system/system-services.txt` | Documentation / Manifest | Yes |
-| `system/usr/lib/systemd/system-sleep/hyprland-suspend` | `DOTFILES/system/usr/lib/systemd/system-sleep/hyprland-suspend` | Script | Yes |
+| `system/etc/environment` | `DOTFILES/system/etc/environment` | System Configuration | Yes |
+| `system/etc/modprobe.d/nvidia.conf` | `DOTFILES/system/etc/modprobe.d/nvidia.conf` | System Configuration | Yes |
+| `system/etc/pacman.d/hooks/99-hyprland-blur.hook` | `DOTFILES/system/etc/pacman.d/hooks/99-hyprland-blur.hook` | System Configuration | Yes |
+| `system/etc/sddm.conf.d/hyprland-sddm.conf` | `DOTFILES/system/etc/sddm.conf.d/hyprland-sddm.conf` | System Configuration | Yes |
+| `system/etc/sddm.conf.d/theme.conf` | `DOTFILES/system/etc/sddm.conf.d/theme.conf` | System Configuration | Yes |
+| `system/etc/systemd/logind.conf.d/lid.conf` | `DOTFILES/system/etc/systemd/logind.conf.d/lid.conf` | System Configuration | Yes |
+| `system/etc/udev/rules.d/99-asus-kbd-backlight.rules` | `DOTFILES/system/etc/udev/rules.d/99-asus-kbd-backlight.rules` | System Configuration | Yes |
+| `system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules` | `DOTFILES/system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules` | System Configuration | Yes |
+| `system/system-services.txt` | `DOTFILES/system/system-services.txt` | System Configuration | Yes |
+| `system/usr/lib/systemd/system-sleep/hyprland-suspend` | `DOTFILES/system/usr/lib/systemd/system-sleep/hyprland-suspend` | System Configuration | Yes |

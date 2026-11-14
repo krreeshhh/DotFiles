@@ -90,7 +90,11 @@ PanelWindow {
 
     Process {
         id: discoveryProc
-        command: ["bluetoothctl", "--timeout", "8", "scan", "on"]
+        // Bluez 5.88's plain "scan on" inherits a stale/LE-only adapter filter and
+        // misses classic BR/EDR devices (e.g. the realme buds). Scan each transport
+        // explicitly so everything in range shows up: 12s bredr inquiry (~one full
+        // inquiry cycle) followed by a short LE scan.
+        command: ["bash", "-c", "bluetoothctl --timeout 12 scan bredr; bluetoothctl --timeout 5 scan le"]
         stdout: SplitParser {
             onRead: (line) => {
                 line = line.trim();

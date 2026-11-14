@@ -5,13 +5,13 @@ This guide describes the complete, exact blueprint required to recreate this cus
 ---
 
 ## What is Included in this Dotfiles Repository
-1. **Compositor:** Hyprland v0.56.2 configured with native Lua (`hyprland.lua`), fallback config (`hyprland.conf`), and Picture-in-Picture window management (`pip.lua`).
-2. **Desktop Shell:** Quickshell custom topbar, pill workspaces, clock, status cluster, sliding system tray drawer, MPRIS mini player, on-screen display (OSD) popups for volume/brightness/mic, and slide-in popups for Control Center, Wi-Fi, Bluetooth, and AppLauncher.
-3. **Dynamic Live Theming:** Material You palette extractor (`generate-theme.py`) and live applicator (`apply-theme.sh`) syncing wallpaper colors across Hyprland borders, Quickshell, Dunst, Ghostty, GTK, Clipse, and Yazi.
+1. **Compositor:** Hyprland v0.57.2 configured with native Lua (`hyprland.lua`), fallback config (`hyprland.conf`), and Picture-in-Picture window management (`pip.lua`).
+2. **Desktop Shell:** Quickshell Dotfiles shell (a fork of upstream dots-hyprland, GPL-3.0) - top bar with pill workspace pager, right sidebar (uptime, quick toggles, notification centre, calendar/To-Do/Timer), MPRIS media ring, OSD popups for volume/brightness, and `SUPER + ESC` session menu. The legacy app launcher (with webapp manager) runs as a separate default-config Quickshell instance.
+3. **Dynamic Live Theming:** Material You palette extractor (`generate-theme.py`) and live applicator (`apply-theme.sh`) syncing wallpaper colors across Hyprland borders, GTK, Ghostty, Clipse, Dunst, and Yazi; plus `matugen` + a Python `materialyoucolor` venv regenerating the Dotfiles shell palette (`~/.local/state/quickshell/.venv`).
 4. **Wallpaper Engine:** 3D Card Carousel / Cover Flow switcher (`carousel-picker.py`) with 144Hz VSync, powered by `awww` / `awww-daemon`.
 5. **Launchers & Providers:** Quickshell QML AppLauncher, custom Python WebApp manager (`webapp_manager.py`).
 6. **Clipboard & Terminals:** Clipse daemon with pinned floating window rules, Ghostty GPU terminal (glass opacity 0.20), and Yazi terminal file manager.
-7. **Audio / Display Controls:** `brightness.sh` and `volume.sh` hardware handlers integrated with Quickshell native OSD.
+7. **Audio / Display Controls:** `brightness.sh` and `volume.sh` hardware handlers integrated with the NotificationPopup/OSD services of the Dotfiles shell (with legacy fallbacks).
 8. **Look & Theming:** WhiteSur-dark icons, Bibata-Modern-Ice cursor (24px), Adwaita theme with dynamic text contrast CSS, and SDDM theme `R1999_1`.
 9. **ASUS TUF Keyboard Lighting:** Armoury Crate GUI (`asus-tuf-aura` / `armoury-crate`), rootless sysfs udev rule, systemd user restore service, and dynamic Material You wallpaper sync hook.
 
@@ -47,8 +47,13 @@ sudo pacman -S --needed - < packages/fonts.txt
 # 5. Install yay AUR helper
 git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin && cd /tmp/yay-bin && makepkg -si --noconfirm
 
-# 6. Install AUR runtime packages
+# 6. Install AUR runtime packages (Cursor, Icons, Herdr, fonts)
 yay -S --needed --noconfirm - < packages/aur-runtime.txt
+
+# 6b. Create the Dotfiles shell Python venv (pillow + materialyoucolor)
+python3 -m venv ~/.local/state/quickshell/.venv
+~/.local/state/quickshell/.venv/bin/pip install --upgrade pip
+~/.local/state/quickshell/.venv/bin/pip install pillow materialyoucolor
 
 # 7. Enable system and user services
 sudo systemctl enable sddm.service NetworkManager.service bluetooth.service ntpd.service
@@ -63,7 +68,7 @@ cp -r assets/share/asus-tuf-aura/* ~/.local/share/asus-tuf-aura/ 2>/dev/null || 
 cp home/.bashrc ~/.bashrc
 cp home/.bash_profile ~/.bash_profile
 chmod +x ~/.local/bin/*
-chmod +x ~/.config/hypr/scripts/* ~/.config/my-desktop/wallpaper/* ~/.config/my-desktop/theme/* ~/.config/my-desktop/launcher/* ~/.config/quickshell/*.sh ~/.config/quickshell/scripts/*
+chmod +x ~/.config/hypr/scripts/* ~/.config/DotFiles/wallpaper/* ~/.config/DotFiles/theme/* ~/.config/DotFiles/launcher/* ~/.config/quickshell/*.sh ~/.config/quickshell/scripts/*
 
 # Ensure symlinks exist
 ln -sf ~/.local/bin/awww ~/.local/bin/swww
@@ -81,7 +86,8 @@ sudo cp system/etc/systemd/logind.conf.d/lid.conf /etc/systemd/logind.conf.d/lid
 sudo cp system/etc/modprobe.d/nvidia.conf /etc/modprobe.d/nvidia.conf
 sudo cp system/usr/lib/systemd/system-sleep/hyprland-suspend /usr/lib/systemd/system-sleep/hyprland-suspend
 sudo cp system/etc/udev/rules.d/99-asus-kbd-backlight.rules /etc/udev/rules.d/99-asus-kbd-backlight.rules
-sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=leds
+sudo cp system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules /etc/udev/rules.d/99-rtl8852bu-autosuspend.rules
+sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=leds && sudo udevadm trigger --subsystem-match=usb
 sudo chmod +x /usr/lib/systemd/system-sleep/hyprland-suspend
 
 # 10. Configure GTK & Cursor GSettings
@@ -93,5 +99,5 @@ gsettings set org.gnome.desktop.interface font-name 'Adwaita Sans 11'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 # 11. Place a wallpaper into ~/.wallpaper/ and initialize the theme engine
-bash ~/.config/my-desktop/wallpaper/apply-wallpaper.sh ~/.wallpaper/Reze.png
+bash ~/.config/DotFiles/wallpaper/apply-wallpaper.sh ~/.wallpaper/Reze.png
 ```

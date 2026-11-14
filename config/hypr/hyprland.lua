@@ -45,7 +45,7 @@ local browser         = "brave-origin"
 local fileManager     = "nautilus"
 local agents          = "herdr"
 local appLauncher     = "quickshell ipc call shell toggleAppLauncher"
-local wallpaperPicker = "bash /home/Krish/.config/my-desktop/wallpaper/wallpaper-picker.sh"
+local wallpaperPicker = "bash /home/Krish/.config/DotFiles/wallpaper/wallpaper-picker.sh"
 
 
 -------------------
@@ -64,9 +64,12 @@ local wallpaperPicker = "bash /home/Krish/.config/my-desktop/wallpaper/wallpaper
 -- end)
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("bash /home/Krish/.config/my-desktop/wallpaper/apply-wallpaper.sh")
-    hl.exec_cmd("bash /home/Krish/.config/quickshell/launch.sh")
+    hl.exec_cmd("bash /home/Krish/.config/DotFiles/wallpaper/apply-wallpaper.sh")
+    hl.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles")
+    hl.exec_cmd("qs")
     hl.exec_cmd("/home/Krish/.local/bin/clipse -listen")
+    hl.exec_cmd("wl-paste --type text --watch bash -c 'cliphist store && qs -p $HOME/.config/quickshell/dotfiles ipc call cliphistService update'")
+    hl.exec_cmd("wl-paste --type image --watch bash -c 'cliphist store && qs -p $HOME/.config/quickshell/dotfiles ipc call cliphistService update'")
     hl.exec_cmd("udiskie &")
     hl.exec_cmd("hypridle &")
     hl.exec_cmd("python3 /home/Krish/.config/hypr/scripts/autostart.py")
@@ -86,6 +89,11 @@ hl.env("QT_QPA_PLATFORMTHEME", "gtk3")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QML_IMPORT_PATH", os.getenv("HOME") .. "/.config/quickshell:" .. os.getenv("HOME") .. "/.config/quickshell/plugins")
 hl.env("QML2_IMPORT_PATH", os.getenv("HOME") .. "/.config/quickshell:" .. os.getenv("HOME") .. "/.config/quickshell/plugins")
+-- Dotfiles shell
+hl.env("DOTFILES_VIRTUAL_ENV", os.getenv("HOME") .. "/.local/state/quickshell/.venv")
+hl.env("QS_NO_RELOAD_POPUP", "1")
+hl.env("QT_QUICK_CONTROLS_STYLE", "Basic")
+hl.env("QT_QUICK_FLICKABLE_WHEEL_DECELERATION", "10000")
 
 
 -----------------------
@@ -117,7 +125,7 @@ local themeColors = {
     secondary = "8ec5fc",
     outline = "412f3b",
 }
-local colorsPath = os.getenv("HOME") .. "/.config/my-desktop/theme/colors-hyprland.lua"
+local colorsPath = os.getenv("HOME") .. "/.config/DotFiles/theme/colors-hyprland.lua"
 local chunk = loadfile(colorsPath)
 if chunk then
     local ok, res = pcall(chunk)
@@ -322,11 +330,14 @@ local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("ghostty --title=yazi-filemanager -e /home/Krish/.local/bin/yazi"))
-hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("quickshell ipc -p /home/Krish/.config/quickshell call shell toggleSessionMenu"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles ipc call session toggle"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("ghostty --title=clipse-clipboard -e /home/Krish/.local/bin/clipse"))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("quickshell ipc -p /home/Krish/.config/quickshell call shell toggleControlCenter"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles ipc call sidebarRight toggle"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles ipc call sidebarRight toggle"))
+hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles ipc call sidebarRight close"))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(appLauncher))
+hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles ipc call session toggle"))
 hl.bind(mainMod .. " + W",     hl.dsp.exec_cmd(wallpaperPicker))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
@@ -518,7 +529,7 @@ hl.window_rule({
 })
 
 
--- Quickshell Glass & Blur Layer Rule
+-- Quickshell Glass & Blur Layer Rule (legacy custom shell, kept for rollback)
 hl.layer_rule({
     name    = "quickshell-blur",
     match   = { namespace = "quickshell" },
@@ -526,6 +537,32 @@ hl.layer_rule({
     ignore_alpha = 0.2,
     no_anim = true,
 })
+
+-- Dotfiles Quickshell layer rules
+hl.layer_rule({ name = "ii-blur-popups",     match = { namespace = "quickshell:.*" }, blur_popups = true })
+hl.layer_rule({ name = "ii-blur",            match = { namespace = "quickshell:.*" }, blur = true })
+hl.layer_rule({ name = "ii-ignore-alpha",    match = { namespace = "quickshell:.*" }, ignore_alpha = 0.79 })
+hl.layer_rule({ name = "ii-background",      match = { namespace = "quickshell:background" }, blur = false })
+hl.layer_rule({ name = "ii-bar",             match = { namespace = "quickshell:bar" }, animation = "slide" })
+hl.layer_rule({ name = "ii-popup",           match = { namespace = "quickshell:popup" }, xray = false })
+hl.layer_rule({ name = "ii-popup-alpha",     match = { namespace = "quickshell:popup" }, ignore_alpha = 1 })
+hl.layer_rule({ name = "ii-media-controls",  match = { namespace = "quickshell:mediaControls" }, ignore_alpha = 1 })
+hl.layer_rule({ name = "ii-sidebar-right",   match = { namespace = "quickshell:sidebarRight" }, animation = "slide right" })
+hl.layer_rule({ name = "ii-sidebar-left",    match = { namespace = "quickshell:sidebarLeft" }, animation = "slide left" })
+hl.layer_rule({ name = "ii-overview",        match = { namespace = "quickshell:overview" }, no_anim = true })
+hl.layer_rule({ name = "ii-session",         match = { namespace = "quickshell:session" }, blur = true })
+hl.layer_rule({ name = "ii-session-anim",    match = { namespace = "quickshell:session" }, no_anim = true })
+hl.layer_rule({ name = "ii-session-alpha",   match = { namespace = "quickshell:session" }, ignore_alpha = 0 })
+hl.layer_rule({ name = "ii-notif-popup",     match = { namespace = "quickshell:notificationPopup" }, animation = "fade" })
+hl.layer_rule({ name = "ii-reload-popup",    match = { namespace = "quickshell:reloadPopup" }, animation = "slide" })
+hl.layer_rule({ name = "ii-osk",             match = { namespace = "quickshell:osk" }, animation = "slide bottom" })
+hl.layer_rule({ name = "ii-polkit",          match = { namespace = "quickshell:polkit" }, no_anim = true })
+hl.layer_rule({ name = "ii-screen-corners",  match = { namespace = "quickshell:screenCorners" }, animation = "popin 120%" })
+hl.layer_rule({ name = "ii-lock-pusher",     match = { namespace = "quickshell:lockWindowPusher" }, no_anim = true })
+hl.layer_rule({ name = "ii-overlay",         match = { namespace = "quickshell:overlay" }, no_anim = true })
+hl.layer_rule({ name = "ii-region-selector", match = { namespace = "quickshell:regionSelector" }, no_anim = true })
+hl.layer_rule({ name = "ii-screenshot",      match = { namespace = "quickshell:screenshot" }, no_anim = true })
+hl.layer_rule({ name = "ii-wallpaper",       match = { namespace = "quickshell:wallpaperSelector" }, animation = "slide top" })
 
 -- Rofi App Launcher Layer Rule
 hl.layer_rule({

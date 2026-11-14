@@ -15,24 +15,40 @@ Every file exported in this repository is classified into one of the following c
 | `config/hypr/scripts/autostart.py` | CORE | XDG Autostart script executor |
 | `config/hypr/scripts/screenshot.sh` | CORE | Screenshot utility with interactive notification |
 | `config/hypr/scripts/caffeine.sh` | CORE | Idle/sleep inhibitor tool |
-| `config/quickshell/shell.qml` | CORE | Quickshell main root entrypoint & IPC router |
+| `config/quickshell/shell.qml` | CORE | Launcher/auth host: previous AppLauncher + AuthDialog/PromptDialog (`shell` IPC) |
+| `config/quickshell/Theme.qml` | CORE / GENERATED | Quickshell Material You color singleton (extended with Dotfiles layer tokens) |
+| `config/quickshell/dotfiles/*` | CORE | Dotfiles shell (fork of upstream dots-hyprland, GPL-3.0): top bar, right sidebar, overview, session screen, OSD, notifications, settings and welcome apps |
+| `config/quickshell/dotfiles/panelFamilies/DotfilesFamily.qml` | CORE | Family loader (bar, right sidebar, session screen, polkit disabled, wallpaper selector disabled) |
+| `config/quickshell/dotfiles/modules/dotfiles/background/*` | CORE | Wallpaper, cookie clock, parallax workspace backgrounds |
+| `config/quickshell/dotfiles/modules/dotfiles/bar/*` | CORE | Top bar (resources, media ring, workspaces, clock, tray, indicators) |
+| `config/quickshell/dotfiles/modules/dotfiles/sidebarRight/*` | CORE | Right sidebar (uptime, quick sliders, quick toggles, notifications, calendar/To-Do/Timer, dialogs) |
+| `config/quickshell/dotfiles/modules/dotfiles/overview/*` | CORE | Search palette (prefixes: `/` actions, `>` apps, `;` clipboard, `:` emoji, `=` math, `$` shell, `?` web) |
+| `config/quickshell/dotfiles/modules/dotfiles/sessionScreen/*` | CORE | Session menu (lock/sleep/logout/task manager/hibernate/shutdown/reboot/firmware) |
+| `config/quickshell/dotfiles/modules/dotfiles/onScreenDisplay/*` | CORE | Volume/brightness OSD |
+| `config/quickshell/dotfiles/modules/dotfiles/notificationPopup/*` | CORE | Top-right notification popups |
+| `config/quickshell/dotfiles/services/*` | CORE | Singleton services (Audio, Network, BluetoothStatus, Battery, MprisController, Notifications, ResourceUsage, Brightness, Weather, ...) |
+| `config/quickshell/dotfiles/settings.qml` | CORE | Dotfiles Settings app |
+| `config/quickshell/dotfiles/welcome.qml` | CORE | Dotfiles first-run welcome app |
+| `config/quickshell/dotfiles/LICENSE-GPL-3.0` | CORE | Upstream license (GPL-3.0), required by upstream dots-hyprland |
+| `config/matugen/*` | CORE | Matugen templates & config used by Dotfiles shell theming |
+| `config/dotfiles/config.json` | DYNAMIC / PERSONAL | Dotfiles shell config (bar position, transparency, palette type, wallpaper path) |
 | `config/quickshell/Theme.qml` | CORE / GENERATED | Quickshell Material You color singleton |
 | `config/quickshell/launch.sh` | CORE | Quickshell startup script |
-| `config/quickshell/bar/*` (7 files) | CORE | Topbar modules (Workspaces, Clock, Status, Tray, MiniPlayer) |
-| `config/quickshell/popups/*` (4 files) | CORE | Popups (ControlCenter, WifiMenu, BluetoothMenu, AppLauncher) |
-| `config/my-desktop/theme/generate-theme.py` | CORE | Dynamic Material You palette extractor |
-| `config/my-desktop/theme/apply-theme.sh` | CORE | Live theme hot-reloader for compositor and UI |
-| `config/my-desktop/theme/colors.*` | GENERATED | Generated palette exports (JSON, Lua, CSS, Conf, Rasi) |
-| `config/my-desktop/wallpaper/apply-wallpaper.sh` | CORE | Animated wallpaper engine caller |
-| `config/my-desktop/wallpaper/carousel-picker.py` | CORE | 3D cover-flow wallpaper picker (GTK Layer Shell) |
-| `config/my-desktop/wallpaper/wallpaper-picker.sh`| CORE | Wrapper script for carousel picker |
-| `config/my-desktop/wallpaper/generate-thumbnails.py` | CORE | Thumbnail cache generator |
-| `config/my-desktop/wallpaper/config.env` | CORE / HARDWARE-SPECIFIC (144Hz) | Wallpaper backend and transition settings |
-| `config/my-desktop/wallpaper/current` | GENERATED | Active wallpaper pointer file |
-| `config/my-desktop/launcher/launcher.sh` | CORE | Application launcher toggle script |
-| `config/my-desktop/launcher/launcher.py` | CORE | Material You Rofi launcher with categories |
-| `config/my-desktop/launcher/webapp_manager.py` | CORE | Web application desktop entry generator |
-| `config/my-desktop/launcher/launcher.rasi` | CORE | Rofi launcher styling |
+| `config/quickshell/bar/*` (legacy) | LEGACY | Legacy topbar modules, kept for rollback |
+| `config/quickshell/popups/*` (legacy) | CORE / LEGACY | Launcher host (AppLauncher), legacy menus, AuthDialog/PromptDialog for the sudo askpass helper |
+| `config/DotFiles/theme/generate-theme.py` | CORE | Dynamic Material You palette extractor |
+| `config/DotFiles/theme/apply-theme.sh` | CORE | Live theme hot-reloader for compositor and UI |
+| `config/DotFiles/theme/colors.*` | GENERATED | Generated palette exports (JSON, Lua, CSS, Conf, Rasi) |
+| `config/DotFiles/wallpaper/apply-wallpaper.sh` | CORE | Animated wallpaper engine caller |
+| `config/DotFiles/wallpaper/carousel-picker.py` | CORE | 3D cover-flow wallpaper picker (GTK Layer Shell) |
+| `config/DotFiles/wallpaper/wallpaper-picker.sh`| CORE | Wrapper script for carousel picker |
+| `config/DotFiles/wallpaper/generate-thumbnails.py` | CORE | Thumbnail cache generator |
+| `config/DotFiles/wallpaper/config.env` | CORE / HARDWARE-SPECIFIC (144Hz) | Wallpaper backend and transition settings |
+| `config/DotFiles/wallpaper/current` | GENERATED | Active wallpaper pointer file |
+| `config/DotFiles/launcher/launcher.sh` | CORE | Application launcher toggle script |
+| `config/DotFiles/launcher/launcher.py` | CORE | Material You Rofi launcher with categories |
+| `config/DotFiles/launcher/webapp_manager.py` | CORE | Web application desktop entry generator |
+| `config/DotFiles/launcher/launcher.rasi` | CORE | Rofi launcher styling |
 | `config/dunst/dunstrc` | CORE / GENERATED | Dunst notification daemon layout & dynamic colors |
 | `config/ghostty/config` | CORE | Ghostty terminal configuration (glass opacity 0.72) |
 | `config/ghostty/gtk.css` | GENERATED | Ghostty dialog and window CSS styling |

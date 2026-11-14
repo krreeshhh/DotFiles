@@ -2,8 +2,12 @@
 
 ~/.config/hypr/ <= config/hypr/
 ~/.config/quickshell/ <= config/quickshell/
+~/.config/dotfiles/ <= config/dotfiles/
+~/.config/matugen/ <= config/matugen/
+~/.local/share/icons/hicolor/scalable/apps/dotfiles.svg <= assets/share/icons/hicolor/scalable/apps/dotfiles.svg
+~/.local/share/fonts/GoogleSansFlex.ttf <= assets/fonts/GoogleSansFlex.ttf
 ~/.config/dunst/ <= config/dunst/
-~/.config/my-desktop/ <= config/my-desktop/
+~/.config/DotFiles/ <= config/DotFiles/
 ~/.config/ghostty/ <= config/ghostty/
 ~/.config/yazi/ <= config/yazi/
 ~/.config/clipse/ <= config/clipse/

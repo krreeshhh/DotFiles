@@ -12,7 +12,7 @@ FILE="$DIR/Screenshot_${TIMESTAMP}.png"
 MODE="${1:-area}"
 
 # Load dynamic Material You theme colors if available
-THEME_CONF="$HOME/.config/my-desktop/theme/colors.conf"
+THEME_CONF="$HOME/.config/DotFiles/theme/colors.conf"
 if [ -f "$THEME_CONF" ]; then
     # shellcheck source=/dev/null
     source "$THEME_CONF"

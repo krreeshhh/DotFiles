@@ -98,11 +98,11 @@ flowchart TD
   - `Osd.qml`: Sleek volume and brightness indicators triggered via IPC.
 
 ### 3. Dynamic Material You Theming
-- **Theming Controller**: [`~/.config/my-desktop/theme/apply-theme.sh`](file:///home/Krish/.config/my-desktop/theme/apply-theme.sh) and [`generate-theme.py`](file:///home/Krish/.config/my-desktop/theme/generate-theme.py).
+- **Theming Controller**: [`~/.config/DotFiles/theme/apply-theme.sh`](file:///home/Krish/.config/DotFiles/theme/apply-theme.sh) and [`generate-theme.py`](file:///home/Krish/.config/DotFiles/theme/generate-theme.py).
 - **Wallpaper Backend**: `awww` / `swww` animated daemon executing 144Hz cursor-expansion transitions.
-- **Color Propagation**: Extracts colors into [`colors.json`](file:///home/Krish/.config/my-desktop/theme/colors.json) and propagates to:
+- **Color Propagation**: Extracts colors into [`colors.json`](file:///home/Krish/.config/DotFiles/theme/colors.json) and propagates to:
   - Quickshell: [`Theme.qml`](file:///home/Krish/.config/quickshell/Theme.qml) binds colors live via `quickshell ipc call shell reloadTheme`.
-  - Hyprland: [`colors-hyprland.lua`](file:///home/Krish/.config/my-desktop/theme/colors-hyprland.lua) sets active border gradients.
+  - Hyprland: [`colors-hyprland.lua`](file:///home/Krish/.config/DotFiles/theme/colors-hyprland.lua) sets active border gradients.
    - Terminal & UI: Ghostty (`gtk.css`), Rofi (`colors.rasi`), Dunst notifications, SDDM background, and GRUB boot splash.
    - ASUS TUF Keyboard Backlight: `apply-theme.sh` runs `asus-tuf-aura --restore` to dynamically synchronize the keyboard RGB accent with the active Material You wallpaper palette.
 
@@ -133,7 +133,7 @@ flowchart TD
 - **Compositor Window Rules**:
   - Hyprland floating window rules (`size 940 680`, `center`) for `com.asus.tuf.armoury_crate` configured in both `hyprland.lua` and `hyprland.conf`.
 - **Live Material You Dynamic Theming**:
-  - Inotify file monitor on `~/.config/my-desktop/theme/colors.json`.
+  - Inotify file monitor on `~/.config/DotFiles/theme/colors.json`.
   - Dynamic CSS reload: Slider thumbs, switches, and buttons visually track the active backlight color in real time.
 - **Session Auto-Restore**:
   - `asus-tuf-aura-restore.service` user systemd unit automatically restores saved state (`~/.config/asus-tuf-aura/config.json`) upon user login.

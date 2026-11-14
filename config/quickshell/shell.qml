@@ -3,75 +3,13 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import "bar"
 import "popups"
 
+// Launcher/auth host. The Dotfiles shell owns the bar and
+// sidebars; this default Quickshell instance keeps the previous app launcher
+// and the graphical auth/prompt dialogs (used by the sudo askpass helper).
 ShellRoot {
     id: root
-
-    signal showOsd(string type, int val, bool muted)
-
-    Variants {
-        model: Quickshell.screens
-
-        Bar {
-            onToggleQuickSettings: {
-                wifiMenu.closeImmediate();
-                bluetoothMenu.closeImmediate();
-                appLauncher.closeImmediate();
-                controlCenter.toggle();
-            }
-            onToggleWifi: {
-                controlCenter.closeImmediate();
-                bluetoothMenu.closeImmediate();
-                appLauncher.closeImmediate();
-                wifiMenu.toggle();
-            }
-            onToggleBluetooth: {
-                controlCenter.closeImmediate();
-                wifiMenu.closeImmediate();
-                appLauncher.closeImmediate();
-                bluetoothMenu.toggle();
-            }
-        }
-    }
-
-    Variants {
-        model: Quickshell.screens
-
-        Osd {
-            Connections {
-                target: root
-                function onShowOsd(type, val, muted) {
-                    trigger(type, val, muted);
-                }
-            }
-        }
-    }
-
-    ControlCenter {
-        id: controlCenter
-        onOpenWifi: {
-            controlCenter.closeImmediate();
-            wifiMenu.openMenu();
-        }
-        onOpenBluetooth: {
-            controlCenter.closeImmediate();
-            bluetoothMenu.openMenu();
-        }
-        onOpenSessionMenu: {
-            controlCenter.closeImmediate();
-            sessionMenu.openMenu();
-        }
-    }
-
-    WifiMenu {
-        id: wifiMenu
-    }
-
-    BluetoothMenu {
-        id: bluetoothMenu
-    }
 
     AppLauncher {
         id: appLauncher
@@ -85,19 +23,11 @@ ShellRoot {
         id: promptDialog
     }
 
-    SessionMenu {
-        id: sessionMenu
-    }
-
     IpcHandler {
         target: "shell"
 
         function promptInput(fifo: string, title: string, prompt: string, placeholder: string, defaultValue: string, icon: string): void {
-            wifiMenu.closeImmediate();
-            bluetoothMenu.closeImmediate();
-            controlCenter.closeImmediate();
             appLauncher.closeImmediate();
-            sessionMenu.closeImmediate();
             authDialog.closeImmediate();
             promptDialog.openPrompt(fifo, title, prompt, placeholder, defaultValue, icon);
         }
@@ -107,11 +37,7 @@ ShellRoot {
         }
 
         function promptAuth(fifo: string, prompt: string): void {
-            wifiMenu.closeImmediate();
-            bluetoothMenu.closeImmediate();
-            controlCenter.closeImmediate();
             appLauncher.closeImmediate();
-            sessionMenu.closeImmediate();
             promptDialog.closeImmediate();
             authDialog.openAuth(fifo, prompt);
         }
@@ -120,50 +46,15 @@ ShellRoot {
             authDialog.closeImmediate();
         }
 
-        function toggleControlCenter(): void {
-            wifiMenu.closeImmediate();
-            bluetoothMenu.closeImmediate();
-            appLauncher.closeImmediate();
-            sessionMenu.closeImmediate();
-            controlCenter.toggle();
-        }
-
-        function toggleWifi(): void {
-            controlCenter.closeImmediate();
-            bluetoothMenu.closeImmediate();
-            appLauncher.closeImmediate();
-            sessionMenu.closeImmediate();
-            wifiMenu.toggle();
-        }
-
-        function toggleBluetooth(): void {
-            controlCenter.closeImmediate();
-            wifiMenu.closeImmediate();
-            appLauncher.closeImmediate();
-            sessionMenu.closeImmediate();
-            bluetoothMenu.toggle();
-        }
-
         function toggleAppLauncher(): void {
-            wifiMenu.closeImmediate();
-            bluetoothMenu.closeImmediate();
-            controlCenter.closeImmediate();
-            sessionMenu.closeImmediate();
             appLauncher.toggle();
         }
 
         function openAppLauncher(view: string): void {
-            wifiMenu.closeImmediate();
-            bluetoothMenu.closeImmediate();
-            controlCenter.closeImmediate();
-            sessionMenu.closeImmediate();
             appLauncher.openMenu(view);
         }
+
         function searchAppLauncher(query: string): void {
-            wifiMenu.closeImmediate();
-            bluetoothMenu.closeImmediate();
-            controlCenter.closeImmediate();
-            sessionMenu.closeImmediate();
             appLauncher.setSearch(query);
         }
 
@@ -171,60 +62,20 @@ ShellRoot {
             appLauncher.selectIndex(idx);
         }
 
-        function toggleSessionMenu(): void {
-            wifiMenu.closeImmediate();
-            bluetoothMenu.closeImmediate();
-            controlCenter.closeImmediate();
-            appLauncher.closeImmediate();
-            authDialog.closeImmediate();
-            promptDialog.closeImmediate();
-            sessionMenu.toggle();
-        }
-
-        function openSessionMenu(): void {
-            wifiMenu.closeImmediate();
-            bluetoothMenu.closeImmediate();
-            controlCenter.closeImmediate();
-            appLauncher.closeImmediate();
-            authDialog.closeImmediate();
-            promptDialog.closeImmediate();
-            sessionMenu.openMenu();
-        }
-
-        function closeSessionMenu(): void {
-            sessionMenu.closeMenu();
-        }
-
-        function removeWebApps(): void {
-            wifiMenu.closeImmediate();
-            bluetoothMenu.closeImmediate();
-            controlCenter.closeImmediate();
-            sessionMenu.closeImmediate();
-            appLauncher.openMenu("remove_webapps");
-        }
-
         function closeAppLauncher(): void {
             appLauncher.closeMenu();
         }
 
+        function closeAppLauncherImmediate(): void {
+            appLauncher.closeImmediate();
+        }
+
+        function removeWebApps(): void {
+            appLauncher.openMenu("remove_webapps");
+        }
+
         function reloadTheme(): void {
             Theme.reloadColors();
-        }
-    }
-
-    IpcHandler {
-        target: "osd"
-
-        function show(type: string, value: int, muted: bool): void {
-            root.showOsd(type, value, muted);
-        }
-
-        function brightness(value: int): void {
-            root.showOsd("brightness", value, false);
-        }
-
-        function volume(value: int, muted: bool): void {
-            root.showOsd("volume", value, muted);
         }
     }
 }

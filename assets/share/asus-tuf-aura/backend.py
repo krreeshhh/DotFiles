@@ -2,7 +2,7 @@
 """
 ASUS TUF Gaming A15 Keyboard Backlight Controller Backend
 Controls ASUS TUF Aura RGB keyboard backlight via Linux kernel asus-nb-wmi sysfs.
-Integrates with desktop dynamic Material You theming (~/.config/my-desktop/theme/colors.json).
+Integrates with desktop dynamic Material You theming (~/.config/DotFiles/theme/colors.json).
 """
 
 import json
@@ -23,7 +23,7 @@ MAX_BRIGHTNESS_FILE = SYSFS_LED / "max_brightness"
 
 CONFIG_DIR = Path.home() / ".config" / "asus-tuf-aura"
 CONFIG_FILE = CONFIG_DIR / "config.json"
-MATERIAL_YOU_FILE = Path.home() / ".config" / "my-desktop" / "theme" / "colors.json"
+MATERIAL_YOU_FILE = Path.home() / ".config" / "DotFiles" / "theme" / "colors.json"
 
 DEFAULT_CONFIG: Dict[str, Any] = {
     "mode": 0,  # 0: Static, 1: Breathing, 2: Color Cycle, 3: Strobing

@@ -22,7 +22,7 @@ import cairo
 
 from backend import TufKeyboardBackend, MODES, SPEEDS, hex_to_rgb
 
-THEME_FILE_PATH = Path.home() / ".config" / "my-desktop" / "theme" / "colors.json"
+THEME_FILE_PATH = Path.home() / ".config" / "DotFiles" / "theme" / "colors.json"
 
 
 def load_material_you_palette() -> Dict[str, Any]:

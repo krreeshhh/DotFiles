@@ -83,6 +83,16 @@ appmenu-gtk-module
 webkit2gtk-4.1
 lsd
 
+# Dotfiles shell (forked from upstream dots-hyprland)
+kirigami
+qt6-positioning
+syntax-highlighting
+matugen
+jq
+bc
+cliphist
+hyprpicker
+
 # Kernel, Headers & NVIDIA Open Drivers
 base
 base-devel

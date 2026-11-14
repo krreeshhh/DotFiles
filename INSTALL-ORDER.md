@@ -25,12 +25,13 @@ Follow this exact dependency order when rebuilding the desktop environment from 
 ## 4. Core Wayland & Desktop Compositor Packages
 * Install native packages from `packages/pacman-runtime.txt`:
   * Compositor: `hyprland`, `xdg-desktop-portal-hyprland`, `xdg-desktop-portal-gtk`, `polkit-gnome`, `wl-clipboard`, `grim`, `slurp`, `swaybg`, `brightnessctl`.
-  * Desktop Shell & Notification: `quickshell`, `dunst`, `rofi`.
+  * Desktop Shell & Notifications: `quickshell`, `dunst`, `cliphist`, `hyprpicker`.
+  * Dotfiles shell (end-4 based) Qt modules & tools: `kirigami`, `qt6-positioning`, `syntax-highlighting`, `matugen`, `jq`, `bc`.
   * Terminal & Multiplexer: `ghostty`, `tmux`.
   * Audio Server & Utilities: `pipewire`, `pipewire-pulse`, `pipewire-alsa`, `wireplumber`, `pavucontrol`, `pamixer`, `playerctl`.
   * Network & Bluetooth: `networkmanager`, `network-manager-applet`, `bluez`, `bluez-utils`, `blueman`.
   * Theming & Script Engines: `adwaita-icon-theme`, `gnome-themes-extra`, `dconf`, `sddm`, `python-pillow`, `python-gobject`, `python-cairo`, `gtk-layer-shell`, `cairo`.
-  * Fonts: `ttf-jetbrains-mono-nerd`, `adwaita-fonts`, `noto-fonts`, `noto-fonts-emoji`, `terminus-font`.
+  * Fonts: `ttf-jetbrains-mono-nerd`, `adwaita-fonts`, `noto-fonts`, `noto-fonts-emoji`, `terminus-font`. Google Sans Flex ships in `assets/fonts/GoogleSansFlex.ttf` and is deployed by the installer.
 
 ## 5. AUR Helper & AUR Runtime Packages
 * Install `yay-bin` (or `yay`).
@@ -38,6 +39,7 @@ Follow this exact dependency order when rebuilding the desktop environment from 
   * Cursor: `bibata-cursor-theme`.
   * Icons: `whitesur-icon-theme`.
   * Terminal Workspace: `herdr-bin`.
+  * Dotfiles shell fonts: `otf-space-grotesk`, `ttf-readex-pro`, `ttf-rubik-vf`.
 
 ## 6. Enable System & User Daemons
 * System level:
@@ -61,12 +63,20 @@ Follow this exact dependency order when rebuilding the desktop environment from 
 
 ## 8. Deploy Configuration Files
 * Deploy directories from `config/` to `~/.config/`:
-  * `hypr/`, `quickshell/`, `dunst/`, `my-desktop/`, `ghostty/`, `yazi/`, `clipse/`, `gtk-3.0/`, `gtk-4.0/`, `environment.d/`, `systemd/user/`.
+  * `hypr/`, `quickshell/`, `dunst/`, `DotFiles/`, `ghostty/`, `yazi/`, `clipse/`, `gtk-3.0/`, `gtk-4.0/`, `environment.d/`, `systemd/user/`, `matugen/`, `dotfiles/`.
 * Deploy individual files: `dolphinrc`, `kdeglobals`, `mimeapps.list`, `gtkrc-2.0` to `~/.config/` and `~/.gtkrc-2.0`.
 * Deploy `home/.bashrc` and `home/.bash_profile` to `~/`.
 * Set script execution permissions:
   ```bash
-  chmod +x ~/.config/hypr/scripts/* ~/.config/my-desktop/wallpaper/* ~/.config/my-desktop/theme/* ~/.config/my-desktop/launcher/* ~/.config/quickshell/*.sh
+  chmod +x ~/.config/hypr/scripts/* ~/.config/DotFiles/wallpaper/* ~/.config/DotFiles/theme/* ~/.config/DotFiles/launcher/* ~/.config/quickshell/*.sh
+  ```
+
+## 8b. Dotfiles shell Python virtual environment
+* Create the venv consumed by the Dotfiles shell's color scripts:
+  ```bash
+  python3 -m venv ~/.local/state/quickshell/.venv
+  ~/.local/state/quickshell/.venv/bin/pip install --upgrade pip
+  ~/.local/state/quickshell/.venv/bin/pip install pillow materialyoucolor
   ```
 
 ## 9. Deploy Assets, Power Management & Display Manager Themes
@@ -76,6 +86,7 @@ Follow this exact dependency order when rebuilding the desktop environment from 
 * Deploy `/etc/systemd/logind.conf.d/lid.conf` to configure lid close system suspend.
 * Deploy `/usr/lib/systemd/system-sleep/hyprland-suspend` to pause/resume Hyprland around GPU sleep.
 * Deploy `/etc/udev/rules.d/99-asus-kbd-backlight.rules` for rootless ASUS TUF keyboard backlight access (`sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=leds`).
+* Deploy `/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules` to disable USB autosuspend for the Realtek RTL8852BU Bluetooth radio (Foxconn 0489:e123), preventing `rtl8852bu: download fw command failed (-19)` drops (`sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=usb`).
 * Populate `~/.wallpaper/` with wallpapers (see `assets/wallpapers/WALLPAPER_MANIFEST.txt`).
 
 ## 10. Initialize GSettings & Theme Generator

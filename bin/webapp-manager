@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-python3 /home/Krish/.config/my-desktop/launcher/webapp_manager.py "$@"
+python3 /home/Krish/.config/DotFiles/launcher/webapp_manager.py "$@"
