@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Wayland
 import ".."
-import "../plugins/omarchy-ledge"
+import "../ledge"
 
 PanelWindow {
     id: root
@@ -22,6 +22,7 @@ PanelWindow {
 
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+    BackgroundEffect.blurRegion: Region { item: rootContent }
 
     signal toggleQuickSettings()
     signal toggleWifi()

@@ -3,7 +3,7 @@
 # Automated Reproducible Installer for Arch Linux + Hyprland Dotfiles
 # ==============================================================================
 # Hostname Blueprint: Reze
-# Stack: Hyprland (Lua API), Quickshell (Modular + OSD + Plugins), Waybar fallback,
+# Stack: Hyprland (Lua API), Quickshell (Modular + OSD + Plugins),
 #        Material You Engine, Dunst, Ghostty, Clipse, SDDM (Hyprland SDDM Theme),
 #        Universal Picture-in-Picture Helper, WhiteSur-dark Icons.
 # ==============================================================================
@@ -407,7 +407,7 @@ deploy_dotfiles() {
 
     # 2. Deploy Configurations from config/
     log_substep "Deploying ~/.config applications..."
-    local config_dirs=("hypr" "quickshell" "waybar" "dunst" "nwg-bar" "my-desktop" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d" "herdr")
+    local config_dirs=("hypr" "quickshell" "dunst" "my-desktop" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d" "herdr")
     for d in "${config_dirs[@]}"; do
         if [ -d "$DOTFILES_DIR/config/$d" ]; then
             if [ -d "$HOME/.config/$d" ]; then
@@ -469,7 +469,6 @@ deploy_dotfiles() {
     # Ensure swww compatibility symlinks exist
     ln -sf "$HOME/.local/bin/awww" "$HOME/.local/bin/swww" 2>/dev/null || true
     ln -sf "$HOME/.local/bin/awww-daemon" "$HOME/.local/bin/swww-daemon" 2>/dev/null || true
-    ln -sf "$HOME/.local/bin/omarchy-agent" "$HOME/.local/bin/agent" 2>/dev/null || true
     ln -sf "$HOME/.local/bin/asus-tuf-aura" "$HOME/.local/bin/armoury-crate" 2>/dev/null || true
 
     # Deploy local libraries
@@ -550,7 +549,6 @@ deploy_dotfiles() {
     chmod +x "$HOME/.config/my-desktop/theme/"*.sh "$HOME/.config/my-desktop/theme/"*.py 2>/dev/null || true
     chmod +x "$HOME/.config/my-desktop/launcher/"*.sh "$HOME/.config/my-desktop/launcher/"*.py 2>/dev/null || true
     chmod +x "$HOME/.config/quickshell/"*.sh "$HOME/.config/quickshell/scripts/"* 2>/dev/null || true
-    chmod +x "$HOME/.config/waybar/"*.sh "$HOME/.config/waybar/scripts/"*.py "$HOME/.config/waybar/scripts/"*.sh 2>/dev/null || true
 
     # 6. Build & Install Nautilus Dynamic Theme Reloader Extension
     if [ -d "$HOME/.config/my-desktop/theme/nautilus-extension" ] && command -v gcc >/dev/null 2>&1; then
@@ -696,6 +694,15 @@ configure_sddm_theme() {
         sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-asus-kbd-backlight.rules" /etc/udev/rules.d/99-asus-kbd-backlight.rules
         sudo udevadm control --reload-rules 2>/dev/null || true
         sudo udevadm trigger --subsystem-match=leds 2>/dev/null || true
+    fi
+
+    if [ -f "$DOTFILES_DIR/system/etc/pacman.d/hooks/99-hyprland-blur.hook" ]; then
+        log_substep "Configuring /etc/pacman.d/hooks/99-hyprland-blur.hook (Hyprland Blur Protocol Fix)..."
+        sudo mkdir -p /etc/pacman.d/hooks
+        sudo cp "$DOTFILES_DIR/system/etc/pacman.d/hooks/99-hyprland-blur.hook" /etc/pacman.d/hooks/99-hyprland-blur.hook
+        if [ -x "$HOME/.local/bin/patch-hyprland-blur" ]; then
+            sudo /usr/bin/python3 "$HOME/.local/bin/patch-hyprland-blur" 2>/dev/null || true
+        fi
     fi
 }
 

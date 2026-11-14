@@ -21,9 +21,10 @@ PanelWindow {
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
 
-    WlrLayershell.namespace: "osd"
+    WlrLayershell.namespace: "quickshell"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+    BackgroundEffect.blurRegion: Region { item: osdCard }
 
     property bool shown: false
     property string osdType: "volume" // "volume", "brightness", "mic"
@@ -71,12 +72,8 @@ PanelWindow {
         border.color: Theme.popupBorder
         border.width: 1
         opacity: root.shown ? 1.0 : 0.0
-        scale: root.shown ? 1.0 : 0.90
 
         Behavior on opacity {
-            NumberAnimation { duration: 160; easing.type: Easing.OutCubic }
-        }
-        Behavior on scale {
             NumberAnimation { duration: 160; easing.type: Easing.OutCubic }
         }
 

@@ -25,25 +25,19 @@
    - Type: System maintenance assistant & Quickshell native sudo password prompt.
    - Reinstallation: Copied automatically by install.sh to ~/.local/bin/.
 
-5. omarchy diagnostic suite
-   - Location: ~/.local/bin/omarchy, omarchy-agent, omarchy-crash, omarchy-crash-watch, omarchy-ledge
-   - Service: ~/.config/systemd/user/omarchy-crash-watch.service
-   - Plugin: ~/.config/quickshell/plugins/omarchy-ledge
+5. agent, crash diagnostic suite & ledge
+   - Location: ~/.local/bin/agent, crash, crash-watch, ledge
+   - Service: ~/.config/systemd/user/crash-watch.service
+   - Component: ~/.config/quickshell/ledge
    - Type: System crash diagnostic daemon and Quickshell statusbar widget.
    - Reinstallation: Copied automatically by install.sh.
 
-6. strata & strata-bin
-   - Location: ~/.local/bin/strata, ~/.local/bin/strata-bin
-   - Libraries: ~/.local/lib/libgtk4-layer-shell.so*, ~/.local/lib/libgtksourceview-5.so*
-   - Type: GTK4 Layer Shell file browser / desktop utility.
-   - Reinstallation: Copy wrapper script and binaries from Dotfiles/bin.
-
-7. yazi & ya
+6. yazi & ya
    - Location: ~/.local/bin/yazi, ~/.local/bin/ya
    - Type: Terminal file manager binary.
    - Reinstallation: Copied from Dotfiles/bin or installed via `pacman -S yazi`.
 
-8. SDDM Theme (hyprland-sddm)
+7. SDDM Theme (hyprland-sddm)
    - Location: /usr/share/sddm/themes/hyprland-sddm (Source: ~/hyprland-sddm)
    - Type: Custom SDDM greeter theme with dynamic wallpaper auto-refresh and reverse-blur.
    - Reinstallation: Run ~/hyprland-sddm/install.sh.

@@ -19,8 +19,6 @@ github-cli
 arch-install-scripts
 
 # User Desktop Applications
-obsidian
-qbittorrent
 loupe
 obs-studio
 opencode

@@ -9,20 +9,12 @@ ab-download-manager-bin
 ventoy-bin
 zoom
 sidra-bin
-stably-orca-bin
 
 # Media & Creative
 cine
-sonora-bin
 cliamp-bin
 upscayl-bin
 
 # Development & AI Platforms
 visual-studio-code-bin
-claude-code
-openai-codex-bin
-antigravity-cli
-cline-cli
-hermes-agent-bin
-kiro-cli
 spotify

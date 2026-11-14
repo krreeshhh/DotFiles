@@ -10,7 +10,7 @@
 
 var STATE_VERSION = 1
 
-// Nerd Font (Material Design) glyphs, shipped with Omarchy's default font.
+// Nerd Font (Material Design) glyphs, shipped with the default font.
 // Names are nf-md-*, and every codepoint below is checked against the font's
 // own glyph names (see docs/icons.md) - the numbering is dense enough that a
 // neighbouring codepoint is a completely unrelated picture.
@@ -197,10 +197,8 @@ function pinnedFirst(items) {
     return pinned.concat(rest)
 }
 
-// Bar settings arrive as real JSON from shell.json, but `omarchy bar set
-// <id> <key> <value>` writes the *string* "true"/"false" unless the caller
-// remembers --json. Both spellings have to mean the same thing: otherwise the
-// most obvious way to change a setting silently does nothing at all.
+// Bar settings arrive as real JSON from shell.json, but CLI settings
+// can write the *string* "true"/"false" unless the caller remembers --json.
 function boolSetting(value, fallback) {
     if (value === undefined || value === null)
         return fallback
@@ -215,7 +213,7 @@ function boolSetting(value, fallback) {
 }
 
 // The integer counterpart to boolSetting, with the same problem behind it:
-// `omarchy bar set` writes a string, and nothing checks it against the `min`
+// Setting writes a string, and nothing checks it against the `min`
 // and `max` the manifest advertises, so "abc" arrives intact. Reading that with
 // Number() alone yields NaN, and a NaN timer interval is a timer that fires
 // immediately: the ledge would slam shut the instant it opened. So anything
@@ -246,7 +244,7 @@ function intSetting(value, fallback, min, max) {
 function stateDir(home, stateHome) {
     var base = stateHome ? String(stateHome)
                          : (home ? String(home) + "/.local/state" : "")
-    return base ? base + "/omarchy-ledge" : ""
+    return base ? base + "/ledge" : ""
 }
 
 function stateFile(home, stateHome) {

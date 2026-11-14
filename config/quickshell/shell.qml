@@ -1,4 +1,5 @@
 //@ pragma UseQApplication
+//@ pragma IconTheme WhiteSur-dark
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -58,6 +59,10 @@ ShellRoot {
             controlCenter.closeImmediate();
             bluetoothMenu.openMenu();
         }
+        onOpenSessionMenu: {
+            controlCenter.closeImmediate();
+            sessionMenu.openMenu();
+        }
     }
 
     WifiMenu {
@@ -80,6 +85,10 @@ ShellRoot {
         id: promptDialog
     }
 
+    SessionMenu {
+        id: sessionMenu
+    }
+
     IpcHandler {
         target: "shell"
 
@@ -88,6 +97,7 @@ ShellRoot {
             bluetoothMenu.closeImmediate();
             controlCenter.closeImmediate();
             appLauncher.closeImmediate();
+            sessionMenu.closeImmediate();
             authDialog.closeImmediate();
             promptDialog.openPrompt(fifo, title, prompt, placeholder, defaultValue, icon);
         }
@@ -101,6 +111,7 @@ ShellRoot {
             bluetoothMenu.closeImmediate();
             controlCenter.closeImmediate();
             appLauncher.closeImmediate();
+            sessionMenu.closeImmediate();
             promptDialog.closeImmediate();
             authDialog.openAuth(fifo, prompt);
         }
@@ -113,6 +124,7 @@ ShellRoot {
             wifiMenu.closeImmediate();
             bluetoothMenu.closeImmediate();
             appLauncher.closeImmediate();
+            sessionMenu.closeImmediate();
             controlCenter.toggle();
         }
 
@@ -120,6 +132,7 @@ ShellRoot {
             controlCenter.closeImmediate();
             bluetoothMenu.closeImmediate();
             appLauncher.closeImmediate();
+            sessionMenu.closeImmediate();
             wifiMenu.toggle();
         }
 
@@ -127,6 +140,7 @@ ShellRoot {
             controlCenter.closeImmediate();
             wifiMenu.closeImmediate();
             appLauncher.closeImmediate();
+            sessionMenu.closeImmediate();
             bluetoothMenu.toggle();
         }
 
@@ -134,6 +148,7 @@ ShellRoot {
             wifiMenu.closeImmediate();
             bluetoothMenu.closeImmediate();
             controlCenter.closeImmediate();
+            sessionMenu.closeImmediate();
             appLauncher.toggle();
         }
 
@@ -141,20 +156,50 @@ ShellRoot {
             wifiMenu.closeImmediate();
             bluetoothMenu.closeImmediate();
             controlCenter.closeImmediate();
+            sessionMenu.closeImmediate();
             appLauncher.openMenu(view);
         }
-
-        function removePlugins(): void {
+        function searchAppLauncher(query: string): void {
             wifiMenu.closeImmediate();
             bluetoothMenu.closeImmediate();
             controlCenter.closeImmediate();
-            appLauncher.openMenu("remove_plugins");
+            sessionMenu.closeImmediate();
+            appLauncher.setSearch(query);
+        }
+
+        function selectAppLauncherIndex(idx: int): void {
+            appLauncher.selectIndex(idx);
+        }
+
+        function toggleSessionMenu(): void {
+            wifiMenu.closeImmediate();
+            bluetoothMenu.closeImmediate();
+            controlCenter.closeImmediate();
+            appLauncher.closeImmediate();
+            authDialog.closeImmediate();
+            promptDialog.closeImmediate();
+            sessionMenu.toggle();
+        }
+
+        function openSessionMenu(): void {
+            wifiMenu.closeImmediate();
+            bluetoothMenu.closeImmediate();
+            controlCenter.closeImmediate();
+            appLauncher.closeImmediate();
+            authDialog.closeImmediate();
+            promptDialog.closeImmediate();
+            sessionMenu.openMenu();
+        }
+
+        function closeSessionMenu(): void {
+            sessionMenu.closeMenu();
         }
 
         function removeWebApps(): void {
             wifiMenu.closeImmediate();
             bluetoothMenu.closeImmediate();
             controlCenter.closeImmediate();
+            sessionMenu.closeImmediate();
             appLauncher.openMenu("remove_webapps");
         }
 

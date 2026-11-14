@@ -88,7 +88,7 @@ The default modifier key is `SUPER` (`Mod4`).
 | `SUPER + C` | Toggle Quickshell control center |
 | `SUPER + E` | Open Nautilus file manager |
 | `SUPER + B` | Launch default browser |
-| `SUPER + ESCAPE` | Open `nwg-bar` power menu |
+| `SUPER + ESCAPE` | Toggle Quickshell session & power menu |
 | `SUPER + V` (Clipboard) | Open Clipse clipboard history |
 | `SUPER + SHIFT + S` | Interactive area screenshot (slurp + grim) |
 | `SUPER + SHIFT + W` | Open 3D wallpaper carousel picker |
@@ -152,7 +152,7 @@ DotFiles/
 │   ├── themes/
 │   │   └── grub/silent/     # Active minimalist GRUB bootloader theme
 │   └── wallpapers/          # Packaged aesthetic wallpaper collection (27 wallpapers)
-├── bin/                     # Standalone custom binaries (hypr-pip-helper, clipse, strata)
+├── bin/                     # Standalone custom binaries (hypr-pip-helper, clipse)
 ├── config/
 │   ├── clipse/              # Clipboard manager config
 │   ├── dunst/               # Notification styling
@@ -161,10 +161,8 @@ DotFiles/
 │   ├── gtk-3.0/ & gtk-4.0/  # GTK interface themes and icons
 │   ├── hypr/                # Hyprland configuration (hyprland.lua, pip.lua, scripts)
 │   ├── my-desktop/          # Material You theme extractor and wallpaper engines
-│   ├── nwg-bar/             # Power menu layout
-│   ├── quickshell/          # Quickshell modular shell (Bar, OSD, Popups, Plugins)
+│   ├── quickshell/          # Quickshell modular shell (Bar, OSD, Popups, Ledge, SessionMenu)
 │   ├── systemd/user/        # Systemd user services (hypr-pip, quickshell, battery-alert)
-│   ├── waybar/              # Fallback Waybar configuration
 │   └── yazi/                # Terminal file manager configuration
 ├── packages/                # Explicit package manifests (pacman, AUR, fonts)
 ├── scripts/                 # System verify test runner and maintenance utilities

@@ -20,6 +20,8 @@ PanelWindow {
 
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: root.shown ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+    WlrLayershell.namespace: "quickshell"
+    BackgroundEffect.blurRegion: Region { item: dialogCard }
 
     property bool shown: false
     property string fifoPath: ""

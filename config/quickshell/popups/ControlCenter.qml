@@ -22,10 +22,12 @@ PanelWindow {
 
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+    WlrLayershell.namespace: "quickshell"
+    BackgroundEffect.blurRegion: Region { item: bgCard }
 
     signal openWifi()
     signal openBluetooth()
-
+    signal openSessionMenu()
     property int currentBrightness: 100
     property int currentVolume: 100
 
@@ -128,19 +130,12 @@ PanelWindow {
         transformOrigin: Item.TopRight
 
         opacity: root.shown ? 1.0 : 0.0
-        transform: [
-            Translate {
-                id: cardTrans
-                y: root.shown ? 0 : -28
-                Behavior on y {
-                    NumberAnimation {
-                        duration: root.shown ? 240 : 160
-                        easing.type: root.shown ? Easing.OutCubic : Easing.InCubic
-                    }
-                }
+        Behavior on opacity {
+            NumberAnimation {
+                duration: root.shown ? 180 : 120
+                easing.type: root.shown ? Easing.OutCubic : Easing.InQuad
             }
-        ]
-
+        }
         Behavior on opacity {
             NumberAnimation {
                 duration: root.shown ? 200 : 150
@@ -160,7 +155,9 @@ PanelWindow {
 
         ColumnLayout {
             id: contentColumn
-            anchors.fill: parent
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
             anchors.margins: 16
             spacing: 14
 
@@ -253,7 +250,7 @@ PanelWindow {
                             cursorShape: Qt.PointingHandCursor
                             onClicked: {
                                 root.closeImmediate();
-                                Quickshell.execDetached(["nwg-bar"]);
+                                root.openSessionMenu();
                             }
                         }
                     }
@@ -277,7 +274,7 @@ PanelWindow {
                 // Wi-Fi Tile
                 Rectangle {
                     Layout.fillWidth: true
-                    height: 54
+                    Layout.preferredHeight: 54
                     radius: 12
                     color: wifiTileMouse.containsMouse ? Theme.popupSurfaceSelected : Theme.popupSurfaceVariant
                     border.color: wifiTileMouse.containsMouse ? Theme.primary : Theme.popupBorder
@@ -331,7 +328,7 @@ PanelWindow {
                 // Bluetooth Tile
                 Rectangle {
                     Layout.fillWidth: true
-                    height: 54
+                    Layout.preferredHeight: 54
                     radius: 12
                     color: btTileMouse.containsMouse ? Theme.popupSurfaceSelected : Theme.popupSurfaceVariant
                     border.color: btTileMouse.containsMouse ? Theme.primary : Theme.popupBorder
@@ -388,31 +385,6 @@ PanelWindow {
                 Layout.fillWidth: true
                 spacing: 12
 
-                // Volume Slider
-                RowLayout {
-                    Layout.fillWidth: true
-                    spacing: 8
-
-                    Text {
-                        text: "󰕾"
-                        font.family: Theme.fontFamily
-                        font.pixelSize: 16
-                        color: Theme.primary
-                    }
-
-                    Slider {
-                        id: volSlider
-                        Layout.fillWidth: true
-                        from: 0
-                        to: 100
-                        value: root.currentVolume
-                        onMoved: {
-                            Quickshell.execDetached(["wpctl", "set-volume", "-l", "1.0", "@DEFAULT_AUDIO_SINK@", Math.round(volSlider.value) + "%"]);
-                            root.currentVolume = Math.round(volSlider.value);
-                        }
-                    }
-                }
-
                 // Brightness Slider
                 RowLayout {
                     Layout.fillWidth: true
@@ -428,12 +400,95 @@ PanelWindow {
                     Slider {
                         id: brightSlider
                         Layout.fillWidth: true
+                        Layout.preferredHeight: 24
                         from: 5
                         to: 100
                         value: root.currentBrightness
+
+                        background: Rectangle {
+                            x: brightSlider.leftPadding
+                            y: brightSlider.topPadding + brightSlider.availableHeight / 2 - height / 2
+                            width: brightSlider.availableWidth
+                            height: 6
+                            radius: 3
+                            color: Theme.popupSurfaceVariant
+
+                            Rectangle {
+                                width: brightSlider.visualPosition * parent.width
+                                height: parent.height
+                                color: Theme.primary
+                                radius: 3
+                            }
+                        }
+
+                        handle: Rectangle {
+                            x: brightSlider.leftPadding + brightSlider.visualPosition * (brightSlider.availableWidth - width)
+                            y: brightSlider.topPadding + brightSlider.availableHeight / 2 - height / 2
+                            width: 16
+                            height: 16
+                            radius: 8
+                            color: Theme.primary
+                            border.color: Theme.colOnPrimary
+                            border.width: 1.5
+                        }
+
                         onMoved: {
                             Quickshell.execDetached(["brightnessctl", "set", Math.round(brightSlider.value) + "%"]);
                             root.currentBrightness = Math.round(brightSlider.value);
+                        }
+                    }
+                }
+
+            // Volume Slider
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    Text {
+                        text: "󰕾"
+                        font.family: Theme.fontFamily
+                        font.pixelSize: 16
+                        color: Theme.primary
+                    }
+
+                    Slider {
+                        id: volSlider
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 24
+                        from: 0
+                        to: 100
+                        value: root.currentVolume
+
+                        background: Rectangle {
+                            x: volSlider.leftPadding
+                            y: volSlider.topPadding + volSlider.availableHeight / 2 - height / 2
+                            width: volSlider.availableWidth
+                            height: 6
+                            radius: 3
+                            color: Theme.popupSurfaceVariant
+
+                            Rectangle {
+                                width: volSlider.visualPosition * parent.width
+                                height: parent.height
+                                color: Theme.primary
+                                radius: 3
+                            }
+                        }
+
+                        handle: Rectangle {
+                            x: volSlider.leftPadding + volSlider.visualPosition * (volSlider.availableWidth - width)
+                            y: volSlider.topPadding + volSlider.availableHeight / 2 - height / 2
+                            width: 16
+                            height: 16
+                            radius: 8
+                            color: Theme.primary
+                            border.color: Theme.colOnPrimary
+                            border.width: 1.5
+                        }
+
+                        onMoved: {
+                            Quickshell.execDetached(["wpctl", "set-volume", "-l", "1.0", "@DEFAULT_AUDIO_SINK@", Math.round(volSlider.value) + "%"]);
+                            root.currentVolume = Math.round(volSlider.value);
                         }
                     }
                 }

@@ -13,7 +13,7 @@ When an application crashes (e.g. SIGSEGV, SIGABRT, SIGBUS, SIGFPE), the system 
 2. Analyze the stack trace (call stack) to pinpoint the failing instruction, function, or library.
 3. Correlate with recent system and application logs.
 4. Determine whether the crash is caused by:
-   - Configuration / theme errors (e.g. invalid Hyprland/Waybar/Quickshell config, missing assets)
+   - Configuration / theme errors (e.g. invalid Hyprland/Quickshell config, missing assets)
    - Permission / missing socket / IPC issues
    - Upstream software bug / memory corruption (null pointer dereference, use-after-free, assertion failure)
    - Out of memory (OOM) or hardware/driver faults
@@ -54,7 +54,7 @@ journalctl -u <unit_name> --since "10 minutes ago" --no-pager
 ### 4. Categorize & Resolve
 
 #### Scenario A: Configuration or Script Issue
-- If the crash occurred in a desktop component (`hyprland`, `quickshell`, `waybar`, `dunst`, custom python/bash script):
+- If the crash occurred in a desktop component (`hyprland`, `quickshell`, `dunst`, custom python/bash script):
   - Check the user's config files in `~/.config/<app>/`.
   - Look for syntax errors, missing referenced files, invalid colors, or broken IPC handlers.
   - Suggest or apply the exact fix to the user's config.

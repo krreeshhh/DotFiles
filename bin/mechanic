@@ -8,7 +8,7 @@ export SUDO_ASKPASS_REQUIRE="prefer"
 export SSH_ASKPASS="${HOME}/.local/bin/mechanic-askpass"
 
 if [ $# -eq 0 ]; then
-  exec omarchy-agent run "/mechanic Ready for system maintenance and tuning."
+  exec agent run "/mechanic Ready for system maintenance and tuning."
 else
-  exec omarchy-agent run "/mechanic $*"
+  exec agent run "/mechanic $*"
 fi

@@ -8,6 +8,10 @@ set -euo pipefail
 export QT_QPA_PLATFORM=wayland
 export XDG_CURRENT_DESKTOP=Hyprland
 
+export QS_ICON_THEME=WhiteSur-dark
+if [ -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
+    export HYPRLAND_INSTANCE_SIGNATURE="$(ls -1 "/run/user/$(id -u)/hypr" 2>/dev/null | head -n 1 || true)"
+fi
 # Export QML module search paths for qs.Commons, qs.Ui, and plugins
 export QML_IMPORT_PATH="$HOME/.config/quickshell:$HOME/.config/quickshell/plugins:${QML_IMPORT_PATH:-}"
 export QML2_IMPORT_PATH="$HOME/.config/quickshell:$HOME/.config/quickshell/plugins:${QML2_IMPORT_PATH:-}"

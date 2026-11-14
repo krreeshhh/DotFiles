@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = hyprland
+
+[Action]
+Description = Applying Hyprland blur fix for Wayland protocol regression...
+When = PostTransaction
+Exec = /usr/bin/python3 /home/Krish/.local/bin/patch-hyprland-blur

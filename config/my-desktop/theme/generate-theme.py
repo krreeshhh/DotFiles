@@ -3,9 +3,8 @@
 Material You (M3) Dynamic Theme Generator for My-Desktop
 Extracts rich harmonic tonal palettes from the current wallpaper and distributes
 the dynamic Material You tokens across:
-- Waybar
-- Waybar Popups (Quick Settings, Wi-Fi, Bluetooth, Brightness)
-- Logout / Power Menu Screen (nwg-bar)
+- Quickshell
+- Logout / Session Menu Screen (Quickshell)
 - App Launcher & Wallpaper Picker (Rofi)
 - Notifications (Dunst)
 - Kitty Terminal
@@ -174,7 +173,7 @@ def generate_theme_files(palette, wallpaper_path):
         for k, v in palette.items():
             f.write(f"{k.upper()}=\"{v}\"\n")
 
-    # 3. CSS (Waybar / GTK / NWG-Bar / Popups)
+    # 3. CSS (GTK / Popups)
     with open(os.path.join(THEME_DIR, "colors.css"), "w") as f:
         f.write("/* Material You Unified CSS Variables */\n")
         f.write(f"@define-color theme_primary {palette['primary']};\n")

@@ -22,13 +22,13 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.keyboardFocus: root.shown ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
     WlrLayershell.namespace: "quickshell"
+    BackgroundEffect.blurRegion: Region { item: card }
 
     property bool shown: false
-    property string currentView: "main" // "main" | "webapps" | "plugins"
+    property string currentView: "main" // "main" | "webapps"
     property string searchText: ""
     property int selectedIndex: 0
     property var webappsList: []
-    property var pluginsList: []
 
     onCurrentViewChanged: {
         root.selectedIndex = 0;
@@ -51,33 +51,13 @@ PanelWindow {
         }
     }
 
-    // Process to fetch installed Omarchy Plugins dynamically
-    Process {
-        id: pluginProc
-        command: ["python3", "-c", "import sys, json, os; sys.path.insert(0, '/home/Krish/.config/my-desktop/launcher'); import plugin_manager; print(json.dumps(plugin_manager.list_plugins()))"]
-        stdout: SplitParser {
-            onRead: (line) => {
-                try {
-                    var data = JSON.parse(line.trim());
-                    if (Array.isArray(data)) {
-                        root.pluginsList = data;
-                    }
-                } catch(e) {}
-            }
-        }
-    }
-
     function refreshWebApps() {
         webappProc.running = true;
     }
 
-    function refreshPlugins() {
-        pluginProc.running = true;
-    }
 
     Component.onCompleted: {
         refreshWebApps();
-        refreshPlugins();
     }
 
     function openMenu(targetView) {
@@ -87,10 +67,22 @@ PanelWindow {
         root.currentView = (targetView && typeof targetView === "string" && targetView.length > 0) ? targetView : "main";
         root.selectedIndex = 0;
         refreshWebApps();
-        refreshPlugins();
         root.visible = true;
         root.shown = true;
         searchField.forceActiveFocus();
+    }
+    function setSearch(query) {
+        openMenu();
+        searchField.text = query || "";
+        root.searchText = query || "";
+        root.selectedIndex = 0;
+        itemList.positionViewAtBeginning();
+    }
+
+    function selectIndex(idx) {
+        if (!root.shown) openMenu();
+        root.selectedIndex = Math.max(0, Math.min(itemList.count - 1, idx));
+        itemList.positionViewAtIndex(root.selectedIndex, ListView.Contain);
     }
 
     function closeMenu() {
@@ -115,6 +107,32 @@ PanelWindow {
         }
     }
 
+    function getFallbackGlyph(item) {
+        if (!item) return "󰣆";
+        if (item.type === "folder" || item.isFolder) return "󰉋";
+        if (item.type === "webapp") return "󰖟";
+        if (item.type === "delete_webapp") return "󰩺";
+        if (item.action === "create") return "󰐕";
+        if (item.action === "back" || item.action === "back_to_webapps") return "󰁮";
+
+        var n = (item.name || "").toLowerCase();
+        var s = (item.subtitle || "").toLowerCase();
+        var combined = n + " " + s;
+
+        if (combined.includes("terminal") || combined.includes("cli") || combined.includes("bash") || combined.includes("zsh") || combined.includes("ghostty") || combined.includes("kitty") || combined.includes("alacritty") || combined.includes("console")) return "󰆍";
+        if (combined.includes("android") || combined.includes("studio") || combined.includes("code") || combined.includes("dev") || combined.includes("ide") || combined.includes("nvim") || combined.includes("editor")) return "󰅩";
+        if (combined.includes("network") || combined.includes("wifi") || combined.includes("connection") || combined.includes("bluetooth") || combined.includes("vpn")) return "󰖩";
+        if (combined.includes("setting") || combined.includes("config") || combined.includes("preference") || combined.includes("control") || combined.includes("tuf") || combined.includes("armoury")) return "󰒓";
+        if (combined.includes("audio") || combined.includes("sound") || combined.includes("music") || combined.includes("volume")) return "󰝚";
+        if (combined.includes("video") || combined.includes("movie") || combined.includes("cine") || combined.includes("player")) return "󰐌";
+        if (combined.includes("browser") || combined.includes("web") || combined.includes("internet") || combined.includes("brave") || combined.includes("chrome") || combined.includes("firefox")) return "󰖟";
+        if (combined.includes("file") || combined.includes("folder") || combined.includes("archive") || combined.includes("roller") || combined.includes("rename") || combined.includes("nautilus") || combined.includes("yazi")) return "󰉋";
+        if (combined.includes("clip") || combined.includes("paste") || combined.includes("history")) return "󰅍";
+        if (combined.includes("image") || combined.includes("photo") || combined.includes("view") || combined.includes("gimp")) return "󰋩";
+        if (combined.includes("chat") || combined.includes("telegram") || combined.includes("fagram") || combined.includes("discord") || combined.includes("message")) return "󰭹";
+        return "󰣆";
+    }
+
     Timer {
         id: closeTimer
         interval: 160
@@ -131,19 +149,16 @@ PanelWindow {
         interval: 400
         repeat: false
         onTriggered: {
-            root.refreshPlugins();
             root.refreshWebApps();
         }
     }
 
     // Helper to calculate filtered items with reactive dependency tracking
-    function getFilteredItems(view, queryStr, webapps, allDesktopApps, plugins) {
+    function getFilteredItems(view, queryStr, webapps, allDesktopApps) {
         var q = (queryStr || "").trim().toLowerCase();
         var results = [];
         var apps = allDesktopApps || [];
         var waList = webapps || [];
-        var pList = plugins || [];
-
         // Gather any webapps found in DesktopEntries
         var desktopWebApps = [];
         for (var d = 0; d < apps.length; d++) {
@@ -153,78 +168,6 @@ PanelWindow {
             }
         }
 
-        if (view === "plugins") {
-            // -------------------------------------------------------------
-            // PLUGINS VIEW (Omarchy)
-            // -------------------------------------------------------------
-            if (q === "") {
-                results.push({
-                    type: "action",
-                    action: "back",
-                    name: ".. Back",
-                    icon: "go-previous-symbolic",
-                    subtitle: "Return to all applications"
-                });
-                results.push({
-                    type: "action",
-                    action: "install_plugin",
-                    name: "+ Install Plugin (omarchy plugin add)",
-                    icon: "list-add-symbolic",
-                    subtitle: "Install Quickshell plugin from Git repository"
-                });
-                if (pList.length > 0) {
-                    results.push({
-                        type: "action",
-                        action: "remove_plugin",
-                        name: "- Remove Plugin",
-                        icon: "user-trash-symbolic",
-                        subtitle: "Uninstall an existing Omarchy plugin"
-                    });
-                }
-                results.push({
-                    type: "action",
-                    action: "open_plugins_dir",
-                    name: "📁 Open Plugins Folder",
-                    icon: "folder-open-symbolic",
-                    subtitle: "~/.config/quickshell/plugins"
-                });
-            } else {
-                results.push({
-                    type: "action",
-                    action: "back",
-                    name: ".. Back",
-                    icon: "go-previous-symbolic",
-                    subtitle: "Return to all applications"
-                });
-            }
-
-            for (var p = 0; p < pList.length; p++) {
-                var pl = pList[p];
-                if (!pl) continue;
-                var pName = pl.name || pl.dir || "Plugin";
-                var pDesc = pl.description || "";
-                var pVer = pl.version ? "v" + pl.version : "";
-                var pAuthor = pl.author ? "by " + pl.author : "";
-                var pStatus = pl.enabled ? "Active" : "Installed";
-                var subParts = [pStatus, pVer, pAuthor].filter(function(x) { return x && x.length > 0; });
-                var sub = subParts.join(" • ");
-                if (pDesc) {
-                    sub = sub ? (sub + " : " + pDesc) : pDesc;
-                }
-
-                if (q === "" || pName.toLowerCase().includes(q) || pDesc.toLowerCase().includes(q) || (pl.id && pl.id.toLowerCase().includes(q)) || (pl.dir && pl.dir.toLowerCase().includes(q))) {
-                    results.push({
-                        type: "plugin",
-                        name: pName,
-                        icon: pl.icon || "preferences-plugin-symbolic",
-                        subtitle: sub,
-                        plugin: pl
-                    });
-                }
-            }
-
-            return results;
-        }
 
         if (view === "webapps") {
             // -------------------------------------------------------------
@@ -303,44 +246,6 @@ PanelWindow {
             return results;
         }
 
-        if (view === "remove_plugins") {
-            // -------------------------------------------------------------
-            // REMOVE PLUGINS VIEW
-            // -------------------------------------------------------------
-            results.push({
-                type: "action",
-                action: "back_to_plugins",
-                name: ".. Cancel / Back",
-                icon: "go-previous-symbolic",
-                subtitle: "Return to plugins folder"
-            });
-
-            if (pList.length === 0) {
-                results.push({
-                    type: "notice",
-                    name: "No Plugins Installed",
-                    icon: "dialog-information-symbolic",
-                    subtitle: "Install plugins from the Plugins menu"
-                });
-            } else {
-                for (var rp = 0; rp < pList.length; rp++) {
-                    var rpl = pList[rp];
-                    if (!rpl) continue;
-                    var rpName = rpl.name || rpl.dir || "Plugin";
-                    var rpStatus = rpl.enabled ? "Active" : "Installed";
-                    if (q === "" || rpName.toLowerCase().includes(q) || (rpl.dir && rpl.dir.toLowerCase().includes(q))) {
-                        results.push({
-                            type: "delete_plugin",
-                            name: rpName + " (" + rpStatus + ")",
-                            icon: rpl.icon || "user-trash-symbolic",
-                            subtitle: "Click to uninstall " + (rpl.path || rpl.dir || rpName),
-                            plugin: rpl
-                        });
-                    }
-                }
-            }
-            return results;
-        }
 
         if (view === "remove_webapps") {
             // -------------------------------------------------------------
@@ -406,7 +311,6 @@ PanelWindow {
         // MAIN VIEW
         // -----------------------------------------------------------------
         var countWebApps = Math.max(waList.length, desktopWebApps.length);
-        var countPlugins = pList.length;
 
         if (q === "") {
             // 1. Pinned Web Apps folder
@@ -415,19 +319,10 @@ PanelWindow {
                 folderId: "webapps",
                 isFolder: true,
                 name: "Web Apps",
-                icon: "folder-symbolic",
+                icon: "folder",
                 subtitle: "Folder (" + countWebApps + " web apps)"
             });
 
-            // 2. Pinned Plugins folder (Omarchy)
-            results.push({
-                type: "folder",
-                folderId: "plugins",
-                isFolder: true,
-                name: "Plugins",
-                icon: "folder-symbolic",
-                subtitle: "Folder (" + countPlugins + " Omarchy plugin" + (countPlugins === 1 ? "" : "s") + ")"
-            });
 
             // 3. All installed system apps
             var normalApps = [];
@@ -462,16 +357,6 @@ PanelWindow {
                 });
             }
 
-            if ("plugins".includes(q) || "omarchy".includes(q) || "plugin".includes(q) || "addons".includes(q) || "extensions".includes(q)) {
-                results.push({
-                    type: "folder",
-                    folderId: "plugins",
-                    isFolder: true,
-                    name: "Plugins",
-                    icon: "folder",
-                    subtitle: "Folder (" + countPlugins + " Omarchy plugin" + (countPlugins === 1 ? "" : "s") + ")"
-                });
-            }
 
             var scored = [];
 
@@ -539,45 +424,6 @@ PanelWindow {
                 }
             }
 
-            // Score Omarchy plugins
-            for (var m = 0; m < pList.length; m++) {
-                var plItem = pList[m];
-                var plName = (plItem.name || "").toLowerCase();
-                var plDir = (plItem.dir || "").toLowerCase();
-                var plDesc = (plItem.description || "").toLowerCase();
-                var plId = (plItem.id || "").toLowerCase();
-
-                var plScore = 0;
-                if (plName === q || plDir === q) plScore = 95;
-                else if (plName.startsWith(q) || plDir.startsWith(q)) plScore = 75;
-                else if (plName.includes(q) || plDir.includes(q)) plScore = 55;
-                else if (plDesc.includes(q) || plId.includes(q)) plScore = 35;
-
-                if (plScore > 0) {
-                    var pVer = plItem.version ? "v" + plItem.version : "";
-                    var pAuthor = plItem.author ? "by " + plItem.author : "";
-                    var pStatus = plItem.enabled ? "Active" : "Installed";
-                    var subParts = [pStatus, pVer, pAuthor].filter(function(x) { return x && x.length > 0; });
-                    var sub = subParts.join(" • ");
-                    if (plItem.description) {
-                        sub = sub ? (sub + " : " + plItem.description) : plItem.description;
-                    }
-
-                    var alreadyPl = scored.some(s => s.item.name.toLowerCase() === plItem.name.toLowerCase());
-                    if (!alreadyPl) {
-                        scored.push({
-                            score: plScore,
-                            item: {
-                                type: "plugin",
-                                name: plItem.name,
-                                icon: plItem.icon || "preferences-plugin-symbolic",
-                                subtitle: sub,
-                                plugin: plItem
-                            }
-                        });
-                    }
-                }
-            }
 
             scored.sort((a, b) => b.score - a.score || a.item.name.localeCompare(b.item.name));
             for (var s = 0; s < scored.length; s++) {
@@ -592,7 +438,7 @@ PanelWindow {
         if (!item) return;
 
         if (item.type === "folder" || item.isFolder) {
-            root.currentView = item.folderId || (item.name === "Plugins" ? "plugins" : "webapps");
+            root.currentView = item.folderId || "webapps";
             root.searchText = "";
             searchField.text = "";
             root.selectedIndex = 0;
@@ -602,11 +448,6 @@ PanelWindow {
         if (item.type === "action") {
             if (item.action === "back") {
                 root.currentView = "main";
-                root.searchText = "";
-                searchField.text = "";
-                root.selectedIndex = 0;
-            } else if (item.action === "back_to_plugins") {
-                root.currentView = "plugins";
                 root.searchText = "";
                 searchField.text = "";
                 root.selectedIndex = 0;
@@ -623,30 +464,10 @@ PanelWindow {
                 root.searchText = "";
                 searchField.text = "";
                 root.selectedIndex = 0;
-            } else if (item.action === "install_plugin") {
-                root.closeImmediate();
-                Quickshell.execDetached(["python3", "/home/Krish/.config/my-desktop/launcher/plugin_manager.py", "install"]);
-            } else if (item.action === "remove_plugin") {
-                root.currentView = "remove_plugins";
-                root.searchText = "";
-                searchField.text = "";
-                root.selectedIndex = 0;
-            } else if (item.action === "open_plugins_dir") {
-                root.closeImmediate();
-                Quickshell.execDetached(["xdg-open", "/home/Krish/.config/quickshell/plugins"]);
             }
             return;
         }
 
-        if (item.type === "delete_plugin") {
-            if (item.plugin && item.plugin.dir) {
-                var delDir = item.plugin.dir;
-                var delName = item.plugin.name || delDir;
-                Quickshell.execDetached(["python3", "-c", "import sys, subprocess, os; os.environ['PATH'] = os.path.expanduser('~/.local/bin:') + os.environ.get('PATH', ''); subprocess.run(['omarchy', 'plugin', 'remove', sys.argv[1]]); subprocess.run(['notify-send', 'Plugin Removed', 'Uninstalled plugin ' + sys.argv[2], '-i', 'user-trash-symbolic'])", delDir, delName]);
-                removeRefreshTimer.restart();
-            }
-            return;
-        }
 
         if (item.type === "delete_webapp") {
             if (item.webapp) {
@@ -658,22 +479,6 @@ PanelWindow {
             return;
         }
 
-        if (item.type === "plugin") {
-            root.closeImmediate();
-            if (item.plugin) {
-                var p = item.plugin;
-                if (p.exec) {
-                    if (p.exec.includes("ledge") || p.dir.includes("ledge")) {
-                        Quickshell.execDetached([p.exec, "toggle"]);
-                    } else {
-                        Quickshell.execDetached([p.exec]);
-                    }
-                } else {
-                    Quickshell.execDetached(["xdg-open", p.path || "/home/Krish/.config/quickshell/plugins"]);
-                }
-            }
-            return;
-        }
 
         if (item.type === "webapp") {
             root.closeImmediate();
@@ -717,7 +522,7 @@ PanelWindow {
     }
 
     function launchCurrentItem() {
-        var items = root.getFilteredItems(root.currentView, root.searchText, root.webappsList, DesktopEntries.applications.values, root.pluginsList);
+        var items = root.getFilteredItems(root.currentView, root.searchText, root.webappsList, DesktopEntries.applications.values);
         if (items.length > 0 && root.selectedIndex >= 0 && root.selectedIndex < items.length) {
             activateItem(items[root.selectedIndex]);
         }
@@ -735,35 +540,19 @@ PanelWindow {
     // Main Launcher Card
     Rectangle {
         id: card
-        width: 480
-        height: Math.min(540, 72 + Math.max(1, Math.min(8, itemList.count)) * 48 + (itemList.count > 0 ? 12 : 0))
+        width: 540
+        height: 520
         anchors.centerIn: parent
-        radius: 10
+        radius: 16
         color: Theme.popupSurface
         border.color: Theme.popupBorder
         border.width: 1.5
         clip: true
 
         opacity: root.shown ? 1.0 : 0.0
-        scale: root.shown ? 1.0 : 0.96
-
         Behavior on opacity {
             NumberAnimation {
-                duration: root.shown ? 180 : 130
-                easing.type: root.shown ? Easing.OutCubic : Easing.InQuad
-            }
-        }
-
-        Behavior on scale {
-            NumberAnimation {
-                duration: root.shown ? 200 : 130
-                easing.type: root.shown ? Easing.OutCubic : Easing.InQuad
-            }
-        }
-
-        Behavior on height {
-            NumberAnimation {
-                duration: 150
+                duration: root.shown ? 160 : 120
                 easing.type: Easing.OutCubic
             }
         }
@@ -774,23 +563,27 @@ PanelWindow {
             onClicked: {}
         }
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: 14
-            spacing: 8
+        // 1. Top Search Header
+        Rectangle {
+            id: searchHeader
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 56
+            color: "transparent"
 
-            // 1. Search Bar & Header
             RowLayout {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 38
-                spacing: 10
+                anchors.fill: parent
+                anchors.leftMargin: 18
+                anchors.rightMargin: 18
+                spacing: 12
 
                 // Search Icon
                 Text {
-                    text: root.currentView.startsWith("remove") ? "󰩺" : (root.currentView === "plugins" ? "󰏗" : (root.currentView === "webapps" ? "󰖟" : "󰍉"))
+                    text: root.currentView.startsWith("remove") ? "󰩺" : (root.currentView === "webapps" ? "󰖟" : "󰍉")
                     font.family: Theme.fontFamily
-                    font.pixelSize: 16
-                    color: root.currentView.startsWith("remove") ? Theme.colorError : (root.currentView === "plugins" || root.currentView === "webapps" ? Theme.secondary : Theme.primary)
+                    font.pixelSize: 18
+                    color: root.currentView.startsWith("remove") ? Theme.colorError : (root.currentView === "webapps" ? Theme.secondary : Theme.primary)
                     Layout.alignment: Qt.AlignVCenter
                 }
 
@@ -811,11 +604,9 @@ PanelWindow {
                     Text {
                         anchors.fill: parent
                         text: {
-                            if (root.currentView === "remove_plugins") return "Select plugin to remove or press Left / Escape..";
                             if (root.currentView === "remove_webapps") return "Select web app to remove or press Left / Escape..";
-                            if (root.currentView === "plugins") return "Search Plugins or press Left to go back..";
                             if (root.currentView === "webapps") return "Search Web Apps or press Left to go back..";
-                            return "Go..";
+                            return "Search applications, web apps, tools..";
                         }
                         font.family: Theme.fontFamily
                         font.pixelSize: 14
@@ -862,7 +653,7 @@ PanelWindow {
                     }
 
                     Keys.onRightPressed: (event) => {
-                        var items = root.getFilteredItems(root.currentView, root.searchText, root.webappsList, DesktopEntries.applications.values, root.pluginsList);
+                        var items = root.getFilteredItems(root.currentView, root.searchText, root.webappsList, DesktopEntries.applications.values);
                         if (items.length > 0 && root.selectedIndex >= 0 && root.selectedIndex < items.length) {
                             var cur = items[root.selectedIndex];
                             if (cur && (cur.type === "folder" || cur.isFolder)) {
@@ -871,25 +662,18 @@ PanelWindow {
                                 return;
                             }
                         }
-                        // Default behavior if not folder
                         root.launchCurrentItem();
                         event.accepted = true;
                     }
 
                     Keys.onLeftPressed: (event) => {
-                        if (root.currentView === "remove_plugins") {
-                            root.currentView = "plugins";
-                            root.searchText = "";
-                            searchField.text = "";
-                            root.selectedIndex = 0;
-                            event.accepted = true;
-                        } else if (root.currentView === "remove_webapps") {
+                        if (root.currentView === "remove_webapps") {
                             root.currentView = "webapps";
                             root.searchText = "";
                             searchField.text = "";
                             root.selectedIndex = 0;
                             event.accepted = true;
-                        } else if (root.currentView === "webapps" || root.currentView === "plugins") {
+                        } else if (root.currentView === "webapps") {
                             root.currentView = "main";
                             root.searchText = "";
                             searchField.text = "";
@@ -907,7 +691,23 @@ PanelWindow {
                     }
 
                     Keys.onPressed: (event) => {
-                        if (event.key === Qt.Key_PageUp) {
+                        if (event.key === Qt.Key_Tab) {
+                            var count = itemList.count;
+                            if (count > 0) {
+                                if (root.selectedIndex < count - 1) root.selectedIndex++;
+                                else root.selectedIndex = 0;
+                                itemList.positionViewAtIndex(root.selectedIndex, ListView.Contain);
+                            }
+                            event.accepted = true;
+                        } else if (event.key === Qt.Key_Backtab) {
+                            var count = itemList.count;
+                            if (count > 0) {
+                                if (root.selectedIndex > 0) root.selectedIndex--;
+                                else root.selectedIndex = count - 1;
+                                itemList.positionViewAtIndex(root.selectedIndex, ListView.Contain);
+                            }
+                            event.accepted = true;
+                        } else if (event.key === Qt.Key_PageUp) {
                             var count = itemList.count;
                             if (count > 0) {
                                 root.selectedIndex = Math.max(0, root.selectedIndex - 6);
@@ -925,12 +725,32 @@ PanelWindow {
                     }
                 }
 
-                // Clear button or indicator
+                // Mode pill badge when in webapps or remove mode
+                Rectangle {
+                    visible: root.currentView !== "main"
+                    Layout.preferredHeight: 22
+                    Layout.preferredWidth: modeLabel.implicitWidth + 14
+                    radius: 6
+                    color: root.currentView === "remove_webapps" ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.25) : Qt.rgba(Theme.secondary.r, Theme.secondary.g, Theme.secondary.b, 0.25)
+                    Layout.alignment: Qt.AlignVCenter
+
+                    Text {
+                        id: modeLabel
+                        anchors.centerIn: parent
+                        text: root.currentView === "remove_webapps" ? "Remove Mode" : "Web Apps"
+                        font.family: Theme.fontFamily
+                        font.pixelSize: 10
+                        font.bold: true
+                        color: root.currentView === "remove_webapps" ? Theme.colorError : Theme.secondary
+                    }
+                }
+
+                // Clear button
                 Rectangle {
                     visible: searchField.text.length > 0
-                    width: 20
-                    height: 20
-                    radius: 10
+                    width: 22
+                    height: 22
+                    radius: 11
                     color: Theme.surfaceVariant
                     Layout.alignment: Qt.AlignVCenter
 
@@ -951,189 +771,326 @@ PanelWindow {
                     }
                 }
             }
+        }
 
-            // Divider Line below Search bar
+        // Top Divider Line
+        Rectangle {
+            id: topDivider
+            anchors.top: searchHeader.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: 16
+            anchors.rightMargin: 16
+            height: 1
+            color: Theme.popupBorder
+            opacity: 0.6
+        }
+
+        // 2. Bottom Footer / Status Bar
+        Rectangle {
+            id: footerBar
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 38
+            color: "transparent"
+
+            // Footer Divider
             Rectangle {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 1
-                color: Theme.outline
-                opacity: 0.6
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: 16
+                anchors.rightMargin: 16
+                height: 1
+                color: Theme.popupBorder
+                opacity: 0.4
             }
 
-            // 2. Application & Results List
-            ListView {
-                id: itemList
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                clip: true
-                spacing: 4
-                boundsBehavior: Flickable.StopAtBounds
+            RowLayout {
+                anchors.fill: parent
+                anchors.leftMargin: 18
+                anchors.rightMargin: 18
 
-                model: root.getFilteredItems(root.currentView, root.searchText, root.webappsList, DesktopEntries.applications.values, root.pluginsList)
-
-                delegate: Rectangle {
-                    id: itemDelegate
-                    width: itemList.width
-                    height: 44
-                    radius: 6
-                    property bool isSelected: index === root.selectedIndex
-                    property bool isDelete: modelData.type === "delete_plugin" || modelData.type === "delete_webapp"
-
-                    color: isSelected ? (isDelete ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.22) : Theme.popupSurfaceSelected) : (mouseArea.containsMouse ? Theme.popupSurfaceVariant : "transparent")
-                    border.width: isSelected ? 1 : 0
-                    border.color: isDelete ? Theme.colorError : Theme.primary
-
-                    Behavior on color {
-                        ColorAnimation { duration: 80 }
+                // Result count
+                Text {
+                    text: {
+                        var c = itemList.count;
+                        if (root.currentView === "webapps") return c + (c === 1 ? " web app" : " web apps");
+                        if (root.currentView === "remove_webapps") return "Select an app to uninstall";
+                        if (root.searchText.length > 0) return c + (c === 1 ? " match" : " matches");
+                        return c + " applications";
                     }
+                    font.family: Theme.fontFamily
+                    font.pixelSize: 11
+                    color: Theme.colOnSurfaceVariant
+                    opacity: 0.8
+                    Layout.alignment: Qt.AlignVCenter
+                }
 
-                    RowLayout {
-                        anchors.fill: parent
-                        anchors.leftMargin: 12
-                        anchors.rightMargin: 12
-                        spacing: 12
+                Item { Layout.fillWidth: true }
 
-                        // Icon Component
-                        Item {
-                            Layout.preferredWidth: 26
-                            Layout.preferredHeight: 26
-                            Layout.alignment: Qt.AlignVCenter
+                // Keyboard hints
+                Row {
+                    spacing: 12
+                    Layout.alignment: Qt.AlignVCenter
 
-                            // For file:// and standard system icon lookup
-                            IconImage {
-                                anchors.fill: parent
-                                source: {
-                                    var ic = modelData.icon || "";
-                                    if (!ic) return Quickshell.iconPath("application-x-executable", true);
-                                    if (ic.startsWith("/")) return "file://" + ic;
-                                    return Quickshell.iconPath(ic, true);
-                                }
-                                mipmap: true
-                                visible: source != ""
-                            }
-
-                            // Fallback text icon if needed
-                            Text {
-                                anchors.centerIn: parent
-                                text: modelData.type === "folder" ? "󰉋" : (modelData.type === "webapp" ? "󰖟" : (modelData.type === "plugin" ? "󰏗" : "󰵆"))
-                                font.family: Theme.fontFamily
-                                font.pixelSize: 18
-                                color: itemDelegate.isSelected ? (itemDelegate.isDelete ? Theme.colorError : Theme.primary) : Theme.colOnSurfaceVariant
-                                visible: false
-                            }
-                        }
-
-                        // App Title & Subtitle Column
-                        ColumnLayout {
-                            Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignVCenter
-                            spacing: 1
-
-                            Text {
-                                text: modelData.name || ""
-                                font.family: Theme.fontFamily
-                                font.pixelSize: 13
-                                font.bold: itemDelegate.isSelected
-                                color: itemDelegate.isSelected ? (itemDelegate.isDelete ? Theme.colorError : Theme.primary) : Theme.colOnSurface
-                                elide: Text.ElideRight
-                                Layout.fillWidth: true
-                            }
-
-                            Text {
-                                text: modelData.subtitle || ""
-                                font.family: Theme.fontFamily
-                                font.pixelSize: 10
-                                color: itemDelegate.isSelected ? (itemDelegate.isDelete ? Qt.lighter(Theme.colorError, 1.2) : Qt.lighter(Theme.primary, 1.2)) : Theme.colOnSurfaceVariant
-                                elide: Text.ElideRight
-                                visible: text.length > 0 && !itemDelegate.isSelected
-                                Layout.fillWidth: true
-                                opacity: 0.85
-                            }
-                        }
-
-                        // Right Badge / Indicator
+                    Row {
+                        spacing: 4
+                        anchors.verticalCenter: parent.verticalCenter
                         Rectangle {
-                            visible: modelData.type === "folder" || modelData.type === "webapp" || modelData.type === "plugin" || modelData.type === "delete_plugin" || modelData.type === "delete_webapp" || (modelData.type === "action" && modelData.action !== "back" && modelData.action !== "back_to_plugins" && modelData.action !== "back_to_webapps")
-                            Layout.preferredHeight: 20
-                            Layout.preferredWidth: badgeText.implicitWidth + 12
-                            radius: 4
-                            color: itemDelegate.isDelete ? (itemDelegate.isSelected ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.35) : Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.18)) : (itemDelegate.isSelected ? Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.25) : Theme.surfaceVariant)
-                            Layout.alignment: Qt.AlignVCenter
-
+                            width: 20; height: 18; radius: 4
+                            color: Theme.surfaceVariant
                             Text {
-                                id: badgeText
                                 anchors.centerIn: parent
-                                text: {
-                                    if (modelData.type === "delete_plugin" || modelData.type === "delete_webapp") return "Remove ✕";
-                                    if (modelData.type === "folder") return "Folder ›";
-                                    if (modelData.type === "webapp") return "PWA";
-                                    if (modelData.type === "plugin") return modelData.plugin && modelData.plugin.enabled ? "Plugin ✓" : "Plugin";
-                                    if (modelData.action === "create" || modelData.action === "install_plugin") return "Add";
-                                    if (modelData.action === "open_plugins_dir") return "Open";
-                                    if (modelData.action === "remove" || modelData.action === "remove_plugin") return "Remove";
-                                    return "";
-                                }
+                                text: "↑↓"
                                 font.family: Theme.fontFamily
-                                font.pixelSize: 10
-                                font.bold: true
-                                color: itemDelegate.isDelete ? Theme.colorError : (itemDelegate.isSelected ? Theme.primary : Theme.colOnSurfaceVariant)
+                                font.pixelSize: 9
+                                color: Theme.colOnSurfaceVariant
                             }
                         }
-                    }
-
-                    // Bottom separator line
-                    Rectangle {
-                        anchors.bottom: parent.bottom
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.leftMargin: 8
-                        anchors.rightMargin: 8
-                        height: 1
-                        color: Theme.outlineSubtle
-                        opacity: itemDelegate.isSelected ? 0 : 0.4
-                    }
-
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onEntered: {
-                            root.selectedIndex = index;
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "navigate"
+                            font.family: Theme.fontFamily
+                            font.pixelSize: 10
+                            color: Theme.colOnSurfaceVariant
+                            opacity: 0.7
                         }
-                        onClicked: {
-                            root.activateItem(modelData);
+                    }
+
+                    Row {
+                        spacing: 4
+                        anchors.verticalCenter: parent.verticalCenter
+                        Rectangle {
+                            width: 20; height: 18; radius: 4
+                            color: Theme.surfaceVariant
+                            Text {
+                                anchors.centerIn: parent
+                                text: "↵"
+                                font.family: Theme.fontFamily
+                                font.pixelSize: 10
+                                color: Theme.colOnSurfaceVariant
+                            }
+                        }
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "launch"
+                            font.family: Theme.fontFamily
+                            font.pixelSize: 10
+                            color: Theme.colOnSurfaceVariant
+                            opacity: 0.7
+                        }
+                    }
+
+                    Row {
+                        spacing: 4
+                        anchors.verticalCenter: parent.verticalCenter
+                        Rectangle {
+                            width: 28; height: 18; radius: 4
+                            color: Theme.surfaceVariant
+                            Text {
+                                anchors.centerIn: parent
+                                text: "esc"
+                                font.family: Theme.fontFamily
+                                font.pixelSize: 9
+                                color: Theme.colOnSurfaceVariant
+                            }
+                        }
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "close"
+                            font.family: Theme.fontFamily
+                            font.pixelSize: 10
+                            color: Theme.colOnSurfaceVariant
+                            opacity: 0.7
                         }
                     }
                 }
             }
+        }
 
-            // Empty state placeholder
-            Item {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                visible: itemList.count === 0
+        // 3. Application & Results List
+        ListView {
+            id: itemList
+            anchors.top: topDivider.bottom
+            anchors.bottom: footerBar.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.topMargin: 8
+            anchors.bottomMargin: 8
+            anchors.leftMargin: 10
+            anchors.rightMargin: 10
+            clip: true
+            spacing: 3
+            boundsBehavior: Flickable.StopAtBounds
 
-                ColumnLayout {
-                    anchors.centerIn: parent
-                    spacing: 6
+            model: root.getFilteredItems(root.currentView, root.searchText, root.webappsList, DesktopEntries.applications.values)
 
-                    Text {
-                        text: "󰮗"
-                        font.family: Theme.fontFamily
-                        font.pixelSize: 32
-                        color: Theme.colOnSurfaceVariant
-                        Layout.alignment: Qt.AlignHCenter
-                        opacity: 0.6
+            delegate: Rectangle {
+                id: itemDelegate
+                width: itemList.width
+                height: 46
+                radius: 8
+                property bool isSelected: index === root.selectedIndex
+                property bool isDelete: modelData.type === "delete_webapp"
+
+                color: isSelected ? (isDelete ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.22) : Theme.popupSurfaceSelected) : (mouseArea.containsMouse ? Theme.popupSurfaceVariant : "transparent")
+                border.width: isSelected ? 1 : 0
+                border.color: isDelete ? Theme.colorError : Theme.primary
+
+                Behavior on color {
+                    ColorAnimation { duration: 80 }
+                }
+
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 12
+                    anchors.rightMargin: 12
+                    spacing: 12
+
+                    // Icon Component
+                    Item {
+                        Layout.preferredWidth: 28
+                        Layout.preferredHeight: 28
+                        Layout.alignment: Qt.AlignVCenter
+
+                        // Fallback glyph tile when system icon is missing or loading
+                        Rectangle {
+                            anchors.fill: parent
+                            radius: 6
+                            color: itemDelegate.isSelected ? Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.22) : Theme.surfaceVariant
+                            visible: !appIcon.visible || appIcon.status !== Image.Ready
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: root.getFallbackGlyph(modelData)
+                                font.family: Theme.fontFamily
+                                font.pixelSize: 15
+                                color: itemDelegate.isSelected ? (itemDelegate.isDelete ? Theme.colorError : Theme.primary) : Theme.colOnSurfaceVariant
+                            }
+                        }
+
+                        // System icon
+                        IconImage {
+                            id: appIcon
+                            anchors.fill: parent
+                            source: {
+                                var ic = modelData.icon || "";
+                                if (!ic) return Quickshell.iconPath("application-x-executable");
+                                if (ic.startsWith("/")) return "file://" + ic;
+                                return Quickshell.iconPath(ic, "application-x-executable");
+                            }
+                            mipmap: true
+                            visible: status === Image.Ready
+                        }
                     }
 
-                    Text {
-                        text: root.currentView === "plugins" ? "No plugins installed" : (root.currentView === "webapps" ? "No web apps installed" : "No applications found")
-                        font.family: Theme.fontFamily
-                        font.pixelSize: 13
-                        color: Theme.colOnSurfaceVariant
-                        Layout.alignment: Qt.AlignHCenter
+                    // App Title & Subtitle Column
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignVCenter
+                        spacing: 1
+
+                        Text {
+                            text: modelData.name || ""
+                            font.family: Theme.fontFamily
+                            font.pixelSize: 13
+                            font.bold: itemDelegate.isSelected
+                            color: itemDelegate.isSelected ? (itemDelegate.isDelete ? Theme.colorError : Theme.primary) : Theme.colOnSurface
+                            elide: Text.ElideRight
+                            Layout.fillWidth: true
+                        }
+
+                        Text {
+                            text: modelData.subtitle || ""
+                            font.family: Theme.fontFamily
+                            font.pixelSize: 10
+                            color: itemDelegate.isSelected ? (itemDelegate.isDelete ? Qt.lighter(Theme.colorError, 1.2) : Qt.lighter(Theme.primary, 1.2)) : Theme.colOnSurfaceVariant
+                            elide: Text.ElideRight
+                            visible: text.length > 0 && !itemDelegate.isSelected
+                            Layout.fillWidth: true
+                            opacity: 0.85
+                        }
                     }
+
+                    // Right Badge / Indicator
+                    Rectangle {
+                        visible: modelData.type === "folder" || modelData.type === "webapp" || modelData.type === "delete_webapp" || (modelData.type === "action" && modelData.action !== "back" && modelData.action !== "back_to_webapps")
+                        Layout.preferredHeight: 20
+                        Layout.preferredWidth: badgeText.implicitWidth + 12
+                        radius: 4
+                        color: itemDelegate.isDelete ? (itemDelegate.isSelected ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.35) : Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.18)) : (itemDelegate.isSelected ? Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.25) : Theme.surfaceVariant)
+                        Layout.alignment: Qt.AlignVCenter
+
+                        Text {
+                            id: badgeText
+                            anchors.centerIn: parent
+                            text: {
+                                if (modelData.type === "delete_webapp") return "Remove ✕";
+                                if (modelData.type === "folder") return "Folder ›";
+                                if (modelData.type === "webapp") return "PWA";
+                                if (modelData.action === "create") return "Add";
+                                if (modelData.action === "remove") return "Remove";
+                                return "";
+                            }
+                            font.family: Theme.fontFamily
+                            font.pixelSize: 10
+                            font.bold: true
+                            color: itemDelegate.isDelete ? Theme.colorError : (itemDelegate.isSelected ? Theme.primary : Theme.colOnSurfaceVariant)
+                        }
+                    }
+                }
+
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onEntered: {
+                        root.selectedIndex = index;
+                    }
+                    onClicked: {
+                        root.activateItem(modelData);
+                    }
+                }
+            }
+        }
+
+        // 4. Empty state placeholder overlay
+        Item {
+            anchors.fill: itemList
+            visible: itemList.count === 0
+
+            ColumnLayout {
+                anchors.centerIn: parent
+                spacing: 8
+
+                Text {
+                    text: "󰮗"
+                    font.family: Theme.fontFamily
+                    font.pixelSize: 36
+                    color: Theme.colOnSurfaceVariant
+                    Layout.alignment: Qt.AlignHCenter
+                    opacity: 0.5
+                }
+
+                Text {
+                    text: root.currentView === "webapps" ? "No web apps installed" : "No applications found"
+                    font.family: Theme.fontFamily
+                    font.pixelSize: 14
+                    font.bold: true
+                    color: Theme.colOnSurface
+                    Layout.alignment: Qt.AlignHCenter
+                }
+
+                Text {
+                    text: "Try searching with a different term"
+                    font.family: Theme.fontFamily
+                    font.pixelSize: 11
+                    color: Theme.colOnSurfaceVariant
+                    Layout.alignment: Qt.AlignHCenter
+                    opacity: 0.7
                 }
             }
         }

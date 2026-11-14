@@ -7,14 +7,13 @@ This guide describes the complete, exact blueprint required to recreate this cus
 ## What is Included in this Dotfiles Repository
 1. **Compositor:** Hyprland v0.56.2 configured with native Lua (`hyprland.lua`), fallback config (`hyprland.conf`), and Picture-in-Picture window management (`pip.lua`).
 2. **Desktop Shell:** Quickshell custom topbar, pill workspaces, clock, status cluster, sliding system tray drawer, MPRIS mini player, on-screen display (OSD) popups for volume/brightness/mic, and slide-in popups for Control Center, Wi-Fi, Bluetooth, and AppLauncher.
-3. **Alternative Bar:** Waybar complete setup with Python-backed custom popup menus and toggle switch script (`switch.sh`).
-4. **Dynamic Live Theming:** Material You palette extractor (`generate-theme.py`) and live applicator (`apply-theme.sh`) syncing wallpaper colors across Hyprland borders, Quickshell, Waybar, Dunst, Ghostty, GTK, Clipse, and Yazi.
-5. **Wallpaper Engine:** 3D Card Carousel / Cover Flow switcher (`carousel-picker.py`) with 144Hz VSync, powered by `awww` / `awww-daemon`.
-6. **Launchers & Providers:** Quickshell QML AppLauncher, custom Python WebApp and Plugin managers (`webapp_manager.py`, `plugin_manager.py`).
-7. **Clipboard & Terminals:** Clipse daemon with pinned floating window rules, Ghostty GPU terminal (glass opacity 0.20), and Yazi terminal file manager.
-8. **Audio / Display Controls:** `brightness.sh` and `volume.sh` hardware handlers integrated with Quickshell native OSD.
-9. **Look & Theming:** WhiteSur-dark icons, Bibata-Modern-Ice cursor (24px), Adwaita theme with dynamic text contrast CSS, and SDDM theme `R1999_1`.
-10. **ASUS TUF Keyboard Lighting:** Armoury Crate GUI (`asus-tuf-aura` / `armoury-crate`), rootless sysfs udev rule, systemd user restore service, and dynamic Material You wallpaper sync hook.
+3. **Dynamic Live Theming:** Material You palette extractor (`generate-theme.py`) and live applicator (`apply-theme.sh`) syncing wallpaper colors across Hyprland borders, Quickshell, Dunst, Ghostty, GTK, Clipse, and Yazi.
+4. **Wallpaper Engine:** 3D Card Carousel / Cover Flow switcher (`carousel-picker.py`) with 144Hz VSync, powered by `awww` / `awww-daemon`.
+5. **Launchers & Providers:** Quickshell QML AppLauncher, custom Python WebApp manager (`webapp_manager.py`).
+6. **Clipboard & Terminals:** Clipse daemon with pinned floating window rules, Ghostty GPU terminal (glass opacity 0.20), and Yazi terminal file manager.
+7. **Audio / Display Controls:** `brightness.sh` and `volume.sh` hardware handlers integrated with Quickshell native OSD.
+8. **Look & Theming:** WhiteSur-dark icons, Bibata-Modern-Ice cursor (24px), Adwaita theme with dynamic text contrast CSS, and SDDM theme `R1999_1`.
+9. **ASUS TUF Keyboard Lighting:** Armoury Crate GUI (`asus-tuf-aura` / `armoury-crate`), rootless sysfs udev rule, systemd user restore service, and dynamic Material You wallpaper sync hook.
 
 ---
 
@@ -64,12 +63,11 @@ cp -r assets/share/asus-tuf-aura/* ~/.local/share/asus-tuf-aura/ 2>/dev/null || 
 cp home/.bashrc ~/.bashrc
 cp home/.bash_profile ~/.bash_profile
 chmod +x ~/.local/bin/*
-chmod +x ~/.config/hypr/scripts/* ~/.config/my-desktop/wallpaper/* ~/.config/my-desktop/theme/* ~/.config/my-desktop/launcher/* ~/.config/quickshell/*.sh ~/.config/quickshell/scripts/* ~/.config/waybar/*.sh ~/.config/waybar/scripts/*
+chmod +x ~/.config/hypr/scripts/* ~/.config/my-desktop/wallpaper/* ~/.config/my-desktop/theme/* ~/.config/my-desktop/launcher/* ~/.config/quickshell/*.sh ~/.config/quickshell/scripts/*
 
 # Ensure symlinks exist
 ln -sf ~/.local/bin/awww ~/.local/bin/swww
 ln -sf ~/.local/bin/awww-daemon ~/.local/bin/swww-daemon
-ln -sf ~/.local/bin/omarchy-agent ~/.local/bin/agent
 ln -sf ~/.local/bin/asus-tuf-aura ~/.local/bin/armoury-crate
 ln -sf ~/.config/quickshell/qs/Commons ~/.config/quickshell/Commons
 ln -sf ~/.config/quickshell/qs/Ui ~/.config/quickshell/Ui

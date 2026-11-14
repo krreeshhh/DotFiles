@@ -13,8 +13,6 @@ hyprlock
 
 # Desktop Shell, Panels & Notifications
 quickshell
-waybar
-nwg-bar
 dunst
 
 # Terminal & Multiplexer

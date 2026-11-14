@@ -1,6 +1,6 @@
 # Dotfiles Manifest
 
-Total tracked dotfiles items: **403**
+Total tracked dotfiles items: **334**
 
 | Export Path | Original Source / Role | Type | Required |
 | :--- | :--- | :--- | :--- |
@@ -23,17 +23,9 @@ Total tracked dotfiles items: **403**
 | `assets/hypr-pip/extension/popup.css` | `DOTFILES/assets/hypr-pip/extension/popup.css` | Data / Source | Yes |
 | `assets/hypr-pip/extension/popup.html` | `DOTFILES/assets/hypr-pip/extension/popup.html` | Data / Source | Yes |
 | `assets/hypr-pip/extension/popup.js` | `DOTFILES/assets/hypr-pip/extension/popup.js` | Data / Source | Yes |
-| `assets/share/applications/agy.desktop` | `DOTFILES/assets/share/applications/agy.desktop` | Desktop Entry | Yes |
-| `assets/share/applications/android-studio.desktop` | `DOTFILES/assets/share/applications/android-studio.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/asus-tuf-aura.desktop` | `DOTFILES/assets/share/applications/asus-tuf-aura.desktop` | Desktop Entry | Yes |
-| `assets/share/applications/claude.desktop` | `DOTFILES/assets/share/applications/claude.desktop` | Desktop Entry | Yes |
-| `assets/share/applications/cline.desktop` | `DOTFILES/assets/share/applications/cline.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/clipse.desktop` | `DOTFILES/assets/share/applications/clipse.desktop` | Desktop Entry | Yes |
-| `assets/share/applications/codex.desktop` | `DOTFILES/assets/share/applications/codex.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/herdr.desktop` | `DOTFILES/assets/share/applications/herdr.desktop` | Desktop Entry | Yes |
-| `assets/share/applications/hermes.desktop` | `DOTFILES/assets/share/applications/hermes.desktop` | Desktop Entry | Yes |
-| `assets/share/applications/io.github.lgse.Strata.desktop` | `DOTFILES/assets/share/applications/io.github.lgse.Strata.desktop` | Desktop Entry | Yes |
-| `assets/share/applications/kiro.desktop` | `DOTFILES/assets/share/applications/kiro.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/nvim.desktop` | `DOTFILES/assets/share/applications/nvim.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/opencode.desktop` | `DOTFILES/assets/share/applications/opencode.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/tmux.desktop` | `DOTFILES/assets/share/applications/tmux.desktop` | Desktop Entry | Yes |
@@ -188,17 +180,15 @@ Total tracked dotfiles items: **403**
 | `bin/hypr-pip-helper` | `DOTFILES/bin/hypr-pip-helper` | Binary | Yes |
 | `bin/mechanic` | `DOTFILES/bin/mechanic` | Binary | Yes |
 | `bin/mechanic-askpass` | `DOTFILES/bin/mechanic-askpass` | Binary | Yes |
-| `bin/omarchy` | `DOTFILES/bin/omarchy` | Binary | Yes |
-| `bin/omarchy-agent` | `DOTFILES/bin/omarchy-agent` | Binary | Yes |
-| `bin/omarchy-crash` | `DOTFILES/bin/omarchy-crash` | Binary | Yes |
-| `bin/omarchy-crash-watch` | `DOTFILES/bin/omarchy-crash-watch` | Binary | Yes |
-| `bin/omarchy-ledge` | `DOTFILES/bin/omarchy-ledge` | Binary | Yes |
-| `bin/strata` | `DOTFILES/bin/strata` | Binary | Yes |
-| `bin/strata-bin` | `DOTFILES/bin/strata-bin` | Binary | Yes |
+| `bin/agent` | `DOTFILES/bin/agent` | Binary | Yes |
+| `bin/crash` | `DOTFILES/bin/crash` | Binary | Yes |
+| `bin/crash-watch` | `DOTFILES/bin/crash-watch` | Binary | Yes |
+| `bin/ledge` | `DOTFILES/bin/ledge` | Binary | Yes |
 | `bin/webapp-manager` | `DOTFILES/bin/webapp-manager` | Binary | Yes |
 | `bin/xdg-terminal-exec` | `DOTFILES/bin/xdg-terminal-exec` | Binary | Yes |
 | `bin/ya` | `DOTFILES/bin/ya` | Binary | Yes |
 | `bin/yazi` | `DOTFILES/bin/yazi` | Binary | Yes |
+| `bin/patch-hyprland-blur` | `DOTFILES/bin/patch-hyprland-blur` | Script / Binary | Yes |
 | `config/autostart/com.abdownloadmanager.desktop` | `DOTFILES/config/autostart/com.abdownloadmanager.desktop` | Desktop Entry | Yes |
 | `config/autostart/org.fagram.desktop` | `DOTFILES/config/autostart/org.fagram.desktop` | Desktop Entry | Yes |
 | `config/clipse/config.json` | `DOTFILES/config/clipse/config.json` | Config | Yes |
@@ -234,7 +224,6 @@ Total tracked dotfiles items: **403**
 | `config/mimeapps.list` | `DOTFILES/config/mimeapps.list` | Data / Source | Yes |
 | `config/my-desktop/launcher/launcher.rasi` | `DOTFILES/config/my-desktop/launcher/launcher.rasi` | Config | Yes |
 | `config/my-desktop/launcher/launcher.sh` | `DOTFILES/config/my-desktop/launcher/launcher.sh` | Script | Yes |
-| `config/my-desktop/launcher/plugin_manager.py` | `DOTFILES/config/my-desktop/launcher/plugin_manager.py` | Script | Yes |
 | `config/my-desktop/launcher/webapp_manager.py` | `DOTFILES/config/my-desktop/launcher/webapp_manager.py` | Script | Yes |
 | `config/my-desktop/theme/apply-theme.sh` | `DOTFILES/config/my-desktop/theme/apply-theme.sh` | Script | Yes |
 | `config/my-desktop/theme/colors-hyprland.conf` | `DOTFILES/config/my-desktop/theme/colors-hyprland.conf` | Config | Yes |
@@ -254,8 +243,6 @@ Total tracked dotfiles items: **403**
 | `config/my-desktop/wallpaper/generate-thumbnails.py` | `DOTFILES/config/my-desktop/wallpaper/generate-thumbnails.py` | Script | Yes |
 | `config/my-desktop/wallpaper/picker.rasi` | `DOTFILES/config/my-desktop/wallpaper/picker.rasi` | Config | Yes |
 | `config/my-desktop/wallpaper/wallpaper-picker.sh` | `DOTFILES/config/my-desktop/wallpaper/wallpaper-picker.sh` | Script | Yes |
-| `config/nwg-bar/bar.json` | `DOTFILES/config/nwg-bar/bar.json` | Config | Yes |
-| `config/nwg-bar/style.css` | `DOTFILES/config/nwg-bar/style.css` | Data / Source | Yes |
 | `config/quickshell/Theme.qml` | `DOTFILES/config/quickshell/Theme.qml` | Config | Yes |
 | `config/quickshell/bar/Bar.qml` | `DOTFILES/config/quickshell/bar/Bar.qml` | Config | Yes |
 | `config/quickshell/bar/ChatButton.qml` | `DOTFILES/config/quickshell/bar/ChatButton.qml` | Config | Yes |
@@ -265,19 +252,20 @@ Total tracked dotfiles items: **403**
 | `config/quickshell/bar/TrayDrawer.qml` | `DOTFILES/config/quickshell/bar/TrayDrawer.qml` | Config | Yes |
 | `config/quickshell/bar/Workspaces.qml` | `DOTFILES/config/quickshell/bar/Workspaces.qml` | Config | Yes |
 | `config/quickshell/launch.sh` | `DOTFILES/config/quickshell/launch.sh` | Script | Yes |
-| `config/quickshell/plugins/omarchy-ledge/LedgeChip.qml` | `DOTFILES/config/quickshell/plugins/omarchy-ledge/LedgeChip.qml` | Config | Yes |
-| `config/quickshell/plugins/omarchy-ledge/LedgeIconButton.qml` | `DOTFILES/config/quickshell/plugins/omarchy-ledge/LedgeIconButton.qml` | Config | Yes |
-| `config/quickshell/plugins/omarchy-ledge/LedgeModel.js` | `DOTFILES/config/quickshell/plugins/omarchy-ledge/LedgeModel.js` | Data / Source | Yes |
-| `config/quickshell/plugins/omarchy-ledge/LedgePopup.qml` | `DOTFILES/config/quickshell/plugins/omarchy-ledge/LedgePopup.qml` | Config | Yes |
-| `config/quickshell/plugins/omarchy-ledge/LedgeTheme.qml` | `DOTFILES/config/quickshell/plugins/omarchy-ledge/LedgeTheme.qml` | Config | Yes |
-| `config/quickshell/plugins/omarchy-ledge/LedgeWidget.qml` | `DOTFILES/config/quickshell/plugins/omarchy-ledge/LedgeWidget.qml` | Config | Yes |
-| `config/quickshell/plugins/omarchy-ledge/manifest.json` | `DOTFILES/config/quickshell/plugins/omarchy-ledge/manifest.json` | Config | Yes |
+| `config/quickshell/ledge/LedgeChip.qml` | `DOTFILES/config/quickshell/ledge/LedgeChip.qml` | Config | Yes |
+| `config/quickshell/ledge/LedgeIconButton.qml` | `DOTFILES/config/quickshell/ledge/LedgeIconButton.qml` | Config | Yes |
+| `config/quickshell/ledge/LedgeModel.js` | `DOTFILES/config/quickshell/ledge/LedgeModel.js` | Data / Source | Yes |
+| `config/quickshell/ledge/LedgePopup.qml` | `DOTFILES/config/quickshell/ledge/LedgePopup.qml` | Config | Yes |
+| `config/quickshell/ledge/LedgeTheme.qml` | `DOTFILES/config/quickshell/ledge/LedgeTheme.qml` | Config | Yes |
+| `config/quickshell/ledge/LedgeWidget.qml` | `DOTFILES/config/quickshell/ledge/LedgeWidget.qml` | Config | Yes |
+| `config/quickshell/ledge/manifest.json` | `DOTFILES/config/quickshell/ledge/manifest.json` | Config | Yes |
 | `config/quickshell/popups/AppLauncher.qml` | `DOTFILES/config/quickshell/popups/AppLauncher.qml` | Config | Yes |
 | `config/quickshell/popups/AuthDialog.qml` | `DOTFILES/config/quickshell/popups/AuthDialog.qml` | Config | Yes |
 | `config/quickshell/popups/BluetoothMenu.qml` | `DOTFILES/config/quickshell/popups/BluetoothMenu.qml` | Config | Yes |
 | `config/quickshell/popups/ControlCenter.qml` | `DOTFILES/config/quickshell/popups/ControlCenter.qml` | Config | Yes |
 | `config/quickshell/popups/Osd.qml` | `DOTFILES/config/quickshell/popups/Osd.qml` | Config | Yes |
 | `config/quickshell/popups/PromptDialog.qml` | `DOTFILES/config/quickshell/popups/PromptDialog.qml` | Config | Yes |
+| `config/quickshell/popups/SessionMenu.qml` | `DOTFILES/config/quickshell/popups/SessionMenu.qml` | Config | Yes |
 | `config/quickshell/popups/WifiMenu.qml` | `DOTFILES/config/quickshell/popups/WifiMenu.qml` | Config | Yes |
 | `config/quickshell/qmldir` | `DOTFILES/config/quickshell/qmldir` | Data / Source | Yes |
 | `config/quickshell/qs/Commons/Border.qml` | `DOTFILES/config/quickshell/qs/Commons/Border.qml` | Config | Yes |
@@ -304,24 +292,12 @@ Total tracked dotfiles items: **403**
 | `config/quickshell/qs/Ui/qmldir` | `DOTFILES/config/quickshell/qs/Ui/qmldir` | Data / Source | Yes |
 | `config/quickshell/scripts/wifi.py` | `DOTFILES/config/quickshell/scripts/wifi.py` | Script | Yes |
 | `config/quickshell/shell.qml` | `DOTFILES/config/quickshell/shell.qml` | Config | Yes |
-| `config/quickshell/switch.sh` | `DOTFILES/config/quickshell/switch.sh` | Script | Yes |
 | `config/systemd/user/asus-tuf-aura-restore.service` | `DOTFILES/config/systemd/user/asus-tuf-aura-restore.service` | Systemd Unit | Yes |
 | `config/systemd/user/battery-alert.service` | `DOTFILES/config/systemd/user/battery-alert.service` | Systemd Unit | Yes |
 | `config/systemd/user/hypr-pip-helper.service` | `DOTFILES/config/systemd/user/hypr-pip-helper.service` | Systemd Unit | Yes |
-| `config/systemd/user/omarchy-crash-watch.service` | `DOTFILES/config/systemd/user/omarchy-crash-watch.service` | Systemd Unit | Yes |
+| `config/systemd/user/crash-watch.service` | `DOTFILES/config/systemd/user/crash-watch.service` | Systemd Unit | Yes |
 | `config/systemd/user/pipewire-session-manager.service` | `DOTFILES/config/systemd/user/pipewire-session-manager.service` | Systemd Unit | Yes |
 | `config/systemd/user/quickshell.service` | `DOTFILES/config/systemd/user/quickshell.service` | Systemd Unit | Yes |
-| `config/waybar/config.jsonc` | `DOTFILES/config/waybar/config.jsonc` | Data / Source | Yes |
-| `config/waybar/launch.sh` | `DOTFILES/config/waybar/launch.sh` | Script | Yes |
-| `config/waybar/scripts/battery-popup.py` | `DOTFILES/config/waybar/scripts/battery-popup.py` | Script | Yes |
-| `config/waybar/scripts/battery-popup.sh` | `DOTFILES/config/waybar/scripts/battery-popup.sh` | Script | Yes |
-| `config/waybar/scripts/bluetooth-menu.py` | `DOTFILES/config/waybar/scripts/bluetooth-menu.py` | Script | Yes |
-| `config/waybar/scripts/brightness-popup.py` | `DOTFILES/config/waybar/scripts/brightness-popup.py` | Script | Yes |
-| `config/waybar/scripts/quick-settings.py` | `DOTFILES/config/waybar/scripts/quick-settings.py` | Script | Yes |
-| `config/waybar/scripts/rofi-wifi.sh` | `DOTFILES/config/waybar/scripts/rofi-wifi.sh` | Script | Yes |
-| `config/waybar/scripts/tray-status.py` | `DOTFILES/config/waybar/scripts/tray-status.py` | Script | Yes |
-| `config/waybar/scripts/wifi-menu.py` | `DOTFILES/config/waybar/scripts/wifi-menu.py` | Script | Yes |
-| `config/waybar/style.css` | `DOTFILES/config/waybar/style.css` | Data / Source | Yes |
 | `config/yazi/theme.toml` | `DOTFILES/config/yazi/theme.toml` | Config | Yes |
 | `home/.bash_profile` | `DOTFILES/home/.bash_profile` | Data / Source | Yes |
 | `home/.bashrc` | `DOTFILES/home/.bashrc` | Data / Source | Yes |
@@ -349,7 +325,6 @@ Total tracked dotfiles items: **403**
 | `scripts/hyprland.sh` | `DOTFILES/scripts/hyprland.sh` | Script | Yes |
 | `scripts/install_apps.sh` | `DOTFILES/scripts/install_apps.sh` | Script | Yes |
 | `scripts/setup_grub_randomizer.sh` | `DOTFILES/scripts/setup_grub_randomizer.sh` | Script | Yes |
-| `scripts/strata.sh` | `DOTFILES/scripts/strata.sh` | Script | Yes |
 | `scripts/verify.sh` | `DOTFILES/scripts/verify.sh` | Script | Yes |
 | `scripts/webapp-manager.sh` | `DOTFILES/scripts/webapp-manager.sh` | Script | Yes |
 | `system/etc/environment` | `DOTFILES/system/etc/environment` | Data / Source | Yes |
@@ -358,5 +333,6 @@ Total tracked dotfiles items: **403**
 | `system/etc/sddm.conf.d/theme.conf` | `DOTFILES/system/etc/sddm.conf.d/theme.conf` | Config | Yes |
 | `system/etc/systemd/logind.conf.d/lid.conf` | `DOTFILES/system/etc/systemd/logind.conf.d/lid.conf` | Config | Yes |
 | `system/etc/udev/rules.d/99-asus-kbd-backlight.rules` | `DOTFILES/system/etc/udev/rules.d/99-asus-kbd-backlight.rules` | Udev Rule | Yes |
+| `system/etc/pacman.d/hooks/99-hyprland-blur.hook` | `DOTFILES/system/etc/pacman.d/hooks/99-hyprland-blur.hook` | ALPM Hook | Yes |
 | `system/system-services.txt` | `DOTFILES/system/system-services.txt` | Documentation / Manifest | Yes |
 | `system/usr/lib/systemd/system-sleep/hyprland-suspend` | `DOTFILES/system/usr/lib/systemd/system-sleep/hyprland-suspend` | Script | Yes |

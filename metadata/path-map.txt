@@ -2,9 +2,7 @@
 
 ~/.config/hypr/ <= config/hypr/
 ~/.config/quickshell/ <= config/quickshell/
-~/.config/waybar/ <= config/waybar/
 ~/.config/dunst/ <= config/dunst/
-~/.config/nwg-bar/ <= config/nwg-bar/
 ~/.config/my-desktop/ <= config/my-desktop/
 ~/.config/ghostty/ <= config/ghostty/
 ~/.config/yazi/ <= config/yazi/

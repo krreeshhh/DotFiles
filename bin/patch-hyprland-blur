@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+import sys, os, glob
+
+TARGET = "/usr/bin/Hyprland"
+
+# Known version patterns:
+# Hyprland 0.57.x:
+# shouldBlur(w):  80 7f 28 00 0f 85 9b 01 00 00 -> 80 7f 28 00 90 90 90 90 90 90
+# shouldBlur(ls): 80 7f 28 00 0f 85 a6 01 00 00 -> 80 7f 28 00 90 90 90 90 90 90
+PATTERNS = [
+    # 0.57.x
+    (b"\x80\x7f\x28\x00\x0f\x85\x9b\x01\x00\x00", b"\x80\x7f\x28\x00\x90\x90\x90\x90\x90\x90", "window shouldBlur (0.57.x)"),
+    (b"\x80\x7f\x28\x00\x0f\x85\xa6\x01\x00\x00", b"\x80\x7f\x28\x00\x90\x90\x90\x90\x90\x90", "layer-surface shouldBlur (0.57.x)"),
+    # 0.56.x
+    (b"\x80\x78\x28\x00\x0f\x84\xb9\x00\x00\x00", b"\x80\x78\x28\x00\xe9\xba\x00\x00\x00\x90", "window shouldBlur (0.56.x)"),
+    (b"\x80\x7f\x28\x00\x74\x16", b"\x80\x7f\x28\x00\xeb\x16", "layer-surface shouldBlur (0.56.x)"),
+]
+
+def patch_file():
+    if not os.path.exists(TARGET):
+        print(f"[patch-hyprland-blur] Target {TARGET} does not exist.")
+        return False
+
+    with open(TARGET, "rb") as f:
+        data = bytearray(f.read())
+
+    modified = False
+    for pat, rep, desc in PATTERNS:
+        idx = data.find(pat)
+        if idx != -1:
+            data[idx : idx + len(rep)] = rep
+            modified = True
+            print(f"[patch-hyprland-blur] Patched {desc} at {hex(idx)}")
+
+    if modified:
+        try:
+            st = os.stat(TARGET)
+            tmp_target = TARGET + ".patched"
+            with open(tmp_target, "wb") as f:
+                f.write(data)
+            os.chmod(tmp_target, st.st_mode)
+            os.chown(tmp_target, st.st_uid, st.st_gid)
+            os.replace(tmp_target, TARGET)
+            print(f"[patch-hyprland-blur] Successfully updated {TARGET}")
+            return True
+        except PermissionError:
+            print(f"[patch-hyprland-blur] Cannot write to {TARGET}: Permission denied. Run with sudo.")
+            return False
+    else:
+        # Check if already patched
+        already_patched = any(data.find(rep) != -1 for _, rep, _ in PATTERNS)
+        if already_patched:
+            print("[patch-hyprland-blur] Hyprland blur fix already applied on disk.")
+        else:
+            print("[patch-hyprland-blur] Warning: Hyprland blur pattern not matched on disk.")
+        return False
+
+def patch_live_process():
+    pids = []
+    for p in glob.glob("/proc/[0-9]*/comm"):
+        try:
+            with open(p, "r") as f:
+                if f.read().strip() == "Hyprland":
+                    pids.append(int(p.split("/")[2]))
+        except Exception:
+            pass
+
+    for pid in pids:
+        try:
+            maps_path = f"/proc/{pid}/maps"
+            mem_path = f"/proc/{pid}/mem"
+            if not os.path.exists(maps_path):
+                continue
+
+            base = None
+            with open(maps_path, "r") as f:
+                for line in f:
+                    if "/usr/bin/Hyprland" in line and "r--p 00000000" in line:
+                        base = int(line.split("-")[0], 16)
+                        break
+
+            if base is None:
+                continue
+
+            with open(mem_path, "r+b") as mem:
+                for pat, rep, desc in PATTERNS:
+                    # Check offsets from TARGET file or scan mapped text
+                    # We look for the unpatched pattern in mem
+                    for off in [0x530c90, 0x57695b, 0x9f11d0, 0x9f26d1]:
+                        try:
+                            mem.seek(base + off)
+                            buf = mem.read(len(pat))
+                            if buf == pat:
+                                mem.seek(base + off)
+                                mem.write(rep)
+                                print(f"[patch-hyprland-blur] Live-patched PID {pid} for {desc} at {hex(base + off)}")
+                        except Exception:
+                            pass
+        except PermissionError:
+            print(f"[patch-hyprland-blur] Cannot live-patch PID {pid}: Permission denied. Run with sudo.")
+        except Exception as e:
+            print(f"[patch-hyprland-blur] Live-patch error for PID {pid}: {e}")
+
+if __name__ == "__main__":
+    is_status = len(sys.argv) > 1 and sys.argv[1] == "status"
+    if is_status:
+        if os.path.exists(TARGET):
+            with open(TARGET, "rb") as f:
+                d = f.read()
+            patched = any(d.find(rep) != -1 for _, rep, _ in PATTERNS)
+            print(f"[patch-hyprland-blur] On-disk binary status: {'PATCHED' if patched else 'UNPATCHED'}")
+    else:
+        patch_file()
+        patch_live_process()

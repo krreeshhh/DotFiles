@@ -154,7 +154,6 @@ install_base_packages() {
         polkit-gnome
 
         # Core Window Manager Utilities & Controls
-        waybar
         dunst
         swaybg
         wl-clipboard
@@ -167,6 +166,9 @@ install_base_packages() {
         pavucontrol
         file-roller
         xdg-user-dirs
+        gtk-layer-shell
+        python-gobject
+        python-cairo
 
         # Audio Server & Routing
         pipewire

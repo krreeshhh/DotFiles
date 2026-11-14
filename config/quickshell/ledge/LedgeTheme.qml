@@ -1,5 +1,5 @@
 import QtQuick
-import "../.."
+import ".."
 
 QtObject {
     id: theme
@@ -18,7 +18,7 @@ QtObject {
     readonly property color raisedHover: Qt.rgba(text.r, text.g, text.b, 0.16)
     readonly property color accentSoft: Qt.rgba(accent.r, accent.g, accent.b, 0.20)
 
-    readonly property int radius: 10
+    readonly property int radius: 12
     readonly property int spacing: 8
     readonly property int padding: 12
     readonly property string fontFamily: Theme.fontFamily

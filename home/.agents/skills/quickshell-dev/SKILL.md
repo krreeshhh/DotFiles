@@ -15,7 +15,7 @@ This skill guides the agent in safely authoring, customizing, and debugging QML 
   - *Center:* `Clock.qml`
   - *Right:* `LedgeWidget.qml`, `MiniPlayer.qml`, `TrayDrawer.qml`, `StatusCluster.qml`
 - **`popups/`**: Floating layer-shell popup panels (`ControlCenter.qml`, `WifiMenu.qml`, `BluetoothMenu.qml`, `AppLauncher.qml`).
-- **`plugins/`**: Isolated third-party/community plugins (`omarchy-ledge/`, etc.).
+- **`ledge/`**: File staging ledge component.
 
 ---
 

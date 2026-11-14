@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-omarchy-crash-watch - Real-time crash monitoring daemon.
+crash-watch - Real-time crash monitoring daemon.
 Monitors systemd-coredump events, generates structured markdown reports,
 and triggers interactive Dunst/notify-send notifications to launch Antigravity.
 """
@@ -16,8 +16,8 @@ from datetime import datetime
 from pathlib import Path
 
 CRASH_DIR = Path.home() / ".local/state/crashes"
-MUTE_FILE = Path.home() / ".config/omarchy/crashes/muted.txt"
-CONFIG_FILE = Path.home() / ".config/omarchy/defaults/agent.json"
+MUTE_FILE = Path.home() / ".config/crash/muted.txt"
+CONFIG_FILE = Path.home() / ".config/agent/defaults.json"
 
 CRASH_DIR.mkdir(parents=True, exist_ok=True)
 MUTE_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -105,7 +105,7 @@ def generate_report(pid, comm, exe, signal_name):
 ```
 
 ---
-*Report generated automatically by `omarchy-crash-watch`.*
+*Report generated automatically by `crash-watch`.*
 """
     report_file.write_text(report_content)
     return report_file
@@ -120,15 +120,15 @@ def handle_crash(pid, comm, exe, signal_name):
         handled_pids.clear()
         
     if is_muted(comm, exe):
-        print(f"omarchy-crash-watch: Ignoring muted crash for {comm} (PID {pid})")
+        print(f"crash-watch: Ignoring muted crash for {comm} (PID {pid})")
         return
         
-    print(f"omarchy-crash-watch: Detected crash in {comm} (PID {pid}, signal {signal_name})")
+    print(f"crash-watch: Detected crash in {comm} (PID {pid}, signal {signal_name})")
     
     try:
         report_path = generate_report(pid, comm, exe, signal_name)
     except Exception as e:
-        print(f"omarchy-crash-watch: Error generating report: {e}", file=sys.stderr)
+        print(f"crash-watch: Error generating report: {e}", file=sys.stderr)
         return
         
     # Send desktop notification with action
@@ -136,7 +136,7 @@ def handle_crash(pid, comm, exe, signal_name):
     cmd = [
         "notify-send",
         "-u", "critical",
-        "-a", "Omarchy Crash Reporter",
+        "-a", "Crash Reporter",
         "-i", "dialog-error",
         "-A", "diagnose=Diagnose with Antigravity",
         f"Process Crashed: {comm}",
@@ -147,12 +147,12 @@ def handle_crash(pid, comm, exe, signal_name):
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         action = result.stdout.strip()
         if action == "diagnose" or action == "0" or "diagnose" in action.lower():
-            print(f"omarchy-crash-watch: User clicked diagnose for PID {pid}")
+            print(f"crash-watch: User clicked diagnose for PID {pid}")
             launch_agent_for_crash(pid, comm, report_path, agent_cfg)
     except subprocess.TimeoutExpired:
         pass
     except Exception as e:
-        print(f"omarchy-crash-watch: Notification error: {e}", file=sys.stderr)
+        print(f"crash-watch: Notification error: {e}", file=sys.stderr)
 
 def launch_agent_for_crash(pid, comm, report_path, agent_cfg):
     agent_cmd = agent_cfg.get("command", "agy")
@@ -204,14 +204,14 @@ def watch_journal():
                 t = threading.Thread(target=handle_crash, args=(int(pid), comm, exe, sig), daemon=True)
                 t.start()
         except Exception as e:
-            print(f"omarchy-crash-watch: parse error: {e}", file=sys.stderr)
+            print(f"crash-watch: parse error: {e}", file=sys.stderr)
 
 def main():
-    print("omarchy-crash-watch: Starting crash monitor daemon...")
+    print("crash-watch: Starting crash monitor daemon...")
     try:
         watch_journal()
     except KeyboardInterrupt:
-        print("\nomarchy-crash-watch: Stopped.")
+        print("\ncrash-watch: Stopped.")
 
 if __name__ == "__main__":
     main()

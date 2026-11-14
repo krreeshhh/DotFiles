@@ -1,5 +1,5 @@
 import QtQuick
-import "../.."
+import ".."
 import "LedgeModel.js" as Model
 
 Rectangle {
@@ -62,7 +62,7 @@ Rectangle {
     Drag.imageSourceSize: Qt.size(48, 48)
 
     Drag.onDragFinished: action => {
-        console.log("omarchy-ledge: dragged out", chip.dragPaths.length,
+        console.log("ledge: dragged out", chip.dragPaths.length,
                     "file(s), reported action=" + action)
     }
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# omarchy-agent - Default Agent Manager & Launcher
+# agent - Default Agent Manager & Launcher
 
 set -euo pipefail
 
-CONFIG_FILE="$HOME/.config/omarchy/defaults/agent.json"
+CONFIG_FILE="$HOME/.config/agent/defaults.json"
 CRASH_DIR="$HOME/.local/state/crashes"
 
 mkdir -p "$(dirname "$CONFIG_FILE")" "$CRASH_DIR"
@@ -39,12 +39,12 @@ d['default_agent'] = '$new_agent'
 if '$new_agent' in ['antigravity-cli', 'antigravity', 'agy']:
     d['command'] = 'agy'
     d['prompt_flag'] = '-i'
-elif '$new_agent' in ['claude', 'claude-code']:
-    d['command'] = 'claude'
+elif '$new_agent' in ['omp']:
+    d['command'] = 'omp'
     d['prompt_flag'] = '-p'
-elif '$new_agent' in ['codex']:
-    d['command'] = 'codex'
-    d['prompt_flag'] = '-p'
+elif '$new_agent' in ['opencode']:
+    d['command'] = 'opencode'
+    d['prompt_flag'] = '--prompt'
 json.dump(d, open(path, 'w'), indent=2)
 "
   printf 'Default agent set to: %s\n' "$new_agent"
@@ -78,7 +78,7 @@ cmd_crash() {
     # Pick the most recent crash from coredumpctl
     pid=$(coredumpctl list -n 1 --no-legend 2>/dev/null | awk '{print $5}' | head -n 1)
     if [ -z "$pid" ]; then
-      printf 'omarchy-agent: no recent crash found in coredumpctl\n' >&2
+      printf 'agent: no recent crash found in coredumpctl\n' >&2
       exit 1
     fi
   fi
@@ -117,16 +117,15 @@ cmd_crash() {
 
 usage() {
   cat <<'EOF'
-Usage: omarchy-agent <command> [arguments]
+Usage: agent <command> [arguments]
 
 Commands:
   run [prompt]           Launch the default agent (in terminal or GUI window)
   crash [pid]            Diagnose a crash report for the given PID (or latest crash)
-  default [agent_name]   Get or set the default agent (e.g. antigravity-cli, claude)
+  default [agent_name]   Get or set the default agent (e.g. antigravity-cli, omp)
   help                   Show this help message
 
 Aliases:
-  agent                  Alias for 'omarchy-agent run'
   a                      Inline terminal alias
 EOF
 }

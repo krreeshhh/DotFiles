@@ -18,7 +18,6 @@ Every file exported in this repository is classified into one of the following c
 | `config/quickshell/shell.qml` | CORE | Quickshell main root entrypoint & IPC router |
 | `config/quickshell/Theme.qml` | CORE / GENERATED | Quickshell Material You color singleton |
 | `config/quickshell/launch.sh` | CORE | Quickshell startup script |
-| `config/quickshell/switch.sh` | CORE | Waybar/Quickshell toggle and rollback switcher |
 | `config/quickshell/bar/*` (7 files) | CORE | Topbar modules (Workspaces, Clock, Status, Tray, MiniPlayer) |
 | `config/quickshell/popups/*` (4 files) | CORE | Popups (ControlCenter, WifiMenu, BluetoothMenu, AppLauncher) |
 | `config/my-desktop/theme/generate-theme.py` | CORE | Dynamic Material You palette extractor |
@@ -39,11 +38,6 @@ Every file exported in this repository is classified into one of the following c
 | `config/ghostty/gtk.css` | GENERATED | Ghostty dialog and window CSS styling |
 | `config/clipse/config.json` | CORE | Clipse clipboard manager settings |
 | `config/clipse/custom_theme.json` | GENERATED | Clipse clipboard Material You theme |
-| `config/nwg-bar/bar.json` | CORE | Power and logout action buttons |
-| `config/nwg-bar/style.css` | CORE | Nwg-bar styling |
-| `config/waybar/config.jsonc` | OPTIONAL | Alternative Waybar bar configuration |
-| `config/waybar/style.css` | OPTIONAL / GENERATED | Alternative Waybar styling |
-| `config/waybar/scripts/*` (8 scripts) | OPTIONAL | Waybar interactive popups (Wi-Fi, BT, Quick Settings) |
 | `config/gtk-3.0/settings.ini` | CORE | GTK3 theme and cursor settings |
 | `config/gtk-3.0/gtk.css` | GENERATED | GTK3 high-contrast dynamic text color overrides |
 | `config/gtk-4.0/settings.ini` | CORE | GTK4 theme and cursor settings |

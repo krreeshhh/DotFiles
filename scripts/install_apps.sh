@@ -66,13 +66,10 @@ APPS=(
     "ab-download-manager-bin"   # AB Download Manager
     "cliamp-bin"                # cliamp (Retro terminal music player)
     "ghostty"                   # Ghostty Terminal Emulator (Repo/AUR)
-    "helium-browser-bin"        # Helium Web Browser
     "localsend-bin"             # LocalSend (AirDrop alternative)
     "fagram-bin"                # FAgram (Feature-rich Telegram client)
     "cine"                      # Cine (Linux Video Player)
     "neovim"                    # Neovim Editor
-    "obsidian"                  # Obsidian Note Taking
-    "sonora-bin"                # Sonora (Native Music Streaming client)
     "upscayl-bin"               # Upscayl (AI Image Upscaler)
     "vesktop-bin"               # Vesktop (Vencord + Discord client)
 )
@@ -85,13 +82,8 @@ SYSTEM_PACKAGES=(
 
 # AI Coding Agents & Platforms
 AI_AGENTS=(
-    "claude-code"               # Anthropic Claude Code CLI
-    "openai-codex-bin"          # OpenAI Codex CLI
-    "antigravity-cli"           # Google Antigravity CLI
     "opencode"                  # OpenCode AI coding agent
-    "kiro-cli"                  # Kiro Code CLI
-    "cline-cli"                 # Cline Autonomous Coding Agent CLI
-    "hermes-agent-bin"          # Hermes Agent (Nous Research locally-run AI agent)
+    "omp"                       # Oh My Pi coding agent
 )
 
 # ------------------------------------------------------------------------------
@@ -147,7 +139,7 @@ show_menu() {
     echo "  1) Install All (Apps, System Packages, AI Agents)"
     echo "  2) Install Desktop Apps only"
     echo "  3) Install System Packages only (Tmux, Herdr)"
-    echo "  4) Install AI Agents only (Claude Code, Codex, Antigravity, OpenCode, Kiro, Cline, Hermes)"
+    echo "  4) Install AI Agents only (OpenCode, OMP)"
     echo "  q) Quit"
     echo
 }

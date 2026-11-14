@@ -60,12 +60,12 @@ local wallpaperPicker = "bash /home/Krish/.config/my-desktop/wallpaper/wallpaper
 -- hl.on("hyprland.start", function () 
 --   hl.exec_cmd(terminal)
 --   hl.exec_cmd("nm-applet")
---   hl.exec_cmd("waybar & hyprpaper & firefox")
+--   hl.exec_cmd("quickshell & hyprpaper & firefox")
 -- end)
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("bash /home/Krish/.config/my-desktop/wallpaper/apply-wallpaper.sh")
-    hl.exec_cmd("bash -c \"if command -v quickshell >/dev/null 2>&1; then bash /home/Krish/.config/quickshell/launch.sh; else bash /home/Krish/.config/waybar/launch.sh; fi\"")
+    hl.exec_cmd("bash /home/Krish/.config/quickshell/launch.sh")
     hl.exec_cmd("/home/Krish/.local/bin/clipse -listen")
     hl.exec_cmd("udiskie &")
     hl.exec_cmd("hypridle &")
@@ -316,14 +316,13 @@ hl.bind("SUPER + A", hl.dsp.exec_cmd(terminal .. " -e herdr"))
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("fagram"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("tern"))
 local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 -- hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("/home/Krish/.local/bin/strata"))
 hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("ghostty --title=yazi-filemanager -e /home/Krish/.local/bin/yazi"))
-hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("nwg-bar"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("quickshell ipc -p /home/Krish/.config/quickshell call shell toggleSessionMenu"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("ghostty --title=clipse-clipboard -e /home/Krish/.local/bin/clipse"))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("quickshell ipc -p /home/Krish/.config/quickshell call shell toggleControlCenter"))
@@ -536,20 +535,6 @@ hl.layer_rule({
     ignore_alpha = 0.2,
 })
 
--- nwg-bar Power Menu Layer Rule
-hl.layer_rule({
-    name         = "nwg-bar-blur",
-    match        = { namespace = "nwg-bar" },
-    blur         = true,
-    ignore_alpha = 0.2,
-})
-
-hl.layer_rule({
-    name         = "gtk-layer-shell-blur",
-    match        = { namespace = "gtk-layer-shell" },
-    blur         = true,
-    ignore_alpha = 0.2,
-})
 
 
 

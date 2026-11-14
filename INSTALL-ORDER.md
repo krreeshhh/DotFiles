@@ -25,7 +25,7 @@ Follow this exact dependency order when rebuilding the desktop environment from 
 ## 4. Core Wayland & Desktop Compositor Packages
 * Install native packages from `packages/pacman-runtime.txt`:
   * Compositor: `hyprland`, `xdg-desktop-portal-hyprland`, `xdg-desktop-portal-gtk`, `polkit-gnome`, `wl-clipboard`, `grim`, `slurp`, `swaybg`, `brightnessctl`.
-  * Desktop Shell & Notification: `quickshell`, `waybar`, `nwg-bar`, `dunst`, `rofi`.
+  * Desktop Shell & Notification: `quickshell`, `dunst`, `rofi`.
   * Terminal & Multiplexer: `ghostty`, `tmux`.
   * Audio Server & Utilities: `pipewire`, `pipewire-pulse`, `pipewire-alsa`, `wireplumber`, `pavucontrol`, `pamixer`, `playerctl`.
   * Network & Bluetooth: `networkmanager`, `network-manager-applet`, `bluez`, `bluez-utils`, `blueman`.
@@ -58,16 +58,15 @@ Follow this exact dependency order when rebuilding the desktop environment from 
   ln -sf ~/.local/bin/asus-tuf-aura ~/.local/bin/armoury-crate
   ```
 * Copy `assets/share/asus-tuf-aura/*` to `~/.local/share/asus-tuf-aura/`.
-* Copy `lib/*` to `~/.local/lib/` if using `strata`.
 
 ## 8. Deploy Configuration Files
 * Deploy directories from `config/` to `~/.config/`:
-  * `hypr/`, `quickshell/`, `waybar/`, `dunst/`, `nwg-bar/`, `my-desktop/`, `ghostty/`, `yazi/`, `clipse/`, `gtk-3.0/`, `gtk-4.0/`, `environment.d/`, `systemd/user/`.
+  * `hypr/`, `quickshell/`, `dunst/`, `my-desktop/`, `ghostty/`, `yazi/`, `clipse/`, `gtk-3.0/`, `gtk-4.0/`, `environment.d/`, `systemd/user/`.
 * Deploy individual files: `dolphinrc`, `kdeglobals`, `mimeapps.list`, `gtkrc-2.0` to `~/.config/` and `~/.gtkrc-2.0`.
 * Deploy `home/.bashrc` and `home/.bash_profile` to `~/`.
 * Set script execution permissions:
   ```bash
-  chmod +x ~/.config/hypr/scripts/* ~/.config/my-desktop/wallpaper/* ~/.config/my-desktop/theme/* ~/.config/my-desktop/launcher/* ~/.config/quickshell/*.sh ~/.config/waybar/*.sh
+  chmod +x ~/.config/hypr/scripts/* ~/.config/my-desktop/wallpaper/* ~/.config/my-desktop/theme/* ~/.config/my-desktop/launcher/* ~/.config/quickshell/*.sh
   ```
 
 ## 9. Deploy Assets, Power Management & Display Manager Themes

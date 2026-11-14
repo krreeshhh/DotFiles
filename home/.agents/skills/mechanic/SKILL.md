@@ -43,9 +43,9 @@ The agent must understand the specific hardware configuration of this machine to
 
 ---
 
-## 3. Desktop Architecture ("Omarchy" Stack)
+## 3. Desktop Architecture
 
-The desktop is built upon the custom **Omarchy** stack, combining Wayland, Hyprland, and Quickshell.
+The desktop combines Wayland, Hyprland, and Quickshell.
 
 ```mermaid
 flowchart TD
@@ -65,7 +65,7 @@ flowchart TD
         D --> H["Quickshell (shell.qml & Bar.qml)"]
         H --> I["Top Bar (36px + HTML5 Canvas Fillets)"]
         H --> J["Popups: AppLauncher, ControlCenter, Wifi, Bluetooth, Auth, OSD"]
-        H --> K["Plugins: omarchy-ledge (File Shelf)"]
+        H --> K["Components: Ledge (File Shelf)"]
     end
 
     subgraph Theming ["Dynamic Theming Engine"]
@@ -80,7 +80,7 @@ flowchart TD
 ### 1. Compositor Configuration (Hyprland v0.56.2)
 - **Dual Config Architecture**:
   - **Native Lua Engine**: [`~/.config/hypr/hyprland.lua`](file:///home/Krish/.config/hypr/hyprland.lua) handles modern Hyprland features: keybindings (`hl.bind`), layout (`dwindle`), monitor config (`hl.monitor`), animations (`hl.animation`), and gesture controls.
-  - **Declarative Conf**: [`~/.config/hypr/hyprland.conf`](file:///home/Krish/.config/hypr/hyprland.conf) specifies layer rules (blur and transparency for Quickshell, Rofi, nwg-bar), floating window rules (Clipse, Yazi, dialogs), and daemon startup.
+  - **Declarative Conf**: [`~/.config/hypr/hyprland.conf`](file:///home/Krish/.config/hypr/hyprland.conf) specifies layer rules (blur and transparency for Quickshell, Rofi), floating window rules (Clipse, Yazi, dialogs), and daemon startup.
 - **Visual Styling**: Glass blur (`size = 8, passes = 3, vibrancy = 0.20`), 10px corner rounding, active window border dual-gradient matching dynamic Material You primary/secondary colors.
 
 ### 2. Desktop Shell (Quickshell v0.3.1)
@@ -89,14 +89,13 @@ flowchart TD
   - 36px fixed height with outward curved corner fillets drawn dynamically using HTML5 Canvas (`leftFillet`, `rightFillet`).
   - *Left Modules:* `Workspaces.qml`, `ChatButton.qml` (launches Clipse).
   - *Center Module:* `Clock.qml`.
-  - *Right Modules:* `LedgeWidget.qml` (Omarchy file shelf), `MiniPlayer.qml`, `TrayDrawer.qml`, `StatusCluster.qml` (battery, network, audio, bluetooth).
+  - *Right Modules:* `LedgeWidget.qml` (File shelf), `MiniPlayer.qml`, `TrayDrawer.qml`, `StatusCluster.qml` (battery, network, audio, bluetooth).
 - **Layer-Shell Popups** ([`popups/`](file:///home/Krish/.config/quickshell/popups/)):
   - `AppLauncher.qml`: Material You application and webapp launcher.
   - `ControlCenter.qml`: Quick settings toggles.
   - `WifiMenu.qml` & `BluetoothMenu.qml`: Network and peripheral managers.
   - `AuthDialog.qml` & `PromptDialog.qml`: Sudo elevation and interactive prompt dialogs.
   - `Osd.qml`: Sleek volume and brightness indicators triggered via IPC.
-- **Fallback Bar**: [`~/.config/waybar/config.jsonc`](file:///home/Krish/.config/waybar/config.jsonc) is pre-configured and starts automatically if Quickshell is ever missing.
 
 ### 3. Dynamic Material You Theming
 - **Theming Controller**: [`~/.config/my-desktop/theme/apply-theme.sh`](file:///home/Krish/.config/my-desktop/theme/apply-theme.sh) and [`generate-theme.py`](file:///home/Krish/.config/my-desktop/theme/generate-theme.py).
@@ -154,12 +153,11 @@ The system follows a strict, zero-bloat native packaging policy:
 - **Native Arch Packages (`pacman`)**: 864 packages managed via pacman.
 - **AUR Helper (`yay`)**: Pre-installed `yay-bin` for compiling or installing foreign packages (`pacman -Qm`).
 - **User Binaries (`~/.local/bin`)**:
-  - `omarchy*`: Omarchy desktop tooling suite.
+  - `agent`, `crash`, `crash-watch`, `ledge`: Desktop tooling suite.
   - `mechanic` & `mechanic-askpass`: System maintenance and elevation scripts.
   - `asus-tuf-aura` & `armoury-crate`: ASUS TUF Gaming RGB keyboard backlight controller CLI and GUI launcher.
   - `clipse`: TUI clipboard daemon and selector.
   - `yazi` / `ya`: Fast terminal file manager.
-  - `strata`: Custom native file manager.
   - `awww` / `awww-daemon`: Animated Wayland wallpaper utility.
   - `coderabbit` (`cr`): Code review CLI.
 - **Development Toolchains**:
@@ -171,7 +169,7 @@ The system follows a strict, zero-bloat native packaging policy:
 
 ---
 
-## 5. The Omarchy AI Agent Suite & Crash Management
+## 5. Desktop AI Agent Suite & Crash Management
 
 The system integrates AI coding agents deeply into the desktop workflow:
 
@@ -179,27 +177,25 @@ The system integrates AI coding agents deeply into the desktop workflow:
 - **Workspace Manager**: `herdr` (`/usr/bin/herdr`) manages persistent terminal sessions for coding agents (`SUPER + A`).
 - **Installed Agent CLIs**:
   - Google Antigravity CLI (`agy` / `antigravity-cli`)
-  - Anthropic Claude Code (`claude` / `claude-code`)
-  - OpenAI Codex CLI (`codex` / `openai-codex-bin`)
-  - Hermes Agent (`hermes` / `hermes-agent-bin`)
-  - Cline CLI (`cline` / `cline-cli`)
-- **Agent Dispatcher** ([`omarchy-agent`](file:///home/Krish/.local/bin/omarchy-agent)):
-  - `omarchy-agent run [prompt]`: Launches the default agent in Ghostty.
-  - `omarchy-agent default [name]`: Sets default agent in `~/.config/omarchy/defaults/agent.json`.
-  - `omarchy-agent crash [pid]`: Passes a crash report to the agent.
+  - OpenCode (`opencode`)
+  - Oh My Pi (`omp`)
+- **Agent Dispatcher** ([`agent`](file:///home/Krish/.local/bin/agent)):
+  - `agent run [prompt]`: Launches the default agent in Ghostty.
+  - `agent default [name]`: Sets default agent in `~/.config/agent/defaults.json`.
+  - `agent crash [pid]`: Passes a crash report to the agent.
 
 ### 2. Autonomous Crash Diagnosis & Repair Pipeline
-- **Real-Time Watcher**: [`omarchy-crash-watch`](file:///home/Krish/.local/bin/omarchy-crash-watch) daemon runs as an enabled systemd user service (`omarchy-crash-watch.service`), streaming journal events for `systemd-coredump`.
+- **Real-Time Watcher**: [`crash-watch`](file:///home/Krish/.local/bin/crash-watch) daemon runs as an enabled systemd user service (`crash-watch.service`), streaming journal events for `systemd-coredump`.
 - **Report Generator**: Extracts stack traces via `coredumpctl info` and recent logs via `journalctl _PID=<pid> -n 50` into `~/.local/state/crashes/*.md`.
 - **Interactive Notification**: Dispatches a critical Dunst notification with the action button `"Fix with System Mechanic"`.
 - **One-Click Automated Fix**: Clicking the notification automatically opens Ghostty running Antigravity in `/mechanic` mode (`prompt="/mechanic A critical crash occurred in process ... Analyze the backtrace using diagnose-crash and autonomously fix the root cause."`) with `SUDO_ASKPASS=/home/Krish/.local/bin/mechanic-askpass` preconfigured for root elevation.
-- **Manual CLI**: [`omarchy-crash diagnose [pid]`](file:///home/Krish/.local/bin/omarchy-crash) or `omarchy-agent crash [pid]` triggers the same `/mechanic` workflow manually.
+- **Manual CLI**: [`crash diagnose [pid]`](file:///home/Krish/.local/bin/crash) or `agent crash [pid]` triggers the same `/mechanic` workflow manually.
 
-### 3. File Staging Ledge ([`omarchy-ledge`](file:///home/Krish/.local/bin/omarchy-ledge))
+### 3. File Staging Ledge ([`ledge`](file:///home/Krish/.local/bin/ledge))
 - Visual drop shelf in Quickshell's bar:
-  - Add file: `omarchy-ledge add <file>`
-  - Pin file: `omarchy-ledge pin <file>`
-  - Clipboard export: `omarchy-ledge list | wl-copy`
+  - Add file: `ledge add <file>`
+  - Pin file: `ledge pin <file>`
+  - Clipboard export: `ledge list | wl-copy`
 
 ---
 

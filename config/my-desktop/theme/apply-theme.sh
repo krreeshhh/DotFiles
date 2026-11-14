@@ -44,12 +44,6 @@ if command -v dunstctl >/dev/null 2>&1 && [ -n "${PRIMARY:-}" ]; then
     fi
 fi
 
-# 2. Update Waybar (reloads styling seamlessly without resetting workspace)
-if pgrep -x waybar >/dev/null 2>&1; then
-    pkill -SIGUSR2 waybar 2>/dev/null || true
-elif command -v systemctl >/dev/null 2>&1 && systemctl --user is-active --quiet waybar-app; then
-    systemctl --user restart waybar-app 2>/dev/null || true
-fi
 
 # 3. Update Terminal (if running)
 if pgrep -x kitty >/dev/null 2>&1; then

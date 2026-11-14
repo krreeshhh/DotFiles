@@ -20,6 +20,8 @@ PanelWindow {
 
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+    WlrLayershell.namespace: "quickshell"
+    BackgroundEffect.blurRegion: Region { item: bgCard }
 
     property bool isScanning: false
     property bool wifiEnabled: true
@@ -31,6 +33,9 @@ PanelWindow {
     property string connectingSsid: ""
     property bool showPassword: false
     property bool shown: false
+    onShownChanged: {
+        if (shown) bgCard.forceActiveFocus();
+    }
 
     onVisibleChanged: {
         if (visible) {
@@ -352,19 +357,6 @@ PanelWindow {
         transformOrigin: Item.TopRight
 
         opacity: root.shown ? 1.0 : 0.0
-        transform: [
-            Translate {
-                id: cardTrans
-                y: root.shown ? 0 : -28
-                Behavior on y {
-                    NumberAnimation {
-                        duration: root.shown ? 240 : 160
-                        easing.type: root.shown ? Easing.OutCubic : Easing.InCubic
-                    }
-                }
-            }
-        ]
-
         Behavior on opacity {
             NumberAnimation {
                 duration: root.shown ? 200 : 150

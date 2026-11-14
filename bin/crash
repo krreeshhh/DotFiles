@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# omarchy-crash - Crash Management & Diagnostics Suite
+# crash - Crash Management & Diagnostics Suite
 
 set -euo pipefail
 
-MUTE_FILE="$HOME/.config/omarchy/crashes/muted.txt"
+MUTE_FILE="$HOME/.config/crash/muted.txt"
 CRASH_DIR="$HOME/.local/state/crashes"
 
 mkdir -p "$(dirname "$MUTE_FILE")" "$CRASH_DIR"
@@ -47,23 +47,23 @@ cmd_mute() {
 }
 
 cmd_toggle() {
-  if systemctl --user is-active --quiet omarchy-crash-watch.service; then
-    systemctl --user stop omarchy-crash-watch.service
+  if systemctl --user is-active --quiet crash-watch.service; then
+    systemctl --user stop crash-watch.service
     printf 'Crash Capture Watcher disabled.\n'
   else
-    systemctl --user start omarchy-crash-watch.service
+    systemctl --user start crash-watch.service
     printf 'Crash Capture Watcher enabled.\n'
   fi
 }
 
 cmd_diagnose() {
   local pid="${1:-}"
-  exec omarchy-agent crash "$pid"
+  exec agent crash "$pid"
 }
 
 usage() {
   cat <<'EOF'
-Usage: omarchy-crash <command> [arguments]
+Usage: crash <command> [arguments]
 
 Commands:
   list                 List recent system core dumps

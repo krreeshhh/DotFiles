@@ -69,6 +69,7 @@ test('USB filesystem drivers (dosfstools, exfatprogs, ntfs-3g) present', 'dosfst
 test('mobile USB udev & daemons (android-udev, usbmuxd, libimobiledevice) present', 'android-udev' in pac_runtime and 'usbmuxd' in pac_runtime and 'libimobiledevice' in pac_runtime)
 test('hypridle present in pacman-runtime.txt', 'hypridle' in pac_runtime)
 test('hyprlock present in pacman-runtime.txt', 'hyprlock' in pac_runtime)
+test('gtk-layer-shell present in pacman-runtime.txt', 'gtk-layer-shell' in pac_runtime)
 
 # 3. Hyprland Configuration
 print('\n\033[1m[3. Hyprland Configuration & Helper Daemons]\033[0m')
@@ -91,7 +92,7 @@ test('udiskie USB automount configured in hyprland.lua & hyprland.conf', 'udiski
 test('hypridle autostart configured in hyprland.lua & hyprland.conf', 'hypridle' in open(f'{hypr_dir}/hyprland.lua').read() and 'hypridle' in open(f'{hypr_dir}/hyprland.conf').read())
 
 # 4. Quickshell Desktop Shell
-print('\n\033[1m[4. Quickshell Components, OSD & Plugins]\033[0m')
+print('\n\033[1m[4. Quickshell Components & OSD]\033[0m')
 qs_dir = f'{DOTFILES}/config/quickshell'
 test('shell.qml present', os.path.isfile(f'{qs_dir}/shell.qml'))
 test('Theme.qml present', os.path.isfile(f'{qs_dir}/Theme.qml'))
@@ -102,8 +103,9 @@ test('popups/ControlCenter.qml present', os.path.isfile(f'{qs_dir}/popups/Contro
 test('popups/Osd.qml present', os.path.isfile(f'{qs_dir}/popups/Osd.qml'))
 test('popups/AuthDialog.qml present', os.path.isfile(f'{qs_dir}/popups/AuthDialog.qml'))
 test('popups/PromptDialog.qml present', os.path.isfile(f'{qs_dir}/popups/PromptDialog.qml'))
-test('plugins/omarchy-ledge plugin tree present', os.path.isdir(f'{qs_dir}/plugins/omarchy-ledge'))
-test('launch.sh & switch.sh present and executable', os.access(f'{qs_dir}/launch.sh', os.X_OK) and os.access(f'{qs_dir}/switch.sh', os.X_OK))
+test('popups/SessionMenu.qml present', os.path.isfile(f'{qs_dir}/popups/SessionMenu.qml'))
+test('ledge component present', os.path.isdir(f'{qs_dir}/ledge'))
+test('launch.sh present and executable', os.access(f'{qs_dir}/launch.sh', os.X_OK))
 
 # 5. My-Desktop Wallpaper & Material You Theming
 print('\n\033[1m[5. Wallpaper Engine, Theme Extractor & Launcher]\033[0m')
@@ -132,15 +134,17 @@ print('\n\033[1m[7. Standalone Binaries & Systemd Services]\033[0m')
 bin_dir = f'{DOTFILES}/bin'
 test('bin/hypr-pip-helper present and executable', os.path.isfile(f'{bin_dir}/hypr-pip-helper') and os.access(f'{bin_dir}/hypr-pip-helper', os.X_OK))
 test('bin/clipse present and executable', os.path.isfile(f'{bin_dir}/clipse') and os.access(f'{bin_dir}/clipse', os.X_OK))
-test('bin/omarchy present and executable', os.path.isfile(f'{bin_dir}/omarchy') and os.access(f'{bin_dir}/omarchy', os.X_OK))
-test('bin/strata present and executable', os.path.isfile(f'{bin_dir}/strata') and os.access(f'{bin_dir}/strata', os.X_OK))
+test('bin/agent present and executable', os.path.isfile(f'{bin_dir}/agent') and os.access(f'{bin_dir}/agent', os.X_OK))
+test('bin/crash present and executable', os.path.isfile(f'{bin_dir}/crash') and os.access(f'{bin_dir}/crash', os.X_OK))
+test('bin/crash-watch present and executable', os.path.isfile(f'{bin_dir}/crash-watch') and os.access(f'{bin_dir}/crash-watch', os.X_OK))
+test('bin/ledge present and executable', os.path.isfile(f'{bin_dir}/ledge') and os.access(f'{bin_dir}/ledge', os.X_OK))
 
 sd_dir = f'{DOTFILES}/config/systemd/user'
 test('systemd hypr-pip-helper.service present', os.path.isfile(f'{sd_dir}/hypr-pip-helper.service'))
 test('systemd quickshell.service present', os.path.isfile(f'{sd_dir}/quickshell.service'))
 test('systemd elephant.service NOT present in dotfiles', not os.path.isfile(f'{sd_dir}/elephant.service'))
 test('systemd battery-alert.service present', os.path.isfile(f'{sd_dir}/battery-alert.service'))
-test('systemd omarchy-crash-watch.service present', os.path.isfile(f'{sd_dir}/omarchy-crash-watch.service'))
+test('systemd crash-watch.service present', os.path.isfile(f'{sd_dir}/crash-watch.service'))
 
 # 8. Script Syntax Compilation Checks
 print('\n\033[1m[8. Script Syntax Compilation Checks]\033[0m')

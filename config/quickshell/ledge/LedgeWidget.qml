@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import "../.."
+import ".."
 import "LedgeModel.js" as Model
 
 Item {
@@ -249,12 +249,12 @@ Item {
     function copyAsFiles(paths) {
         if (!paths.length)
             return
-        Quickshell.execDetached(["sh", "-c", 'printf "%s" "$1" | wl-copy --type text/uri-list', "omarchy-ledge", Model.uriList(paths)])
+        Quickshell.execDetached(["sh", "-c", 'printf "%s" "$1" | wl-copy --type text/uri-list', "ledge", Model.uriList(paths)])
         showToast(paths.length === 1 ? "File copied" : paths.length + " files copied")
     }
 
     function copyPath(path) {
-        Quickshell.execDetached(["sh", "-c", 'printf "%s" "$1" | wl-copy', "omarchy-ledge", path])
+        Quickshell.execDetached(["sh", "-c", 'printf "%s" "$1" | wl-copy', "ledge", path])
         showToast("Path copied")
     }
 
@@ -473,7 +473,7 @@ Item {
         id: popup
         anchorItem: barButton
         open: false
-        cardWidth: 340
+        cardWidth: 360
         cardHeight: popup.fittedHeight(body.implicitHeight, 520)
         focusTarget: body
         onCloseRequested: root.close()
