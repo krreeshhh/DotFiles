@@ -20,6 +20,11 @@ is_active() {
     return 1
 }
 
+sync_quickshell() {
+    local cmd="$1"
+    qs -p /home/Krish/.config/quickshell/dotfiles ipc call caffeine "$cmd" >/dev/null 2>&1 || true
+}
+
 enable_caffeine() {
     if is_active; then
         return 0
@@ -33,6 +38,8 @@ enable_caffeine() {
     # Pause idle monitors if running
     pkill -STOP -x hypridle 2>/dev/null || true
     pkill -STOP -x swayidle 2>/dev/null || true
+
+    sync_quickshell enable
 
     notify-send -a "Caffeine" -i "caffeine" "Caffeine Active" "System will stay 100% awake (even when idle or lid closed) ☕" -t 2500 2>/dev/null || true
 }
@@ -51,6 +58,8 @@ disable_caffeine() {
     # Resume idle monitors
     pkill -CONT -x hypridle 2>/dev/null || true
     pkill -CONT -x swayidle 2>/dev/null || true
+
+    sync_quickshell disable
 
     notify-send -a "Caffeine" -i "caffeine" "Caffeine Deactivated" "Normal sleep & idle timers restored 󰒲" -t 2000 2>/dev/null || true
 }
