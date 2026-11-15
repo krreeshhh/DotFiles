@@ -44,7 +44,7 @@ local terminal        = "ghostty"
 local browser         = "brave-origin"
 local fileManager     = "nautilus"
 local agents          = "herdr"
-local appLauncher     = "quickshell ipc call shell toggleAppLauncher"
+local appLauncher     = "quickshell ipc call shell toggleAppLauncher || (nohup qs >/dev/null 2>&1 & sleep 0.4 && quickshell ipc call shell toggleAppLauncher)"
 local wallpaperPicker = "bash /home/Krish/.config/DotFiles/wallpaper/wallpaper-picker.sh"
 
 
@@ -66,6 +66,7 @@ local wallpaperPicker = "bash /home/Krish/.config/DotFiles/wallpaper/wallpaper-p
 hl.on("hyprland.start", function()
     hl.exec_cmd("bash /home/Krish/.config/DotFiles/wallpaper/apply-wallpaper.sh")
     hl.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles")
+    hl.exec_cmd("qs")
     hl.exec_cmd("/home/Krish/.local/bin/clipse -listen")
     hl.exec_cmd("wl-paste --type text --watch bash -c 'cliphist store && qs -p $HOME/.config/quickshell/dotfiles ipc call cliphistService update'")
     hl.exec_cmd("wl-paste --type image --watch bash -c 'cliphist store && qs -p $HOME/.config/quickshell/dotfiles ipc call cliphistService update'")
