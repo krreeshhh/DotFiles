@@ -18,6 +18,27 @@ A reproducible, fully-integrated Wayland desktop environment built on Arch Linux
 
 ---
 
+<div align="center">
+    <h2>• Showcase •</h2>
+</div>
+
+| Terminal & Fastfetch | Widgets & Right Sidebar |
+| :---: | :---: |
+| <img width="1920" height="1080" alt="Terminal with Fastfetch" src="assets/screenshots/fastfetch.png" /> | <img width="1920" height="1080" alt="Widgets & Right Sidebar" src="assets/screenshots/sidebar.png" /> |
+| Clean Desktop & Bar | Window Management & Monitoring |
+| <img width="1920" height="1080" alt="Clean Desktop & Bar" src="assets/screenshots/desktop.png" /> | <img width="1920" height="1080" alt="Window Management & Monitoring" src="assets/screenshots/window_management.png" /> |
+
+<details>
+  <summary>More Screenshots (Session Menu)</summary>
+
+  | Session Menu & Power Controls |
+  | :---: |
+  | <img width="1920" height="1080" alt="Session Menu & Power Controls" src="assets/screenshots/session.png" /> |
+
+</details>
+
+---
+
 ## ⬡ System Architecture & Overview
 
 This setup is built for performance, aesthetics, and deterministic reproduction across fresh Arch installations.

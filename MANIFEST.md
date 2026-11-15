@@ -24,6 +24,11 @@ Total tracked dotfiles items: **1425**
 | `assets/hypr-pip/extension/popup.css` | `DOTFILES/assets/hypr-pip/extension/popup.css` | Config / Data | Yes |
 | `assets/hypr-pip/extension/popup.html` | `DOTFILES/assets/hypr-pip/extension/popup.html` | Config / Data | Yes |
 | `assets/hypr-pip/extension/popup.js` | `DOTFILES/assets/hypr-pip/extension/popup.js` | Config / Data | Yes |
+| `assets/screenshots/desktop.png` | `DOTFILES/assets/screenshots/desktop.png` | Asset / Media | Yes |
+| `assets/screenshots/fastfetch.png` | `DOTFILES/assets/screenshots/fastfetch.png` | Asset / Media | Yes |
+| `assets/screenshots/session.png` | `DOTFILES/assets/screenshots/session.png` | Asset / Media | Yes |
+| `assets/screenshots/sidebar.png` | `DOTFILES/assets/screenshots/sidebar.png` | Asset / Media | Yes |
+| `assets/screenshots/window_management.png` | `DOTFILES/assets/screenshots/window_management.png` | Asset / Media | Yes |
 | `assets/share/applications/clipse.desktop` | `DOTFILES/assets/share/applications/clipse.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/herdr.desktop` | `DOTFILES/assets/share/applications/herdr.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/nvim.desktop` | `DOTFILES/assets/share/applications/nvim.desktop` | Desktop Entry | Yes |
