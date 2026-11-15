@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Tern
+Comment=Terminal-First Workspace & Agent IDE by Stencil Labs
+Exec=ghostty --title=tern-workspace -e /home/Krish/.local/bin/tern
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Development;System;Utility;IDE;
+Keywords=tern;stencil;terminal;ide;agent;ai;

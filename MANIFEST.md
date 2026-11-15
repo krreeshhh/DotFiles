@@ -34,6 +34,7 @@ Total tracked dotfiles items: **1425**
 | `assets/share/applications/nvim.desktop` | `DOTFILES/assets/share/applications/nvim.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/opencode.desktop` | `DOTFILES/assets/share/applications/opencode.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/tmux.desktop` | `DOTFILES/assets/share/applications/tmux.desktop` | Desktop Entry | Yes |
+| `assets/share/applications/tern.desktop` | `DOTFILES/assets/share/applications/tern.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/webapp-hotstar.desktop` | `DOTFILES/assets/share/applications/webapp-hotstar.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/webapp-manager.desktop` | `DOTFILES/assets/share/applications/webapp-manager.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/webapp-netflix.desktop` | `DOTFILES/assets/share/applications/webapp-netflix.desktop` | Desktop Entry | Yes |
@@ -281,6 +282,7 @@ Total tracked dotfiles items: **1425**
 | `bin/mechanic` | `DOTFILES/bin/mechanic` | Binary | Yes |
 | `bin/mechanic-askpass` | `DOTFILES/bin/mechanic-askpass` | Binary | Yes |
 | `bin/patch-hyprland-blur` | `DOTFILES/bin/patch-hyprland-blur` | Binary | Yes |
+| `bin/tern` | `DOTFILES/bin/tern` | Binary | Yes |
 | `bin/webapp-manager` | `DOTFILES/bin/webapp-manager` | Binary | Yes |
 | `bin/xdg-terminal-exec` | `DOTFILES/bin/xdg-terminal-exec` | Binary | Yes |
 | `bin/ya` | `DOTFILES/bin/ya` | Binary | Yes |
