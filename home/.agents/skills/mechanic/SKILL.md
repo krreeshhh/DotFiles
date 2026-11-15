@@ -37,7 +37,7 @@ The agent must understand the specific hardware configuration of this machine to
 | **Graphics (GPU)** | **NVIDIA GeForce RTX 2050 Mobile** (4GB GDDR6, GA107) | Runs on `nvidia-open-dkms` (driver `615.71.x`, CUDA 13.4). Drives the display panel directly without hybrid GPU / Optimus switching. |
 | **Display Panel** | Internal `eDP-1` (1920×1080 @ **144.00 Hz**, Scale 1.0) | High refresh rate panel; top 36px reserved for Quickshell (`reserved: 0 36 0 0`). |
 | **Memory & Swap** | 16 GB DDR5 RAM + 8 GB Swap (/swapfile) | Dedicated 8GB ext4 swapfile (0600 permissions, fstab persistence) configured for safe package building and compiling. |
-| **Keyboard & Lighting** | ASUS TUF RGB Backlight (asus::kbd_backlight) | Hardware sysfs RGB control with rootless udev rules (0666), Armoury Crate GTK4/Cairo GUI, and Material You live sync. |
+| **Keyboard & Lighting** | ASUS TUF RGB Backlight (asus::kbd_backlight) | Hardware sysfs RGB control with rootless udev rules (0666), locked static white backlight, decoupled from dynamic wallpaper theming. |
 | **Storage & FS** | 512 GB NVMe SSD (`/dev/nvme0n1p3`, ext4) | Partition mounted at `/`, healthy disk space (~30% utilized). |
 | **OS & Kernel** | **Arch Linux** (Rolling Release) | Kernel: Linux LTS (`linux-lts` **6.18.x** + `linux-lts-headers`). |
 
@@ -104,7 +104,6 @@ flowchart TD
   - Quickshell: [`Theme.qml`](file:///home/Krish/.config/quickshell/Theme.qml) binds colors live via `quickshell ipc call shell reloadTheme`.
   - Hyprland: [`colors-hyprland.lua`](file:///home/Krish/.config/DotFiles/theme/colors-hyprland.lua) sets active border gradients.
    - Terminal & UI: Ghostty (`gtk.css`), Rofi (`colors.rasi`), Dunst notifications, SDDM background, and GRUB boot splash.
-   - ASUS TUF Keyboard Backlight: `apply-theme.sh` runs `asus-tuf-aura --restore` to dynamically synchronize the keyboard RGB accent with the active Material You wallpaper palette.
 
 ### 4. Audio, Power & Idle Systems
 - **Audio**: PipeWire + WirePlumber (`wpctl`). Controlled by [`volume.sh`](file:///home/Krish/.config/hypr/scripts/volume.sh), which dispatches OSD calls to Quickshell:
@@ -120,23 +119,17 @@ flowchart TD
 - **Caffeine Mode**: [`caffeine.sh`](file:///home/Krish/.config/hypr/scripts/caffeine.sh) temporarily pauses idle timeouts when active.
 - **Autostart**: [`autostart.py`](file:///home/Krish/.config/hypr/scripts/autostart.py) safely parses and launches `~/.config/autostart/*.desktop` entries.
 
-### 5. ASUS TUF Gaming Keyboard Lighting & Armoury Crate
+### 5. ASUS TUF Gaming Keyboard Lighting (Static White)
 - **Hardware Sysfs Nodes**: `/sys/class/leds/asus::kbd_backlight/`
   - `kbd_rgb_mode`: RGB mode command format `0 <mode> <r> <g> <b> <speed>` (0: Static, 1: Breathing, 2: Cycle, 3: Strobing).
   - `kbd_rgb_state`: Firmware persistence state flags `1 <boot> <awake> <sleep> 1`.
   - `brightness`: Backlight level integer (0..3).
 - **Rootless Hardware Access**: `/etc/udev/rules.d/99-asus-kbd-backlight.rules` sets `MODE="0666"` on `asus::kbd_backlight` nodes, allowing user-space RGB writes without sudo password prompts.
-- **Armoury Crate GUI & CLI Controller**:
-  - Standalone GTK4 + Cairo application at `~/.local/share/asus-tuf-aura/` (`app.py`, `backend.py`).
-  - Native CLI wrapper at `~/.local/bin/asus-tuf-aura` (with symlink `~/.local/bin/armoury-crate`).
-  - Desktop entry: `~/.local/share/applications/asus-tuf-aura.desktop` with SVG vector icons in `~/.local/share/icons/`.
-- **Compositor Window Rules**:
-  - Hyprland floating window rules (`size 940 680`, `center`) for `com.asus.tuf.armoury_crate` configured in both `hyprland.lua` and `hyprland.conf`.
-- **Live Material You Dynamic Theming**:
-  - Inotify file monitor on `~/.config/DotFiles/theme/colors.json`.
-  - Dynamic CSS reload: Slider thumbs, switches, and buttons visually track the active backlight color in real time.
+- **Static White Controller**:
+  - Pure lightweight runner at `~/.local/bin/asus-kbd-white` writes static pure white (`0 0 255 255 255 1`) and power state flags directly into sysfs.
+  - Decoupled from Material You wallpaper sync (`apply-theme.sh`).
 - **Session Auto-Restore**:
-  - `asus-tuf-aura-restore.service` user systemd unit automatically restores saved state (`~/.config/asus-tuf-aura/config.json`) upon user login.
+  - `asus-kbd-white.service` user systemd unit ensures pure static white illumination automatically upon session startup and login.
 
 ### 6. System Memory & Swap Architecture
 - **RAM**: 16 GB DDR5 RAM.
@@ -155,7 +148,7 @@ The system follows a strict, zero-bloat native packaging policy:
 - **User Binaries (`~/.local/bin`)**:
   - `agent`, `crash`, `crash-watch`, `ledge`: Desktop tooling suite.
   - `mechanic` & `mechanic-askpass`: System maintenance and elevation scripts.
-  - `asus-tuf-aura` & `armoury-crate`: ASUS TUF Gaming RGB keyboard backlight controller CLI and GUI launcher.
+  - `asus-kbd-white`: ASUS TUF Gaming static white RGB keyboard backlight initializer.
   - `clipse`: TUI clipboard daemon and selector.
   - `yazi` / `ya`: Fast terminal file manager.
   - `awww` / `awww-daemon`: Animated Wayland wallpaper utility.

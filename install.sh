@@ -388,7 +388,7 @@ configure_system_services() {
     done
 
     # User services
-    local user_services=("pipewire.service" "pipewire-pulse.service" "wireplumber.service" "hypr-pip-helper.service" "quickshell.service" "hypridle.service" "battery-alert.service" "asus-tuf-aura-restore.service")
+    local user_services=("pipewire.service" "pipewire-pulse.service" "wireplumber.service" "hypr-pip-helper.service" "quickshell.service" "hypridle.service" "battery-alert.service" "asus-kbd-white.service")
     for srv in "${user_services[@]}"; do
         log_substep "Enabling user service: ${srv}"
         systemctl --user enable "$srv" 2>/dev/null || true
@@ -469,7 +469,6 @@ deploy_dotfiles() {
     # Ensure swww compatibility symlinks exist
     ln -sf "$HOME/.local/bin/awww" "$HOME/.local/bin/swww" 2>/dev/null || true
     ln -sf "$HOME/.local/bin/awww-daemon" "$HOME/.local/bin/swww-daemon" 2>/dev/null || true
-    ln -sf "$HOME/.local/bin/asus-tuf-aura" "$HOME/.local/bin/armoury-crate" 2>/dev/null || true
 
     # Deploy local libraries
     if [ -d "$DOTFILES_DIR/lib" ]; then
@@ -493,11 +492,6 @@ deploy_dotfiles() {
         mkdir -p "$HOME/.local/share/applications"
         cp -r "$DOTFILES_DIR/assets/share/applications/"* "$HOME/.local/share/applications/" 2>/dev/null || true
         command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
-    fi
-    if [ -d "$DOTFILES_DIR/assets/share/asus-tuf-aura" ]; then
-        log_substep "Deploying ASUS TUF Gaming Armoury Crate lighting controller..."
-        mkdir -p "$HOME/.local/share/asus-tuf-aura"
-        cp -r "$DOTFILES_DIR/assets/share/asus-tuf-aura/"* "$HOME/.local/share/asus-tuf-aura/" 2>/dev/null || true
     fi
 
     log_substep "Deploying Universal Picture-in-Picture browser extension..."

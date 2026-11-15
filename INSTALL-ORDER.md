@@ -48,7 +48,7 @@ Follow this exact dependency order when rebuilding the desktop environment from 
   ```
 * User level (as normal user):
   ```bash
-  systemctl --user enable pipewire.service pipewire-pulse.service wireplumber.service asus-tuf-aura-restore.service
+  systemctl --user enable pipewire.service pipewire-pulse.service wireplumber.service asus-kbd-white.service
   ```
 
 ## 7. Deploy Standalone Binaries & Libraries
@@ -57,9 +57,7 @@ Follow this exact dependency order when rebuilding the desktop environment from 
   ```bash
   ln -sf ~/.local/bin/awww ~/.local/bin/swww
   ln -sf ~/.local/bin/awww-daemon ~/.local/bin/swww-daemon
-  ln -sf ~/.local/bin/asus-tuf-aura ~/.local/bin/armoury-crate
   ```
-* Copy `assets/share/asus-tuf-aura/*` to `~/.local/share/asus-tuf-aura/`.
 
 ## 8. Deploy Configuration Files
 * Deploy directories from `config/` to `~/.config/`:

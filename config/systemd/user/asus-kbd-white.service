@@ -1,10 +1,10 @@
 [Unit]
-Description=Restore ASUS TUF Gaming Keyboard RGB Lighting
+Description=Set ASUS TUF Gaming Keyboard Backlight to Static White
 After=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=/home/Krish/.local/bin/asus-tuf-aura --restore
+ExecStart=/home/Krish/.local/bin/asus-kbd-white
 RemainAfterExit=yes
 
 [Install]

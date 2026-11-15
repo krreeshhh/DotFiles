@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# ==========================================================
+# asus-kbd-white - Set ASUS TUF Keyboard Backlight to Pure White
+# ==========================================================
+set -euo pipefail
+
+SYSFS_LED="/sys/class/leds/asus::kbd_backlight"
+
+if [ ! -d "$SYSFS_LED" ]; then
+    exit 0
+fi
+
+# Set static white color (mode=0: static, r=255, g=255, b=255, speed=1)
+if [ -w "$SYSFS_LED/kbd_rgb_mode" ]; then
+    printf "0 0 255 255 255 1\n" > "$SYSFS_LED/kbd_rgb_mode" 2>/dev/null || true
+fi
+
+# Set power states with NVRAM/EC persistence flag
+# Format: <persist> <boot> <awake> <sleep> 1
+if [ -w "$SYSFS_LED/kbd_rgb_state" ]; then
+    printf "1 1 1 0 1\n" > "$SYSFS_LED/kbd_rgb_state" 2>/dev/null || true
+fi
+
+# Ensure brightness is set to max (level 3)
+if [ -w "$SYSFS_LED/brightness" ]; then
+    printf "3\n" > "$SYSFS_LED/brightness" 2>/dev/null || true
+fi
+
+exit 0

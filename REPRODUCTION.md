@@ -13,7 +13,7 @@ This guide describes the complete, exact blueprint required to recreate this cus
 6. **Clipboard & Terminals:** Clipse daemon with pinned floating window rules, Ghostty GPU terminal (glass opacity 0.20), and Yazi terminal file manager.
 7. **Audio / Display Controls:** `brightness.sh` and `volume.sh` hardware handlers integrated with the NotificationPopup/OSD services of the Dotfiles shell (with legacy fallbacks).
 8. **Look & Theming:** WhiteSur-dark icons, Bibata-Modern-Ice cursor (24px), Adwaita theme with dynamic text contrast CSS, and SDDM theme `R1999_1`.
-9. **ASUS TUF Keyboard Lighting:** Armoury Crate GUI (`asus-tuf-aura` / `armoury-crate`), rootless sysfs udev rule, systemd user restore service, and dynamic Material You wallpaper sync hook.
+9. **ASUS TUF Keyboard Lighting:** Static white sysfs control (`asus-kbd-white`), rootless sysfs udev rule, and systemd user initialization service.
 
 ---
 
@@ -57,14 +57,13 @@ python3 -m venv ~/.local/state/quickshell/.venv
 
 # 7. Enable system and user services
 sudo systemctl enable sddm.service NetworkManager.service bluetooth.service ntpd.service
-systemctl --user enable pipewire.service pipewire-pulse.service wireplumber.service hypr-pip-helper.service quickshell.service asus-tuf-aura-restore.service
+systemctl --user enable pipewire.service pipewire-pulse.service wireplumber.service hypr-pip-helper.service quickshell.service asus-kbd-white.service
 
 # 8. Deploy configurations & binaries
-mkdir -p ~/.config ~/.local/bin ~/.local/lib ~/.local/share/asus-tuf-aura ~/.wallpaper ~/Pictures/Screenshots
+mkdir -p ~/.config ~/.local/bin ~/.local/lib ~/.wallpaper ~/Pictures/Screenshots
 cp -r config/* ~/.config/
 cp -r bin/* ~/.local/bin/
 cp -r lib/* ~/.local/lib/ 2>/dev/null || true
-cp -r assets/share/asus-tuf-aura/* ~/.local/share/asus-tuf-aura/ 2>/dev/null || true
 cp home/.bashrc ~/.bashrc
 cp home/.bash_profile ~/.bash_profile
 chmod +x ~/.local/bin/*
@@ -73,7 +72,6 @@ chmod +x ~/.config/hypr/scripts/* ~/.config/DotFiles/wallpaper/* ~/.config/DotFi
 # Ensure symlinks exist
 ln -sf ~/.local/bin/awww ~/.local/bin/swww
 ln -sf ~/.local/bin/awww-daemon ~/.local/bin/swww-daemon
-ln -sf ~/.local/bin/asus-tuf-aura ~/.local/bin/armoury-crate
 ln -sf ~/.config/quickshell/qs/Commons ~/.config/quickshell/Commons
 ln -sf ~/.config/quickshell/qs/Ui ~/.config/quickshell/Ui
 

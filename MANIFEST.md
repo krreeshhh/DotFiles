@@ -24,7 +24,6 @@ Total tracked dotfiles items: **1425**
 | `assets/hypr-pip/extension/popup.css` | `DOTFILES/assets/hypr-pip/extension/popup.css` | Config / Data | Yes |
 | `assets/hypr-pip/extension/popup.html` | `DOTFILES/assets/hypr-pip/extension/popup.html` | Config / Data | Yes |
 | `assets/hypr-pip/extension/popup.js` | `DOTFILES/assets/hypr-pip/extension/popup.js` | Config / Data | Yes |
-| `assets/share/applications/asus-tuf-aura.desktop` | `DOTFILES/assets/share/applications/asus-tuf-aura.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/clipse.desktop` | `DOTFILES/assets/share/applications/clipse.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/herdr.desktop` | `DOTFILES/assets/share/applications/herdr.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/nvim.desktop` | `DOTFILES/assets/share/applications/nvim.desktop` | Desktop Entry | Yes |
@@ -34,10 +33,6 @@ Total tracked dotfiles items: **1425**
 | `assets/share/applications/webapp-manager.desktop` | `DOTFILES/assets/share/applications/webapp-manager.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/webapp-netflix.desktop` | `DOTFILES/assets/share/applications/webapp-netflix.desktop` | Desktop Entry | Yes |
 | `assets/share/applications/webapp-whatsapp.desktop` | `DOTFILES/assets/share/applications/webapp-whatsapp.desktop` | Desktop Entry | Yes |
-| `assets/share/asus-tuf-aura/app.py` | `DOTFILES/assets/share/asus-tuf-aura/app.py` | Asset / Media | Yes |
-| `assets/share/asus-tuf-aura/backend.py` | `DOTFILES/assets/share/asus-tuf-aura/backend.py` | Asset / Media | Yes |
-| `assets/share/icons/asus-tuf-aura.svg` | `DOTFILES/assets/share/icons/asus-tuf-aura.svg` | Asset / Media | Yes |
-| `assets/share/icons/hicolor/scalable/apps/asus-tuf-aura.svg` | `DOTFILES/assets/share/icons/hicolor/scalable/apps/asus-tuf-aura.svg` | Asset / Media | Yes |
 | `assets/share/icons/hicolor/scalable/apps/dotfiles.svg` | `DOTFILES/assets/share/icons/hicolor/scalable/apps/dotfiles.svg` | Asset / Media | Yes |
 | `assets/share/icons/webapps/hotstar.png` | `DOTFILES/assets/share/icons/webapps/hotstar.png` | Asset / Media | Yes |
 | `assets/share/icons/webapps/netflix.png` | `DOTFILES/assets/share/icons/webapps/netflix.png` | Asset / Media | Yes |
@@ -270,7 +265,7 @@ Total tracked dotfiles items: **1425**
 | `assets/wallpapers/Wall.png` | `DOTFILES/assets/wallpapers/Wall.png` | Asset / Media | Yes |
 | `assets/wallpapers/Wings Dark.png` | `DOTFILES/assets/wallpapers/Wings Dark.png` | Asset / Media | Yes |
 | `bin/agent` | `DOTFILES/bin/agent` | Binary | Yes |
-| `bin/asus-tuf-aura` | `DOTFILES/bin/asus-tuf-aura` | Binary | Yes |
+| `bin/asus-kbd-white` | `DOTFILES/bin/asus-kbd-white` | Binary | Yes |
 | `bin/awww` | `DOTFILES/bin/awww` | Binary | Yes |
 | `bin/awww-daemon` | `DOTFILES/bin/awww-daemon` | Binary | Yes |
 | `bin/clipse` | `DOTFILES/bin/clipse` | Binary | Yes |
@@ -1376,7 +1371,7 @@ Total tracked dotfiles items: **1425**
 | `config/quickshell/sidebar/SidebarRight.qml` | `DOTFILES/config/quickshell/sidebar/SidebarRight.qml` | Quickshell / QML | Yes |
 | `config/quickshell/sidebar/SidebarRightContent.qml` | `DOTFILES/config/quickshell/sidebar/SidebarRightContent.qml` | Quickshell / QML | Yes |
 | `config/quickshell/sidebar/SystemButtonRow.qml` | `DOTFILES/config/quickshell/sidebar/SystemButtonRow.qml` | Quickshell / QML | Yes |
-| `config/systemd/user/asus-tuf-aura-restore.service` | `DOTFILES/config/systemd/user/asus-tuf-aura-restore.service` | Systemd Unit | Yes |
+| `config/systemd/user/asus-kbd-white.service` | `DOTFILES/config/systemd/user/asus-kbd-white.service` | Systemd Unit | Yes |
 | `config/systemd/user/battery-alert.service` | `DOTFILES/config/systemd/user/battery-alert.service` | Systemd Unit | Yes |
 | `config/systemd/user/crash-watch.service` | `DOTFILES/config/systemd/user/crash-watch.service` | Systemd Unit | Yes |
 | `config/systemd/user/hypr-pip-helper.service` | `DOTFILES/config/systemd/user/hypr-pip-helper.service` | Systemd Unit | Yes |
