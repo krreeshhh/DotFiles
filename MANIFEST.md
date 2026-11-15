@@ -314,6 +314,7 @@ Total tracked dotfiles items: **1425**
 | `config/dunst/dunstrc` | `DOTFILES/config/dunst/dunstrc` | Config / Data | Yes |
 | `config/environment.d/quickshell.conf` | `DOTFILES/config/environment.d/quickshell.conf` | Config / Data | Yes |
 | `config/environment.d/theme.conf` | `DOTFILES/config/environment.d/theme.conf` | Config / Data | Yes |
+| `config/fastfetch/config.jsonc` | `DOTFILES/config/fastfetch/config.jsonc` | Config / Data | Yes |
 | `config/ghostty/config` | `DOTFILES/config/ghostty/config` | Config / Data | Yes |
 | `config/ghostty/gtk.css` | `DOTFILES/config/ghostty/gtk.css` | Config / Data | Yes |
 | `config/gtk-3.0/gtk.css` | `DOTFILES/config/gtk-3.0/gtk.css` | Config / Data | Yes |

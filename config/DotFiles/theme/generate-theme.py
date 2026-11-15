@@ -1489,6 +1489,138 @@ gtk-decoration-layout = :close
         with open(p, "w") as f:
             f.write(gtk_settings_ini)
 
+    # 11. Fastfetch Dynamic Material You Configuration
+    pri_c = f"38;2;{hex_to_rgb_str(palette['primary']).replace(',', ';')}"
+    sec_c = f"38;2;{hex_to_rgb_str(palette['secondary']).replace(',', ';')}"
+    out_c = f"38;2;{hex_to_rgb_str(palette['outline']).replace(',', ';')}"
+
+    fastfetch_cfg = {
+        "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+        "logo": {
+            "source": "arch2",
+            "color": {
+                "1": pri_c,
+                "2": sec_c
+            },
+            "padding": {
+                "top": 1,
+                "right": 3
+            }
+        },
+        "display": {
+            "separator": "  󰄾  ",
+            "color": {
+                "separator": out_c
+            },
+            "key": {
+                "width": 14
+            },
+            "constants": [
+                "────────────────────────────────────────"
+            ]
+        },
+        "modules": [
+            {
+                "type": "title",
+                "format": f"  {{#{pri_c}}}󰣇 {{#1}}{{user-name}}{{#{sec_c}}}@{{host-name}}{{#}}"
+            },
+            {
+                "type": "custom",
+                "format": f"{{#{out_c}}}{{$1}}{{#}}"
+            },
+            {
+                "type": "os",
+                "key": "  OS",
+                "keyColor": pri_c
+            },
+            {
+                "type": "host",
+                "key": "󰌢  Host",
+                "keyColor": pri_c,
+                "format": "{2}"
+            },
+            {
+                "type": "kernel",
+                "key": "  Kernel",
+                "keyColor": pri_c
+            },
+            {
+                "type": "uptime",
+                "key": "󰅐  Uptime",
+                "keyColor": pri_c
+            },
+            {
+                "type": "wm",
+                "key": "  WM",
+                "keyColor": sec_c
+            },
+            {
+                "type": "terminal",
+                "key": "  Terminal",
+                "keyColor": sec_c
+            },
+            {
+                "type": "terminalfont",
+                "key": "  Font",
+                "keyColor": sec_c
+            },
+            {
+                "type": "shell",
+                "key": "  Shell",
+                "keyColor": sec_c
+            },
+            {
+                "type": "cpu",
+                "key": "󰻠  CPU",
+                "keyColor": pri_c
+            },
+            {
+                "type": "gpu",
+                "key": "󰢮  GPU",
+                "keyColor": pri_c
+            },
+            {
+                "type": "memory",
+                "key": "  Memory",
+                "keyColor": pri_c
+            },
+            {
+                "type": "disk",
+                "key": "󰉉  Disk",
+                "keyColor": pri_c,
+                "folders": "/"
+            },
+            {
+                "type": "battery",
+                "key": "󰂀  Battery",
+                "keyColor": sec_c
+            },
+            {
+                "type": "packages",
+                "key": "󰏖  Packages",
+                "keyColor": sec_c
+            },
+            {
+                "type": "custom",
+                "format": f"{{#{out_c}}}{{$1}}{{#}}"
+            },
+            {
+                "type": "colors",
+                "paddingLeft": 2,
+                "symbol": "circle"
+            }
+        ]
+    }
+
+    fastfetch_paths = [
+        os.path.expanduser("~/.config/fastfetch/config.jsonc"),
+        os.path.expanduser("~/Dotfiles/config/fastfetch/config.jsonc"),
+    ]
+    for ff_path in fastfetch_paths:
+        os.makedirs(os.path.dirname(ff_path), exist_ok=True)
+        with open(ff_path, "w") as f:
+            json.dump(fastfetch_cfg, f, indent=2)
+
 def main():
     if len(sys.argv) > 1:
         wallpaper = sys.argv[1]

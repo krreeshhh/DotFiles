@@ -61,7 +61,7 @@ Follow this exact dependency order when rebuilding the desktop environment from 
 
 ## 8. Deploy Configuration Files
 * Deploy directories from `config/` to `~/.config/`:
-  * `hypr/`, `quickshell/`, `dunst/`, `DotFiles/`, `ghostty/`, `yazi/`, `clipse/`, `gtk-3.0/`, `gtk-4.0/`, `environment.d/`, `systemd/user/`, `matugen/`, `dotfiles/`.
+  * `hypr/`, `quickshell/`, `dunst/`, `DotFiles/`, `ghostty/`, `fastfetch/`, `yazi/`, `clipse/`, `gtk-3.0/`, `gtk-4.0/`, `environment.d/`, `systemd/user/`, `matugen/`, `dotfiles/`.
 * Deploy individual files: `dolphinrc`, `kdeglobals`, `mimeapps.list`, `gtkrc-2.0` to `~/.config/` and `~/.gtkrc-2.0`.
 * Deploy `home/.bashrc` and `home/.bash_profile` to `~/`.
 * Set script execution permissions:

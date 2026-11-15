@@ -114,3 +114,4 @@ wget
 rsync
 git
 neovim
+fastfetch
