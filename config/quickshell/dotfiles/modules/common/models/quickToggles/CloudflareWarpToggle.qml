@@ -1,78 +1,51 @@
 import QtQuick
+import Quickshell
+import Quickshell.Io
+import qs
 import qs.services
 import qs.modules.common
 import qs.modules.common.functions
 import qs.modules.common.widgets
-import Quickshell
-import Quickshell.Io
 
 QuickToggleModel {
     id: root
-    name: Translation.tr("Cloudflare WARP")
+    name: Translation.tr("Cloudflare")
 
     toggled: false
     icon: "cloud_lock"
-    
+    statusText: toggled ? Translation.tr("1.1.1.1") : Translation.tr("Off")
+    tooltipText: toggled 
+        ? Translation.tr("Cloudflare DNS Active (1.1.1.1) - Click to restore original DNS") 
+        : Translation.tr("Click to enable Cloudflare 1.1.1.1 DNS")
+
     mainAction: () => {
-        if (toggled) {
-            root.toggled = false
-            Quickshell.execDetached(["warp-cli", "disconnect"])
-        } else {
-            root.toggled = true
-            Quickshell.execDetached(["warp-cli", "connect"])
-        }
+        Quickshell.execDetached(["/home/Krish/.local/bin/cloudflare-dns", "toggle"]);
+        pollTimer.restart();
     }
 
     Process {
-        id: connectProc
-        command: ["warp-cli", "connect"]
-        onExited: (exitCode, exitStatus) => {
-            if (exitCode !== 0) {
-                Quickshell.execDetached(["notify-send", 
-                    Translation.tr("Cloudflare WARP"), 
-                    Translation.tr("Connection failed. Please inspect manually with the <tt>warp-cli</tt> command")
-                    , "-a", "Shell"
-                ])
+        id: checkDnsProc
+        command: ["/home/Krish/.local/bin/cloudflare-dns", "status"]
+        stdout: SplitParser {
+            onRead: data => {
+                root.toggled = (data.trim() === "on");
             }
         }
-    }
-
-    Process {
-        id: registrationProc
-        command: ["warp-cli", "registration", "new"]
-        onExited: (exitCode, exitStatus) => {
-            console.log("Warp registration exited with code and status:", exitCode, exitStatus)
-            if (exitCode === 0) {
-                connectProc.running = true
-            } else {
-                Quickshell.execDetached(["notify-send", 
-                    Translation.tr("Cloudflare WARP"), 
-                    Translation.tr("Registration failed. Please inspect manually with the <tt>warp-cli</tt> command"),
-                    "-a", "Shell"
-                ])
-            }
+        onExited: (exitCode) => {
+            root.toggled = (exitCode === 0);
         }
     }
 
-    Process {
-        id: fetchActiveState
+    Timer {
+        id: pollTimer
+        interval: 2000
         running: true
-        command: ["bash", "-c", "warp-cli status"]
-        stdout: StdioCollector {
-            id: warpStatusCollector
-            onStreamFinished: {
-                if (warpStatusCollector.text.length > 0) {
-                    root.available = true
-                }
-                if (warpStatusCollector.text.includes("Unable")) {
-                    registrationProc.running = true
-                } else if (warpStatusCollector.text.includes("Connected")) {
-                    root.toggled = true
-                } else if (warpStatusCollector.text.includes("Disconnected")) {
-                    root.toggled = false
-                }
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: {
+            if (!checkDnsProc.running) {
+                checkDnsProc.running = true;
             }
         }
     }
-    tooltipText: Translation.tr("Cloudflare WARP (1.1.1.1)")
 }

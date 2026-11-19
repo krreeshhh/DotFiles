@@ -65,10 +65,10 @@ GridLayout {
 
     QuickToggleButton {
         span: 2
-        iconName: "screenshot_region"
-        label: "Screenshot"
-        active: false
-        onClicked: Quickshell.execDetached(["/home/Krish/.config/hypr/scripts/screenshot.sh"])
+        iconName: "cloud_lock"
+        label: CloudflareDns.active ? "Cloudflare 1.1.1.1" : "Cloudflare"
+        active: CloudflareDns.active
+        onClicked: CloudflareDns.toggle()
     }
 
     QuickToggleButton {

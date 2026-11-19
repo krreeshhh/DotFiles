@@ -1,0 +1,159 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# cloudflare-dns - Toggle Cloudflare 1.1.1.1 DNS on Active Connection
+# ==============================================================================
+set -euo pipefail
+
+STATE_DIR="/run/user/$(id -u)/cloudflare-dns"
+mkdir -p "$STATE_DIR"
+STATE_FILE="$STATE_DIR/state"
+BACKUP_FILE="$STATE_DIR/backup.env"
+
+get_active_uuid() {
+    nmcli -t -f UUID,TYPE connection show --active 2>/dev/null | grep -E "wireless|802-11-wireless|ethernet|802-3-ethernet|wifi" | head -n 1 | cut -d: -f1 || true
+}
+
+is_active() {
+    if grep -q "1.1.1.1" /etc/resolv.conf 2>/dev/null; then
+        return 0
+    fi
+    local uuid
+    uuid="$(get_active_uuid)"
+    if [ -n "$uuid" ]; then
+        local dns
+        dns="$(nmcli -g ipv4.dns connection show uuid "$uuid" 2>/dev/null || true)"
+        if [[ "$dns" =~ "1.1.1.1" ]]; then
+            return 0
+        fi
+    fi
+    return 1
+}
+
+enable_cloudflare() {
+    local uuid
+    uuid="$(get_active_uuid)"
+    if [ -z "$uuid" ]; then
+        echo "No active network connection found." >&2
+        return 1
+    fi
+
+    local conn_name
+    conn_name="$(nmcli -g connection.id connection show uuid "$uuid" 2>/dev/null || echo "Network")"
+
+    # Backup previous DNS settings if not already backed up
+    if [ ! -f "$BACKUP_FILE" ]; then
+        local orig_v4_dns orig_v4_ignore orig_v6_dns orig_v6_ignore
+        orig_v4_dns="$(nmcli -g ipv4.dns connection show uuid "$uuid" 2>/dev/null || true)"
+        orig_v4_ignore="$(nmcli -g ipv4.ignore-auto-dns connection show uuid "$uuid" 2>/dev/null || echo "no")"
+        orig_v6_dns="$(nmcli -g ipv6.dns connection show uuid "$uuid" 2>/dev/null || true)"
+        orig_v6_ignore="$(nmcli -g ipv6.ignore-auto-dns connection show uuid "$uuid" 2>/dev/null || echo "no")"
+
+        cat <<EOF > "$BACKUP_FILE"
+ORIG_UUID="$uuid"
+ORIG_V4_DNS="$orig_v4_dns"
+ORIG_V4_IGNORE="$orig_v4_ignore"
+ORIG_V6_DNS="$orig_v6_dns"
+ORIG_V6_IGNORE="$orig_v6_ignore"
+EOF
+    fi
+
+    # Set Cloudflare DNS
+    nmcli connection modify uuid "$uuid" \
+        ipv4.dns "1.1.1.1,1.0.0.1" \
+        ipv4.ignore-auto-dns yes \
+        ipv6.dns "2606:4700:4700::1111,2606:4700:4700::1001" \
+        ipv6.ignore-auto-dns yes 2>/dev/null || true
+
+    nmcli connection up uuid "$uuid" >/dev/null 2>&1 || true
+
+    echo "1" > "$STATE_FILE"
+    echo "Cloudflare 1.1.1.1 DNS enabled on $conn_name."
+
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -a "Cloudflare DNS" -u low -i "network-wireless" "Cloudflare 1.1.1.1 Enabled" "DNS switched to 1.1.1.1 (Cloudflare) on $conn_name" 2>/dev/null || true
+    fi
+}
+
+disable_cloudflare() {
+    local uuid
+    uuid="$(get_active_uuid)"
+    if [ -z "$uuid" ]; then
+        if [ -f "$BACKUP_FILE" ]; then
+            # shellcheck disable=SC1090
+            source "$BACKUP_FILE"
+            uuid="${ORIG_UUID:-}"
+        fi
+    fi
+
+    if [ -z "$uuid" ]; then
+        echo "No network connection to restore." >&2
+        return 1
+    fi
+
+    local conn_name
+    conn_name="$(nmcli -g connection.id connection show uuid "$uuid" 2>/dev/null || echo "Network")"
+
+    if [ -f "$BACKUP_FILE" ]; then
+        # shellcheck disable=SC1090
+        source "$BACKUP_FILE"
+        nmcli connection modify uuid "$uuid" \
+            ipv4.dns "${ORIG_V4_DNS:-}" \
+            ipv4.ignore-auto-dns "${ORIG_V4_IGNORE:-no}" \
+            ipv6.dns "${ORIG_V6_DNS:-}" \
+            ipv6.ignore-auto-dns "${ORIG_V6_IGNORE:-no}" 2>/dev/null || true
+        rm -f "$BACKUP_FILE"
+    else
+        # Default rollback: empty dns, auto-dns enabled
+        nmcli connection modify uuid "$uuid" \
+            ipv4.dns "" \
+            ipv4.ignore-auto-dns no \
+            ipv6.dns "" \
+            ipv6.ignore-auto-dns no 2>/dev/null || true
+    fi
+
+    nmcli connection up uuid "$uuid" >/dev/null 2>&1 || true
+
+    echo "0" > "$STATE_FILE"
+    echo "Cloudflare DNS disabled. Restored original DNS on $conn_name."
+
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -a "Cloudflare DNS" -u low -i "network-wireless" "Cloudflare DNS Disabled" "Restored original network DNS on $conn_name" 2>/dev/null || true
+    fi
+}
+
+status_cloudflare() {
+    if is_active; then
+        echo "on"
+        exit 0
+    else
+        echo "off"
+        exit 1
+    fi
+}
+
+toggle_cloudflare() {
+    if is_active; then
+        disable_cloudflare
+    else
+        enable_cloudflare
+    fi
+}
+
+case "${1:-status}" in
+    on|enable|start)
+        enable_cloudflare
+        ;;
+    off|disable|stop)
+        disable_cloudflare
+        ;;
+    toggle)
+        toggle_cloudflare
+        ;;
+    status)
+        status_cloudflare
+        ;;
+    *)
+        echo "Usage: $0 {on|off|toggle|status}"
+        exit 1
+        ;;
+esac

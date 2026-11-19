@@ -79,8 +79,8 @@
             "widgetsFactor": 1.2,
             "workspaceZoom": 1
         },
-        "thumbnailPath": "/home/Krish/.wallpaper/Nezuko Kamado.png",
-        "wallpaperPath": "/home/Krish/.wallpaper/Nezuko Kamado.png",
+        "thumbnailPath": "/home/Krish/.wallpaper/15.png",
+        "wallpaperPath": "/home/Krish/.wallpaper/15.png",
         "widgets": {
             "clock": {
                 "cookie": {
@@ -182,15 +182,15 @@
             "useUSCS": false
         },
         "workspaces": {
-            "alwaysShowNumbers": false,
+            "alwaysShowNumbers": true,
             "monochromeIcons": true,
             "numberMap": [
                 "1",
                 "2"
             ],
-            "showAppIcons": true,
+            "showAppIcons": false,
             "showNumberDelay": 300,
-            "shown": 15,
+            "shown": 10,
             "useNerdFont": false
         }
     },
@@ -442,12 +442,20 @@
                         "type": "mic"
                     },
                     {
-                        "size": 2,
+                        "size": 1,
                         "type": "audio"
                     },
                     {
-                        "size": 2,
-                        "type": "nightLight"
+                        "size": 1,
+                        "type": "cloudflareWarp"
+                    },
+                    {
+                        "size": 1,
+                        "type": "powerProfile"
+                    },
+                    {
+                        "size": 1,
+                        "type": "notifications"
                     }
                 ]
             },
@@ -496,20 +504,12 @@
             "toggles": [
                 "network",
                 "bluetooth",
-                "easyEffects",
-                "powerProfile",
                 "idleInhibitor",
-                "nightLight",
-                "darkMode",
-                "antiFlashbang",
-                "cloudflareWarp",
                 "mic",
-                "musicRecognition",
-                "notifications",
-                "onScreenKeyboard",
-                "gameMode",
-                "screenSnip",
-                "colorPicker"
+                "audio",
+                "cloudflareWarp",
+                "powerProfile",
+                "notifications"
             ]
         },
         "bar": {
