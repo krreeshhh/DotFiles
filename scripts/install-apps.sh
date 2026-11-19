@@ -82,6 +82,7 @@ SYSTEM_PACKAGES=(
 
 # AI Coding Agents & Platforms
 AI_AGENTS=(
+    "antigravity-cli"           # Google Antigravity Agentic Platform (agy)
     "opencode"                  # OpenCode AI coding agent
     "omp"                       # Oh My Pi coding agent
 )

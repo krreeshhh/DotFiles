@@ -58,6 +58,8 @@ with open(f'{pkg_dir}/aur-optional.txt') as f:
 test('nautilus present in pacman-runtime.txt', 'nautilus' in pac_runtime)
 test('dolphin NOT present in pacman-runtime.txt', 'dolphin' not in pac_runtime)
 test('brave-origin-bin present in aur-optional.txt', 'brave-origin-bin' in aur_optional)
+test('antigravity-cli present in aur-optional.txt', 'antigravity-cli' in aur_optional)
+test('zoom NOT present in aur-optional.txt', 'zoom' not in aur_optional)
 test('helium-browser-bin NOT present in package manifests', 'helium-browser-bin' not in aur_runtime and 'helium-browser-bin' not in aur_optional)
 test('whitesur-icon-theme present in aur-runtime.txt', 'whitesur-icon-theme' in aur_runtime)
 test('bibata-cursor-theme present in aur-runtime.txt', 'bibata-cursor-theme' in aur_runtime)

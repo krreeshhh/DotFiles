@@ -7,7 +7,6 @@ fagram-bin
 localsend-bin
 ab-download-manager-bin
 ventoy-bin
-zoom
 sidra-bin
 
 # Media & Creative
@@ -16,5 +15,6 @@ cliamp-bin
 upscayl-bin
 
 # Development & AI Platforms
+antigravity-cli
 visual-studio-code-bin
 spotify
