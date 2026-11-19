@@ -116,6 +116,19 @@ notify_desktop() {
     done
 }
 
+ensure_wifi_stability() {
+    # Keep Realtek RTL8852BE stable by enforcing disable_ps_mode and disable_aspm_l1/l1ss
+    if [ -w /sys/module/rtw89_core/parameters/disable_ps_mode ]; then
+        echo "Y" > /sys/module/rtw89_core/parameters/disable_ps_mode 2>/dev/null || true
+    fi
+    if [ -w /sys/module/rtw89_pci/parameters/disable_aspm_l1 ]; then
+        echo "Y" > /sys/module/rtw89_pci/parameters/disable_aspm_l1 2>/dev/null || true
+    fi
+    if [ -w /sys/module/rtw89_pci/parameters/disable_aspm_l1ss ]; then
+        echo "Y" > /sys/module/rtw89_pci/parameters/disable_aspm_l1ss 2>/dev/null || true
+    fi
+}
+
 apply_battery_profile() {
     echo "=== [BATTERY MODE] Applying power-saving & brownout-prevention profile ==="
 
@@ -148,11 +161,12 @@ apply_battery_profile() {
         echo " -> NVIDIA dGPU Clocks: Locked to 210-1200 MHz (prevents transient brownouts)"
     fi
 
-    # 5. Enable PCIe ASPM Powersave
+    # 5. PCIe ASPM & Wi-Fi Stability (Keep default to prevent Realtek RTL8852BE Wi-Fi PCIe link corruptions)
     if [ -f /sys/module/pcie_aspm/parameters/policy ]; then
-        echo "powersave" > /sys/module/pcie_aspm/parameters/policy 2>/dev/null || true
-        echo " -> PCIe ASPM: powersave"
+        echo "default" > /sys/module/pcie_aspm/parameters/policy 2>/dev/null || true
+        echo " -> PCIe ASPM: default (prevents Wi-Fi PCIe bus errors)"
     fi
+    ensure_wifi_stability
 
     # 6. Audio Codec Power Saving (turn off DAC/amp after 1s of silence)
     if [ -f /sys/module/snd_hda_intel/parameters/power_save ]; then
@@ -168,21 +182,13 @@ apply_battery_profile() {
         echo " -> Kernel VM: laptop_mode enabled (15s writeback)"
     fi
 
-    # 8. Wi-Fi Power Save
-    if command -v iw >/dev/null 2>&1; then
-        for iface in $(iw dev 2>/dev/null | awk '$1=="Interface"{print $2}'); do
-            iw dev "$iface" set power_save on 2>/dev/null || true
-        done
-        echo " -> Wi-Fi: power_save on"
-    fi
-
-    # 9. ASUS ACPI Platform Profile -> quiet
+    # 8. ASUS ACPI Platform Profile -> quiet
     if [ -f /sys/firmware/acpi/platform_profile ]; then
         echo "quiet" > /sys/firmware/acpi/platform_profile 2>/dev/null || true
         echo " -> ACPI Platform Profile: quiet"
     fi
 
-    # 10. Hyprland Display Refresh Rate -> 60 Hz (saves scanout & GPU mem clocks)
+    # 9. Hyprland Display Refresh Rate -> 60 Hz (saves scanout & GPU mem clocks)
     set_display_refresh "60.00Hz"
     echo " -> Display eDP-1: 60Hz"
 
@@ -228,11 +234,12 @@ apply_ac_profile() {
         echo " -> NVIDIA dGPU Clocks: Reset to full boost (up to 2100 MHz)"
     fi
 
-    # 5. Restore PCIe ASPM policy
+    # 5. Restore PCIe ASPM policy & maintain Wi-Fi stability
     if [ -f /sys/module/pcie_aspm/parameters/policy ]; then
         echo "default" > /sys/module/pcie_aspm/parameters/policy 2>/dev/null || true
         echo " -> PCIe ASPM: default"
     fi
+    ensure_wifi_stability
 
     # 6. Audio Codec Power Saving restore
     if [ -f /sys/module/snd_hda_intel/parameters/power_save ]; then
@@ -266,13 +273,76 @@ apply_ac_profile() {
     echo "AC profile applied successfully."
 }
 
+fix_wifi() {
+    echo "=== [RTW89 WIFI STABILITY FIX] Applying driver & power configuration ==="
+
+    # 1. Create persistent modprobe configuration
+    mkdir -p /etc/modprobe.d
+    cat <<'EOF' > /etc/modprobe.d/rtw89.conf
+# /etc/modprobe.d/rtw89.conf
+# Fix intermittent crashes, firmware LPS sleep lockups, and PCIe ASPM TLP bus errors
+# for Realtek RTL8852BE 802.11ax PCIe Wireless Network Controller on AMD Zen platforms.
+
+options rtw89_core disable_ps_mode=y
+options rtw89_pci disable_aspm_l1=y disable_aspm_l1ss=y
+EOF
+    echo " -> Created /etc/modprobe.d/rtw89.conf"
+
+    # 2. Disable NetworkManager WiFi powersave (2 = disable, 3 = enable)
+    mkdir -p /etc/NetworkManager/conf.d
+    cat <<'EOF' > /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf
+# /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf
+# Disable 802.11 WiFi power save (2 = disable, 3 = enable).
+# Prevents AP disconnections and firmware sleep lockups on Realtek rtw89.
+
+[connection]
+wifi.powersave = 2
+EOF
+    echo " -> Created /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf"
+
+    # 3. Apply live module parameters directly to running kernel (no reboot required)
+    ensure_wifi_stability
+    echo " -> Live sysfs: rtw89_core disable_ps_mode = $(cat /sys/module/rtw89_core/parameters/disable_ps_mode 2>/dev/null || echo 'N/A')"
+    echo " -> Live sysfs: rtw89_pci disable_aspm_l1 = $(cat /sys/module/rtw89_pci/parameters/disable_aspm_l1 2>/dev/null || echo 'N/A')"
+    echo " -> Live sysfs: rtw89_pci disable_aspm_l1ss = $(cat /sys/module/rtw89_pci/parameters/disable_aspm_l1ss 2>/dev/null || echo 'N/A')"
+
+    # 4. Reload NetworkManager configuration
+    if command -v nmcli >/dev/null 2>&1; then
+        nmcli general reload 2>/dev/null || true
+        echo " -> NetworkManager configuration reloaded"
+    fi
+
+    echo "Realtek RTL8852BE Wi-Fi stability fix applied successfully."
+}
+
+reset_wifi() {
+    echo "=== [WIFI RECOVERY] Re-initializing Realtek RTL8852BE ==="
+    if [ -d "/sys/bus/pci/devices/0000:03:00.0" ]; then
+        echo "1" > /sys/bus/pci/devices/0000:03:00.0/remove 2>/dev/null || true
+        sleep 1
+    fi
+    echo "1" > /sys/bus/pci/rescan 2>/dev/null || true
+    sleep 1
+    modprobe -r rtw89_8852be 2>/dev/null || true
+    modprobe -r rtw89_pci 2>/dev/null || true
+    sleep 1
+    modprobe rtw89_8852be 2>/dev/null || true
+    sleep 1
+    ensure_wifi_stability
+    echo "Wi-Fi interface recovery complete."
+}
+
 show_status() {
     local ac_status current_state cpu_boost epp cur_draw refresh_rate bat_cap bat_stat cur_gpu_clock
+    local wifi_ps wifi_aspm_l1 wifi_aspm_l1ss
 
     ac_status="$(find_ac_online)"
     current_state="$(cat "$STATE_FILE" 2>/dev/null || echo "unknown")"
     cpu_boost="$(cat /sys/devices/system/cpu/cpufreq/boost 2>/dev/null || echo "N/A")"
     epp="$(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference 2>/dev/null || echo "N/A")"
+    wifi_ps="$(cat /sys/module/rtw89_core/parameters/disable_ps_mode 2>/dev/null || echo "N/A")"
+    wifi_aspm_l1="$(cat /sys/module/rtw89_pci/parameters/disable_aspm_l1 2>/dev/null || echo "N/A")"
+    wifi_aspm_l1ss="$(cat /sys/module/rtw89_pci/parameters/disable_aspm_l1ss 2>/dev/null || echo "N/A")"
     
     if command -v nvidia-smi >/dev/null 2>&1; then
         cur_draw="$(nvidia-smi --query-gpu=power.draw --format=csv,noheader,nounits 2>/dev/null || echo "N/A") W"
@@ -301,6 +371,9 @@ show_status() {
   CPU Boost (Turbo)   : $([ "$cpu_boost" = "1" ] && echo "Enabled (Up to 4.5 GHz)" || echo "Disabled (Capped at 3.1 GHz)")
   AMD P-State EPP     : $epp
   NVIDIA GPU Clock    : $cur_gpu_clock (Draw: $cur_draw)
+------------------------------------------------------
+  Wi-Fi PS Mode Off   : $([ "$wifi_ps" = "Y" ] && echo "Yes (Protected)" || echo "No (Vulnerable: $wifi_ps)")
+  Wi-Fi ASPM L1/L1SS  : $([ "$wifi_aspm_l1" = "Y" ] && echo "Disabled (Stable)" || echo "Enabled: $wifi_aspm_l1")
 ======================================================
 EOF
 }
@@ -377,8 +450,16 @@ main() {
                 exit 1
             fi
             ;;
+        fix-wifi|wifi-fix)
+            check_root
+            fix_wifi
+            ;;
+        reset-wifi|wifi-reset)
+            check_root
+            reset_wifi
+            ;;
         *)
-            echo "Usage: $0 {auto|battery|ac|toggle|status|update}"
+            echo "Usage: $0 {auto|battery|ac|toggle|status|fix-wifi|reset-wifi|update}"
             exit 1
             ;;
     esac

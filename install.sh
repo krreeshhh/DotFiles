@@ -722,6 +722,19 @@ configure_sddm_theme() {
         sudo udevadm trigger --subsystem-match=usb 2>/dev/null || true
     fi
 
+    if [ -f "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" ]; then
+        log_substep "Configuring /etc/modprobe.d/rtw89.conf (Realtek RTL8852BE Wi-Fi Stability Fix)..."
+        sudo mkdir -p /etc/modprobe.d
+        sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" /etc/modprobe.d/rtw89.conf
+    fi
+
+    if [ -f "$DOTFILES_DIR/system/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf" ]; then
+        log_substep "Configuring /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf (Disable Wi-Fi Power Save)..."
+        sudo mkdir -p /etc/NetworkManager/conf.d
+        sudo cp "$DOTFILES_DIR/system/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf" /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf
+        sudo nmcli general reload 2>/dev/null || true
+    fi
+
     if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-asus-kbd-backlight.rules" ]; then
         log_substep "Configuring /etc/udev/rules.d/99-asus-kbd-backlight.rules (ASUS Keyboard Backlight Permissions)..."
         sudo mkdir -p /etc/udev/rules.d
