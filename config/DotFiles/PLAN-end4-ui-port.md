@@ -7,21 +7,21 @@ License: **GPL-3.0** - fine to fork for personal use; any redistributed fork mus
 
 ## 0. TL;DR
 
-end-4 ships **two complete panel families** (`ii` = "Illogical Impulse", `waffle` = Windows-11-ish),
+end-4 ships **two complete panel families** (`dotfiles` and `waffle` = Windows-11-ish),
 selected at runtime in `shell.qml` and each loaded through `panelFamilies/*Family.qml` → `PanelLoader`.
 
-Everything you asked about lives in the **`ii` family**:
+Everything you asked about lives in the **`dotfiles` family**:
 
 | Surface | end-4 module | ~LOC | Replaces in your setup |
 |---|---|---|---|
-| Top bar | `modules/ii/bar/` (24 files) | ~1 900 | `bar/*` (7 files, 1 010 LOC) |
-| Right sidebar | `modules/ii/sidebarRight/` (60 files) | ~3 500 | `popups/ControlCenter.qml` + `WifiMenu` + `BluetoothMenu` |
-| App launcher | `modules/ii/overview/` (5) + `services/LauncherSearch.qml` | ~1 300 | `popups/AppLauncher.qml` (1 098 LOC) |
-| Session menu | `modules/ii/sessionScreen/` (2) | ~400 | `popups/SessionMenu.qml` (392 LOC) |
+| Top bar | `modules/dotfiles/bar/` (24 files) | ~1 900 | `bar/*` (7 files, 1 010 LOC) |
+| Right sidebar | `modules/dotfiles/sidebarRight/` (60 files) | ~3 500 | `popups/ControlCenter.qml` + `WifiMenu` + `BluetoothMenu` |
+| App launcher | `modules/dotfiles/overview/` (5) + `services/LauncherSearch.qml` | ~1 300 | `popups/AppLauncher.qml` (1 098 LOC) |
+| Session menu | `modules/dotfiles/sessionScreen/` (2) | ~400 | `popups/SessionMenu.qml` (392 LOC) |
 
 Recommended strategy: **surgical port (Option B)** - vendor a curated subset of end-4's
 common widgets/services and rebuild the four surfaces inside your existing
-`Theme.qml` + IPC contract, instead of copying the whole 8 800-line `ii` tree
+`Theme.qml` + IPC contract, instead of copying the whole 8 800-line tree
 (which drags in AI, booru, translation, gCloud, settings app, lock screen, etc.).
 
 Estimated scope: **~7 500–9 000 LOC** of vendored/adapted QML across ~55 files, in 8 phases.
@@ -31,9 +31,9 @@ Estimated scope: **~7 500–9 000 LOC** of vendored/adapted QML across ~55 files
 ## 1. Reference architecture (what makes end-4 tick)
 
 ```
-ii/shell.qml
+dotfiles/shell.qml
  ├─ ReloadPopup, FirstRunExperience, ConflictKiller, Cliphist, Wallpapers…
- └─ panelFamilies/IllogicalImpulseFamily.qml
+ └─ panelFamilies/DotfilesFamily.qml
       ├─ Bar            (Variants → one PanelWindow per monitor)
       ├─ SidebarLeft    (AI/translator/anime)
       ├─ SidebarRight   (quick settings + notifications + calendar)
@@ -49,7 +49,7 @@ Key patterns worth copying:
    Every panel is `visible: GlobalStates.xxxOpen`; no cross-popup `closeImmediate()` spaghetti.
 2. **`GlobalFocusGrab`** - central “click outside / Esc closes the topmost dismissable” service.
    Replaces your per-popup full-screen `MouseArea` dismissers.
-3. **`Config.qml`** - persisted JSON (`~/.config/illogical-impulse/config.json`) with defaults in
+3. **`Config.qml`** - persisted JSON (`~/.config/dotfiles/config.json`) with defaults in
    `modules/common/Config.qml`; every widget has `Config.options.*` switches (bar corner style,
    auto-hide, sidebar toggles, slider visibility…).
 4. **`Appearance.qml`** - the theme engine: `m3colors` (40 M3 roles), 4-layer color system
@@ -65,7 +65,7 @@ Key patterns worth copying:
 
 ## 2. Surface-by-surface UI analysis
 
-### 2.1 Top bar (`modules/ii/bar/`)
+### 2.1 Top bar (`modules/dotfiles/bar/`)
 
 **Window** - `Bar.qml`
 - `Scope` → `Variants` over `Quickshell.screens` (filterable by config `bar.screenList`) →
@@ -107,7 +107,7 @@ Key patterns worth copying:
 **Sizes** - bar 40 px, screen rounding 23, gaps 5, sidebar width 460, elevation margin 10,
 search collapsed/expanded widths 210/360, font scale 10…23 px.
 
-### 2.2 Right sidebar (`modules/ii/sidebarRight/`)
+### 2.2 Right sidebar (`modules/dotfiles/sidebarRight/`)
 
 **Window** - `SidebarRight.qml`
 - `PanelWindow` anchored top/right/bottom, `implicitWidth = 460`, `exclusiveZone: 0`,
@@ -153,9 +153,9 @@ search collapsed/expanded widths 210/360, font scale 10…23 px.
 
 **IPC/shortcuts** - `sidebarRight toggle|open|close`, `GlobalShortcut sidebarRight{Toggle,Open,Close}`.
 
-### 2.3 App launcher - actually the **Overview command palette** (`modules/ii/overview/`)
+### 2.3 App launcher - actually the **Overview command palette** (`modules/dotfiles/overview/`)
 
-Important: end-4's `ii` family has **no icon-grid launcher**. SUPER opens a full-screen
+Important: the `dotfiles` family has **no icon-grid launcher**. SUPER opens a full-screen
 transparent window containing a **shrinking/expanding search card at the top-centre**, with an
 optional workspace overview underneath when the query is empty. (`waffle` has an icon-grid Start
 menu, but it is a separate panel family - don't mix them.)
@@ -181,7 +181,7 @@ menu, but it is a separate panel family - don't mix them.)
 - **Empty query**: `OverviewWidget` - animated grid of workspaces with live window thumbnails,
   drag windows between workspaces, workspace numbers.
 - **Search engine** (`services/LauncherSearch.qml`) unifies: desktop apps, built-in actions
-  (`dark`, `light`, accent colour…), user scripts from `~/.config/illogical-impulse/actions/`,
+  (`dark`, `light`, accent colour…), user scripts from `~/.config/dotfiles/actions/`,
   clipboard history, emoji, calculator (QML math), shell commands, web search fallback,
   plus `LauncherApps` scanning `.desktop` files. `LauncherSearchResult` model carries
   `name/iconName/iconType/type/verb/execute/actions`.
@@ -193,7 +193,7 @@ menu, but it is a separate panel family - don't mix them.)
 rather than as the whole launcher. That preserves your PWA workflow while adopting the
 command-palette UX.
 
-### 2.4 Session / power menu (`modules/ii/sessionScreen/`)
+### 2.4 Session / power menu (`modules/dotfiles/sessionScreen/`)
 
 - Full-screen `PanelWindow` on the focused monitor, `WlrLayer.Overlay`,
   `keyboardFocus: Exclusive`, background = `m3background` with only 5 % (dark) / 12 % (light)
@@ -531,19 +531,19 @@ modules/common/widgets/NavigationRailButton.qml
 modules/common/widgets/StyledToolTip.qml
 modules/common/widgets/StyledText.qml
 modules/common/models/WorkspaceModel.qml
-modules/ii/bar/{BarGroup,Workspaces,ActiveWindow,Resources,Media,ClockWidget,UtilButtons,BatteryIndicator,SysTray,StyledPopup}.qml
-modules/ii/sidebarRight/{SidebarRightContent,QuickSliders,BottomWidgetGroup}.qml
-modules/ii/sidebarRight/quickToggles/androidStyle/*
-modules/ii/sidebarRight/calendar/*
-modules/ii/sessionScreen/*
-modules/ii/overview/{SearchBar,SearchWidget,SearchItem}.qml
+modules/dotfiles/bar/{BarGroup,Workspaces,ActiveWindow,Resources,Media,ClockWidget,UtilButtons,BatteryIndicator,SysTray,StyledPopup}.qml
+modules/dotfiles/sidebarRight/{SidebarRightContent,QuickSliders,BottomWidgetGroup}.qml
+modules/dotfiles/sidebarRight/quickToggles/androidStyle/*
+modules/dotfiles/sidebarRight/calendar/*
+modules/dotfiles/sessionScreen/*
+modules/dotfiles/overview/{SearchBar,SearchWidget,SearchItem}.qml
 services/{ResourceUsage,MprisController,Notifications,LauncherSearch}.qml
 modules/common/functions/{fuzzysort.js,ColorUtils.qml,StringUtils.qml}
 ```
 
 ## Appendix B - explicitly skip
 
-`modules/ii/sidebarLeft/*` (AI, translator, booru), `modules/settings/*`, `settings.qml`,
-`welcome.qml` (first-run wizard), `modules/ii/lock/*`, `modules/ii/dock/*`,
+`modules/dotfiles/sidebarLeft/*` (AI, translator, booru), `modules/settings/*`, `settings.qml`,
+`welcome.qml` (first-run wizard), `modules/dotfiles/lock/*`, `modules/dotfiles/dock/*`,
 `modules/waffle/*`, `services/{Ai,GoogleCloud,Booru,SongRec,Translation,LatexRenderer}.qml`,
-`modules/ii/regionSelector/*`, `modules/ii/polkit/*`, `modules/ii/component/*`.
+`modules/dotfiles/regionSelector/*`, `modules/dotfiles/polkit/*`, `modules/dotfiles/component/*`.

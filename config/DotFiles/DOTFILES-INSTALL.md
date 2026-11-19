@@ -8,7 +8,7 @@ support scripts of your own desktop are kept.
 
 | Path | Purpose |
 |---|---|
-| `~/.config/quickshell/dotfiles/` | Upstream `ii` shell tree (bar, right sidebar, overview, session, OSD, notifications, …) |
+| `~/.config/quickshell/dotfiles/` | Quickshell dotfiles shell tree (bar, right sidebar, overview, session, OSD, notifications, …) |
 | `~/.config/matugen/` | matugen templates + reduced config (only colors.json / color.txt / wallpaper path) |
 | `~/.local/state/quickshell/.venv/` | Python venv with `pillow` + `materialyoucolor` (upstream color scripts) |
 | `~/.local/state/quickshell/user/generated/colors.json` | Material You palette consumed by the shell |
@@ -18,21 +18,10 @@ System packages added: `qt6-positioning`, `kirigami`, `syntax-highlighting`,
 `jq`, `bc`, `cliphist`, `hyprpicker`, `otf-space-grotesk`, `ttf-readex-pro`,
 `ttf-rubik-vf`.
 
-## Local modifications to `ii`
+## Local modifications to the shell tree
 
-- `panelFamilies/DotfilesFamily.qml` (was `IllogicalImpulseFamily.qml`, renamed).
-- Rebranded to **Dotfiles** (2026-11-14): the vendored shell no longer carries
-  the upstream product name/branding. Renames: `~/.config/quickshell/ii` →
-  `~/.config/quickshell/dotfiles`, `~/.config/illogical-impulse` →
-  `~/.config/dotfiles`, `ILLOGICAL_IMPULSE_VIRTUAL_ENV` → `DOTFILES_VIRTUAL_ENV`,
-  shipped icon `dotfiles` (`~/.local/share/icons/hicolor/scalable/apps/dotfiles.svg`),
-  all user-visible strings (settings title, About page, welcome page,
-  translations) now read "Dotfiles", and links point to
-  <https://github.com/krreeshhh/DotFiles>. Upstream attribution is kept
-  (`LICENSE-GPL-3.0`, Vendored-from note above). - `SidebarLeft`, `Cheatsheet`,
-  `Polkit`, and `WallpaperSelector` imports and `PanelLoader`s removed (Cheatsheet,
-  Polkit and WallpaperSelector disabled on request). The sources remain under
-  `modules/dotfiles/{cheatsheet,polkit,wallpaperSelector}/` but are never loaded.
+- `panelFamilies/DotfilesFamily.qml` (renamed from upstream).
+- Fully branded to **Dotfiles**: the vendored shell carries clean Dotfiles branding with paths at `~/.config/quickshell/dotfiles`, `~/.config/dotfiles`, `DOTFILES_VIRTUAL_ENV`, shipped icon `dotfiles` (`~/.local/share/icons/hicolor/scalable/apps/dotfiles.svg`), all user-visible strings (settings title, About page, welcome page, translations) reading "Dotfiles", and links pointing to <https://github.com/krreeshhh/DotFiles>. Upstream attribution is kept (`LICENSE-GPL-3.0`, Vendored-from note above). - `SidebarLeft`, `Cheatsheet`, `Polkit`, and `WallpaperSelector` imports and `PanelLoader`s removed (Cheatsheet, Polkit and WallpaperSelector disabled on request). The sources remain under `modules/dotfiles/{cheatsheet,polkit,wallpaperSelector}/` but are never loaded.
   Note: no polkit agent is running after this removal (your graphical sudo via
   `mechanic-askpass` / launcher auth dialog is unaffected). To re-enable a
   polkit prompt, either re-add the `Polkit` loader here or install e.g.

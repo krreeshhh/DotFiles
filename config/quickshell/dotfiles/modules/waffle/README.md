@@ -3,7 +3,7 @@
 A recreation of Windoes. It's WIP!
 
 - If you install dotfiles fully, you can press Super+Alt+W to switch to this style.
-- If you're just copying the Quickshell config, run the config as usual (`qs -c ii`) then run `qs -c ii ipc call panelFamily cycle`
+- If you're just copying the Quickshell config, run the config as usual (`qs -c dotfiles`) then run `qs -c dotfiles ipc call panelFamily cycle`
 
 ## From EWW version to Quickshell
 

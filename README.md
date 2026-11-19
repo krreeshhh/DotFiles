@@ -69,10 +69,10 @@ This setup is built for performance, aesthetics, and deterministic reproduction 
 | :--- | :--- | :--- |
 | **Compositor** | Hyprland | Configured with native Lua API (`hyprland.lua`), custom gestures, blur layer rules, and hotkey bindings. |
 | **Desktop Shell** | Quickshell (Dotfiles fork of upstream dots-hyprland, GPL-3.0) | QML bar with pill workspace pager, right sidebar (uptime, quick toggles, notification centre, calendar/To-Do/Timer), network and bluetooth controls, audio OSD, and session menu. |
-| **Launcher** | Quickshell AppLauncher (legacy host) | Native QML full-screen application launcher with integrated webapps and plugin management, with an ii-style command palette available via `SUPER + TAB`. |
+| **Launcher** | Quickshell AppLauncher (legacy host) | Native QML full-screen application launcher with integrated webapps and plugin management, with an overview command palette available via `SUPER + TAB`. |
 | **Theme Engine** | Material You (`config/DotFiles`) + `matugen` | Dual engine: `generate-theme.py` for Hyprland/GTK/Dunst/Ghostty, and `matugen` (with `materialyoucolor` venv) for the Dotfiles shell palette. |
 | **Wallpaper Picker** | Custom 3D Carousel | OpenGL and Python wallpaper selector with instant theme regeneration and swww transitions. |
-| **Notifications** | Quickshell (`ii` notification server) | Notifications are owned by the Dotfiles shell; unread badge in the bar, top-right popups. |
+| **Notifications** | Quickshell (Dotfiles notification server) | Notifications are owned by the Dotfiles shell; unread badge in the bar, top-right popups. |
 | **Picture-in-Picture**| Hypr-PiP | Background Python daemon + Chromium browser extension for universal floating video pin management. |
 | **Terminal** | Ghostty | High-performance GPU-accelerated terminal running at 0.20 background opacity with blur. |
 | **File Manager** | Nautilus + Yazi | GTK4 graphical manager (Nautilus) alongside terminal file manager (Yazi). |

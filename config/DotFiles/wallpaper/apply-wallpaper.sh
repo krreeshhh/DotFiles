@@ -129,19 +129,19 @@ if [ "${ENABLE_DYNAMIC_THEME:-true}" = "true" ]; then
     fi
 fi
 
-# Regenerate Dotfiles (ii) Quickshell Material You colors
+# Regenerate Dotfiles Quickshell Material You colors
 if command -v matugen >/dev/null 2>&1 && [ -f "$HOME/.config/matugen/config.toml" ]; then
-    II_CONFIG="$HOME/.config/dotfiles/config.json"
-    II_MODE="dark"
+    DOTFILES_CONFIG="$HOME/.config/dotfiles/config.json"
+    DOTFILES_MODE="dark"
     if command -v gsettings >/dev/null 2>&1; then
         if [ "$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null | tr -d "'")" = "prefer-light" ]; then
-            II_MODE="light"
+            DOTFILES_MODE="light"
         fi
     fi
-    matugen image "$TARGET_WALLPAPER" --source-color-index 0 --mode "$II_MODE" --type scheme-tonal-spot >/dev/null 2>&1 || true
-    if [ -f "$II_CONFIG" ] && command -v jq >/dev/null 2>&1; then
-        jq --arg p "$TARGET_WALLPAPER" '.background.wallpaperPath = $p | .background.thumbnailPath = $p' "$II_CONFIG" > "$II_CONFIG.tmp" \
-            && mv "$II_CONFIG.tmp" "$II_CONFIG" || rm -f "$II_CONFIG.tmp"
+    matugen image "$TARGET_WALLPAPER" --source-color-index 0 --mode "$DOTFILES_MODE" --type scheme-tonal-spot >/dev/null 2>&1 || true
+    if [ -f "$DOTFILES_CONFIG" ] && command -v jq >/dev/null 2>&1; then
+        jq --arg p "$TARGET_WALLPAPER" '.background.wallpaperPath = $p | .background.thumbnailPath = $p' "$DOTFILES_CONFIG" > "$DOTFILES_CONFIG.tmp" \
+            && mv "$DOTFILES_CONFIG.tmp" "$DOTFILES_CONFIG" || rm -f "$DOTFILES_CONFIG.tmp"
     fi
 fi
 

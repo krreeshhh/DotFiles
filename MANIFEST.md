@@ -647,8 +647,8 @@ Total tracked dotfiles items: **1425**
 | `config/quickshell/dotfiles/assets/images/default_wallpaper.png` | `DOTFILES/config/quickshell/dotfiles/assets/images/default_wallpaper.png` | Quickshell / Data | Yes |
 | `config/quickshell/dotfiles/defaults/ai/README.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/README.md` | Documentation / Manifest | Yes |
 | `config/quickshell/dotfiles/defaults/ai/prompts/NoPrompt.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/NoPrompt.md` | Documentation / Manifest | Yes |
-| `config/quickshell/dotfiles/defaults/ai/prompts/ii-Default.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/ii-Default.md` | Documentation / Manifest | Yes |
-| `config/quickshell/dotfiles/defaults/ai/prompts/ii-Imouto.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/ii-Imouto.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/defaults/ai/prompts/Default.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/Default.md` | Documentation / Manifest | Yes |
+| `config/quickshell/dotfiles/defaults/ai/prompts/Imouto.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/Imouto.md` | Documentation / Manifest | Yes |
 | `config/quickshell/dotfiles/defaults/ai/prompts/nyarch-Acchan.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/nyarch-Acchan.md` | Documentation / Manifest | Yes |
 | `config/quickshell/dotfiles/defaults/ai/prompts/w-FourPointedSparkle.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/w-FourPointedSparkle.md` | Documentation / Manifest | Yes |
 | `config/quickshell/dotfiles/defaults/ai/prompts/w-OpenMechanicalFlower.md` | `DOTFILES/config/quickshell/dotfiles/defaults/ai/prompts/w-OpenMechanicalFlower.md` | Documentation / Manifest | Yes |

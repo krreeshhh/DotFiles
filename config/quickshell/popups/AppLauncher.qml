@@ -763,7 +763,7 @@ PanelWindow {
                     }
                 }
 
-                // Clear button (circular, ii state-layer style)
+                // Clear button (circular, state-layer style)
                 Rectangle {
                     visible: searchField.text.length > 0
                     Layout.preferredWidth: 30
@@ -1052,7 +1052,7 @@ PanelWindow {
 
                 Item { Layout.fillWidth: true }
 
-                // Keyboard hints (ii-style key chips)
+                // Keyboard hints (key chips)
                 Row {
                     spacing: 14
                     Layout.alignment: Qt.AlignVCenter

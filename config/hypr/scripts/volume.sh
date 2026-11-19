@@ -56,7 +56,7 @@ fi
 VOL_NUM=$(echo "$VOL_RAW" | grep -oP '\d+(\.\d+)?' | head -n1 || echo "0.5")
 VOL_PCT=$(python3 -c "import sys; print(min(100, round(float('$VOL_NUM') * 100)))" 2>/dev/null || echo "50")
 
-# Dispatch to Quickshell OSD (ii auto-detects; trigger as fallback)
+# Dispatch to Quickshell OSD (dotfiles shell auto-detects; trigger as fallback)
 if command -v quickshell >/dev/null 2>&1; then
     quickshell -p "$HOME/.config/quickshell/dotfiles" ipc call osdVolume trigger >/dev/null 2>&1 || \
     quickshell ipc -p "$HOME/.config/quickshell" call osd volume "$VOL_PCT" "$IS_MUTED" >/dev/null 2>&1 || true
