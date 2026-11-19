@@ -561,12 +561,12 @@ PanelWindow {
     // Main launcher card (tonal layers, rounded, soft border)
     Rectangle {
         id: card
-        width: 560
-        height: 536
+        width: 580
+        height: 540
         anchors.centerIn: parent
-        radius: Theme.roundingLarge
-        color: Theme.colLayer0
-        border.color: Theme.colLayer1Border
+        radius: 20
+        color: Qt.rgba(Theme.background.r, Theme.background.g, Theme.background.b, 0.82)
+        border.color: Qt.rgba(1, 1, 1, 0.12)
         border.width: 1
         clip: true
 
@@ -580,19 +580,19 @@ PanelWindow {
             onClicked: {}
         }
 
-        // 1. Pill search bar (ii style)
+        // 1. Rounded-xl search bar
         Rectangle {
             id: searchBar
             anchors {
                 top: parent.top
                 left: parent.left
                 right: parent.right
-                margins: 12
+                margins: 14
             }
-            height: 56
-            radius: Theme.roundingFull
-            color: Theme.colLayer1
-            border.color: Theme.colLayer2Border
+            height: 52
+            radius: 14
+            color: Qt.rgba(1, 1, 1, 0.05)
+            border.color: searchField.activeFocus ? Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.40) : Qt.rgba(1, 1, 1, 0.08)
             border.width: 1
 
             RowLayout {
@@ -603,18 +603,18 @@ PanelWindow {
 
                 // Morphed symbol tile (changes shape with view)
                 Rectangle {
-                    Layout.preferredWidth: 36
-                    Layout.preferredHeight: 36
-                    radius: Theme.roundingFull
-                    color: root.currentView.startsWith("remove") ? Theme.colErrorContainer : root.currentView === "webapps" ? Theme.colSecondaryContainer : Theme.colLayer2
+                    Layout.preferredWidth: 34
+                    Layout.preferredHeight: 34
+                    radius: 10
+                    color: root.currentView.startsWith("remove") ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.20) : root.currentView === "webapps" ? Qt.rgba(Theme.secondary.r, Theme.secondary.g, Theme.secondary.b, 0.20) : Qt.rgba(1, 1, 1, 0.06)
                     Behavior on color { ColorAnimation { duration: 120 } }
 
                     Sym {
                         anchors.centerIn: parent
                         text: root.currentView.startsWith("remove") ? "delete_forever" : root.currentView === "webapps" ? "language" : "search"
-                        symbolSize: 20
+                        symbolSize: 19
                         fillAmount: 1
-                        symbolColor: root.currentView.startsWith("remove") ? Theme.colOnErrorContainer : root.currentView === "webapps" ? Theme.colOnSecondaryContainer : Theme.colSubtext
+                        symbolColor: root.currentView.startsWith("remove") ? Theme.colorError : root.currentView === "webapps" ? Theme.secondary : (searchField.text.length > 0 ? Theme.primary : Qt.rgba(1, 1, 1, 0.60))
                     }
                 }
 
@@ -623,9 +623,9 @@ PanelWindow {
                     id: searchField
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignVCenter
-                    font.family: Theme.fontFamily
+                    font.family: "Google Sans Flex"
                     font.pixelSize: 15
-                    color: Theme.colOnLayer0
+                    color: "#FFFFFF"
                     selectionColor: Theme.primary
                     selectedTextColor: Theme.colOnPrimary
                     clip: true
@@ -638,9 +638,9 @@ PanelWindow {
                             if (root.currentView === "webapps") return "Search Web Apps or press Left to go back..";
                             return "Search applications, web apps, tools..";
                         }
-                        font.family: Theme.fontFamily
+                        font.family: "Google Sans Flex"
                         font.pixelSize: 15
-                        color: Theme.colSubtext
+                        color: Qt.rgba(1, 1, 1, 0.40)
                         visible: !searchField.text && !searchField.inputMethodComposing
                         verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
@@ -818,16 +818,32 @@ PanelWindow {
                 property bool isSelected: index === root.selectedIndex
                 property bool isDelete: modelData.type === "delete_webapp"
 
-                // ii-style rounded selection tile
+                // Refined glass selection tile with subtle accent pill
                 Rectangle {
                     id: rowBg
                     anchors.fill: parent
                     anchors.leftMargin: 6
                     anchors.rightMargin: 6
                     radius: Theme.roundingNormal
-                    color: isSelected ? (isDelete ? Theme.colErrorContainer : Theme.colPrimaryContainer)
-                                      : (mouseArea.containsMouse ? Theme.colLayer1 : "transparent")
+                    color: isSelected ? (isDelete ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.20) : Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.15))
+                                      : (mouseArea.containsMouse ? Qt.rgba(1, 1, 1, 0.05) : "transparent")
+                    border.width: isSelected ? 1 : 0
+                    border.color: isSelected ? (isDelete ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.40) : Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.32)) : "transparent"
                     Behavior on color { ColorAnimation { duration: 90 } }
+
+                    // Elegant accent indicator pill on the left edge
+                    Rectangle {
+                        anchors.left: parent.left
+                        anchors.leftMargin: 4
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: 3
+                        height: isSelected ? 22 : 0
+                        radius: 2
+                        color: isDelete ? Theme.colorError : Theme.primary
+                        opacity: isSelected ? 1.0 : 0.0
+                        Behavior on height { NumberAnimation { duration: 110; easing.type: Easing.OutCubic } }
+                        Behavior on opacity { NumberAnimation { duration: 90 } }
+                    }
                 }
 
                 RowLayout {
@@ -845,11 +861,10 @@ PanelWindow {
                         Rectangle { // Fallback tile when icon missing/ready
                             id: fallbackTile
                             anchors.fill: parent
-                            radius: 9
-                            color: {
-                                if (isSelected) return isDelete ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.28) : Qt.rgba(Theme.primaryContainer.r, Theme.primaryContainer.g, Theme.primaryContainer.b, 0.55);
-                                return Theme.colLayer2;
-                            }
+                            radius: 10
+                            color: isSelected ? (isDelete ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.22) : Qt.rgba(1, 1, 1, 0.09)) : Qt.rgba(1, 1, 1, 0.05)
+                            border.width: 1
+                            border.color: isSelected ? Qt.rgba(1, 1, 1, 0.12) : Qt.rgba(1, 1, 1, 0.04)
                             visible: !appIcon.visible || appIcon.status !== Image.Ready
                             Behavior on color { ColorAnimation { duration: 90 } }
 
@@ -858,7 +873,7 @@ PanelWindow {
                                 text: root.getFallbackGlyph(modelData)
                                 symbolSize: 19
                                 fillAmount: 1
-                                symbolColor: isSelected ? (isDelete ? Theme.colOnErrorContainer : Theme.colOnPrimaryContainer) : Theme.colSubtext
+                                symbolColor: isSelected ? (isDelete ? Theme.colorError : "#FFFFFF") : Qt.rgba(1, 1, 1, 0.70)
                             }
                         }
 
@@ -881,24 +896,25 @@ PanelWindow {
                     ColumnLayout {
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignVCenter
-                        spacing: 1
+                        spacing: 2
 
-                        Text { // small type/subtitle line (ii puts the type above the name)
+                        Text { // small type/subtitle line
                             text: modelData.subtitle || ""
-                            font.family: Theme.fontFamily
+                            font.family: "Google Sans Flex"
                             font.pixelSize: 10
-                            color: isSelected ? (isDelete ? Qt.lighter(Theme.colOnErrorContainer, 1.1) : Qt.lighter(Theme.colOnPrimaryContainer, 1.1)) : Theme.colSubtext
+                            font.weight: Font.Normal
+                            color: isSelected ? Qt.rgba(1, 1, 1, 0.65) : Qt.rgba(1, 1, 1, 0.40)
                             visible: text.length > 0
                             elide: Text.ElideRight
                             Layout.fillWidth: true
                         }
 
-                        Text { // app name
+                        Text { // app name - ALWAYS pure white and crystal clear
                             text: modelData.name || ""
-                            font.family: Theme.fontFamily
+                            font.family: "Google Sans Flex"
                             font.pixelSize: 13
-                            font.weight: isSelected ? Font.Medium : Font.Normal
-                            color: isSelected ? (isDelete ? Theme.colOnErrorContainer : Theme.colOnPrimaryContainer) : Theme.colOnLayer0
+                            font.weight: isSelected ? Font.DemiBold : Font.Normal
+                            color: "#FFFFFF"
                             elide: Text.ElideRight
                             Layout.fillWidth: true
                         }
@@ -910,7 +926,9 @@ PanelWindow {
                         height: 22
                         Layout.preferredWidth: chipText.implicitWidth + 16
                         radius: Theme.roundingFull
-                        color: isSelected ? (isDelete ? Theme.colErrorContainer : Theme.colPrimaryContainerActive) : Theme.colLayer2
+                        color: isSelected ? (isDelete ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.20) : Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.18)) : Qt.rgba(1, 1, 1, 0.06)
+                        border.width: 1
+                        border.color: isSelected ? (isDelete ? Qt.rgba(Theme.colorError.r, Theme.colorError.g, Theme.colorError.b, 0.35) : Qt.rgba(Theme.primary.r, Theme.primary.g, Theme.primary.b, 0.32)) : Qt.rgba(1, 1, 1, 0.08)
                         Behavior on color { ColorAnimation { duration: 90 } }
 
                         Text {
@@ -924,10 +942,10 @@ PanelWindow {
                                 if (modelData.action === "remove") return "Remove";
                                 return "";
                             }
-                            font.family: Theme.fontFamily
-                            font.pixelSize: 9
+                            font.family: "Google Sans Flex"
+                            font.pixelSize: 10
                             font.weight: Font.Medium
-                            color: isSelected ? (isDelete ? Theme.colOnErrorContainer : Theme.colOnPrimaryContainer) : Theme.colSubtext
+                            color: isSelected ? (isDelete ? Theme.colorError : Theme.primary) : Qt.rgba(1, 1, 1, 0.65)
                         }
                     }
                 }
@@ -1026,9 +1044,9 @@ PanelWindow {
                             if (root.searchText.length > 0) return c + (c === 1 ? " match" : " matches");
                             return c + " applications";
                         }
-                        font.family: Theme.fontFamily
+                        font.family: "Google Sans Flex"
                         font.pixelSize: 11
-                        color: Theme.colSubtext
+                        color: Qt.rgba(1, 1, 1, 0.50)
                     }
                 }
 
@@ -1056,9 +1074,9 @@ PanelWindow {
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             text: "navigate"
-                            font.family: Theme.fontFamily
+                            font.family: "Google Sans Flex"
                             font.pixelSize: 10
-                            color: Theme.colSubtext
+                            color: Qt.rgba(1, 1, 1, 0.45)
                         }
                     }
 
@@ -1066,22 +1084,22 @@ PanelWindow {
                         spacing: 6
                         Rectangle {
                             width: 24; height: 19; radius: 6
-                            color: Theme.colLayer2
-                            border.color: Theme.colLayer2Border; border.width: 1
+                            color: Qt.rgba(1, 1, 1, 0.08)
+                            border.color: Qt.rgba(1, 1, 1, 0.12); border.width: 1
                             Text {
                                 anchors.centerIn: parent
                                 text: "\u21B5"
-                                font.family: Theme.fontFamily
+                                font.family: "Google Sans Flex"
                                 font.pixelSize: 10
-                                color: Theme.colOnLayer1
+                                color: "#FFFFFF"
                             }
                         }
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             text: "launch"
-                            font.family: Theme.fontFamily
+                            font.family: "Google Sans Flex"
                             font.pixelSize: 10
-                            color: Theme.colSubtext
+                            color: Qt.rgba(1, 1, 1, 0.45)
                         }
                     }
 
@@ -1089,22 +1107,22 @@ PanelWindow {
                         spacing: 6
                         Rectangle {
                             width: 30; height: 19; radius: 6
-                            color: Theme.colLayer2
-                            border.color: Theme.colLayer2Border; border.width: 1
+                            color: Qt.rgba(1, 1, 1, 0.08)
+                            border.color: Qt.rgba(1, 1, 1, 0.12); border.width: 1
                             Text {
                                 anchors.centerIn: parent
                                 text: "esc"
-                                font.family: Theme.fontFamily
+                                font.family: "Google Sans Flex"
                                 font.pixelSize: 9
-                                color: Theme.colOnLayer1
+                                color: "#FFFFFF"
                             }
                         }
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             text: "close"
-                            font.family: Theme.fontFamily
+                            font.family: "Google Sans Flex"
                             font.pixelSize: 10
-                            color: Theme.colSubtext
+                            color: Qt.rgba(1, 1, 1, 0.45)
                         }
                     }
                 }

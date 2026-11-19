@@ -4,3 +4,4 @@ adwaita-fonts
 noto-fonts
 noto-fonts-emoji
 terminus-font
+ttf-material-symbols-variable
