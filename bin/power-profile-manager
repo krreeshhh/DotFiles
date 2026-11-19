@@ -176,7 +176,13 @@ apply_battery_profile() {
         echo " -> Wi-Fi: power_save on"
     fi
 
-    # 9. Hyprland Display Refresh Rate -> 60 Hz (saves scanout & GPU mem clocks)
+    # 9. ASUS ACPI Platform Profile -> quiet
+    if [ -f /sys/firmware/acpi/platform_profile ]; then
+        echo "quiet" > /sys/firmware/acpi/platform_profile 2>/dev/null || true
+        echo " -> ACPI Platform Profile: quiet"
+    fi
+
+    # 10. Hyprland Display Refresh Rate -> 60 Hz (saves scanout & GPU mem clocks)
     set_display_refresh "60.00Hz"
     echo " -> Display eDP-1: 60Hz"
 
@@ -242,7 +248,13 @@ apply_ac_profile() {
         echo " -> Kernel VM: standard mode (5s writeback)"
     fi
 
-    # 8. Hyprland Display Refresh Rate -> 144 Hz
+    # 8. ASUS ACPI Platform Profile -> balanced / performance
+    if [ -f /sys/firmware/acpi/platform_profile ]; then
+        echo "performance" > /sys/firmware/acpi/platform_profile 2>/dev/null || true
+        echo " -> ACPI Platform Profile: performance"
+    fi
+
+    # 9. Hyprland Display Refresh Rate -> 144 Hz
     set_display_refresh "144.00Hz"
     echo " -> Display eDP-1: 144Hz"
 
@@ -273,6 +285,8 @@ show_status() {
     refresh_rate="$(get_display_hz)"
     bat_cap="$(cat /sys/class/power_supply/BAT1/capacity 2>/dev/null || echo "N/A")%"
     bat_stat="$(cat /sys/class/power_supply/BAT1/status 2>/dev/null || echo "N/A")"
+    local platform_prof
+    platform_prof="$(cat /sys/firmware/acpi/platform_profile 2>/dev/null || echo "N/A")"
 
     cat <<EOF
 ======================================================
@@ -282,6 +296,7 @@ show_status() {
   AC Adapter Online   : $([ "$ac_status" = "1" ] && echo "Yes (Plugged In)" || echo "No (On Battery)")
   Battery Level       : $bat_cap ($bat_stat)
   Display (eDP-1)     : $refresh_rate
+  Platform Profile    : $platform_prof
 ------------------------------------------------------
   CPU Boost (Turbo)   : $([ "$cpu_boost" = "1" ] && echo "Enabled (Up to 4.5 GHz)" || echo "Disabled (Capped at 3.1 GHz)")
   AMD P-State EPP     : $epp
@@ -352,9 +367,11 @@ main() {
             check_root
             local src="${2:-/home/Krish/.local/bin/power-profile-manager}"
             if [ -f "$src" ]; then
-                cp "$src" /usr/local/bin/power-profile-manager
-                chmod 0755 /usr/local/bin/power-profile-manager
+                cp "$src" /usr/local/bin/power-profile-manager.tmp
+                chmod 0755 /usr/local/bin/power-profile-manager.tmp
+                mv -f /usr/local/bin/power-profile-manager.tmp /usr/local/bin/power-profile-manager
                 echo "Successfully updated /usr/local/bin/power-profile-manager from $src"
+                exit 0
             else
                 echo "Error: Source file $src not found." >&2
                 exit 1

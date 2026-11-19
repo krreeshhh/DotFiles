@@ -70,4 +70,12 @@ GridLayout {
         active: false
         onClicked: Quickshell.execDetached(["/home/Krish/.config/hypr/scripts/screenshot.sh"])
     }
+
+    QuickToggleButton {
+        span: 4
+        iconName: PowerProfile.isBattery ? "energy_savings_leaf" : "local_fire_department"
+        label: PowerProfile.isBattery ? "Power: Battery Saver" : "Power: Performance"
+        active: PowerProfile.isBattery
+        onClicked: PowerProfile.toggle()
+    }
 }

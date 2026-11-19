@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell
-import Quickshell.Services.UPower
+import Quickshell.Io
 import qs
 import qs.services
 import qs.modules.common
@@ -8,32 +8,51 @@ import qs.modules.common.functions
 import qs.modules.common.widgets
 
 QuickToggleModel {
+    id: root
     name: Translation.tr("Power Profile")
-    toggled: PowerProfiles.profile !== PowerProfile.Balanced
-    icon: switch(PowerProfiles.profile) {
-        case PowerProfile.PowerSaver: return "energy_savings_leaf"
-        case PowerProfile.Balanced: return "airwave"
-        case PowerProfile.Performance: return "local_fire_department"
-    }
-    statusText: switch(PowerProfiles.profile) {
-        case PowerProfile.PowerSaver: return "Power Saver"
-        case PowerProfile.Balanced: return "Balanced"
-        case PowerProfile.Performance: return "Performance"
-    }
-    
+
+    property string profileState: "ac"
+
+    toggled: profileState === "battery"
+    icon: (profileState === "battery") ? "energy_savings_leaf" : "local_fire_department"
+    statusText: (profileState === "battery") ? Translation.tr("Battery Saver") : Translation.tr("Performance")
+    tooltipText: (profileState === "battery")
+        ? Translation.tr("Battery Saver: CPU 3.1GHz cap, GPU 1200MHz lock, 60Hz")
+        : Translation.tr("AC Performance: CPU 4.5GHz Boost, Full GPU, 144Hz")
+
     mainAction: () => {
-        if (PowerProfiles.hasPerformanceProfile) {
-            switch(PowerProfiles.profile) {
-                case PowerProfile.PowerSaver: PowerProfiles.profile = PowerProfile.Balanced
-                break;
-                case PowerProfile.Balanced: PowerProfiles.profile = PowerProfile.Performance
-                break;
-                case PowerProfile.Performance: PowerProfiles.profile = PowerProfile.PowerSaver
-                break;
+        Quickshell.execDetached(["sudo", "/usr/local/bin/power-profile-manager", "toggle"]);
+        checkTimer.restart();
+    }
+
+    altAction: () => {
+        Quickshell.execDetached(["sudo", "/usr/local/bin/power-profile-manager", "auto"]);
+        checkTimer.restart();
+    }
+
+    Process {
+        id: readStateProc
+        running: true
+        command: ["cat", "/run/power-profile-state"]
+        stdout: SplitParser {
+            onRead: data => {
+                const s = data.trim();
+                if (s === "battery" || s === "ac") {
+                    root.profileState = s;
+                }
             }
-        } else {
-            PowerProfiles.profile = PowerProfiles.profile == PowerProfile.Balanced ? PowerProfile.PowerSaver : PowerProfile.Balanced
         }
     }
-    tooltipText: Translation.tr("Click to cycle through power profiles")
+
+    Timer {
+        id: checkTimer
+        interval: 1500
+        running: true
+        repeat: true
+        onTriggered: {
+            if (!readStateProc.running) {
+                readStateProc.running = true;
+            }
+        }
+    }
 }
