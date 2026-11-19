@@ -16,9 +16,9 @@ import argparse
 import subprocess
 from PIL import Image, ImageDraw, ImageOps
 
-WALLPAPER_DIR = "/home/Krish/.wallpaper"
+WALLPAPER_DIR = os.path.expanduser("~/.wallpaper")
 GRUB_THEME_DIR = "/boot/grub/themes/qylock-sword"
-DOTFILES_THEME_DIR = "/home/Krish/Dotfiles/assets/themes/grub/qylock-sword"
+DOTFILES_THEME_DIR = os.path.expanduser("~/Dotfiles/assets/themes/grub/qylock-sword")
 STATE_FILE = os.path.expanduser("~/.cache/last_grub_wallpaper")
 SYSTEM_STATE_FILE = "/var/tmp/last_grub_wallpaper"
 TARGET_WIDTH = 1920

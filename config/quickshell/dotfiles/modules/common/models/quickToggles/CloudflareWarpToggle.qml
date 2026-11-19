@@ -30,7 +30,7 @@ QuickToggleModel {
         root.toggled = !root.toggled;
 
         // 2. Execute DNS change in background; notification will fire upon completion
-        dnsProcess.command = ["/home/Krish/.local/bin/cloudflare-dns", root.toggled ? "on" : "off"];
+        dnsProcess.command = [(Quickshell.env ? Quickshell.env("HOME") : "") + "/.local/bin/cloudflare-dns", root.toggled ? "on" : "off"];
         dnsProcess.running = true;
     }
 
@@ -45,7 +45,7 @@ QuickToggleModel {
 
     Process {
         id: checkDnsProc
-        command: ["/home/Krish/.local/bin/cloudflare-dns", "status"]
+        command: [(Quickshell.env ? Quickshell.env("HOME") : "") + "/.local/bin/cloudflare-dns", "status"]
         stdout: SplitParser {
             onRead: data => {
                 if (!root.isPending) {

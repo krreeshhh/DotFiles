@@ -7,15 +7,15 @@ QtObject {
     id: root
 
     function lock() {
-        Quickshell.execDetached(["/home/Krish/.config/hypr/scripts/lock.sh"]);
+        Quickshell.execDetached([(Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/lock.sh"]);
     }
 
     function logout() {
-        Quickshell.execDetached(["/home/Krish/.config/hypr/scripts/logout.sh"]);
+        Quickshell.execDetached([(Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/logout.sh"]);
     }
 
     function suspend() {
-        Quickshell.execDetached(["/home/Krish/.config/hypr/scripts/suspend.sh"]);
+        Quickshell.execDetached([(Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/suspend.sh"]);
     }
 
     function hibernate() {

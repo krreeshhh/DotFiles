@@ -15,7 +15,7 @@ Singleton {
     inhibit: false
 
     onInhibitChanged: {
-        Quickshell.execDetached(["bash", "/home/Krish/.config/hypr/scripts/caffeine.sh", root.inhibit ? "on" : "off"]);
+        Quickshell.execDetached(["bash", (Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/caffeine.sh", root.inhibit ? "on" : "off"]);
     }
 
     Connections {
@@ -26,7 +26,7 @@ Singleton {
             } else {
                 Persistent.states.idle.inhibit = root.inhibit;
             }
-            Quickshell.execDetached(["bash", "/home/Krish/.config/hypr/scripts/caffeine.sh", root.inhibit ? "on" : "off"]);
+            Quickshell.execDetached(["bash", (Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/caffeine.sh", root.inhibit ? "on" : "off"]);
         }
     }
 

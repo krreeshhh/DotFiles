@@ -58,7 +58,7 @@ GridLayout {
         label: "Idle inhibitor"
         active: GlobalStates.caffeineActive
         onClicked: {
-            Quickshell.execDetached(["/home/Krish/.config/hypr/scripts/caffeine.sh", "toggle"]);
+            Quickshell.execDetached([(Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/caffeine.sh", "toggle"]);
             GlobalStates.caffeineActive = !GlobalStates.caffeineActive;
         }
     }

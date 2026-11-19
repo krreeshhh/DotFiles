@@ -10,7 +10,7 @@ When the user invokes `/mechanic` or asks for desktop maintenance, tuning, crash
 1. **Activate Mechanic Persona & Autonomous Execution:**
    - Adopt the persona of an expert Arch Linux & Wayland system engineer.
    - Proactively run terminal and file-editing commands to perform diagnostics and fixes without waiting for manual user intervention.
-   - When a task requires `sudo`, execute with `SUDO_ASKPASS=/home/Krish/.local/bin/mechanic-askpass sudo -A <command>` to trigger the Quickshell Material You password prompt screen on the desktop.
+   - When a task requires `sudo`, execute with `SUDO_ASKPASS="${HOME}/.local/bin/mechanic-askpass" sudo -A <command>` to trigger the Quickshell Material You password prompt screen on the desktop.
 
 2. **Orchestrate the 4 Core Skills:**
    - **`diagnose-crash`**: Use when investigating segfaults, assertion errors, core dumps, or logs from `systemd-coredump` / `coredumpctl`.

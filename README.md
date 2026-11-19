@@ -146,22 +146,44 @@ git clone https://github.com/krreeshhh/DotFiles.git ~/Dotfiles
 cd ~/Dotfiles
 ```
 
-### 2. Run the Installer
+### 2. Universal Hardware Detection & Launcher
 
-The installer automatically detects hardware (including NVIDIA GPUs), configures pacman/AUR packages, sets up systemd user units, deploys config trees, installs SDDM and GRUB themes, and initializes the dynamic theme engine.
+The suite features an Intelligent Hardware Detection Engine (`install.sh`) that probes the host environment and deploys the appropriate drivers, microcode, kernel headers, hardware acceleration, and quirk fixes for any Arch Linux installation:
+
+* **CPU Microcode:** Auto-probes Intel (`intel-ucode`) and AMD (`amd-ucode`).
+* **Kernel Headers:** Automatically pairs with `linux`, `linux-lts`, `linux-zen`, or `linux-hardened`.
+* **Graphics Architecture:**
+  * **NVIDIA:** Distinguishes Turing+ cards (`nvidia-open-dkms`, modeset, early KMS, power management) from older architectures (`nvidia-dkms`).
+  * **AMD Radeon:** Deploys Mesa, Vulkan (`vulkan-radeon`), and VA-API acceleration.
+  * **Intel Graphics:** Configures Iris Xe / Arc graphics with `vulkan-intel` and `intel-media-driver`.
+  * **Virtual Machines:** Detects QEMU, KVM, VirtualBox, and VMware, deploying matching guest integration daemons.
+* **Chassis & Power Management:** Automatically scales CPU boost, display refresh rate, and power states for laptops vs desktops.
+* **Hardware Quirks:** Auto-detects and patches Realtek Wi-Fi/Bluetooth power bugs, ASUS WMI platforms, and audio DSP controllers (`sof-firmware`).
+
+#### Launch Options
 
 ```bash
-# Standard Core Installation (Hyprland + Quickshell + Drivers + UI)
+# Interactive Universal Launcher Menu
+./install.sh
+
+# Probe and display hardware diagnostics without making changes
+./install.sh --scan
+
+# Standard Core Installation (Hyprland + Quickshell + Auto-detected Drivers)
 ./install.sh --core
 
-# Full Desktop Installation (Core + All Browsers + Media Apps + Dev Tools)
+# Full Desktop Installation (Core Desktop + All Browsers + Media & Dev Tools)
 ./install.sh --all
 
-# Deploy Config Files Only (Skip package installations)
-./install.sh --config-only
-```
+# Auto-detect and install driver stack only
+./install.sh --drivers-only
 
-You can also run `./install.sh` without flags for an interactive CLI menu.
+# Deploy configuration files only (Zero package installs, path adaptation only)
+./install.sh --config-only
+
+# Unattended automated installation
+./install.sh --auto
+```
 
 ---
 

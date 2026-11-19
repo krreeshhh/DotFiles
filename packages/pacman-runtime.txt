@@ -93,19 +93,11 @@ bc
 cliphist
 hyprpicker
 
-# Kernel, Headers & NVIDIA Open Drivers
+# Base System Build Tools & Firmware
 base
 base-devel
-linux-lts
-linux-lts-headers
 linux-firmware
-amd-ucode
 dkms
-nvidia-open-dkms
-nvidia-utils
-libva-nvidia-driver
-efibootmgr
-grub
 
 # Essential Desktop Tools & System Libs
 ntp

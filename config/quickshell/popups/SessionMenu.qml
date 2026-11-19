@@ -343,7 +343,7 @@ PanelWindow {
             desc: "Secure the session and turn off screen",
             icon: "󰌾",
             shortcut: "1",
-            cmd: ["/home/Krish/.config/hypr/scripts/lock.sh"],
+            cmd: [(Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/lock.sh"],
             isDanger: false
         },
         {
@@ -352,7 +352,7 @@ PanelWindow {
             desc: "Exit Hyprland and return to display manager",
             icon: "󰍃",
             shortcut: "2",
-            cmd: ["/home/Krish/.config/hypr/scripts/logout.sh"],
+            cmd: [(Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/logout.sh"],
             isDanger: false
         },
         {
@@ -361,7 +361,7 @@ PanelWindow {
             desc: "Put the system into low-power sleep mode",
             icon: "󰒲",
             shortcut: "3",
-            cmd: ["/home/Krish/.config/hypr/scripts/suspend.sh"],
+            cmd: [(Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/suspend.sh"],
             isDanger: false
         },
         {

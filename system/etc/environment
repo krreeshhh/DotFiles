@@ -3,5 +3,4 @@
 #
 # Syntax: simple "KEY=VAL" pairs on separate lines
 #
-LIBVA_DRIVER_NAME=nvidia
 MOZ_DISABLE_RDD_SANDBOX=1

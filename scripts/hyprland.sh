@@ -130,8 +130,8 @@ configure_mirrors() {
         log_step "1/4" "Configuring Pacman Mirrors via Reflector"
         log_substep "Ensuring reflector is installed..."
         sudo pacman -S --needed --noconfirm reflector
-        log_substep "Finding top 5 fastest mirrors for India..."
-        sudo reflector --country India --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+        log_substep "Finding fastest HTTPS mirrors via reflector..."
+        sudo reflector --protocol https --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
         log_substep "Refreshing pacman database..."
         sudo pacman -Syy
         log_success "Pacman mirrorlist updated successfully."

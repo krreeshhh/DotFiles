@@ -4,10 +4,10 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/home/Krish/.local/bin/crash-watch
+ExecStart=%h/.local/bin/crash-watch
 Restart=always
 RestartSec=3
-Environment=PATH=/home/Krish/.local/bin:/usr/local/bin:/usr/bin
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
 
 [Install]
 WantedBy=default.target

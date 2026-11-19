@@ -9,10 +9,5 @@ sddm.service
 NetworkManager.service
 bluetooth.service
 
-# Hardware & Power Management (NVIDIA VRAM preservation during sleep/hibernate)
-nvidia-suspend.service
-nvidia-resume.service
-nvidia-hibernate.service
-
 # Time Synchronization
 ntpd.service

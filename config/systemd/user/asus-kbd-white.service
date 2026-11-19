@@ -4,7 +4,7 @@ After=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=/home/Krish/.local/bin/asus-kbd-white
+ExecStart=%h/.local/bin/asus-kbd-white
 RemainAfterExit=yes
 
 [Install]

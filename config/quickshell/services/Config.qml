@@ -7,7 +7,7 @@ import Quickshell.Io
 Scope {
     id: root
 
-    readonly property string path: "/home/Krish/.config/quickshell/config.json"
+    readonly property string path: (Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/quickshell/config.json"
 
     readonly property var defaults: ({
         bar: {

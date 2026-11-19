@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# Automated Reproducible Installer for Arch Linux + Hyprland Dotfiles
+# Universal Arch Linux + Hyprland Dotfiles Setup & Intelligent Hardware Launcher
 # ==============================================================================
-# Hostname Blueprint: Reze
-# Stack: Hyprland (Lua API), Quickshell (Dotfiles fork of upstream dots-hyprland),
-#        launcher/auth host, Material You Engine, Matugen, Ghostty, Clipse,
-#        SDDM (Hyprland SDDM Theme), Universal Picture-in-Picture Helper, WhiteSur-dark Icons.
+# Target: Any Arch Linux system regardless of CPU, GPU, chassis, or bootloader.
+# Capabilities:
+#   - Automatic Hardware & Driver Probing (CPU, GPU, Audio DSP, Chassis, Quirks)
+#   - Dynamic Microcode & Matching Kernel Headers Installation
+#   - Intelligent Graphics Stack (NVIDIA Open/Proprietary, AMD Radeon, Intel, VM)
+#   - Dynamic User & Path Adaptation (Fully username- and home-agnostic)
+#   - Hardware Quirks Engine (ASUS WMI, Realtek RTL8852, SOF Audio, Laptop vs Desktop)
+#   - Beautiful Interactive Terminal Launcher & Diagnostic Summary
 # ==============================================================================
 
 set -euo pipefail
@@ -25,6 +29,7 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 YELLOW='\033[1;33m'
 MAGENTA='\033[0;35m'
+GRAY='\033[0;90m'
 NC='\033[0m' # No Color
 
 log_info()    { echo -e "${BLUE}[INFO]${NC} $*"; }
@@ -35,11 +40,39 @@ log_step()    { echo -e "\n${BOLD}${CYAN}==> [STEP ${1}] ${2}${NC}"; }
 log_substep() { echo -e "  ${MAGENTA}→${NC} $*"; }
 
 # ------------------------------------------------------------------------------
-# Paths & Variables
+# Paths & Global Variables
 # ------------------------------------------------------------------------------
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_DIR="$HOME/.config_backup_$(date +%Y%m%d_%H%M%S)"
 INSTALL_APPS="false"
+FORCE_SWAP="false"
+DRY_RUN="false"
+CONFIGS_ONLY="false"
+DRIVERS_ONLY="false"
+AUR_HELPER=""
+
+# Hardware Profile Global Variables
+CPU_VENDOR=""
+CPU_MODEL=""
+CPU_MICROCODE=""
+KERNEL_RELEASE=""
+KERNEL_HEADERS=""
+CHASSIS_TYPE=""
+HAS_BATTERY="false"
+HAS_NVIDIA="false"
+NVIDIA_MODEL=""
+NVIDIA_OPEN_SUPPORTED="false"
+HAS_AMD_GPU="false"
+AMD_GPU_MODEL=""
+HAS_INTEL_GPU="false"
+INTEL_GPU_MODEL=""
+IS_VM="false"
+VM_TYPE=""
+HAS_SOF_AUDIO="false"
+HAS_ASUS_HARDWARE="false"
+HAS_REALTEK_WIFI="false"
+HAS_REALTEK_BT="false"
+BOOTLOADER_TYPE=""
 
 # ------------------------------------------------------------------------------
 # Pre-Flight Checks
@@ -55,7 +88,7 @@ check_arch_linux() {
         log_error "This dotfiles installer is built exclusively for Arch Linux (detected: ${NAME:-Unknown})."
         exit 1
     fi
-    log_success "Verified Arch Linux environment (${NAME})."
+    log_success "Verified Arch Linux environment (${NAME:-Arch Linux})."
 }
 
 ensure_sudo() {
@@ -111,7 +144,7 @@ detect_or_install_aur_helper() {
 }
 
 # ------------------------------------------------------------------------------
-# Package Installation Functions
+# Package Installation Helpers
 # ------------------------------------------------------------------------------
 install_pacman_packages_from_file() {
     local file="$1"
@@ -159,6 +192,8 @@ install_aur_packages_from_file() {
         return 0
     fi
 
+    detect_or_install_aur_helper
+
     log_info "Checking AUR packages from: ${desc}..."
     mapfile -t raw_pkgs < <(grep -v -E '^\s*#|^\s*$' "$file")
 
@@ -178,24 +213,429 @@ install_aur_packages_from_file() {
         return 0
     fi
 
-    log_substep "Installing ${#needed_pkgs[@]} missing AUR packages via ${AUR_HELPER}: ${needed_pkgs[*]}"
-    local flags=("--needed" "--noconfirm")
-    if [ "$AUR_HELPER" = "yay" ]; then
-        flags+=("--answerdiff" "None" "--answerclean" "None" "--answeredit" "None" "--answerupgrade" "None")
-    elif [ "$AUR_HELPER" = "paru" ]; then
-        flags+=("--skipreview")
+    log_substep "Installing ${#needed_pkgs[@]} missing packages via ${AUR_HELPER}: ${needed_pkgs[*]}"
+    if ! "$AUR_HELPER" -S --needed --noconfirm "${needed_pkgs[@]}"; then
+        log_warn "Bulk AUR installation encountered errors. Retrying individually..."
+        for pkg in "${needed_pkgs[@]}"; do
+            if ! pacman -T "$pkg" >/dev/null 2>&1 && ! pacman -Q "$pkg" >/dev/null 2>&1; then
+                "$AUR_HELPER" -S --needed --noconfirm "$pkg" || log_warn "Failed to install '$pkg' via AUR. Skipping."
+            fi
+        done
     fi
-
-    for pkg in "${needed_pkgs[@]}"; do
-        if ! pacman -T "$pkg" >/dev/null 2>&1 && ! pacman -Q "$pkg" >/dev/null 2>&1; then
-            log_substep "Installing AUR package: $pkg"
-            "$AUR_HELPER" -S "${flags[@]}" "$pkg" || log_warn "Failed to install AUR package '$pkg'. Skipping."
-        fi
-    done
 }
 
 # ------------------------------------------------------------------------------
-# System Swap Space Configuration (8GB)
+# Intelligent Hardware & Driver Auto-Detection Engine
+# ------------------------------------------------------------------------------
+detect_system_hardware() {
+    # 1. CPU & Microcode
+    CPU_VENDOR=$(lscpu 2>/dev/null | awk -F: '/Vendor ID/ {gsub(/^[ \t]+/, "", $2); print $2}' || echo "Unknown")
+    CPU_MODEL=$(lscpu 2>/dev/null | awk -F: '/Model name/ {gsub(/^[ \t]+/, "", $2); print $2}' || echo "Unknown CPU")
+
+    case "$CPU_VENDOR" in
+        AuthenticAMD)
+            CPU_MICROCODE="amd-ucode"
+            ;;
+        GenuineIntel)
+            CPU_MICROCODE="intel-ucode"
+            ;;
+        *)
+            CPU_MICROCODE=""
+            ;;
+    esac
+
+    # 2. Kernel & Matching Headers
+    KERNEL_RELEASE="$(uname -r)"
+    case "$KERNEL_RELEASE" in
+        *-lts*)
+            KERNEL_HEADERS="linux-lts-headers"
+            ;;
+        *-zen*)
+            KERNEL_HEADERS="linux-zen-headers"
+            ;;
+        *-hardened*)
+            KERNEL_HEADERS="linux-hardened-headers"
+            ;;
+        *)
+            KERNEL_HEADERS="linux-headers"
+            ;;
+    esac
+
+    # 3. Chassis & Power
+    CHASSIS_TYPE="$(hostnamectl chassis 2>/dev/null || cat /sys/class/dmi/id/chassis_type 2>/dev/null || echo "unknown")"
+    if [ -d /sys/class/power_supply/BAT0 ] || [ -d /sys/class/power_supply/BAT1 ] || ls /sys/class/power_supply/BAT* >/dev/null 2>&1; then
+        HAS_BATTERY="true"
+        [ "$CHASSIS_TYPE" = "unknown" ] && CHASSIS_TYPE="laptop"
+    else
+        HAS_BATTERY="false"
+        [ "$CHASSIS_TYPE" = "unknown" ] && CHASSIS_TYPE="desktop"
+    fi
+
+    # 4. Virtual Machine Detection
+    if systemd-detect-virt -q 2>/dev/null; then
+        IS_VM="true"
+        VM_TYPE="$(systemd-detect-virt 2>/dev/null || echo "vm")"
+    else
+        IS_VM="false"
+        VM_TYPE="none"
+    fi
+
+    # 5. Graphics Hardware (PCI bus probe)
+    local pci_display
+    pci_display="$(lspci -nnk 2>/dev/null | grep -Ei "vga|3d|display" || true)"
+
+    # NVIDIA Probing
+    if echo "$pci_display" | grep -iq "10de"; then
+        HAS_NVIDIA="true"
+        NVIDIA_MODEL="$(echo "$pci_display" | grep -i "10de" | head -n 1 | sed -E 's/.*: //')"
+        # Test for Turing (GA1xx, TU1xx), Ampere (GA10x), Ada Lovelace (AD10x), Blackwell (GB20x), or RTX/GTX 16 series
+        if echo "$NVIDIA_MODEL" | grep -Eiq "RTX|GTX 16|GA1|AD1|TU1|GH1|GB2|TITAN RTX|T4|A100|A10|A16|A30|A40"; then
+            NVIDIA_OPEN_SUPPORTED="true"
+        else
+            NVIDIA_OPEN_SUPPORTED="false"
+        fi
+    else
+        HAS_NVIDIA="false"
+        NVIDIA_MODEL=""
+        NVIDIA_OPEN_SUPPORTED="false"
+    fi
+
+    # AMD GPU Probing
+    if echo "$pci_display" | grep -iq "1002"; then
+        HAS_AMD_GPU="true"
+        AMD_GPU_MODEL="$(echo "$pci_display" | grep -i "1002" | head -n 1 | sed -E 's/.*: //')"
+    else
+        HAS_AMD_GPU="false"
+        AMD_GPU_MODEL=""
+    fi
+
+    # Intel GPU Probing
+    if echo "$pci_display" | grep -iq "8086"; then
+        HAS_INTEL_GPU="true"
+        INTEL_GPU_MODEL="$(echo "$pci_display" | grep -i "8086" | head -n 1 | sed -E 's/.*: //')"
+    else
+        HAS_INTEL_GPU="false"
+        INTEL_GPU_MODEL=""
+    fi
+
+    # 6. Audio DSP (SOF / ACP)
+    if lspci 2>/dev/null | grep -Eiq "Audio Coprocessor|SoundWire|SOF|Rembrandt.*Audio|Intel.*cAVS|Intel.*Smart Sound"; then
+        HAS_SOF_AUDIO="true"
+    else
+        HAS_SOF_AUDIO="false"
+    fi
+
+    # 7. Hardware Quirks & Vendor Profiles
+    local dmi_vendor
+    dmi_vendor="$(cat /sys/class/dmi/id/sys_vendor 2>/dev/null || echo "")"
+    if [ -d /sys/devices/platform/asus-nb-wmi ] || echo "$dmi_vendor" | grep -iq "ASUSTeK"; then
+        HAS_ASUS_HARDWARE="true"
+    else
+        HAS_ASUS_HARDWARE="false"
+    fi
+
+    # Realtek RTL8852 PCIe Wi-Fi
+    if lspci -nn 2>/dev/null | grep -iq "10ec:b852"; then
+        HAS_REALTEK_WIFI="true"
+    else
+        HAS_REALTEK_WIFI="false"
+    fi
+
+    # Realtek RTL8852 USB Bluetooth
+    if lsusb 2>/dev/null | grep -iq "0489:e123"; then
+        HAS_REALTEK_BT="true"
+    else
+        HAS_REALTEK_BT="false"
+    fi
+
+    # 8. Bootloader Detection
+    if [ -f /etc/default/grub ] || [ -d /boot/grub ]; then
+        BOOTLOADER_TYPE="GRUB"
+    elif [ -d /boot/loader/entries ] || [ -f /boot/loader/loader.conf ]; then
+        BOOTLOADER_TYPE="systemd-boot"
+    elif [ -f /boot/limine.cfg ] || [ -d /boot/EFI/limine ]; then
+        BOOTLOADER_TYPE="Limine"
+    else
+        BOOTLOADER_TYPE="EFISTUB/Other"
+    fi
+}
+
+print_hardware_report() {
+    detect_system_hardware
+
+    echo -e "${BOLD}${CYAN}+-----------------------------------------------------------------------------+${NC}"
+    echo -e "${BOLD}${CYAN}|            ARCH LINUX UNIVERSAL HARDWARE & DRIVER DIAGNOSTICS               |${NC}"
+    echo -e "${BOLD}${CYAN}+-----------------------------------------------------------------------------+${NC}"
+    printf "${BOLD}| Host Platform  :${NC} %-56s |\n" "$(hostname 2>/dev/null || echo "ArchLinux") (${KERNEL_RELEASE})"
+    printf "${BOLD}| CPU Model      :${NC} %-56s |\n" "${CPU_MODEL:0:43} [${CPU_VENDOR:0:9}]"
+    printf "${BOLD}| CPU Microcode  :${NC} %-56s |\n" "${CPU_MICROCODE:-None required / Virtualized}"
+    printf "${BOLD}| Kernel Headers :${NC} %-56s |\n" "${KERNEL_HEADERS}"
+    printf "${BOLD}| Chassis Type   :${NC} %-56s |\n" "${CHASSIS_TYPE^} ($([ "$HAS_BATTERY" = "true" ] && echo "Battery active" || echo "AC Desktop/VM"))"
+
+    # GPU Probing Display
+    if [ "$HAS_NVIDIA" = "true" ]; then
+        local nv_driver="nvidia-dkms (Proprietary)"
+        [ "$NVIDIA_OPEN_SUPPORTED" = "true" ] && nv_driver="nvidia-open-dkms (Turing+ Open)"
+        printf "${BOLD}| NVIDIA GPU     :${NC} %-56s |\n" "${NVIDIA_MODEL:0:30} [${nv_driver}]"
+    fi
+    if [ "$HAS_AMD_GPU" = "true" ]; then
+        printf "${BOLD}| AMD GPU        :${NC} %-56s |\n" "${AMD_GPU_MODEL:0:32} [Mesa/Vulkan-Radeon]"
+    fi
+    if [ "$HAS_INTEL_GPU" = "true" ]; then
+        printf "${BOLD}| Intel GPU      :${NC} %-56s |\n" "${INTEL_GPU_MODEL:0:32} [Mesa/Vulkan-Intel/iHD]"
+    fi
+    if [ "$IS_VM" = "true" ]; then
+        printf "${BOLD}| Virtual GPU    :${NC} %-56s |\n" "Hypervisor Virtual Graphics (${VM_TYPE})"
+    fi
+    if [ "$HAS_NVIDIA" = "false" ] && [ "$HAS_AMD_GPU" = "false" ] && [ "$HAS_INTEL_GPU" = "false" ] && [ "$IS_VM" = "false" ]; then
+        printf "${BOLD}| Graphics/GPU   :${NC} %-56s |\n" "Standard Display Adapter (Mesa/KMS llvmpipe)"
+    fi
+
+    # Hardware Quirks Display
+    local quirk_items=()
+    [ "$HAS_ASUS_HARDWARE" = "true" ] && quirk_items+=("ASUS TUF/ROG Platform WMI")
+    [ "$HAS_REALTEK_WIFI" = "true" ] && quirk_items+=("Realtek RTL8852BE PCIe Wi-Fi (rtw89 stability)")
+    [ "$HAS_REALTEK_BT" = "true" ] && quirk_items+=("Realtek RTL8852BU USB BT (Autosuspend fix)")
+    [ "$HAS_SOF_AUDIO" = "true" ] && quirk_items+=("Sound Open Firmware / Audio DSP")
+
+    if [ "${#quirk_items[@]}" -eq 0 ]; then
+        printf "${BOLD}| System Quirks  :${NC} %-56s |\n" "Standard Architecture (No platform quirks required)"
+    else
+        printf "${BOLD}| System Quirks  :${NC} %-56s |\n" "${quirk_items[0]}"
+        for ((q=1; q<${#quirk_items[@]}; q++)); do
+            printf "${BOLD}|                :${NC} %-56s |\n" "${quirk_items[$q]}"
+        done
+    fi
+
+    printf "${BOLD}| Bootloader     :${NC} %-56s |\n" "${BOOTLOADER_TYPE}"
+    echo -e "${BOLD}${CYAN}+-----------------------------------------------------------------------------+${NC}"
+    echo
+}
+
+# ------------------------------------------------------------------------------
+# Hardware Driver & Platform Configuration Engine
+# ------------------------------------------------------------------------------
+install_and_configure_drivers() {
+    log_step "2/9" "Installing Auto-Detected Hardware Drivers & Microcode"
+    detect_system_hardware
+
+    local driver_pkgs=()
+
+    # 1. CPU Microcode
+    if [ -n "$CPU_MICROCODE" ]; then
+        log_substep "Selected CPU microcode: ${CPU_MICROCODE}"
+        driver_pkgs+=("$CPU_MICROCODE")
+    fi
+
+    # 2. Kernel Headers & DKMS Base
+    log_substep "Selected kernel build headers: ${KERNEL_HEADERS}"
+    driver_pkgs+=("$KERNEL_HEADERS" "base-devel" "dkms" "linux-firmware")
+
+    # 3. Audio DSP Firmware
+    if [ "$HAS_SOF_AUDIO" = "true" ]; then
+        log_substep "Detected Sound Open Firmware / Audio DSP: adding sof-firmware and alsa-firmware"
+        driver_pkgs+=("sof-firmware" "alsa-firmware")
+    fi
+
+    # 4. Graphics Drivers
+    # NVIDIA
+    if [ "$HAS_NVIDIA" = "true" ]; then
+        if [ "$NVIDIA_OPEN_SUPPORTED" = "true" ]; then
+            log_substep "Configuring NVIDIA GPU with Open Kernel Module (Turing+ generation): nvidia-open-dkms"
+            driver_pkgs+=("nvidia-open-dkms" "nvidia-utils" "libva-nvidia-driver")
+        else
+            log_substep "Configuring NVIDIA GPU with Proprietary Driver (Pre-Turing legacy architecture): nvidia-dkms"
+            driver_pkgs+=("nvidia-dkms" "nvidia-utils" "libva-nvidia-driver")
+        fi
+    fi
+
+    # AMD Radeon / APU
+    if [ "$HAS_AMD_GPU" = "true" ]; then
+        log_substep "Configuring AMD Radeon graphics: mesa, vulkan-radeon, libva-mesa-driver"
+        driver_pkgs+=("mesa" "vulkan-radeon" "libva-mesa-driver" "mesa-vdpau" "xf86-video-amdgpu")
+    fi
+
+    # Intel Graphics / UHD / Iris Xe / Arc
+    if [ "$HAS_INTEL_GPU" = "true" ]; then
+        log_substep "Configuring Intel graphics: mesa, vulkan-intel, intel-media-driver"
+        driver_pkgs+=("mesa" "vulkan-intel" "intel-media-driver")
+    fi
+
+    # Virtual Machine Guest Drivers
+    if [ "$IS_VM" = "true" ]; then
+        log_substep "Configuring Virtual Machine Guest Tools (${VM_TYPE})"
+        case "$VM_TYPE" in
+            kvm|qemu)
+                driver_pkgs+=("qemu-guest-agent" "spice-vdagent" "mesa")
+                ;;
+            oracle)
+                driver_pkgs+=("virtualbox-guest-utils" "mesa")
+                ;;
+            vmware)
+                driver_pkgs+=("open-vm-tools" "xf86-video-vmware" "mesa")
+                ;;
+            *)
+                driver_pkgs+=("mesa")
+                ;;
+        esac
+    fi
+
+    # Bulk install detected packages
+    local needed_driver_pkgs=()
+    for pkg in "${driver_pkgs[@]}"; do
+        if ! pacman -T "$pkg" >/dev/null 2>&1 && ! pacman -Q "$pkg" >/dev/null 2>&1; then
+            needed_driver_pkgs+=("$pkg")
+        fi
+    done
+
+    if [ "${#needed_driver_pkgs[@]}" -gt 0 ]; then
+        log_info "Installing ${#needed_driver_pkgs[@]} required driver packages via pacman..."
+        sudo pacman -S --needed --noconfirm "${needed_driver_pkgs[@]}" || {
+            log_warn "Some driver packages failed in bulk. Retrying individually..."
+            for pkg in "${needed_driver_pkgs[@]}"; do
+                sudo pacman -S --needed --noconfirm "$pkg" 2>/dev/null || log_warn "Could not install driver package '$pkg'. Continuing."
+            done
+        }
+    else
+        log_success "All required hardware driver packages are already installed."
+    fi
+
+    # 5. NVIDIA System Integration
+    if [ "$HAS_NVIDIA" = "true" ]; then
+        log_substep "Configuring NVIDIA power management & S0ix sleep states..."
+
+        # GRUB Parameters (if GRUB is used)
+        if [ "$BOOTLOADER_TYPE" = "GRUB" ] && [ -f /etc/default/grub ]; then
+            if ! grep -q "NVreg_EnableS0ixPowerManagement=1" /etc/default/grub; then
+                log_substep "Adding NVIDIA S0ix and modeset parameters to /etc/default/grub..."
+                sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 nvidia.NVreg_EnableS0ixPowerManagement=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1 nvidia.NVreg_TemporaryFilePath=\/var\/tmp nvidia_drm.modeset=1 nvidia_drm.fbdev=1"/' /etc/default/grub
+                if command -v grub-mkconfig >/dev/null 2>&1; then
+                    sudo grub-mkconfig -o /boot/grub/grub.cfg 2>/dev/null || true
+                fi
+            fi
+        fi
+
+        # Modprobe options
+        if [ -f "$DOTFILES_DIR/system/etc/modprobe.d/nvidia.conf" ]; then
+            sudo mkdir -p /etc/modprobe.d
+            sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/nvidia.conf" /etc/modprobe.d/nvidia.conf
+        fi
+
+        # Suspend sleep hook
+        if [ -f "$DOTFILES_DIR/system/usr/lib/systemd/system-sleep/hyprland-suspend" ]; then
+            sudo mkdir -p /usr/lib/systemd/system-sleep
+            sudo cp "$DOTFILES_DIR/system/usr/lib/systemd/system-sleep/hyprland-suspend" /usr/lib/systemd/system-sleep/hyprland-suspend
+            sudo chmod +x /usr/lib/systemd/system-sleep/hyprland-suspend
+        fi
+
+        # Early KMS in mkinitcpio
+        if [ -f /etc/mkinitcpio.conf ]; then
+            if ! grep -q "nvidia nvidia_modeset" /etc/mkinitcpio.conf; then
+                log_substep "Adding NVIDIA early KMS modules to /etc/mkinitcpio.conf..."
+                sudo sed -i 's/^MODULES=(\(.*\))/MODULES=(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
+                command -v mkinitcpio >/dev/null 2>&1 && sudo mkinitcpio -P || true
+            fi
+        fi
+
+        # NVIDIA System Services
+        log_substep "Enabling NVIDIA VRAM preservation sleep services..."
+        sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service 2>/dev/null || true
+
+        # VA-API Environment
+        if ! grep -q "LIBVA_DRIVER_NAME=nvidia" /etc/environment 2>/dev/null; then
+            echo "LIBVA_DRIVER_NAME=nvidia" | sudo tee -a /etc/environment >/dev/null
+        fi
+    elif [ "$HAS_AMD_GPU" = "true" ] && [ "$HAS_NVIDIA" = "false" ]; then
+        # Pure AMD early KMS
+        if [ -f /etc/mkinitcpio.conf ] && ! grep -q "amdgpu" /etc/mkinitcpio.conf; then
+            log_substep "Configuring AMDGPU early KMS in /etc/mkinitcpio.conf..."
+            sudo sed -i 's/^MODULES=(\(.*\))/MODULES=(\1 amdgpu)/' /etc/mkinitcpio.conf
+            command -v mkinitcpio >/dev/null 2>&1 && sudo mkinitcpio -P || true
+        fi
+    elif [ "$HAS_INTEL_GPU" = "true" ] && [ "$HAS_NVIDIA" = "false" ]; then
+        # Pure Intel early KMS
+        if [ -f /etc/mkinitcpio.conf ] && ! grep -q "i915" /etc/mkinitcpio.conf && ! grep -q "xe" /etc/mkinitcpio.conf; then
+            log_substep "Configuring Intel early KMS in /etc/mkinitcpio.conf..."
+            sudo sed -i 's/^MODULES=(\(.*\))/MODULES=(\1 i915)/' /etc/mkinitcpio.conf
+            command -v mkinitcpio >/dev/null 2>&1 && sudo mkinitcpio -P || true
+        fi
+    fi
+
+    # 6. Hardware Quirks & Vendor Integration
+    # Realtek RTL8852 Wi-Fi Fix
+    if [ "$HAS_REALTEK_WIFI" = "true" ]; then
+        log_substep "Applying Realtek RTL8852BE PCIe firmware and ASPM stability fix..."
+        if [ -f "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" ]; then
+            sudo mkdir -p /etc/modprobe.d
+            sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" /etc/modprobe.d/rtw89.conf
+        fi
+        if [ -f "$DOTFILES_DIR/system/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf" ]; then
+            sudo mkdir -p /etc/NetworkManager/conf.d
+            sudo cp "$DOTFILES_DIR/system/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf" /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf
+            sudo nmcli general reload 2>/dev/null || true
+        fi
+    fi
+
+    # Realtek RTL8852 Bluetooth USB Autosuspend
+    if [ "$HAS_REALTEK_BT" = "true" ]; then
+        log_substep "Applying Realtek RTL8852BU Bluetooth USB autosuspend keepalive rule..."
+        if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules" ]; then
+            sudo mkdir -p /etc/udev/rules.d
+            sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules" /etc/udev/rules.d/99-rtl8852bu-autosuspend.rules
+            sudo udevadm control --reload-rules 2>/dev/null || true
+            sudo udevadm trigger --subsystem-match=usb 2>/dev/null || true
+        fi
+    fi
+
+    # ASUS WMI Keyboard Backlight
+    if [ "$HAS_ASUS_HARDWARE" = "true" ]; then
+        log_substep "Applying ASUS Keyboard Backlight permissions rule..."
+        if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-asus-kbd-backlight.rules" ]; then
+            sudo mkdir -p /etc/udev/rules.d
+            sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-asus-kbd-backlight.rules" /etc/udev/rules.d/99-asus-kbd-backlight.rules
+            sudo udevadm control --reload-rules 2>/dev/null || true
+            sudo udevadm trigger --subsystem-match=leds 2>/dev/null || true
+        fi
+    fi
+
+    # Chassis Power Switching & Battery Management
+    log_substep "Configuring power-profile-manager and system power policies..."
+    if [ -f "$DOTFILES_DIR/bin/power-profile-manager" ]; then
+        sudo cp "$DOTFILES_DIR/bin/power-profile-manager" /usr/local/bin/power-profile-manager
+        sudo chmod 0755 /usr/local/bin/power-profile-manager
+    fi
+    if [ -f "$DOTFILES_DIR/system/etc/sudoers.d/99-power-profile" ]; then
+        sudo mkdir -p /etc/sudoers.d
+        sudo cp "$DOTFILES_DIR/system/etc/sudoers.d/99-power-profile" /etc/sudoers.d/99-power-profile
+        sudo chmod 0440 /etc/sudoers.d/99-power-profile
+    fi
+
+    if [ "$HAS_BATTERY" = "true" ]; then
+        log_substep "Configuring laptop battery automation and lid sleep policies..."
+        if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-power-profile.rules" ]; then
+            sudo mkdir -p /etc/udev/rules.d
+            sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-power-profile.rules" /etc/udev/rules.d/99-power-profile.rules
+            sudo udevadm control --reload-rules 2>/dev/null || true
+        fi
+        if [ -f "$DOTFILES_DIR/system/etc/systemd/system/power-profile.service" ]; then
+            sudo mkdir -p /etc/systemd/system
+            sudo cp "$DOTFILES_DIR/system/etc/systemd/system/power-profile.service" /etc/systemd/system/power-profile.service
+            sudo systemctl daemon-reload 2>/dev/null || true
+            sudo systemctl enable --now power-profile.service 2>/dev/null || true
+        fi
+        if [ -f "$DOTFILES_DIR/system/etc/systemd/logind.conf.d/lid.conf" ]; then
+            sudo mkdir -p /etc/systemd/logind.conf.d
+            sudo cp "$DOTFILES_DIR/system/etc/systemd/logind.conf.d/lid.conf" /etc/systemd/logind.conf.d/lid.conf
+        fi
+    else
+        log_info "Desktop system detected (no battery). Configured power-profile-manager for permanent AC mode."
+    fi
+
+    log_success "Hardware drivers and platform configuration applied successfully."
+}
+
+# ------------------------------------------------------------------------------
+# System Swap Configuration
 # ------------------------------------------------------------------------------
 configure_swap() {
     log_step "1/9" "Configuring System Swap Space (8GB)"
@@ -214,7 +654,6 @@ configure_swap() {
         readable_swap=$(numfmt --to=iec-i --suffix=B "$current_swap_bytes" 2>/dev/null || echo "${target_swap_gb}GB")
         log_info "Swap space already active: ${readable_swap} (>= ${target_swap_gb}GB). Preserving existing swap configuration."
 
-        # Ensure active /swapfile is recorded in /etc/fstab
         if swapon --show=NAME --noheadings 2>/dev/null | grep -q "^/swapfile"; then
             if ! grep -q "^/swapfile" /etc/fstab 2>/dev/null; then
                 log_substep "Adding active /swapfile to /etc/fstab for boot persistence..."
@@ -234,13 +673,11 @@ configure_swap() {
 
     log_substep "Configuring ${target_swap_gb}GB swapfile at /swapfile..."
 
-    # Deactivate existing /swapfile if currently active
     if swapon --show=NAME --noheadings 2>/dev/null | grep -q "^/swapfile"; then
         log_substep "Temporarily deactivating existing /swapfile..."
         sudo swapoff /swapfile 2>/dev/null || true
     fi
 
-    # Detect filesystem type of root partition
     local fstype
     fstype=$(findmnt -no FSTYPE / 2>/dev/null || echo "ext4")
 
@@ -268,11 +705,9 @@ configure_swap() {
         sudo mkswap /swapfile
     fi
 
-    # Activate swapfile
     log_substep "Activating 8GB swapfile..."
     sudo swapon /swapfile
 
-    # Ensure /swapfile is recorded in /etc/fstab
     if ! grep -q "^/swapfile" /etc/fstab 2>/dev/null; then
         log_substep "Registering /swapfile in /etc/fstab..."
         echo "/swapfile none swap defaults 0 0" | sudo tee -a /etc/fstab >/dev/null
@@ -282,80 +717,12 @@ configure_swap() {
 }
 
 # ------------------------------------------------------------------------------
-# NVIDIA Hardware Configuration
-# ------------------------------------------------------------------------------
-configure_nvidia_if_present() {
-    log_step "2/9" "Checking Graphics Hardware & Drivers"
-
-    if lspci -k | grep -E -i "vga|3d|display" | grep -iq "nvidia"; then
-        log_info "NVIDIA GPU hardware detected!"
-        log_substep "Installing NVIDIA Open DKMS driver & VA-API utilities..."
-        sudo pacman -S --needed --noconfirm nvidia-open-dkms nvidia-utils libva-nvidia-driver dkms
-
-        # 1. Kernel parameter in GRUB for S0ix Modern Standby and VRAM preservation
-        if [ -f /etc/default/grub ]; then
-            if ! grep -q "NVreg_EnableS0ixPowerManagement=1" /etc/default/grub; then
-                log_substep "Configuring NVIDIA S0ix power management parameters in /etc/default/grub..."
-                sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 nvidia.NVreg_EnableS0ixPowerManagement=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1 nvidia.NVreg_TemporaryFilePath=\/var\/tmp nvidia_drm.modeset=1 nvidia_drm.fbdev=1"/' /etc/default/grub
-                if command -v grub-mkconfig >/dev/null 2>&1; then
-                    log_substep "Regenerating GRUB configuration..."
-                    sudo grub-mkconfig -o /boot/grub/grub.cfg || true
-                fi
-            else
-                log_info "GRUB already configured with NVIDIA S0ix and VRAM preservation."
-            fi
-        fi
-
-        # 2. Deploy modprobe options and sleep hooks
-        if [ -f "$DOTFILES_DIR/system/etc/modprobe.d/nvidia.conf" ]; then
-            log_substep "Configuring /etc/modprobe.d/nvidia.conf..."
-            sudo mkdir -p /etc/modprobe.d
-            sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/nvidia.conf" /etc/modprobe.d/nvidia.conf
-        fi
-
-        if [ -f "$DOTFILES_DIR/system/usr/lib/systemd/system-sleep/hyprland-suspend" ]; then
-            log_substep "Configuring /usr/lib/systemd/system-sleep/hyprland-suspend..."
-            sudo mkdir -p /usr/lib/systemd/system-sleep
-            sudo cp "$DOTFILES_DIR/system/usr/lib/systemd/system-sleep/hyprland-suspend" /usr/lib/systemd/system-sleep/hyprland-suspend
-            sudo chmod +x /usr/lib/systemd/system-sleep/hyprland-suspend
-        fi
-
-        # 3. Early KMS in mkinitcpio
-        if [ -f /etc/mkinitcpio.conf ]; then
-            if ! grep -q "nvidia nvidia_modeset" /etc/mkinitcpio.conf; then
-                log_substep "Adding NVIDIA early KMS modules to /etc/mkinitcpio.conf..."
-                sudo sed -i 's/^MODULES=(\(.*\))/MODULES=(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
-                if command -v mkinitcpio >/dev/null 2>&1; then
-                    log_substep "Regenerating initramfs with early NVIDIA KMS..."
-                    sudo mkinitcpio -P || true
-                fi
-            fi
-        fi
-
-        # 4. System services for suspend/resume
-        log_substep "Enabling NVIDIA power management services (sleep/hibernate/wake)..."
-        sudo systemctl enable nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service 2>/dev/null || true
-
-        # 5. /etc/environment
-        if [ -f "$DOTFILES_DIR/system/etc/environment" ]; then
-            log_substep "Configuring VA-API hardware acceleration environment in /etc/environment..."
-            if ! grep -q "LIBVA_DRIVER_NAME=nvidia" /etc/environment 2>/dev/null; then
-                cat "$DOTFILES_DIR/system/etc/environment" | sudo tee -a /etc/environment >/dev/null
-            fi
-        fi
-    else
-        log_info "No NVIDIA GPU detected. Installing standard Mesa/Vulkan drivers..."
-        sudo pacman -S --needed --noconfirm mesa vulkan-intel vulkan-radeon libva-mesa-driver 2>/dev/null || true
-    fi
-}
-
-# ------------------------------------------------------------------------------
 # Core Package Installation
 # ------------------------------------------------------------------------------
 install_all_packages() {
     log_step "3/9" "Installing Base Hyprland Stack & Core System Packages"
     if [ -f "$DOTFILES_DIR/scripts/hyprland.sh" ]; then
-        log_substep "Running dedicated Hyprland setup script (scripts/hyprland.sh)..."
+        log_substep "Running foundational Hyprland setup script (scripts/hyprland.sh)..."
         bash "$DOTFILES_DIR/scripts/hyprland.sh" --non-interactive
     fi
 
@@ -368,7 +735,7 @@ install_all_packages() {
     install_aur_packages_from_file "$DOTFILES_DIR/packages/aur-runtime.txt" "AUR Runtime Packages"
 
     if [ "$INSTALL_APPS" = "true" ]; then
-        log_step "4b" "Installing Optional Desktop Applications & AI Agents"
+        log_step "4b" "Installing Optional Desktop Applications & Tools"
         install_pacman_packages_from_file "$DOTFILES_DIR/packages/pacman-optional.txt" "Pacman Optional Apps"
         install_aur_packages_from_file "$DOTFILES_DIR/packages/aur-optional.txt" "AUR Optional Apps & Tools"
     fi
@@ -379,16 +746,26 @@ install_all_packages() {
 # ------------------------------------------------------------------------------
 configure_system_services() {
     log_step "5/9" "Enabling Required System & User Services"
+    detect_system_hardware
 
-    # System services
+    # Universal System Services
     local sys_services=("sddm.service" "NetworkManager.service" "bluetooth.service" "ntpd.service" "udisks2.service" "usbmuxd.service")
     for srv in "${sys_services[@]}"; do
         log_substep "Enabling system service: ${srv}"
         sudo systemctl enable "$srv" 2>/dev/null || true
     done
 
-    # User services
-    local user_services=("pipewire.service" "pipewire-pulse.service" "wireplumber.service" "hypr-pip-helper.service" "quickshell.service" "hypridle.service" "battery-alert.service" "asus-kbd-white.service")
+    # Universal User Services
+    local user_services=("pipewire.service" "pipewire-pulse.service" "wireplumber.service" "hypr-pip-helper.service" "quickshell.service" "hypridle.service")
+
+    # Conditionally enable hardware-specific user services
+    if [ "$HAS_BATTERY" = "true" ]; then
+        user_services+=("battery-alert.service")
+    fi
+    if [ "$HAS_ASUS_HARDWARE" = "true" ] && [ -d /sys/class/leds/asus::kbd_backlight ]; then
+        user_services+=("asus-kbd-white.service")
+    fi
+
     for srv in "${user_services[@]}"; do
         log_substep "Enabling user service: ${srv}"
         systemctl --user enable "$srv" 2>/dev/null || true
@@ -402,11 +779,11 @@ deploy_dotfiles() {
     log_step "6/9" "Deploying Configuration Files, Standalone Binaries & Assets"
 
     # 1. Create Target Directory Tree
-    log_substep "Creating user directories..."
+    log_substep "Creating user directory structure..."
     mkdir -p "$HOME"/{.config,.local/bin,.local/lib,.wallpaper,Pictures/Screenshots,Pictures/Wallpapers}
 
     # 2. Deploy Configurations from config/
-    log_substep "Deploying ~/.config applications..."
+    log_substep "Deploying ~/.config application trees..."
     local config_dirs=("hypr" "quickshell" "dunst" "DotFiles" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d" "herdr" "matugen" "dotfiles")
     for d in "${config_dirs[@]}"; do
         if [ -d "$DOTFILES_DIR/config/$d" ]; then
@@ -439,16 +816,12 @@ deploy_dotfiles() {
     [ -f "$DOTFILES_DIR/config/mimeapps.list" ] && cp "$DOTFILES_DIR/config/mimeapps.list" "$HOME/.config/"
     [ -f "$DOTFILES_DIR/config/gtkrc-2.0" ] && cp "$DOTFILES_DIR/config/gtkrc-2.0" "$HOME/.gtkrc-2.0"
 
-    # Deploy bash profile if not already configured
-    if [ -f "$DOTFILES_DIR/home/.bashrc" ]; then
-        if [ ! -f "$HOME/.bashrc" ]; then
-            cp "$DOTFILES_DIR/home/.bashrc" "$HOME/.bashrc"
-        fi
+    # Deploy bash profile if not present
+    if [ -f "$DOTFILES_DIR/home/.bashrc" ] && [ ! -f "$HOME/.bashrc" ]; then
+        cp "$DOTFILES_DIR/home/.bashrc" "$HOME/.bashrc"
     fi
-    if [ -f "$DOTFILES_DIR/home/.bash_profile" ]; then
-        if [ ! -f "$HOME/.bash_profile" ]; then
-            cp "$DOTFILES_DIR/home/.bash_profile" "$HOME/.bash_profile"
-        fi
+    if [ -f "$DOTFILES_DIR/home/.bash_profile" ] && [ ! -f "$HOME/.bash_profile" ]; then
+        cp "$DOTFILES_DIR/home/.bash_profile" "$HOME/.bash_profile"
     fi
 
     # Deploy Antigravity agent skills, rules & mechanic configs
@@ -466,6 +839,16 @@ deploy_dotfiles() {
         chmod +x "$HOME/.local/bin/"* 2>/dev/null || true
     fi
 
+    # Deploy system-wide binaries
+    if [ -f "$DOTFILES_DIR/bin/patch-hyprland-blur" ]; then
+        sudo cp "$DOTFILES_DIR/bin/patch-hyprland-blur" /usr/local/bin/patch-hyprland-blur
+        sudo chmod 0755 /usr/local/bin/patch-hyprland-blur
+    fi
+    if [ -f "$DOTFILES_DIR/bin/power-profile-manager" ]; then
+        sudo cp "$DOTFILES_DIR/bin/power-profile-manager" /usr/local/bin/power-profile-manager
+        sudo chmod 0755 /usr/local/bin/power-profile-manager
+    fi
+
     # Ensure swww compatibility symlinks exist
     ln -sf "$HOME/.local/bin/awww" "$HOME/.local/bin/swww" 2>/dev/null || true
     ln -sf "$HOME/.local/bin/awww-daemon" "$HOME/.local/bin/swww-daemon" 2>/dev/null || true
@@ -475,7 +858,7 @@ deploy_dotfiles() {
         cp -P "$DOTFILES_DIR/lib/"* "$HOME/.local/lib/" 2>/dev/null || true
     fi
 
-    # 4. Deploy Wallpapers, Fonts, Icons & Application Assets
+    # 4. Deploy Wallpapers, Fonts, Icons & Assets
     log_substep "Deploying wallpapers to ~/.wallpaper/ and ~/Pictures/Wallpapers/..."
     if [ -d "$DOTFILES_DIR/assets/wallpapers" ]; then
         mkdir -p "$HOME/.wallpaper" "$HOME/Pictures/Wallpapers"
@@ -500,10 +883,9 @@ deploy_dotfiles() {
         cp -r "$DOTFILES_DIR/assets/hypr-pip/"* "$HOME/.local/share/hypr-pip/" 2>/dev/null || true
     fi
 
-    # Automatically configure browser flags to install extension directly into default browser
     local ext_path="$HOME/.local/share/hypr-pip/extension"
     if [ -d "$ext_path" ]; then
-        log_substep "Installing Picture-in-Picture extension directly into default browser..."
+        log_substep "Configuring Picture-in-Picture extension for Chromium-based browsers..."
         for flag_file in \
             "$HOME/.config/brave-origin-flags.conf" \
             "$HOME/.config/brave-flags.conf" \
@@ -522,7 +904,6 @@ deploy_dotfiles() {
                 echo "--load-extension=$ext_path" > "$flag_file"
             fi
         done
-        log_info "Directly installed PiP extension into browser configurations"
     fi
 
     log_substep "Deploying custom system and user fonts..."
@@ -536,15 +917,34 @@ deploy_dotfiles() {
         fc-cache -f 2>/dev/null || true
     fi
 
-    # 5. Set Permissions on Scripts
-    log_substep "Applying executable permissions on desktop scripts..."
+    # 5. Dynamic Username & Home Path Adaptation Sweep
+    # Guarantees that any config referencing the blueprint user gets adapted to current user
+    if [ "$HOME" != "/home/Krish" ]; then
+        log_substep "Adapting configuration paths dynamically to ${HOME}..."
+        local sweep_dirs=("$HOME/.config" "$HOME/.local")
+        [ -d "$HOME/.agents" ] && sweep_dirs+=("$HOME/.agents")
+        find "${sweep_dirs[@]}" -type f \( -name "*.qml" -o -name "*.json" -o -name "*.conf" -o -name "*.lua" -o -name "*.service" -o -name "*.sh" -o -name "*.py" -o -name "*.desktop" -o -name "*.md" \) \
+            -exec sed -i "s|/home/Krish|${HOME}|g" {} + 2>/dev/null || true
+    fi
+
+    # 6. Set Permissions on Scripts
+    log_substep "Applying executable permissions on scripts..."
     chmod +x "$HOME/.config/hypr/scripts/"* 2>/dev/null || true
     chmod +x "$HOME/.config/DotFiles/wallpaper/"*.sh "$HOME/.config/DotFiles/wallpaper/"*.py 2>/dev/null || true
     chmod +x "$HOME/.config/DotFiles/theme/"*.sh "$HOME/.config/DotFiles/theme/"*.py 2>/dev/null || true
     chmod +x "$HOME/.config/DotFiles/launcher/"*.sh "$HOME/.config/DotFiles/launcher/"*.py 2>/dev/null || true
     chmod +x "$HOME/.config/quickshell/"*.sh "$HOME/.config/quickshell/scripts/"* 2>/dev/null || true
 
-    # 6. Build & Install Nautilus Dynamic Theme Reloader Extension
+    # 7. Pacman Hyprland Blur Hook
+    if [ -f "$DOTFILES_DIR/system/etc/pacman.d/hooks/99-hyprland-blur.hook" ]; then
+        sudo mkdir -p /etc/pacman.d/hooks
+        sudo cp "$DOTFILES_DIR/system/etc/pacman.d/hooks/99-hyprland-blur.hook" /etc/pacman.d/hooks/99-hyprland-blur.hook
+        if [ -x /usr/local/bin/patch-hyprland-blur ]; then
+            sudo /usr/local/bin/patch-hyprland-blur 2>/dev/null || true
+        fi
+    fi
+
+    # 8. Build & Install Nautilus Dynamic Theme Reloader Extension (if GCC present)
     if [ -d "$HOME/.config/DotFiles/theme/nautilus-extension" ] && command -v gcc >/dev/null 2>&1; then
         log_substep "Compiling and installing Nautilus Dynamic Theme Reloader extension..."
         (
@@ -568,25 +968,25 @@ deploy_dotfiles() {
 # Dotfiles Shell Python Virtual Environment (materialyoucolor)
 # ------------------------------------------------------------------------------
 setup_dotfiles_venv() {
-    log_step "7/9" "Setting up Dotfiles shell Python virtual environment"
+    log_step "7/9" "Setting up Dotfiles Shell Python Virtual Environment"
 
     local venv="$HOME/.local/state/quickshell/.venv"
     if [ -x "$venv/bin/python" ]; then
         log_substep "Dotfiles Python venv already exists at ${venv}. Verifying dependencies..."
         "$venv/bin/python" -c "import PIL, materialyoucolor" 2>/dev/null && {
-            log_success "Dotfiles Python venv dependencies are present."
+            log_success "Dotfiles Python venv dependencies are verified."
             return 0
         }
     fi
 
-    log_substep "Creating Dotfiles Python venv at ${venv} ..."
+    log_substep "Creating Dotfiles Python venv at ${venv}..."
     mkdir -p "$HOME/.local/state/quickshell"
     python3 -m venv "$venv" || {
-        log_warn "Failed to create Python venv for the Dotfiles shell. Skipping."
+        log_warn "Failed to create Python venv for Dotfiles shell. Skipping."
         return 1
     }
 
-    log_substep "Installing Python dependencies (pillow, materialyoucolor) ..."
+    log_substep "Installing Python dependencies (pillow, materialyoucolor)..."
     "$venv/bin/pip" install --quiet --upgrade pip || true
     if ! "$venv/bin/pip" install --quiet pillow materialyoucolor; then
         log_warn "Failed to install Python dependencies into the Dotfiles venv."
@@ -597,19 +997,16 @@ setup_dotfiles_venv() {
 }
 
 # ------------------------------------------------------------------------------
-# SDDM Greeter & GRUB Themes Setup
+# SDDM Greeter & Bootloader Themes Setup
 # ------------------------------------------------------------------------------
 configure_sddm_theme() {
-    log_step "7/9" "Deploying SDDM Login Manager & GRUB Themes"
+    log_step "8/9" "Deploying SDDM Login Manager & Bootloader Integration"
+    detect_system_hardware
 
-    # Deploy SDDM theme (active: hyprland-sddm)
+    # Deploy SDDM theme (hyprland-sddm)
     local sddm_source_dir=""
     if [ -d "$DOTFILES_DIR/assets/themes/sddm/hyprland-sddm" ]; then
         sddm_source_dir="$DOTFILES_DIR/assets/themes/sddm/hyprland-sddm"
-    elif [ -d "$HOME/hyprland-sddm" ]; then
-        sddm_source_dir="$HOME/hyprland-sddm"
-    elif [ -d "/home/Krish/hyprland-sddm" ]; then
-        sddm_source_dir="/home/Krish/hyprland-sddm"
     fi
 
     if [ -n "$sddm_source_dir" ] && [ -f "$sddm_source_dir/install.sh" ]; then
@@ -617,13 +1014,21 @@ configure_sddm_theme() {
         bash "$sddm_source_dir/install.sh"
     elif [ -d "/usr/share/sddm/themes/hyprland-sddm" ]; then
         log_substep "Hyprland SDDM theme is already installed at /usr/share/sddm/themes/hyprland-sddm"
-    else
-        log_warn "Hyprland SDDM theme source directory not found. Skipping theme deployment."
+    fi
+
+    # Configure SDDM configs
+    if [ -f "$DOTFILES_DIR/system/etc/sddm.conf.d/hyprland-sddm.conf" ]; then
+        sudo mkdir -p /etc/sddm.conf.d
+        sudo cp "$DOTFILES_DIR/system/etc/sddm.conf.d/hyprland-sddm.conf" /etc/sddm.conf.d/hyprland-sddm.conf
+    fi
+    if [ -f "$DOTFILES_DIR/system/etc/sddm.conf.d/theme.conf" ]; then
+        sudo mkdir -p /etc/sddm.conf.d
+        sudo cp "$DOTFILES_DIR/system/etc/sddm.conf.d/theme.conf" /etc/sddm.conf.d/theme.conf
     fi
 
     # Ensure SDDM user has access to wallpapers and fallback
     if id sddm &>/dev/null && [ -n "${HOME:-}" ]; then
-        log_substep "Configuring SDDM user permissions and wallpaper access..."
+        log_substep "Configuring SDDM user permissions and wallpaper ACL access..."
         sudo setfacl -m u:sddm:x "$HOME" 2>/dev/null || true
         if [ -d "$HOME/.wallpaper" ]; then
             sudo setfacl -R -m u:sddm:rX "$HOME/.wallpaper" 2>/dev/null || true
@@ -633,16 +1038,14 @@ configure_sddm_theme() {
     sudo touch /usr/share/sddm/themes/hyprland-sddm/background.png 2>/dev/null || true
     sudo chmod 666 /usr/share/sddm/themes/hyprland-sddm/background.png 2>/dev/null || true
 
-    # Deploy GRUB theme & local bootloader isolation (active: silent)
-    if [ -d "$DOTFILES_DIR/assets/themes/grub/silent" ]; then
-        log_substep "Installing silent theme to /boot/grub/themes/silent..."
+    # Deploy GRUB theme if GRUB is active
+    if [ "$BOOTLOADER_TYPE" = "GRUB" ] && [ -d "$DOTFILES_DIR/assets/themes/grub/silent" ]; then
+        log_substep "Configuring silent GRUB bootloader theme..."
         sudo mkdir -p /boot/grub/themes/silent
         sudo cp -r "$DOTFILES_DIR/assets/themes/grub/silent/"* /boot/grub/themes/silent/
-        
-        if [ -f /etc/default/grub ]; then
-            log_substep "Configuring GRUB to only show local machine bootloaders..."
 
-            # 1. Set GRUB theme
+        if [ -f /etc/default/grub ]; then
+            # Set GRUB theme
             if ! grep -q "^GRUB_THEME=" /etc/default/grub; then
                 if grep -q "^#GRUB_THEME=" /etc/default/grub; then
                     sudo sed -i 's|^#GRUB_THEME=.*|GRUB_THEME="/boot/grub/themes/silent/theme.txt"|' /etc/default/grub
@@ -653,7 +1056,7 @@ configure_sddm_theme() {
                 sudo sed -i 's|^GRUB_THEME=.*|GRUB_THEME="/boot/grub/themes/silent/theme.txt"|' /etc/default/grub
             fi
 
-            # 2. Set GRUB graphics resolution
+            # Set GRUB graphics resolution
             if ! grep -q "^GRUB_GFXMODE=" /etc/default/grub; then
                 if grep -q "^#GRUB_GFXMODE=" /etc/default/grub; then
                     sudo sed -i 's|^#GRUB_GFXMODE=.*|GRUB_GFXMODE="1920x1080,auto"|' /etc/default/grub
@@ -664,29 +1067,14 @@ configure_sddm_theme() {
                 sudo sed -i 's|^GRUB_GFXMODE=.*|GRUB_GFXMODE="1920x1080,auto"|' /etc/default/grub
             fi
 
-            # 3. Disable external / stale NVRAM BootNext entries (Debian, Windows, Limine, PXE/HTTP network boots)
+            # Disable foreign NVRAM BootNext entries
             if ! grep -q "^GRUB_DISABLE_BOOTNEXT=" /etc/default/grub; then
-                if grep -q "^#GRUB_DISABLE_BOOTNEXT=" /etc/default/grub; then
-                    sudo sed -i 's|^#GRUB_DISABLE_BOOTNEXT=.*|GRUB_DISABLE_BOOTNEXT="true"|' /etc/default/grub
-                else
-                    echo 'GRUB_DISABLE_BOOTNEXT="true"' | sudo tee -a /etc/default/grub >/dev/null
-                fi
-            else
-                sudo sed -i 's|^GRUB_DISABLE_BOOTNEXT=.*|GRUB_DISABLE_BOOTNEXT="true"|' /etc/default/grub
+                echo 'GRUB_DISABLE_BOOTNEXT="true"' | sudo tee -a /etc/default/grub >/dev/null
             fi
-
-            # 4. Disable OS Prober (prevents scanning or listing foreign operating systems from other drives/USBs)
             if ! grep -q "^GRUB_DISABLE_OS_PROBER=" /etc/default/grub; then
-                if grep -q "^#GRUB_DISABLE_OS_PROBER=" /etc/default/grub; then
-                    sudo sed -i 's|^#GRUB_DISABLE_OS_PROBER=.*|GRUB_DISABLE_OS_PROBER="true"|' /etc/default/grub
-                else
-                    echo 'GRUB_DISABLE_OS_PROBER="true"' | sudo tee -a /etc/default/grub >/dev/null
-                fi
-            else
-                sudo sed -i 's|^GRUB_DISABLE_OS_PROBER=.*|GRUB_DISABLE_OS_PROBER="true"|' /etc/default/grub
+                echo 'GRUB_DISABLE_OS_PROBER="true"' | sudo tee -a /etc/default/grub >/dev/null
             fi
 
-            # 5. Disable execution of 31_efi_bootnext helper if present
             if [ -f /etc/grub.d/31_efi_bootnext ]; then
                 sudo chmod -x /etc/grub.d/31_efi_bootnext 2>/dev/null || true
             fi
@@ -694,90 +1082,8 @@ configure_sddm_theme() {
             log_substep "Regenerating GRUB configuration..."
             command -v grub-mkconfig >/dev/null 2>&1 && sudo grub-mkconfig -o /boot/grub/grub.cfg || true
         fi
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/sddm.conf.d/hyprland-sddm.conf" ]; then
-        log_substep "Configuring /etc/sddm.conf.d/hyprland-sddm.conf..."
-        sudo mkdir -p /etc/sddm.conf.d
-        sudo cp "$DOTFILES_DIR/system/etc/sddm.conf.d/hyprland-sddm.conf" /etc/sddm.conf.d/hyprland-sddm.conf
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/sddm.conf.d/theme.conf" ]; then
-        log_substep "Configuring /etc/sddm.conf.d/theme.conf..."
-        sudo mkdir -p /etc/sddm.conf.d
-        sudo cp "$DOTFILES_DIR/system/etc/sddm.conf.d/theme.conf" /etc/sddm.conf.d/theme.conf
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/systemd/logind.conf.d/lid.conf" ]; then
-        log_substep "Configuring /etc/systemd/logind.conf.d/lid.conf..."
-        sudo mkdir -p /etc/systemd/logind.conf.d
-        sudo cp "$DOTFILES_DIR/system/etc/systemd/logind.conf.d/lid.conf" /etc/systemd/logind.conf.d/lid.conf
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules" ]; then
-        log_substep "Configuring /etc/udev/rules.d/99-rtl8852bu-autosuspend.rules (Realtek RTL8852BU Bluetooth Autosuspend Fix)..."
-        sudo mkdir -p /etc/udev/rules.d
-        sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules" /etc/udev/rules.d/99-rtl8852bu-autosuspend.rules
-        sudo udevadm control --reload-rules 2>/dev/null || true
-        sudo udevadm trigger --subsystem-match=usb 2>/dev/null || true
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" ]; then
-        log_substep "Configuring /etc/modprobe.d/rtw89.conf (Realtek RTL8852BE Wi-Fi Stability Fix)..."
-        sudo mkdir -p /etc/modprobe.d
-        sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" /etc/modprobe.d/rtw89.conf
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf" ]; then
-        log_substep "Configuring /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf (Disable Wi-Fi Power Save)..."
-        sudo mkdir -p /etc/NetworkManager/conf.d
-        sudo cp "$DOTFILES_DIR/system/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf" /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf
-        sudo nmcli general reload 2>/dev/null || true
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-asus-kbd-backlight.rules" ]; then
-        log_substep "Configuring /etc/udev/rules.d/99-asus-kbd-backlight.rules (ASUS Keyboard Backlight Permissions)..."
-        sudo mkdir -p /etc/udev/rules.d
-        sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-asus-kbd-backlight.rules" /etc/udev/rules.d/99-asus-kbd-backlight.rules
-        sudo udevadm control --reload-rules 2>/dev/null || true
-        sudo udevadm trigger --subsystem-match=leds 2>/dev/null || true
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-power-profile.rules" ]; then
-        log_substep "Configuring /etc/udev/rules.d/99-power-profile.rules (Automated AC/Battery Power Switcher)..."
-        sudo mkdir -p /etc/udev/rules.d
-        sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-power-profile.rules" /etc/udev/rules.d/99-power-profile.rules
-        sudo udevadm control --reload-rules 2>/dev/null || true
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/systemd/system/power-profile.service" ]; then
-        log_substep "Configuring and enabling /etc/systemd/system/power-profile.service..."
-        sudo mkdir -p /etc/systemd/system
-        sudo cp "$DOTFILES_DIR/system/etc/systemd/system/power-profile.service" /etc/systemd/system/power-profile.service
-        sudo systemctl daemon-reload 2>/dev/null || true
-        sudo systemctl enable --now power-profile.service 2>/dev/null || true
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/sudoers.d/99-power-profile" ]; then
-        log_substep "Configuring /etc/sudoers.d/99-power-profile (Passwordless Power Switching)..."
-        sudo mkdir -p /etc/sudoers.d
-        sudo cp "$DOTFILES_DIR/system/etc/sudoers.d/99-power-profile" /etc/sudoers.d/99-power-profile
-        sudo chmod 0440 /etc/sudoers.d/99-power-profile
-    fi
-
-    if [ -f "$DOTFILES_DIR/bin/power-profile-manager" ]; then
-        log_substep "Installing /usr/local/bin/power-profile-manager..."
-        sudo cp "$DOTFILES_DIR/bin/power-profile-manager" /usr/local/bin/power-profile-manager
-        sudo chmod 0755 /usr/local/bin/power-profile-manager
-    fi
-
-    if [ -f "$DOTFILES_DIR/system/etc/pacman.d/hooks/99-hyprland-blur.hook" ]; then
-        log_substep "Configuring /etc/pacman.d/hooks/99-hyprland-blur.hook (Hyprland Blur Protocol Fix)..."
-        sudo mkdir -p /etc/pacman.d/hooks
-        sudo cp "$DOTFILES_DIR/system/etc/pacman.d/hooks/99-hyprland-blur.hook" /etc/pacman.d/hooks/99-hyprland-blur.hook
-        if [ -x "$HOME/.local/bin/patch-hyprland-blur" ]; then
-            sudo /usr/bin/python3 "$HOME/.local/bin/patch-hyprland-blur" 2>/dev/null || true
-        fi
+    elif [ "$BOOTLOADER_TYPE" != "GRUB" ]; then
+        log_info "Bootloader is ${BOOTLOADER_TYPE} (skipping GRUB-specific theme setup)."
     fi
 }
 
@@ -785,7 +1091,7 @@ configure_sddm_theme() {
 # GSettings, Wallpaper & Live Theme Initialization
 # ------------------------------------------------------------------------------
 initialize_theming() {
-    log_step "8/9" "Configuring GNOME/GTK Interface Settings"
+    log_step "9/9" "Configuring GNOME/GTK Interface Settings & Material You Dynamic Colors"
 
     if command -v gsettings >/dev/null 2>&1; then
         log_substep "Applying Bibata-Modern-Ice cursor, WhiteSur-dark icons, and Adwaita theme..."
@@ -797,21 +1103,15 @@ initialize_theming() {
         gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
     fi
 
-    log_step "9/9" "Initializing Dynamic Material You Palette & Wallpaper"
-
     local wp_target=""
-    # Check if user already has wallpapers
     if [ -f "$HOME/.wallpaper/Reze.png" ]; then
         wp_target="$HOME/.wallpaper/Reze.png"
     elif [ -d "$HOME/.wallpaper" ]; then
         local first_wp
         first_wp=$(find "$HOME/.wallpaper" -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.webp" \) | head -n 1)
-        if [ -n "$first_wp" ]; then
-            wp_target="$first_wp"
-        fi
+        [ -n "$first_wp" ] && wp_target="$first_wp"
     fi
 
-    # Fallback default image if ~/.wallpaper was empty on fresh install
     if [ -z "$wp_target" ]; then
         log_info "No wallpaper found in ~/.wallpaper. Generating default aesthetic placeholder..."
         mkdir -p "$HOME/.wallpaper"
@@ -824,14 +1124,14 @@ img.save('$HOME/.wallpaper/Wall.png')
         wp_target="$HOME/.wallpaper/Wall.png"
     fi
 
-    log_substep "Running dynamic theme generator on: ${wp_target}..."
+    log_substep "Running dynamic Material You theme generator on: ${wp_target}..."
     if [ -f "$HOME/.config/DotFiles/theme/apply-theme.sh" ]; then
         bash "$HOME/.config/DotFiles/theme/apply-theme.sh" "$wp_target" || true
     fi
 }
 
 # ------------------------------------------------------------------------------
-# CLI Menu & Execution Flow
+# Banner & Interactive Launcher Menu
 # ------------------------------------------------------------------------------
 show_banner() {
     clear 2>/dev/null || true
@@ -843,29 +1143,47 @@ show_banner() {
     echo "  ██║  ██║   ██║   ██║     ██║  ██║███████╗██║  ██║██║ ╚████║██████╔╝"
     echo "  ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ "
     echo -e "${NC}"
-    echo -e "  ${BOLD}Automated Arch Linux + Hyprland Dotfiles Setup${NC}"
-    echo -e "  Blueprint: ${MAGENTA}Reze (AMD Ryzen 5 + NVIDIA RTX 2050 Mobile)${NC}"
-    echo -e "  Directory: ${BLUE}${DOTFILES_DIR}${NC}"
-    echo "----------------------------------------------------------------------"
+    echo -e "  ${BOLD}Arch Linux Universal Hyprland & Quickshell Dotfiles Suite${NC}"
+    echo -e "  Universal Installer & Intelligent Hardware Driver Engine"
+    echo -e "  Repository: ${BLUE}${DOTFILES_DIR}${NC}"
+    echo "------------------------------------------------------------------------------"
 }
 
 show_menu() {
     show_banner
-    echo -e "${BOLD}Select an installation mode:${NC}"
-    echo -e "  ${CYAN}1)${NC} ${BOLD}Standard Installation${NC} (Hyprland + Quickshell + Core Drivers & UI)"
-    echo -e "  ${CYAN}2)${NC} ${BOLD}Full Desktop + User Applications${NC} (Core + Browsers, Discord, Telegram, Dev tools)"
-    echo -e "  ${CYAN}3)${NC} ${BOLD}Deploy Configuration Files Only${NC} (Skip package installation)"
-    echo -e "  ${CYAN}4)${NC} ${BOLD}Basic Hyprland Setup Only${NC} (Run scripts/hyprland.sh)"
-    echo -e "  ${CYAN}5)${NC} ${BOLD}Configure 8GB Swap Space Only${NC} (Create and activate /swapfile)"
-    echo -e "  ${CYAN}q)${NC} Quit"
+    print_hardware_report
+
+    echo -e "${BOLD}Select an action from the Universal Launcher:${NC}"
+    echo
+    echo -e "  ${CYAN}[1]${NC} ${BOLD}Universal Auto-Installation${NC} ${GREEN}(Recommended)${NC}"
+    echo -e "      Auto-detects drivers, installs microcode, Hyprland, Quickshell, SDDM & Themes"
+    echo
+    echo -e "  ${CYAN}[2]${NC} ${BOLD}Standard Desktop Installation${NC} (Core Only)"
+    echo -e "      Installs auto-detected drivers and core desktop (skips optional applications)"
+    echo
+    echo -e "  ${CYAN}[3]${NC} ${BOLD}Full Desktop + User Applications${NC}"
+    echo -e "      Core desktop plus Discord, VS Code, Telegram, Spotify, Loupe, and Media Tools"
+    echo
+    echo -e "  ${CYAN}[4]${NC} ${BOLD}Hardware & Driver Diagnostic Scan Only${NC} (Dry Run)"
+    echo -e "      Inspect hardware, driver compatibility, and planned packages without changes"
+    echo
+    echo -e "  ${CYAN}[5]${NC} ${BOLD}Deploy Configuration Files & Assets Only${NC}"
+    echo -e "      Quick sync of ~/.config, scripts, and themes with automated username adaptation"
+    echo
+    echo -e "  ${CYAN}[6]${NC} ${BOLD}Install & Configure Drivers Only${NC}"
+    echo -e "      Installs auto-detected microcode, kernel headers, GPU drivers, and system quirks"
+    echo
+    echo -e "  ${CYAN}[7]${NC} ${BOLD}Configure 8GB Swap Space Only${NC}"
+    echo
+    echo -e "  ${RED}[q]${NC} Quit"
     echo
 }
 
-run_install() {
+run_full_install() {
     check_arch_linux
     ensure_sudo
     configure_swap
-    configure_nvidia_if_present
+    install_and_configure_drivers
     install_all_packages
     configure_system_services
     deploy_dotfiles
@@ -874,45 +1192,50 @@ run_install() {
     initialize_theming
 
     echo
-    echo "======================================================================"
-    log_success "Dotfiles installation completed successfully!"
-    echo "======================================================================"
-    echo -e "  ${BOLD}Next steps:${NC}"
-    echo -e "  1. Add your personal wallpapers to: ${BLUE}~/.wallpaper/${NC}"
-    echo -e "  2. Reboot your system: ${CYAN}sudo reboot${NC}"
-    echo -e "  3. Log in via SDDM and enjoy your new Hyprland environment!"
-    echo "======================================================================"
+    echo "=============================================================================="
+    log_success "Universal Dotfiles Installation Completed Successfully!"
+    echo "=============================================================================="
+    echo -e "  ${BOLD}Summary:${NC}"
+    echo -e "  • All hardware drivers & microcode configured for your system."
+    echo -e "  • User configurations dynamically adapted to: ${BLUE}${HOME}${NC}"
+    echo -e "  • Add personal wallpapers anytime to: ${BLUE}~/.wallpaper/${NC}"
+    echo -e "  • You can now reboot your system: ${CYAN}sudo reboot${NC}"
+    echo "=============================================================================="
     echo
 }
 
 # ------------------------------------------------------------------------------
-# Entrypoint
+# Entrypoint & CLI Argument Handling
 # ------------------------------------------------------------------------------
 case "${1:-}" in
     --all|-a)
         show_banner
         INSTALL_APPS="true"
-        run_install
+        run_full_install
         ;;
     --core|-c)
         show_banner
         INSTALL_APPS="false"
-        run_install
+        run_full_install
         ;;
-    --base|-b|--hyprland-base)
+    --auto|-y|--yes)
+        show_banner
+        INSTALL_APPS="false"
+        run_full_install
+        ;;
+    --scan|-s|--dry-run)
+        show_banner
+        print_hardware_report
+        log_success "Hardware diagnostic probe completed. No system modifications were made."
+        exit 0
+        ;;
+    --drivers-only)
         show_banner
         check_arch_linux
         ensure_sudo
-        configure_swap
-        if [ -f "$DOTFILES_DIR/scripts/hyprland.sh" ]; then
-            bash "$DOTFILES_DIR/scripts/hyprland.sh"
-        fi
-        ;;
-    --swap|-s)
-        show_banner
-        check_arch_linux
-        ensure_sudo
-        FORCE_SWAP="true" configure_swap
+        install_and_configure_drivers
+        log_success "Driver installation and system configuration completed."
+        exit 0
         ;;
     --config-only)
         show_banner
@@ -920,65 +1243,85 @@ case "${1:-}" in
         deploy_dotfiles
         setup_dotfiles_venv
         initialize_theming
-        log_success "Configurations deployed successfully!"
+        log_success "Configurations and assets deployed successfully to ${HOME}."
+        exit 0
+        ;;
+    --swap)
+        show_banner
+        check_arch_linux
+        ensure_sudo
+        FORCE_SWAP="true" configure_swap
+        exit 0
         ;;
     --help|-h)
-        echo "Usage: $0 [OPTION]"
+        echo -e "${BOLD}Usage:${NC} $0 [OPTIONS]"
+        echo
+        echo "Universal Arch Linux Hyprland & Quickshell Dotfiles Setup"
         echo
         echo "Options:"
-        echo "  -c, --core           Install core Hyprland desktop & shell (Standard)"
-        echo "  -a, --all            Install core desktop + all optional applications"
-        echo "  -b, --base           Install foundational Hyprland stack only (scripts/hyprland.sh)"
-        echo "  -s, --swap           Configure 8GB system swap space (/swapfile)"
-        echo "      --config-only    Deploy config files only (skip package manager)"
-        echo "  -h, --help           Show this help message"
+        echo "  -y, --auto, --yes     Run universal auto-installation (unattended)"
+        echo "  -c, --core            Install auto-detected drivers & core desktop (Standard)"
+        echo "  -a, --all             Install auto-detected drivers, core desktop & optional applications"
+        echo "  -s, --scan, --dry-run Probe hardware and print driver diagnostic report (no changes)"
+        echo "      --drivers-only    Install and configure auto-detected drivers only"
+        echo "      --config-only     Deploy configuration files and themes only (skip package manager)"
+        echo "      --swap            Configure 8GB system swapfile (/swapfile)"
+        echo "  -h, --help            Show this help manual and exit"
         echo
-        echo "Run without arguments for interactive selection."
+        echo "Run without options to launch the interactive Universal Launcher."
         exit 0
         ;;
     "")
         show_menu
         choice=""
         if [ -e /dev/tty ]; then
-            read -rp "Enter selection [1-5 / q]: " choice </dev/tty || choice=""
+            read -rp "Enter selection [1-7 / q]: " choice </dev/tty || choice=""
         else
-            read -rp "Enter selection [1-5 / q]: " choice || choice=""
+            read -rp "Enter selection [1-7 / q]: " choice || choice=""
         fi
         case "$choice" in
             1)
                 INSTALL_APPS="false"
-                run_install
+                run_full_install
                 ;;
             2)
-                INSTALL_APPS="true"
-                run_install
+                INSTALL_APPS="false"
+                run_full_install
                 ;;
             3)
+                INSTALL_APPS="true"
+                run_full_install
+                ;;
+            4)
+                show_banner
+                print_hardware_report
+                log_success "Diagnostic scan completed."
+                exit 0
+                ;;
+            5)
                 check_arch_linux
                 deploy_dotfiles
                 setup_dotfiles_venv
                 initialize_theming
                 log_success "Configurations deployed successfully!"
                 ;;
-            4)
+            6)
                 check_arch_linux
                 ensure_sudo
-                configure_swap
-                if [ -f "$DOTFILES_DIR/scripts/hyprland.sh" ]; then
-                    bash "$DOTFILES_DIR/scripts/hyprland.sh"
-                fi
+                install_and_configure_drivers
+                log_success "Driver configuration completed!"
                 ;;
-            5)
+            7)
                 check_arch_linux
                 ensure_sudo
                 FORCE_SWAP="true" configure_swap
                 ;;
             q|Q)
-                log_info "Installation aborted."
+                log_info "Setup aborted by user."
                 exit 0
                 ;;
             *)
-                log_error "Invalid selection."
+                log_error "Invalid selection: '$choice'."
                 exit 1
                 ;;
         esac

@@ -25,7 +25,7 @@ Item {
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         onClicked: {
-            Quickshell.execDetached(["ghostty", "--title=clipse-clipboard", "-e", "/home/Krish/.local/bin/clipse"]);
+            Quickshell.execDetached(["ghostty", "--title=clipse-clipboard", "-e", (Quickshell.env ? Quickshell.env("HOME") : "") + "/.local/bin/clipse"]);
         }
     }
 }

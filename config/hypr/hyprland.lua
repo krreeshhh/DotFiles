@@ -40,12 +40,13 @@ hl.monitor({
 ---------------------
 
 -- Set programs that you use
+local home            = os.getenv("HOME") or "/home/" .. (os.getenv("USER") or "user")
 local terminal        = "ghostty"
 local browser         = "brave-origin"
 local fileManager     = "nautilus"
 local agents          = "herdr"
 local appLauncher     = "quickshell ipc call shell toggleAppLauncher || (nohup qs >/dev/null 2>&1 & sleep 0.4 && quickshell ipc call shell toggleAppLauncher)"
-local wallpaperPicker = "bash /home/Krish/.config/DotFiles/wallpaper/wallpaper-picker.sh"
+local wallpaperPicker = "bash " .. home .. "/.config/DotFiles/wallpaper/wallpaper-picker.sh"
 
 
 -------------------
@@ -64,15 +65,15 @@ local wallpaperPicker = "bash /home/Krish/.config/DotFiles/wallpaper/wallpaper-p
 -- end)
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("bash /home/Krish/.config/DotFiles/wallpaper/apply-wallpaper.sh")
-    hl.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles")
+    hl.exec_cmd("bash " .. home .. "/.config/DotFiles/wallpaper/apply-wallpaper.sh")
+    hl.exec_cmd("qs -p " .. home .. "/.config/quickshell/dotfiles")
     hl.exec_cmd("qs")
-    hl.exec_cmd("/home/Krish/.local/bin/clipse -listen")
-    hl.exec_cmd("wl-paste --type text --watch bash -c 'cliphist store && qs -p $HOME/.config/quickshell/dotfiles ipc call cliphistService update'")
-    hl.exec_cmd("wl-paste --type image --watch bash -c 'cliphist store && qs -p $HOME/.config/quickshell/dotfiles ipc call cliphistService update'")
+    hl.exec_cmd(home .. "/.local/bin/clipse -listen")
+    hl.exec_cmd("wl-paste --type text --watch bash -c 'cliphist store && qs -p " .. home .. "/.config/quickshell/dotfiles ipc call cliphistService update'")
+    hl.exec_cmd("wl-paste --type image --watch bash -c 'cliphist store && qs -p " .. home .. "/.config/quickshell/dotfiles ipc call cliphistService update'")
     hl.exec_cmd("udiskie &")
     hl.exec_cmd("systemctl --user is-active --quiet hypridle || hypridle &")
-    hl.exec_cmd("python3 /home/Krish/.config/hypr/scripts/autostart.py")
+    hl.exec_cmd("python3 " .. home .. "/.config/hypr/scripts/autostart.py")
 end)
 
 -------------------------------
@@ -324,21 +325,21 @@ hl.bind("SUPER + A", hl.dsp.exec_cmd(terminal .. " -e herdr"))
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("fagram"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("/home/Krish/.local/bin/tern"))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(home .. "/.local/bin/tern"))
 local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
 -- hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("ghostty --title=yazi-filemanager -e /home/Krish/.local/bin/yazi"))
-hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles ipc call session toggle"))
+hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("ghostty --title=yazi-filemanager -e " .. home .. "/.local/bin/yazi"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("qs -p " .. home .. "/.config/quickshell/dotfiles ipc call session toggle"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("ghostty --title=clipse-clipboard -e /home/Krish/.local/bin/clipse"))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles ipc call sidebarRight toggle"))
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles ipc call sidebarRight toggle"))
-hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles ipc call sidebarRight close"))
-hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("/home/Krish/.config/hypr/scripts/caffeine.sh toggle"))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("ghostty --title=clipse-clipboard -e " .. home .. "/.local/bin/clipse"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("qs -p " .. home .. "/.config/quickshell/dotfiles ipc call sidebarRight toggle"))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("qs -p " .. home .. "/.config/quickshell/dotfiles ipc call sidebarRight toggle"))
+hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd("qs -p " .. home .. "/.config/quickshell/dotfiles ipc call sidebarRight close"))
+hl.bind(mainMod .. " + I", hl.dsp.exec_cmd(home .. "/.config/hypr/scripts/caffeine.sh toggle"))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(appLauncher))
-hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("qs -p $HOME/.config/quickshell/dotfiles ipc call session toggle"))
+hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("qs -p " .. home .. "/.config/quickshell/dotfiles ipc call session toggle"))
 hl.bind(mainMod .. " + W",     hl.dsp.exec_cmd(wallpaperPicker))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
@@ -370,14 +371,14 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys and F7/F8 for volume and LCD brightness
-hl.bind("F7",                    hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/brightness.sh down"), { locked = true, repeating = true })
-hl.bind("F8",                    hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/brightness.sh up"),   { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/brightness.sh down"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/brightness.sh up"),   { locked = true, repeating = true })
-hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/volume.sh up"),       { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/volume.sh down"),     { locked = true, repeating = true })
-hl.bind("XF86AudioMute",         hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/volume.sh mute"),     { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute",      hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/volume.sh mic-mute"), { locked = true, repeating = true })
+hl.bind("F7",                    hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/scripts/brightness.sh down"), { locked = true, repeating = true })
+hl.bind("F8",                    hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/scripts/brightness.sh up"),   { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/scripts/brightness.sh down"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/scripts/brightness.sh up"),   { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/scripts/volume.sh up"),       { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/scripts/volume.sh down"),     { locked = true, repeating = true })
+hl.bind("XF86AudioMute",         hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/scripts/volume.sh mute"),     { locked = true, repeating = true })
+hl.bind("XF86AudioMicMute",      hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/scripts/volume.sh mic-mute"), { locked = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })
@@ -386,8 +387,8 @@ hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
 
 -- Screenshots
-hl.bind("Print",                       hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/screenshot.sh area"))
-hl.bind("SHIFT + Print",               hl.dsp.exec_cmd("bash /home/Krish/.config/hypr/scripts/screenshot.sh full"))
+hl.bind("Print",                       hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/scripts/screenshot.sh area"))
+hl.bind("SHIFT + Print",               hl.dsp.exec_cmd("bash " .. home .. "/.config/hypr/scripts/screenshot.sh full"))
 
 -- Laptop Lid Switch (Turn screen on/off when opening/closing lid)
 hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd("hyprctl dispatch dpms on"), { locked = true })

@@ -34,7 +34,7 @@ Item {
                 colRipple: Theme.colLayer1Active
                 downAction: () => {
                     if (modelData.action === "screenshot")
-                        Quickshell.execDetached(["/home/Krish/.config/hypr/scripts/screenshot.sh"]);
+                        Quickshell.execDetached([(Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/screenshot.sh"]);
                     else if (modelData.action === "mic")
                         Audio.toggleMicMute();
                 }

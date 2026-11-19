@@ -19,7 +19,7 @@ When the `/mechanic` skill is invoked:
   - System-level operations (e.g., `pacman`, `systemctl`, `journalctl`, editing `/etc/` or kernel modules) require `sudo`.
   - Always execute elevated commands using `sudo -A` with the dedicated Quickshell askpass helper:
     ```bash
-    SUDO_ASKPASS=/home/Krish/.local/bin/mechanic-askpass sudo -A <command>
+    SUDO_ASKPASS="$HOME/.local/bin/mechanic-askpass" sudo -A <command>
     ```
   - **How it works**: [`mechanic-askpass`](file:///home/Krish/.local/bin/mechanic-askpass) triggers Quickshell's Material You authentication modal ([`AuthDialog.qml`](file:///home/Krish/.config/quickshell/popups/AuthDialog.qml)) via IPC (`quickshell ipc call shell promptAuth`). The user enters their password on-screen, credentials cache for the sudo session timeout, and subsequent commands proceed autonomously.
   - **Fallback**: If Quickshell is stopped or unresponsive, `mechanic-askpass` automatically falls back to Rofi password mode or `pinentry-qt`.

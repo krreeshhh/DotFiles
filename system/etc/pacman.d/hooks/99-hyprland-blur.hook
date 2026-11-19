@@ -7,4 +7,4 @@ Target = hyprland
 [Action]
 Description = Applying Hyprland blur fix for Wayland protocol regression...
 When = PostTransaction
-Exec = /usr/bin/python3 /home/Krish/.local/bin/patch-hyprland-blur
+Exec = /usr/local/bin/patch-hyprland-blur

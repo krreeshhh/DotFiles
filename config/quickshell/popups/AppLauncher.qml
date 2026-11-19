@@ -38,7 +38,7 @@ PanelWindow {
     // Process to fetch installed Web Apps dynamically
     Process {
         id: webappProc
-        command: ["python3", "-c", "import sys, json, os; sys.path.insert(0, '/home/Krish/.config/DotFiles/launcher'); import webapp_manager; print(json.dumps(webapp_manager.list_webapps()))"]
+        command: ["python3", "-c", "import sys, json, os; sys.path.insert(0, os.path.expanduser('~/.config/DotFiles/launcher')); import webapp_manager; print(json.dumps(webapp_manager.list_webapps()))"]
         stdout: SplitParser {
             onRead: (line) => {
                 try {
@@ -459,7 +459,7 @@ PanelWindow {
                 root.selectedIndex = 0;
             } else if (item.action === "create") {
                 root.closeImmediate();
-                Quickshell.execDetached(["python3", "/home/Krish/.config/DotFiles/launcher/webapp_manager.py", "interactive"]);
+                Quickshell.execDetached(["python3", (Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/DotFiles/launcher/webapp_manager.py", "interactive"]);
             } else if (item.action === "remove") {
                 root.currentView = "remove_webapps";
                 root.searchText = "";
@@ -474,7 +474,7 @@ PanelWindow {
             if (item.webapp) {
                 var delWaFile = item.webapp.file || "";
                 var delWaName = item.webapp.name || "Web App";
-                Quickshell.execDetached(["python3", "-c", "import sys, subprocess, os; sys.path.insert(0, '/home/Krish/.config/DotFiles/launcher'); import webapp_manager; webapp_manager.remove_webapp_file(sys.argv[1]) if sys.argv[1] else None; subprocess.run(['notify-send', 'Web App Removed', 'Removed web app ' + sys.argv[2], '-i', 'user-trash-symbolic'])", delWaFile, delWaName]);
+                Quickshell.execDetached(["python3", "-c", "import sys, subprocess, os; sys.path.insert(0, os.path.expanduser('~/.config/DotFiles/launcher')); import webapp_manager; webapp_manager.remove_webapp_file(sys.argv[1]) if sys.argv[1] else None; subprocess.run(['notify-send', 'Web App Removed', 'Removed web app ' + sys.argv[2], '-i', 'user-trash-symbolic'])", delWaFile, delWaName]);
                 removeRefreshTimer.restart();
             }
             return;

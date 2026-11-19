@@ -38,9 +38,31 @@ find_ac_online() {
     echo "1"
 }
 
+get_primary_display() {
+    local mon=""
+    for uid_dir in /run/user/[0-9]*; do
+        [ -d "$uid_dir/hypr" ] || continue
+        for hypr_inst in "$uid_dir/hypr"/*/; do
+            [ -d "$hypr_inst" ] || continue
+            local sig uname
+            sig="$(basename "$hypr_inst")"
+            uname="$(id -un "$(basename "$uid_dir")" 2>/dev/null || true)"
+            [ -n "$uname" ] || continue
+            if command -v jq >/dev/null 2>&1; then
+                mon="$(sudo -u "$uname" HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" hyprctl monitors -j 2>/dev/null | jq -r '.[0].name // empty' 2>/dev/null || true)"
+            fi
+            if [ -z "$mon" ]; then
+                mon="$(sudo -u "$uname" HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" hyprctl monitors 2>/dev/null | awk '/^Monitor/{print $2}' | head -n 1 || true)"
+            fi
+            [ -n "$mon" ] && break 2
+        done
+    done
+    echo "${mon:-eDP-1}"
+}
+
 # Helper to dispatch commands to all logged-in Hyprland sessions
 set_display_refresh() {
-    local hz="$1"  # "60.00Hz" or "144.00Hz"
+    local hz="$1"  # "60.00Hz" or "max"
 
     for uid_dir in /run/user/[0-9]*; do
         [ -d "$uid_dir" ] || continue
@@ -52,14 +74,29 @@ set_display_refresh() {
         if [ -d "$uid_dir/hypr" ]; then
             for hypr_inst in "$uid_dir/hypr"/*/; do
                 [ -d "$hypr_inst" ] || continue
-                local sig
+                local sig mon
                 sig="$(basename "$hypr_inst")"
-                if [ "$(id -u)" -eq 0 ]; then
-                    sudo -u "$user_name" HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" \
-                        hyprctl eval "hl.monitor({ output = 'eDP-1', mode = '1920x1080@${hz}', position = '0x0', scale = '1' })" >/dev/null 2>&1 || true
+                mon="$(get_primary_display)"
+                [ -n "$mon" ] || continue
+
+                if [ "$hz" = "max" ]; then
+                    if [ "$(id -u)" -eq 0 ]; then
+                        sudo -u "$user_name" HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" \
+                            hyprctl keyword monitor "${mon},preferred,auto,1" >/dev/null 2>&1 || true
+                    else
+                        HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" \
+                            hyprctl keyword monitor "${mon},preferred,auto,1" >/dev/null 2>&1 || true
+                    fi
                 else
-                    HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" \
-                        hyprctl eval "hl.monitor({ output = 'eDP-1', mode = '1920x1080@${hz}', position = '0x0', scale = '1' })" >/dev/null 2>&1 || true
+                    local res
+                    res="$(sudo -u "$user_name" HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" hyprctl monitors 2>/dev/null | grep -A 2 "Monitor $mon" | grep -oP '[0-9]+x[0-9]+' | head -n 1 || echo "1920x1080")"
+                    if [ "$(id -u)" -eq 0 ]; then
+                        sudo -u "$user_name" HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" \
+                            hyprctl keyword monitor "${mon},${res}@${hz},auto,1" >/dev/null 2>&1 || true
+                    else
+                        HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" \
+                            hyprctl keyword monitor "${mon},${res}@${hz},auto,1" >/dev/null 2>&1 || true
+                    fi
                 fi
             done
         fi
@@ -68,8 +105,10 @@ set_display_refresh() {
 
 get_display_hz() {
     local hz="unknown"
+    local mon
+    mon="$(get_primary_display)"
     if [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
-        hz="$(hyprctl monitors 2>/dev/null | grep -A 2 "Monitor eDP-1" | grep -oP '@\K[0-9.]+' | head -n 1 || echo "unknown")"
+        hz="$(hyprctl monitors 2>/dev/null | grep -A 2 "Monitor $mon" | grep -oP '@\K[0-9.]+' | head -n 1 || echo "unknown")"
     fi
     if [ "$hz" = "unknown" ]; then
         for d in /run/user/[0-9]*/hypr/*/; do
@@ -80,9 +119,9 @@ get_display_hz() {
             uname="$(id -un "$(basename "$uid_dir")" 2>/dev/null || true)"
             [ -n "$uname" ] || continue
             if [ "$(id -u)" -eq 0 ]; then
-                hz="$(sudo -u "$uname" HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" hyprctl monitors 2>/dev/null | grep -A 2 "Monitor eDP-1" | grep -oP '@\K[0-9.]+' | head -n 1 || echo "unknown")"
+                hz="$(sudo -u "$uname" HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" hyprctl monitors 2>/dev/null | grep -A 2 "Monitor $mon" | grep -oP '@\K[0-9.]+' | head -n 1 || echo "unknown")"
             else
-                hz="$(HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" hyprctl monitors 2>/dev/null | grep -A 2 "Monitor eDP-1" | grep -oP '@\K[0-9.]+' | head -n 1 || echo "unknown")"
+                hz="$(HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" hyprctl monitors 2>/dev/null | grep -A 2 "Monitor $mon" | grep -oP '@\K[0-9.]+' | head -n 1 || echo "unknown")"
             fi
             [ "$hz" != "unknown" ] && break
         done
@@ -132,10 +171,14 @@ ensure_wifi_stability() {
 apply_battery_profile() {
     echo "=== [BATTERY MODE] Applying power-saving & brownout-prevention profile ==="
 
-    # 1. Disable AMD CPU Turbo Boost (eliminates 4.5GHz / 54W burst wattage spikes)
+    # 1. Disable CPU Turbo Boost (AMD & Intel)
     if [ -f /sys/devices/system/cpu/cpufreq/boost ]; then
         echo 0 > /sys/devices/system/cpu/cpufreq/boost 2>/dev/null || true
-        echo " -> CPU Boost: Disabled"
+        echo " -> AMD CPU Boost: Disabled"
+    fi
+    if [ -f /sys/devices/system/cpu/intel_pstate/no_turbo ]; then
+        echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo 2>/dev/null || true
+        echo " -> Intel CPU Turbo: Disabled"
     fi
 
     # 2. Set AMD P-State EPP to 'power' on all cores
@@ -189,24 +232,30 @@ apply_battery_profile() {
     fi
 
     # 9. Hyprland Display Refresh Rate -> 60 Hz (saves scanout & GPU mem clocks)
+    local cur_mon
+    cur_mon="$(get_primary_display)"
     set_display_refresh "60.00Hz"
-    echo " -> Display eDP-1: 60Hz"
+    echo " -> Display $cur_mon: 60Hz"
 
     # Save state
     echo "battery" > "$STATE_FILE" 2>/dev/null || true
 
     # Desktop notification
-    notify_desktop "Battery Profile Active" "CPU: 3.1GHz cap (Boost Off) | GPU: 1200MHz cap | 60Hz Display" "battery" "normal"
+    notify_desktop "Battery Profile Active" "CPU: Power Mode (Boost Off) | 60Hz Display ($cur_mon)" "battery" "normal"
     echo "Battery profile applied successfully."
 }
 
 apply_ac_profile() {
     echo "=== [AC MODE] Applying high-performance & unrestricted profile ==="
 
-    # 1. Enable AMD CPU Turbo Boost (full 4.5GHz turbo boost enabled)
+    # 1. Enable CPU Turbo Boost (AMD & Intel)
     if [ -f /sys/devices/system/cpu/cpufreq/boost ]; then
         echo 1 > /sys/devices/system/cpu/cpufreq/boost 2>/dev/null || true
-        echo " -> CPU Boost: Enabled (4.5 GHz Turbo)"
+        echo " -> AMD CPU Boost: Enabled"
+    fi
+    if [ -f /sys/devices/system/cpu/intel_pstate/no_turbo ]; then
+        echo 0 > /sys/devices/system/cpu/intel_pstate/no_turbo 2>/dev/null || true
+        echo " -> Intel CPU Turbo: Enabled"
     fi
 
     # 2. Set AMD P-State EPP to 'balance_performance'
@@ -261,15 +310,17 @@ apply_ac_profile() {
         echo " -> ACPI Platform Profile: performance"
     fi
 
-    # 9. Hyprland Display Refresh Rate -> 144 Hz
-    set_display_refresh "144.00Hz"
-    echo " -> Display eDP-1: 144Hz"
+    # 9. Hyprland Display Refresh Rate -> Preferred / Max
+    local cur_mon
+    cur_mon="$(get_primary_display)"
+    set_display_refresh "max"
+    echo " -> Display $cur_mon: Preferred/Max Refresh Rate"
 
     # Save state
     echo "ac" > "$STATE_FILE" 2>/dev/null || true
 
     # Desktop notification
-    notify_desktop "AC Profile Active" "CPU: 4.5GHz Turbo | GPU: Full Boost | 144Hz Display" "battery-charging" "low"
+    notify_desktop "AC Profile Active" "CPU: Full Boost | High Performance | Display ($cur_mon)" "battery-charging" "low"
     echo "AC profile applied successfully."
 }
 
@@ -365,7 +416,7 @@ show_status() {
   Active Profile      : $current_state
   AC Adapter Online   : $([ "$ac_status" = "1" ] && echo "Yes (Plugged In)" || echo "No (On Battery)")
   Battery Level       : $bat_cap ($bat_stat)
-  Display (eDP-1)     : $refresh_rate
+  Display ($(get_primary_display))     : $refresh_rate
   Platform Profile    : $platform_prof
 ------------------------------------------------------
   CPU Boost (Turbo)   : $([ "$cpu_boost" = "1" ] && echo "Enabled (Up to 4.5 GHz)" || echo "Disabled (Capped at 3.1 GHz)")
@@ -438,7 +489,12 @@ main() {
             ;;
         update)
             check_root
-            local src="${2:-/home/Krish/.local/bin/power-profile-manager}"
+            local src="${2:-${HOME:-/root}/.local/bin/power-profile-manager}"
+            if [ ! -f "$src" ] && [ -n "${SUDO_USER:-}" ]; then
+                local user_home
+                user_home="$(getent passwd "$SUDO_USER" | cut -d: -f6)"
+                [ -f "$user_home/.local/bin/power-profile-manager" ] && src="$user_home/.local/bin/power-profile-manager"
+            fi
             if [ -f "$src" ]; then
                 cp "$src" /usr/local/bin/power-profile-manager.tmp
                 chmod 0755 /usr/local/bin/power-profile-manager.tmp

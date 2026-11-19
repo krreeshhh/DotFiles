@@ -36,7 +36,7 @@ Row {
 
     Process {
         id: caffeineProc
-        command: ["bash", "/home/Krish/.config/hypr/scripts/caffeine.sh", "status"]
+        command: ["bash", (Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/caffeine.sh", "status"]
         stdout: SplitParser {
             onRead: (line) => {
                 var s = line.trim();
@@ -86,7 +86,7 @@ Row {
 
     Process {
         id: wifiStatusProc
-        command: ["python3", "/home/Krish/.config/quickshell/scripts/wifi.py", "status"]
+        command: ["python3", (Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/quickshell/scripts/wifi.py", "status"]
         stdout: SplitParser {
             onRead: (line) => {
                 var s = line.trim();
@@ -144,7 +144,7 @@ Row {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: {
-                Quickshell.execDetached(["bash", "/home/Krish/.config/hypr/scripts/caffeine.sh", "toggle"]);
+                Quickshell.execDetached(["bash", (Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/hypr/scripts/caffeine.sh", "toggle"]);
                 root.caffeineActive = !root.caffeineActive;
                 caffeineTimer.restart();
             }

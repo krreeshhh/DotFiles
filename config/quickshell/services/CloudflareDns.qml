@@ -17,7 +17,7 @@ QtObject {
         // Optimistic UI update
         root.active = !root.active;
 
-        dnsProcess.command = ["/home/Krish/.local/bin/cloudflare-dns", root.active ? "on" : "off"];
+        dnsProcess.command = [(Quickshell.env ? Quickshell.env("HOME") : "") + "/.local/bin/cloudflare-dns", root.active ? "on" : "off"];
         dnsProcess.running = true;
     }
 
@@ -31,7 +31,7 @@ QtObject {
 
     property Process checkProc: Process {
         id: checkProc
-        command: ["/home/Krish/.local/bin/cloudflare-dns", "status"]
+        command: [(Quickshell.env ? Quickshell.env("HOME") : "") + "/.local/bin/cloudflare-dns", "status"]
         stdout: SplitParser {
             onRead: data => {
                 if (!root.isPending) {

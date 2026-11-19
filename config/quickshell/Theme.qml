@@ -62,7 +62,7 @@ QtObject {
 
     // Process to dynamically read generated Material You colors
     property var themeProc: Process {
-        command: ["python3", "-c", "import json; d = json.load(open('/home/Krish/.config/DotFiles/theme/colors.json'))['colors']; print('|'.join([d.get(k,'') for k in ['primary','on_primary','primary_container','secondary','background','surface','surface_variant','surface_selected','on_surface','on_surface_variant','outline','outline_subtle','error']]))"]
+        command: ["python3", "-c", "import json, os; p = os.path.expanduser('~/.config/DotFiles/theme/colors.json'); d = json.load(open(p))['colors']; print('|'.join([d.get(k,'') for k in ['primary','on_primary','primary_container','secondary','background','surface','surface_variant','surface_selected','on_surface','on_surface_variant','outline','outline_subtle','error']]))"]
         stdout: SplitParser {
             onRead: (line) => {
                 line = line.trim();

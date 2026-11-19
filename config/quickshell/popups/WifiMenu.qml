@@ -23,6 +23,8 @@ PanelWindow {
     WlrLayershell.namespace: "quickshell"
     BackgroundEffect.blurRegion: Region { item: bgCard }
 
+    readonly property string wifiScript: (Quickshell.env ? Quickshell.env("HOME") : "") + "/.config/quickshell/scripts/wifi.py"
+
     property bool isScanning: false
     property bool wifiEnabled: true
     property string activeSsid: ""
@@ -139,7 +141,7 @@ PanelWindow {
 
     Process {
         id: scanProc
-        command: ["python3", "/home/Krish/.config/quickshell/scripts/wifi.py", "list"]
+        command: ["python3", root.wifiScript, "list"]
         stdout: SplitParser {
             onRead: (line) => {
                 line = line.trim();
@@ -240,9 +242,9 @@ PanelWindow {
         if (showSpinner) root.isScanning = true;
         radioProc.running = true;
         if (forceHardwareRescan) {
-            scanProc.command = ["python3", "/home/Krish/.config/quickshell/scripts/wifi.py", "list", "--rescan"];
+            scanProc.command = ["python3", root.wifiScript, "list", "--rescan"];
         } else {
-            scanProc.command = ["python3", "/home/Krish/.config/quickshell/scripts/wifi.py", "list"];
+            scanProc.command = ["python3", root.wifiScript, "list"];
         }
         scanProc.running = true;
     }
@@ -258,9 +260,9 @@ PanelWindow {
         connectProc.targetIndex = index;
 
         if (password && password.length > 0) {
-            connectProc.command = ["python3", "/home/Krish/.config/quickshell/scripts/wifi.py", "connect", ssid, password];
+            connectProc.command = ["python3", root.wifiScript, "connect", ssid, password];
         } else {
-            connectProc.command = ["python3", "/home/Krish/.config/quickshell/scripts/wifi.py", "connect", ssid];
+            connectProc.command = ["python3", root.wifiScript, "connect", ssid];
         }
         connectProc.running = true;
     }
@@ -270,7 +272,7 @@ PanelWindow {
             wifiModel.setProperty(index, "isPending", true);
             wifiModel.setProperty(index, "inUse", false);
         }
-        disconnectProc.command = ["python3", "/home/Krish/.config/quickshell/scripts/wifi.py", "disconnect", ssid];
+        disconnectProc.command = ["python3", root.wifiScript, "disconnect", ssid];
         disconnectProc.running = true;
         syncTimer1.restart();
         syncTimer2.restart();
@@ -282,7 +284,7 @@ PanelWindow {
         if (root.expandedSsid === ssid) {
             root.expandedSsid = "";
         }
-        forgetProc.command = ["python3", "/home/Krish/.config/quickshell/scripts/wifi.py", "forget", ssid];
+        forgetProc.command = ["python3", root.wifiScript, "forget", ssid];
         forgetProc.running = true;
         if (index >= 0 && index < wifiModel.count) {
             wifiModel.setProperty(index, "isSaved", false);

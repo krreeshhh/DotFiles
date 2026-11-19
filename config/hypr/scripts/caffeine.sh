@@ -22,7 +22,7 @@ is_active() {
 
 sync_quickshell() {
     local cmd="$1"
-    qs -p /home/Krish/.config/quickshell/dotfiles ipc call caffeine "$cmd" >/dev/null 2>&1 || true
+    qs -p $HOME/.config/quickshell/dotfiles ipc call caffeine "$cmd" >/dev/null 2>&1 || true
 }
 
 enable_caffeine() {

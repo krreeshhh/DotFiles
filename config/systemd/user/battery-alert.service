@@ -5,7 +5,7 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash /home/Krish/.config/hypr/scripts/battery-alert.sh
+ExecStart=/bin/bash %h/.config/hypr/scripts/battery-alert.sh
 Restart=on-failure
 RestartSec=3
 
