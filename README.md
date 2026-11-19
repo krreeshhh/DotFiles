@@ -70,7 +70,7 @@ This setup is built for performance, aesthetics, and deterministic reproduction 
 | **Compositor** | Hyprland | Configured with native Lua API (`hyprland.lua`), custom gestures, blur layer rules, and hotkey bindings. |
 | **Desktop Shell** | Quickshell (Dotfiles fork of upstream dots-hyprland, GPL-3.0) | QML bar with pill workspace pager, right sidebar (uptime, quick toggles, notification centre, calendar/To-Do/Timer), network and bluetooth controls, audio OSD, and session menu. |
 | **Launcher** | Quickshell AppLauncher (legacy host) | Native QML full-screen application launcher with integrated webapps and plugin management, with an overview command palette available via `SUPER + TAB`. |
-| **Theme Engine** | Material You (`config/DotFiles`) + `matugen` | Dual engine: `generate-theme.py` for Hyprland/GTK/Dunst/Ghostty, and `matugen` (with `materialyoucolor` venv) for the Dotfiles shell palette. |
+| **Theme Engine** | Material You (`config/dotfiles/theme`) + `matugen` | Dual engine: `generate-theme.py` for Hyprland/GTK/Dunst/Ghostty, and `matugen` (with `materialyoucolor` venv) for the Dotfiles shell palette. |
 | **Wallpaper Picker** | Custom 3D Carousel | OpenGL and Python wallpaper selector with instant theme regeneration and swww transitions. |
 | **Notifications** | Quickshell (Dotfiles notification server) | Notifications are owned by the Dotfiles shell; unread badge in the bar, top-right popups. |
 | **Picture-in-Picture**| Hypr-PiP | Background Python daemon + Chromium browser extension for universal floating video pin management. |
@@ -192,33 +192,44 @@ The suite features an Intelligent Hardware Detection Engine (`install.sh`) that 
 ## ⟡ Repository File Structure
 
 ```text
-DotFiles/
+dotfiles/
 ├── assets/
-│   ├── fonts/               # Custom system fonts (The Last Shuriken, Torus)
+│   ├── fonts/               # Custom fonts (The Last Shuriken, Torus, Material Symbols, Google Sans)
 │   ├── hypr-pip/            # Chromium extension for Universal Picture-in-Picture
+│   ├── screenshots/         # Desktop showcase screenshots
 │   ├── share/               # Desktop launcher entries (.desktop) and webapp icons
-│   ├── themes/
-│   │   └── grub/silent/     # Active minimalist GRUB bootloader theme
-│   └── wallpapers/          # Packaged aesthetic wallpaper collection (27 wallpapers)
-├── bin/                     # Standalone custom binaries (hypr-pip-helper, clipse)
+│   ├── themes/              # Bootloader and login themes (GRUB silent, SDDM hyprland-sddm)
+│   └── wallpapers/          # Curated aesthetic wallpaper collection (25 wallpapers + manifest)
+├── bin/                     # Standalone helper binaries and CLI tools
 ├── config/
-│   ├── clipse/              # Clipboard manager config
-│   ├── dunst/               # Notification styling
+│   ├── autostart/           # User desktop autostart entries
+│   ├── clipse/              # Clipboard manager config and custom theme
+│   ├── dotfiles/            # Unified dotfiles core (theme engine, wallpaper picker, launcher, config.json)
+│   │   └── DotFiles -> dotfiles # Compatibility symlink for legacy path support
+│   ├── dunst/               # Notification styling and rules
 │   ├── environment.d/       # Session environment variables
-│   ├── ghostty/             # Ghostty terminal config
-│   ├── gtk-3.0/ & gtk-4.0/  # GTK interface themes and icons
-│   ├── hypr/                # Hyprland configuration (hyprland.lua, pip.lua, scripts)
-│   ├── DotFiles/          # Material You theme extractor, DOTFILES-INSTALL.md, wallpaper engines
+│   ├── fastfetch/           # System information display layout
+│   ├── ghostty/             # Ghostty terminal config (glass opacity 0.72)
+│   ├── gtk-3.0/ & gtk-4.0/  # GTK interface themes and CSS styling
+│   ├── gtkrc-2.0            # Legacy GTK2 styling
+│   ├── herdr/               # Multi-agent process manager config
+│   ├── hypr/                # Hyprland compositor config (hyprland.lua, pip.lua, helper scripts)
+│   ├── kdeglobals           # KDE application theming integration
 │   ├── matugen/             # Matugen templates & config (Dotfiles shell palette)
-│   ├── dotfiles/            # Dotfiles shell config (Material You palette, toggles, transparency)
-│   ├── quickshell/          # Launcher/auth host + Dotfiles fork of upstream dots-hyprland (GPL-3.0)
+│   ├── mimeapps.list        # Default file type association handlers
+│   ├── quickshell/          # Quickshell desktop shell, status bar, and control panels
 │   ├── systemd/user/        # Systemd user services (hypr-pip, quickshell, battery-alert)
-│   └── yazi/                # Terminal file manager configuration
-├── packages/                # Explicit package manifests (pacman, AUR, fonts)
-├── scripts/                 # System verify test runner and maintenance utilities
-├── system/                  # System-level configuration (/etc/sddm.conf.d, etc.)
-├── install.sh               # Automated deployment script
+│   └── yazi/                # Modern terminal file manager configuration
+├── home/                    # User home dotfiles (.bashrc, .bash_profile, Antigravity agent skills)
+├── lib/                     # Bundled layer-shell runtime helper libraries
+├── metadata/                # Architecture specifications, permission matrices, and path maps
+├── packages/                # Explicit package manifests (pacman, AUR, fonts, manual)
+├── scripts/                 # System verification test suite and maintenance utilities
+├── system/                  # System-level root configuration (/etc, /usr, modprobe, udev)
+├── install.sh               # Universal automated deployment script
 ├── MANIFEST.md              # Complete catalog of all tracked files
+├── NOTICE.md                # Attribution and upstream project notes
+└── README.md                # Documentation and architecture guide
 ├── REPRODUCTION.md          # Step-by-step fresh install guide
 └── INSTALL-ORDER.md         # Deterministic dependency execution order
 ```

@@ -36,19 +36,19 @@ Every file exported in this repository is classified into one of the following c
 | `config/quickshell/launch.sh` | CORE | Quickshell startup script |
 | `config/quickshell/bar/*` (legacy) | LEGACY | Legacy topbar modules, kept for rollback |
 | `config/quickshell/popups/*` (legacy) | CORE / LEGACY | Launcher host (AppLauncher), legacy menus, AuthDialog/PromptDialog for the sudo askpass helper |
-| `config/DotFiles/theme/generate-theme.py` | CORE | Dynamic Material You palette extractor |
-| `config/DotFiles/theme/apply-theme.sh` | CORE | Live theme hot-reloader for compositor and UI |
-| `config/DotFiles/theme/colors.*` | GENERATED | Generated palette exports (JSON, Lua, CSS, Conf, Rasi) |
-| `config/DotFiles/wallpaper/apply-wallpaper.sh` | CORE | Animated wallpaper engine caller |
-| `config/DotFiles/wallpaper/carousel-picker.py` | CORE | 3D cover-flow wallpaper picker (GTK Layer Shell) |
-| `config/DotFiles/wallpaper/wallpaper-picker.sh`| CORE | Wrapper script for carousel picker |
-| `config/DotFiles/wallpaper/generate-thumbnails.py` | CORE | Thumbnail cache generator |
-| `config/DotFiles/wallpaper/config.env` | CORE / HARDWARE-SPECIFIC (144Hz) | Wallpaper backend and transition settings |
-| `config/DotFiles/wallpaper/current` | GENERATED | Active wallpaper pointer file |
-| `config/DotFiles/launcher/launcher.sh` | CORE | Application launcher toggle script |
-| `config/DotFiles/launcher/launcher.py` | CORE | Material You Rofi launcher with categories |
-| `config/DotFiles/launcher/webapp_manager.py` | CORE | Web application desktop entry generator |
-| `config/DotFiles/launcher/launcher.rasi` | CORE | Rofi launcher styling |
+| `config/dotfiles/theme/generate-theme.py` | CORE | Dynamic Material You palette extractor |
+| `config/dotfiles/theme/apply-theme.sh` | CORE | Live theme hot-reloader for compositor and UI |
+| `config/dotfiles/theme/colors.*` | GENERATED | Generated palette exports (JSON, Lua, CSS, Conf, Rasi) |
+| `config/dotfiles/wallpaper/apply-wallpaper.sh` | CORE | Animated wallpaper engine caller |
+| `config/dotfiles/wallpaper/carousel-picker.py` | CORE | 3D cover-flow wallpaper picker (GTK Layer Shell) |
+| `config/dotfiles/wallpaper/wallpaper-picker.sh`| CORE | Wrapper script for carousel picker |
+| `config/dotfiles/wallpaper/generate-thumbnails.py` | CORE | Thumbnail cache generator |
+| `config/dotfiles/wallpaper/config.env` | CORE / HARDWARE-SPECIFIC (144Hz) | Wallpaper backend and transition settings |
+| `config/dotfiles/wallpaper/current` | GENERATED | Active wallpaper pointer file |
+| `config/dotfiles/launcher/launcher.sh` | CORE | Application launcher toggle script |
+| `config/dotfiles/launcher/launcher.py` | CORE | Material You Rofi launcher with categories |
+| `config/dotfiles/launcher/webapp_manager.py` | CORE | Web application desktop entry generator |
+| `config/dotfiles/launcher/launcher.rasi` | CORE | Rofi launcher styling |
 | `config/dunst/dunstrc` | CORE / GENERATED | Dunst notification daemon layout & dynamic colors |
 | `config/ghostty/config` | CORE | Ghostty terminal configuration (glass opacity 0.72) |
 | `config/ghostty/gtk.css` | GENERATED | Ghostty dialog and window CSS styling |
@@ -59,7 +59,6 @@ Every file exported in this repository is classified into one of the following c
 | `config/gtk-4.0/settings.ini` | CORE | GTK4 theme and cursor settings |
 | `config/gtk-4.0/gtk.css` | GENERATED | GTK4 high-contrast dynamic text color overrides |
 | `config/environment.d/theme.conf` | CORE | Systemd user environment configuration |
-| `config/dolphinrc` | CORE / PERSONAL | Dolphin file manager compact toolbar & theme |
 | `config/kdeglobals` | GENERATED | KDE global color palette |
 | `config/mimeapps.list` | PERSONAL / OPTIONAL | Default file format and URI associations |
 | `config/yazi/theme.toml` | GENERATED | Yazi terminal file manager theme |

@@ -82,7 +82,7 @@ bash ~/.config/quickshell/launch.sh    # old shell (bar/, sidebar/, popups/, …
 ```
 
 and revert the `hyprland.lua` autostart to `hl.exec_cmd("bash /home/Krish/.config/quickshell/launch.sh")`.
-Backups: `~/.config/hypr/hyprland.lua.bak-end4-*`, `~/.config/quickshell.bak-2026-11-14-1911/`.
+Backups: git history preserves all previous iterations cleanly.
 
 ## Notes / known differences
 

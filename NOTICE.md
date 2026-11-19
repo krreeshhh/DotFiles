@@ -7,7 +7,7 @@ released under the **GPL-3.0** license. The full license text is kept in
 
 Original copyright: Copyright (C) end-4 and contributors.
 
-Local modifications relative to upstream (see `~/.config/DotFiles/DOTFILES-INSTALL.md`):
+Local modifications relative to upstream (see `~/.config/dotfiles/DOTFILES-INSTALL.md`):
 
 - `panelFamilies/DotfilesFamily.qml` - `SidebarLeft`, `Cheatsheet`, `Polkit`,
   `WallpaperSelector` imports/loaders removed.

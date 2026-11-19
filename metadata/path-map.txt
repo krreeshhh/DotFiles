@@ -7,7 +7,7 @@
 ~/.local/share/icons/hicolor/scalable/apps/dotfiles.svg <= assets/share/icons/hicolor/scalable/apps/dotfiles.svg
 ~/.local/share/fonts/GoogleSansFlex.ttf <= assets/fonts/GoogleSansFlex.ttf
 ~/.config/dunst/ <= config/dunst/
-~/.config/DotFiles/ <= config/DotFiles/
+~/.config/DotFiles/ <= config/DotFiles/ (symlink -> dotfiles)
 ~/.config/ghostty/ <= config/ghostty/
 ~/.config/yazi/ <= config/yazi/
 ~/.config/clipse/ <= config/clipse/
@@ -15,7 +15,6 @@
 ~/.config/gtk-3.0/ <= config/gtk-3.0/
 ~/.config/gtk-4.0/ <= config/gtk-4.0/
 ~/.config/environment.d/ <= config/environment.d/
-~/.config/dolphinrc <= config/dolphinrc
 ~/.config/kdeglobals <= config/kdeglobals
 ~/.config/mimeapps.list <= config/mimeapps.list
 ~/.gtkrc-2.0 <= config/gtkrc-2.0

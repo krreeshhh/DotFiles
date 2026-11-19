@@ -98,11 +98,11 @@ flowchart TD
   - `Osd.qml`: Sleek volume and brightness indicators triggered via IPC.
 
 ### 3. Dynamic Material You Theming
-- **Theming Controller**: [`~/.config/DotFiles/theme/apply-theme.sh`](file:///home/Krish/.config/DotFiles/theme/apply-theme.sh) and [`generate-theme.py`](file:///home/Krish/.config/DotFiles/theme/generate-theme.py).
+- **Theming Controller**: [`~/.config/dotfiles/theme/apply-theme.sh`](file:///home/Krish/.config/dotfiles/theme/apply-theme.sh) and [`generate-theme.py`](file:///home/Krish/.config/dotfiles/theme/generate-theme.py).
 - **Wallpaper Backend**: `awww` / `swww` animated daemon executing 144Hz cursor-expansion transitions.
-- **Color Propagation**: Extracts colors into [`colors.json`](file:///home/Krish/.config/DotFiles/theme/colors.json) and propagates to:
+- **Color Propagation**: Extracts colors into [`colors.json`](file:///home/Krish/.config/dotfiles/theme/colors.json) and propagates to:
   - Quickshell: [`Theme.qml`](file:///home/Krish/.config/quickshell/Theme.qml) binds colors live via `quickshell ipc call shell reloadTheme`.
-  - Hyprland: [`colors-hyprland.lua`](file:///home/Krish/.config/DotFiles/theme/colors-hyprland.lua) sets active border gradients.
+  - Hyprland: [`colors-hyprland.lua`](file:///home/Krish/.config/dotfiles/theme/colors-hyprland.lua) sets active border gradients.
    - Terminal & UI: Ghostty (`gtk.css`), Rofi (`colors.rasi`), Dunst notifications, SDDM background, and GRUB boot splash.
 
 ### 4. Audio, Power & Idle Systems

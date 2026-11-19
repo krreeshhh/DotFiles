@@ -8,7 +8,7 @@ description: Manage desktop theming, Material You dynamic color palettes, wallpa
 This skill guides the agent in managing the desktop's dynamic **Material You / Glass Theme** system.
 
 ## Theming Components & Data Flow
-1. **Dynamic Color Palette:** Stored in `~/.config/DotFiles/theme/colors.json` (keys: `primary`, `on_primary`, `primary_container`, `secondary`, `background`, `surface`, `surface_variant`, `surface_selected`, `on_surface`, `on_surface_variant`, `outline`, `outline_subtle`, `error`).
+1. **Dynamic Color Palette:** Stored in `~/.config/dotfiles/theme/colors.json` (keys: `primary`, `on_primary`, `primary_container`, `secondary`, `background`, `surface`, `surface_variant`, `surface_selected`, `on_surface`, `on_surface_variant`, `outline`, `outline_subtle`, `error`).
 2. **Quickshell Theme Singleton:** [`~/.config/quickshell/Theme.qml`](file:///home/Krish/.config/quickshell/Theme.qml) reads `colors.json` via a background python process and binds them to all shell surfaces, glass backgrounds, and fillets.
 3. **Live Reload:** Triggered instantly across all running Quickshell windows without restarting the shell:
    ```bash
@@ -22,7 +22,7 @@ This skill guides the agent in managing the desktop's dynamic **Material You / G
 ### 1. Reading Active Colors
 Inspect the currently loaded color tokens:
 ```bash
-cat ~/.config/DotFiles/theme/colors.json | jq .
+cat ~/.config/dotfiles/theme/colors.json | jq .
 ```
 
 ### 2. Updating Color Accents

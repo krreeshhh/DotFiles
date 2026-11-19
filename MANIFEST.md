@@ -289,32 +289,33 @@ Total tracked dotfiles items: **1425**
 | `bin/xdg-terminal-exec` | `DOTFILES/bin/xdg-terminal-exec` | Binary | Yes |
 | `bin/ya` | `DOTFILES/bin/ya` | Binary | Yes |
 | `bin/yazi` | `DOTFILES/bin/yazi` | Binary | Yes |
-| `config/DotFiles/DOTFILES-INSTALL.md` | `DOTFILES/config/DotFiles/DOTFILES-INSTALL.md` | Documentation / Manifest | Yes |
-| `config/DotFiles/PLAN-end4-ui-port.md` | `DOTFILES/config/DotFiles/PLAN-end4-ui-port.md` | Documentation / Manifest | Yes |
-| `config/DotFiles/launcher/launcher.rasi` | `DOTFILES/config/DotFiles/launcher/launcher.rasi` | DotFiles / Config | Yes |
-| `config/DotFiles/launcher/launcher.sh` | `DOTFILES/config/DotFiles/launcher/launcher.sh` | Script | Yes |
-| `config/DotFiles/launcher/webapp_manager.py` | `DOTFILES/config/DotFiles/launcher/webapp_manager.py` | Script / Python | Yes |
-| `config/DotFiles/theme/apply-theme.sh` | `DOTFILES/config/DotFiles/theme/apply-theme.sh` | Script | Yes |
-| `config/DotFiles/theme/colors-hyprland.conf` | `DOTFILES/config/DotFiles/theme/colors-hyprland.conf` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/colors-hyprland.lua` | `DOTFILES/config/DotFiles/theme/colors-hyprland.lua` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/colors-kitty.conf` | `DOTFILES/config/DotFiles/theme/colors-kitty.conf` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/colors.conf` | `DOTFILES/config/DotFiles/theme/colors.conf` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/colors.css` | `DOTFILES/config/DotFiles/theme/colors.css` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/colors.json` | `DOTFILES/config/DotFiles/theme/colors.json` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/colors.lua` | `DOTFILES/config/DotFiles/theme/colors.lua` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/colors.rasi` | `DOTFILES/config/DotFiles/theme/colors.rasi` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/current` | `DOTFILES/config/DotFiles/theme/current` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/generate-theme.py` | `DOTFILES/config/DotFiles/theme/generate-theme.py` | Script / Python | Yes |
-| `config/DotFiles/theme/nautilus-extension/Makefile` | `DOTFILES/config/DotFiles/theme/nautilus-extension/Makefile` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/nautilus-extension/libnautilus-theme-reloader.so` | `DOTFILES/config/DotFiles/theme/nautilus-extension/libnautilus-theme-reloader.so` | DotFiles / Config | Yes |
-| `config/DotFiles/theme/nautilus-extension/nautilus-theme-reloader.c` | `DOTFILES/config/DotFiles/theme/nautilus-extension/nautilus-theme-reloader.c` | DotFiles / Config | Yes |
-| `config/DotFiles/wallpaper/apply-wallpaper.sh` | `DOTFILES/config/DotFiles/wallpaper/apply-wallpaper.sh` | Script | Yes |
-| `config/DotFiles/wallpaper/carousel-picker.py` | `DOTFILES/config/DotFiles/wallpaper/carousel-picker.py` | Script / Python | Yes |
-| `config/DotFiles/wallpaper/config.env` | `DOTFILES/config/DotFiles/wallpaper/config.env` | DotFiles / Config | Yes |
-| `config/DotFiles/wallpaper/current` | `DOTFILES/config/DotFiles/wallpaper/current` | DotFiles / Config | Yes |
-| `config/DotFiles/wallpaper/generate-thumbnails.py` | `DOTFILES/config/DotFiles/wallpaper/generate-thumbnails.py` | Script / Python | Yes |
-| `config/DotFiles/wallpaper/picker.rasi` | `DOTFILES/config/DotFiles/wallpaper/picker.rasi` | DotFiles / Config | Yes |
-| `config/DotFiles/wallpaper/wallpaper-picker.sh` | `DOTFILES/config/DotFiles/wallpaper/wallpaper-picker.sh` | Script | Yes |
+| `config/DotFiles` | `DOTFILES/config/DotFiles` | Compatibility Symlink | Yes |
+| `config/dotfiles/DOTFILES-INSTALL.md` | `DOTFILES/config/dotfiles/DOTFILES-INSTALL.md` | Documentation / Manifest | Yes |
+| `config/dotfiles/PLAN-end4-ui-port.md` | `DOTFILES/config/dotfiles/PLAN-end4-ui-port.md` | Documentation / Manifest | Yes |
+| `config/dotfiles/launcher/launcher.rasi` | `DOTFILES/config/dotfiles/launcher/launcher.rasi` | DotFiles / Config | Yes |
+| `config/dotfiles/launcher/launcher.sh` | `DOTFILES/config/dotfiles/launcher/launcher.sh` | Script | Yes |
+| `config/dotfiles/launcher/webapp_manager.py` | `DOTFILES/config/dotfiles/launcher/webapp_manager.py` | Script / Python | Yes |
+| `config/dotfiles/theme/apply-theme.sh` | `DOTFILES/config/dotfiles/theme/apply-theme.sh` | Script | Yes |
+| `config/dotfiles/theme/colors-hyprland.conf` | `DOTFILES/config/dotfiles/theme/colors-hyprland.conf` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/colors-hyprland.lua` | `DOTFILES/config/dotfiles/theme/colors-hyprland.lua` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/colors-kitty.conf` | `DOTFILES/config/dotfiles/theme/colors-kitty.conf` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/colors.conf` | `DOTFILES/config/dotfiles/theme/colors.conf` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/colors.css` | `DOTFILES/config/dotfiles/theme/colors.css` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/colors.json` | `DOTFILES/config/dotfiles/theme/colors.json` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/colors.lua` | `DOTFILES/config/dotfiles/theme/colors.lua` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/colors.rasi` | `DOTFILES/config/dotfiles/theme/colors.rasi` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/current` | `DOTFILES/config/dotfiles/theme/current` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/generate-theme.py` | `DOTFILES/config/dotfiles/theme/generate-theme.py` | Script / Python | Yes |
+| `config/dotfiles/theme/nautilus-extension/Makefile` | `DOTFILES/config/dotfiles/theme/nautilus-extension/Makefile` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/nautilus-extension/libnautilus-theme-reloader.so` | `DOTFILES/config/dotfiles/theme/nautilus-extension/libnautilus-theme-reloader.so` | DotFiles / Config | Yes |
+| `config/dotfiles/theme/nautilus-extension/nautilus-theme-reloader.c` | `DOTFILES/config/dotfiles/theme/nautilus-extension/nautilus-theme-reloader.c` | DotFiles / Config | Yes |
+| `config/dotfiles/wallpaper/apply-wallpaper.sh` | `DOTFILES/config/dotfiles/wallpaper/apply-wallpaper.sh` | Script | Yes |
+| `config/dotfiles/wallpaper/carousel-picker.py` | `DOTFILES/config/dotfiles/wallpaper/carousel-picker.py` | Script / Python | Yes |
+| `config/dotfiles/wallpaper/config.env` | `DOTFILES/config/dotfiles/wallpaper/config.env` | DotFiles / Config | Yes |
+| `config/dotfiles/wallpaper/current` | `DOTFILES/config/dotfiles/wallpaper/current` | DotFiles / Config | Yes |
+| `config/dotfiles/wallpaper/generate-thumbnails.py` | `DOTFILES/config/dotfiles/wallpaper/generate-thumbnails.py` | Script / Python | Yes |
+| `config/dotfiles/wallpaper/picker.rasi` | `DOTFILES/config/dotfiles/wallpaper/picker.rasi` | DotFiles / Config | Yes |
+| `config/dotfiles/wallpaper/wallpaper-picker.sh` | `DOTFILES/config/dotfiles/wallpaper/wallpaper-picker.sh` | Script | Yes |
 | `config/autostart/com.abdownloadmanager.desktop` | `DOTFILES/config/autostart/com.abdownloadmanager.desktop` | Desktop Entry | Yes |
 | `config/autostart/org.fagram.desktop` | `DOTFILES/config/autostart/org.fagram.desktop` | Desktop Entry | Yes |
 | `config/clipse/config.json` | `DOTFILES/config/clipse/config.json` | Config / Data | Yes |
@@ -337,7 +338,6 @@ Total tracked dotfiles items: **1425**
 | `config/hypr/hypridle.conf` | `DOTFILES/config/hypr/hypridle.conf` | Config / Data | Yes |
 | `config/hypr/hyprland.conf` | `DOTFILES/config/hypr/hyprland.conf` | Config / Data | Yes |
 | `config/hypr/hyprland.lua` | `DOTFILES/config/hypr/hyprland.lua` | Config / Data | Yes |
-| `config/hypr/hyprland.lua.bak-end4-2026-11-14-2005` | `DOTFILES/config/hypr/hyprland.lua.bak-end4-2026-11-14-2005` | Config / Data | Yes |
 | `config/hypr/hyprlock.conf` | `DOTFILES/config/hypr/hyprlock.conf` | Config / Data | Yes |
 | `config/hypr/hyprpaper.conf` | `DOTFILES/config/hypr/hyprpaper.conf` | Config / Data | Yes |
 | `config/hypr/pip.lua` | `DOTFILES/config/hypr/pip.lua` | Config / Data | Yes |
@@ -1420,8 +1420,10 @@ Total tracked dotfiles items: **1425**
 | `packages/pacman-runtime.txt` | `DOTFILES/packages/pacman-runtime.txt` | Package Manifest | Yes |
 | `scripts/grub-wallpaper-randomizer.py` | `DOTFILES/scripts/grub-wallpaper-randomizer.py` | Script | Yes |
 | `scripts/hyprland.sh` | `DOTFILES/scripts/hyprland.sh` | Script | Yes |
-| `scripts/install_apps.sh` | `DOTFILES/scripts/install_apps.sh` | Script | Yes |
-| `scripts/setup_grub_randomizer.sh` | `DOTFILES/scripts/setup_grub_randomizer.sh` | Script | Yes |
+| `scripts/install-apps.sh` | `DOTFILES/scripts/install-apps.sh` | Script | Yes |
+| `scripts/install_apps.sh` | `DOTFILES/scripts/install_apps.sh` | Compatibility Symlink | Yes |
+| `scripts/setup-grub-randomizer.sh` | `DOTFILES/scripts/setup-grub-randomizer.sh` | Script | Yes |
+| `scripts/setup_grub_randomizer.sh` | `DOTFILES/scripts/setup_grub_randomizer.sh` | Compatibility Symlink | Yes |
 | `scripts/verify.sh` | `DOTFILES/scripts/verify.sh` | Script | Yes |
 | `scripts/webapp-manager.sh` | `DOTFILES/scripts/webapp-manager.sh` | Script | Yes |
 | `system/etc/environment` | `DOTFILES/system/etc/environment` | System Configuration | Yes |

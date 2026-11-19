@@ -942,16 +942,19 @@ deploy_dotfiles() {
 
     # 2. Deploy Configurations from config/
     log_substep "Deploying ~/.config application trees..."
-    local config_dirs=("hypr" "quickshell" "dunst" "DotFiles" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d" "herdr" "matugen" "dotfiles")
+    local config_dirs=("hypr" "quickshell" "dunst" "dotfiles" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d" "herdr" "matugen")
     for d in "${config_dirs[@]}"; do
         if [ -d "$DOTFILES_DIR/config/$d" ]; then
-            if [ -d "$HOME/.config/$d" ]; then
+            if [ -d "$HOME/.config/$d" ] && [ ! -L "$HOME/.config/$d" ]; then
                 mkdir -p "$BACKUP_DIR"
                 cp -r "$HOME/.config/$d" "$BACKUP_DIR/"
             fi
             cp -r "$DOTFILES_DIR/config/$d" "$HOME/.config/"
         fi
     done
+
+    # Ensure canonical dotfiles compatibility symlink
+    ln -sfn dotfiles "$HOME/.config/DotFiles" 2>/dev/null || true
 
     # Ensure Quickshell QML internal module symlinks exist
     ln -sf "$HOME/.config/quickshell/qs/Commons" "$HOME/.config/quickshell/Commons" 2>/dev/null || true
