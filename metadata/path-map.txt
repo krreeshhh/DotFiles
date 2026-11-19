@@ -10,6 +10,7 @@
 ~/.config/DotFiles/ <= config/DotFiles/ (symlink -> dotfiles)
 ~/.config/ghostty/ <= config/ghostty/
 ~/.config/yazi/ <= config/yazi/
+~/.config/wireplumber/ <= config/wireplumber/
 ~/.config/clipse/ <= config/clipse/
 ~/.config/autostart/ <= config/autostart/
 ~/.config/gtk-3.0/ <= config/gtk-3.0/

@@ -277,6 +277,7 @@ Total tracked dotfiles items: **1425**
 | `bin/asus-kbd-white` | `DOTFILES/bin/asus-kbd-white` | Binary | Yes |
 | `bin/awww` | `DOTFILES/bin/awww` | Binary | Yes |
 | `bin/awww-daemon` | `DOTFILES/bin/awww-daemon` | Binary | Yes |
+| `bin/bluetooth-connect` | `DOTFILES/bin/bluetooth-connect` | Script | Yes |
 | `bin/clipse` | `DOTFILES/bin/clipse` | Binary | Yes |
 | `bin/crash` | `DOTFILES/bin/crash` | Binary | Yes |
 | `bin/crash-watch` | `DOTFILES/bin/crash-watch` | Binary | Yes |
@@ -1387,6 +1388,7 @@ Total tracked dotfiles items: **1425**
 | `config/systemd/user/hypr-pip-helper.service` | `DOTFILES/config/systemd/user/hypr-pip-helper.service` | Systemd Unit | Yes |
 | `config/systemd/user/quickshell.service` | `DOTFILES/config/systemd/user/quickshell.service` | Systemd Unit | Yes |
 | `config/yazi/theme.toml` | `DOTFILES/config/yazi/theme.toml` | Config / Data | Yes |
+| `config/wireplumber/wireplumber.conf.d/50-bluez.conf` | `DOTFILES/config/wireplumber/wireplumber.conf.d/50-bluez.conf` | Config / Data | Yes |
 | `gitignore` | `DOTFILES/gitignore` | Config / Data | Yes |
 | `home/.agents/.skill-lock.json` | `DOTFILES/home/.agents/.skill-lock.json` | Config / Data | Yes |
 | `home/.agents/rules/mechanic.md` | `DOTFILES/home/.agents/rules/mechanic.md` | Documentation / Manifest | Yes |

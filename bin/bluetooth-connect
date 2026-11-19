@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# Bluetooth Quick Connect & Dual-Connectivity Reconnect Helper
+# Connects to paired/trusted Bluetooth audio devices (multipoint friendly)
+# ==============================================================================
+set -euo pipefail
+
+TARGET_MAC="${1:-}"
+
+# Ensure bluetooth radio is powered on
+if ! bluetoothctl show | grep -q "Powered: yes"; then
+    echo "Powering on Bluetooth adapter..."
+    bluetoothctl power on >/dev/null 2>&1 || true
+    sleep 0.5
+fi
+
+# Ensure controller is pairable
+bluetoothctl pairable on >/dev/null 2>&1 || true
+
+if [ -n "$TARGET_MAC" ]; then
+    echo "Connecting to $TARGET_MAC..."
+    bluetoothctl trust "$TARGET_MAC" >/dev/null 2>&1 || true
+    bluetoothctl connect "$TARGET_MAC"
+    exit $?
+fi
+
+# If no target specified, attempt connection to all paired/trusted audio devices
+paired_devices=$(bluetoothctl devices Paired 2>/dev/null | awk '{print $2}' || true)
+
+if [ -z "$paired_devices" ]; then
+    # Fallback to any trusted device in device cache
+    paired_devices=$(bluetoothctl devices | while read -r _ mac _; do
+        if bluetoothctl info "$mac" 2>/dev/null | grep -q "Trusted: yes"; then
+            echo "$mac"
+        fi
+    done)
+fi
+
+if [ -z "$paired_devices" ]; then
+    echo "No paired or trusted Bluetooth devices found."
+    echo "Put your earbuds into pairing mode, then run: bluetoothctl pair <MAC>"
+    exit 1
+fi
+
+connected_any=false
+for mac in $paired_devices; do
+    info=$(bluetoothctl info "$mac" 2>/dev/null || true)
+    name=$(echo "$info" | grep "Name:" | cut -d: -f2- | xargs || echo "$mac")
+    is_connected=$(echo "$info" | grep -q "Connected: yes" && echo "true" || echo "false")
+    
+    if [ "$is_connected" = "false" ]; then
+        echo "Attempting connection to $name ($mac)..."
+        bluetoothctl trust "$mac" >/dev/null 2>&1 || true
+        if bluetoothctl connect "$mac"; then
+            echo "Successfully connected to $name."
+            command -v notify-send >/dev/null 2>&1 && notify-send -i "audio-headphones-bluetooth" "Bluetooth Connected" "Connected to $name" || true
+            connected_any=true
+            break
+        fi
+    else
+        echo "$name ($mac) is already connected."
+        connected_any=true
+    fi
+done
+
+if [ "$connected_any" = "false" ]; then
+    echo "Could not connect to any paired device."
+    echo "Tip: For dual-connectivity earbuds already connected to a phone,"
+    echo "make sure the earbuds were previously paired on this PC with case in pairing mode."
+    exit 1
+fi

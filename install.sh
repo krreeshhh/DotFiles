@@ -942,7 +942,7 @@ deploy_dotfiles() {
 
     # 2. Deploy Configurations from config/
     log_substep "Deploying ~/.config application trees..."
-    local config_dirs=("hypr" "quickshell" "dunst" "dotfiles" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d" "herdr" "matugen")
+    local config_dirs=("hypr" "quickshell" "dunst" "dotfiles" "ghostty" "yazi" "clipse" "gtk-3.0" "gtk-4.0" "environment.d" "herdr" "matugen" "wireplumber")
     for d in "${config_dirs[@]}"; do
         if [ -d "$DOTFILES_DIR/config/$d" ]; then
             if [ -d "$HOME/.config/$d" ] && [ ! -L "$HOME/.config/$d" ]; then

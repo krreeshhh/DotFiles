@@ -96,6 +96,9 @@ DialogListItem {
                         root.device?.forget();
                     } else {
                         root.device?.pair();
+                        if (root.device?.address) {
+                            Quickshell.execDetached(["bluetoothctl", "trust", root.device.address]);
+                        }
                     }
                 }
             }
@@ -106,6 +109,9 @@ DialogListItem {
                     if (root.device?.connected) {
                         root.device.disconnect();
                     } else {
+                        if (root.device?.address) {
+                            Quickshell.execDetached(["bluetoothctl", "trust", root.device.address]);
+                        }
                         root.device.connect();
                     }
                 }

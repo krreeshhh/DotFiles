@@ -3,6 +3,7 @@ assets/themes/grub/qylock-sword/generate_assets.py 755
 assets/themes/sddm/qylock-sword/apply.sh 755
 bin/awww 755
 bin/awww-daemon 755
+bin/bluetooth-connect 755
 bin/clipse 755
 bin/hypr-pip-helper 755
 bin/mechanic 755

@@ -17,6 +17,10 @@ WindowDialog {
     id: root
     backgroundHeight: 600
 
+    Component.onCompleted: {
+        Quickshell.execDetached(["bluetoothctl", "--timeout", "10", "scan", "on"]);
+    }
+
     WindowDialogTitle {
         text: Translation.tr("Bluetooth devices")
     }
