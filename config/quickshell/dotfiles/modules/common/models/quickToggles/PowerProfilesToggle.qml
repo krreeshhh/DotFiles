@@ -12,6 +12,7 @@ QuickToggleModel {
     name: Translation.tr("Power Profile")
 
     property string profileState: "ac"
+    property bool isPending: false
 
     toggled: profileState === "battery"
     icon: (profileState === "battery") ? "energy_savings_leaf" : "local_fire_department"
@@ -21,13 +22,29 @@ QuickToggleModel {
         : Translation.tr("AC Performance: CPU 4.5GHz Boost, Full GPU, 144Hz")
 
     mainAction: () => {
-        Quickshell.execDetached(["sudo", "/usr/local/bin/power-profile-manager", "toggle"]);
-        checkTimer.restart();
+        if (root.isPending || runProc.running) return;
+        root.isPending = true;
+
+        // Optimistic UI update
+        root.profileState = (root.profileState === "battery") ? "ac" : "battery";
+
+        runProc.command = ["sudo", "/usr/local/bin/power-profile-manager", root.profileState];
+        runProc.running = true;
     }
 
     altAction: () => {
-        Quickshell.execDetached(["sudo", "/usr/local/bin/power-profile-manager", "auto"]);
-        checkTimer.restart();
+        if (root.isPending || runProc.running) return;
+        root.isPending = true;
+        runProc.command = ["sudo", "/usr/local/bin/power-profile-manager", "auto"];
+        runProc.running = true;
+    }
+
+    Process {
+        id: runProc
+        onExited: (exitCode) => {
+            root.isPending = false;
+            readStateProc.running = true;
+        }
     }
 
     Process {
@@ -37,7 +54,7 @@ QuickToggleModel {
         stdout: SplitParser {
             onRead: data => {
                 const s = data.trim();
-                if (s === "battery" || s === "ac") {
+                if (!root.isPending && (s === "battery" || s === "ac")) {
                     root.profileState = s;
                 }
             }
@@ -46,11 +63,11 @@ QuickToggleModel {
 
     Timer {
         id: checkTimer
-        interval: 1500
-        running: true
+        interval: 2000
+        running: !root.isPending
         repeat: true
         onTriggered: {
-            if (!readStateProc.running) {
+            if (!readStateProc.running && !root.isPending) {
                 readStateProc.running = true;
             }
         }
