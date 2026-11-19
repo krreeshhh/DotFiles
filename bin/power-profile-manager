@@ -1,0 +1,370 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# power-profile-manager - Intelligent Power & Stability Manager
+# Optimized for ASUS TUF Gaming A15 (AMD Ryzen 7 7435HS + NVIDIA RTX 2050 Mobile)
+# ==============================================================================
+# Target:
+#   Eliminates sudden battery shutdown/crashes by clamping aggressive transient
+#   spikes (CPU turbo boost up to 4.5GHz & GPU high-voltage spikes) on a dual-rail
+#   system without integrated GPU (iGPU).
+# ==============================================================================
+
+set -euo pipefail
+
+STATE_FILE="/run/power-profile-state"
+LOCK_FILE="/run/lock/power-profile-manager.lock"
+
+# Find AC adapter sysfs path
+find_ac_online() {
+    for ac in /sys/class/power_supply/AC* /sys/class/power_supply/ACAD* /sys/class/power_supply/ADP*; do
+        if [ -d "$ac" ] && [ -f "$ac/online" ]; then
+            cat "$ac/online" 2>/dev/null && return 0
+        fi
+    done
+    # Fallback to checking BAT status
+    for bat in /sys/class/power_supply/BAT*; do
+        if [ -d "$bat" ] && [ -f "$bat/status" ]; then
+            local st
+            st="$(cat "$bat/status" 2>/dev/null || true)"
+            if [ "$st" = "Discharging" ]; then
+                echo "0"
+                return 0
+            else
+                echo "1"
+                return 0
+            fi
+        fi
+    done
+    echo "1"
+}
+
+# Helper to dispatch commands to all logged-in Hyprland sessions
+set_display_refresh() {
+    local hz="$1"  # "60.00Hz" or "144.00Hz"
+
+    for uid_dir in /run/user/[0-9]*; do
+        [ -d "$uid_dir" ] || continue
+        local uid user_name
+        uid="$(basename "$uid_dir")"
+        user_name="$(id -un "$uid" 2>/dev/null || true)"
+        [ -n "$user_name" ] || continue
+
+        if [ -d "$uid_dir/hypr" ]; then
+            for hypr_inst in "$uid_dir/hypr"/*/; do
+                [ -d "$hypr_inst" ] || continue
+                local sig
+                sig="$(basename "$hypr_inst")"
+                if [ "$(id -u)" -eq 0 ]; then
+                    sudo -u "$user_name" HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" \
+                        hyprctl eval "hl.monitor({ output = 'eDP-1', mode = '1920x1080@${hz}', position = '0x0', scale = '1' })" >/dev/null 2>&1 || true
+                else
+                    HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" \
+                        hyprctl eval "hl.monitor({ output = 'eDP-1', mode = '1920x1080@${hz}', position = '0x0', scale = '1' })" >/dev/null 2>&1 || true
+                fi
+            done
+        fi
+    done
+}
+
+get_display_hz() {
+    local hz="unknown"
+    if [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
+        hz="$(hyprctl monitors 2>/dev/null | grep -A 2 "Monitor eDP-1" | grep -oP '@\K[0-9.]+' | head -n 1 || echo "unknown")"
+    fi
+    if [ "$hz" = "unknown" ]; then
+        for d in /run/user/[0-9]*/hypr/*/; do
+            [ -d "$d" ] || continue
+            local sig uid_dir uname
+            sig="$(basename "$d")"
+            uid_dir="$(dirname "$(dirname "$d")")"
+            uname="$(id -un "$(basename "$uid_dir")" 2>/dev/null || true)"
+            [ -n "$uname" ] || continue
+            if [ "$(id -u)" -eq 0 ]; then
+                hz="$(sudo -u "$uname" HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" hyprctl monitors 2>/dev/null | grep -A 2 "Monitor eDP-1" | grep -oP '@\K[0-9.]+' | head -n 1 || echo "unknown")"
+            else
+                hz="$(HYPRLAND_INSTANCE_SIGNATURE="$sig" XDG_RUNTIME_DIR="$uid_dir" hyprctl monitors 2>/dev/null | grep -A 2 "Monitor eDP-1" | grep -oP '@\K[0-9.]+' | head -n 1 || echo "unknown")"
+            fi
+            [ "$hz" != "unknown" ] && break
+        done
+    fi
+    echo "${hz}Hz"
+}
+
+# Helper to send notifications to all logged-in user desktop sessions
+notify_desktop() {
+    local title="$1"
+    local message="$2"
+    local icon="$3"
+    local urgency="${4:-normal}"
+
+    for uid_dir in /run/user/[0-9]*; do
+        [ -d "$uid_dir" ] || continue
+        local uid user_name
+        uid="$(basename "$uid_dir")"
+        user_name="$(id -un "$uid" 2>/dev/null || true)"
+        [ -n "$user_name" ] || continue
+
+        if [ -S "$uid_dir/bus" ]; then
+            if [ "$(id -u)" -eq 0 ]; then
+                sudo -u "$user_name" DBUS_SESSION_BUS_ADDRESS="unix:path=$uid_dir/bus" \
+                    notify-send -a "Power Manager" -u "$urgency" -i "$icon" "$title" "$message" 2>/dev/null || true
+            else
+                DBUS_SESSION_BUS_ADDRESS="unix:path=$uid_dir/bus" \
+                    notify-send -a "Power Manager" -u "$urgency" -i "$icon" "$title" "$message" 2>/dev/null || true
+            fi
+        fi
+    done
+}
+
+apply_battery_profile() {
+    echo "=== [BATTERY MODE] Applying power-saving & brownout-prevention profile ==="
+
+    # 1. Disable AMD CPU Turbo Boost (eliminates 4.5GHz / 54W burst wattage spikes)
+    if [ -f /sys/devices/system/cpu/cpufreq/boost ]; then
+        echo 0 > /sys/devices/system/cpu/cpufreq/boost 2>/dev/null || true
+        echo " -> CPU Boost: Disabled"
+    fi
+
+    # 2. Set AMD P-State EPP to 'power' on all cores
+    for epp in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
+        if [ -f "$epp" ]; then
+            echo "power" > "$epp" 2>/dev/null || true
+        fi
+    done
+    echo " -> AMD P-State EPP: power"
+
+    # 3. Cap max scaling frequency to base clock (3.1 GHz = 3100000 kHz)
+    for maxf in /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq; do
+        if [ -f "$maxf" ]; then
+            echo 3100000 > "$maxf" 2>/dev/null || true
+        fi
+    done
+    echo " -> CPU Scaling Max Freq: 3.1 GHz (Base)"
+
+    # 4. Lock NVIDIA RTX 2050 Mobile Clocks (Caps GPU to 210-1200 MHz, avoiding high-voltage curve)
+    if command -v nvidia-smi >/dev/null 2>&1; then
+        nvidia-smi -pm 1 >/dev/null 2>&1 || true
+        nvidia-smi --lock-gpu-clocks=210,1200 >/dev/null 2>&1 || true
+        echo " -> NVIDIA dGPU Clocks: Locked to 210-1200 MHz (prevents transient brownouts)"
+    fi
+
+    # 5. Enable PCIe ASPM Powersave
+    if [ -f /sys/module/pcie_aspm/parameters/policy ]; then
+        echo "powersave" > /sys/module/pcie_aspm/parameters/policy 2>/dev/null || true
+        echo " -> PCIe ASPM: powersave"
+    fi
+
+    # 6. Audio Codec Power Saving (turn off DAC/amp after 1s of silence)
+    if [ -f /sys/module/snd_hda_intel/parameters/power_save ]; then
+        echo 1 > /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null || true
+        echo "Y" > /sys/module/snd_hda_intel/parameters/power_save_controller 2>/dev/null || true
+        echo " -> Audio DAC: powersave (1s timeout)"
+    fi
+
+    # 7. Kernel VM writeback & laptop mode (spins down storage/NVMe bus between flushes)
+    if [ -f /proc/sys/vm/laptop_mode ]; then
+        echo 5 > /proc/sys/vm/laptop_mode 2>/dev/null || true
+        echo 1500 > /proc/sys/vm/dirty_writeback_centisecs 2>/dev/null || true
+        echo " -> Kernel VM: laptop_mode enabled (15s writeback)"
+    fi
+
+    # 8. Wi-Fi Power Save
+    if command -v iw >/dev/null 2>&1; then
+        for iface in $(iw dev 2>/dev/null | awk '$1=="Interface"{print $2}'); do
+            iw dev "$iface" set power_save on 2>/dev/null || true
+        done
+        echo " -> Wi-Fi: power_save on"
+    fi
+
+    # 9. Hyprland Display Refresh Rate -> 60 Hz (saves scanout & GPU mem clocks)
+    set_display_refresh "60.00Hz"
+    echo " -> Display eDP-1: 60Hz"
+
+    # Save state
+    echo "battery" > "$STATE_FILE" 2>/dev/null || true
+
+    # Desktop notification
+    notify_desktop "Battery Profile Active" "CPU: 3.1GHz cap (Boost Off) | GPU: 1200MHz cap | 60Hz Display" "battery" "normal"
+    echo "Battery profile applied successfully."
+}
+
+apply_ac_profile() {
+    echo "=== [AC MODE] Applying high-performance & unrestricted profile ==="
+
+    # 1. Enable AMD CPU Turbo Boost (full 4.5GHz turbo boost enabled)
+    if [ -f /sys/devices/system/cpu/cpufreq/boost ]; then
+        echo 1 > /sys/devices/system/cpu/cpufreq/boost 2>/dev/null || true
+        echo " -> CPU Boost: Enabled (4.5 GHz Turbo)"
+    fi
+
+    # 2. Set AMD P-State EPP to 'balance_performance'
+    for epp in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
+        if [ -f "$epp" ]; then
+            echo "balance_performance" > "$epp" 2>/dev/null || true
+        fi
+    done
+    echo " -> AMD P-State EPP: balance_performance"
+
+    # 3. Restore max scaling frequency
+    local max_avail
+    max_avail="$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq 2>/dev/null || echo 4553983)"
+    for maxf in /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq; do
+        if [ -f "$maxf" ]; then
+            echo "$max_avail" > "$maxf" 2>/dev/null || true
+        fi
+    done
+    echo " -> CPU Scaling Max Freq: Restored ($max_avail kHz)"
+
+    # 4. Restore NVIDIA RTX 2050 Mobile Clocks to full boost (up to 2100 MHz)
+    if command -v nvidia-smi >/dev/null 2>&1; then
+        nvidia-smi -pm 1 >/dev/null 2>&1 || true
+        nvidia-smi --reset-gpu-clocks >/dev/null 2>&1 || true
+        echo " -> NVIDIA dGPU Clocks: Reset to full boost (up to 2100 MHz)"
+    fi
+
+    # 5. Restore PCIe ASPM policy
+    if [ -f /sys/module/pcie_aspm/parameters/policy ]; then
+        echo "default" > /sys/module/pcie_aspm/parameters/policy 2>/dev/null || true
+        echo " -> PCIe ASPM: default"
+    fi
+
+    # 6. Audio Codec Power Saving restore
+    if [ -f /sys/module/snd_hda_intel/parameters/power_save ]; then
+        echo 0 > /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null || true
+        echo "N" > /sys/module/snd_hda_intel/parameters/power_save_controller 2>/dev/null || true
+        echo " -> Audio DAC: full active"
+    fi
+
+    # 7. Kernel VM writeback restore
+    if [ -f /proc/sys/vm/laptop_mode ]; then
+        echo 0 > /proc/sys/vm/laptop_mode 2>/dev/null || true
+        echo 500 > /proc/sys/vm/dirty_writeback_centisecs 2>/dev/null || true
+        echo " -> Kernel VM: standard mode (5s writeback)"
+    fi
+
+    # 8. Hyprland Display Refresh Rate -> 144 Hz
+    set_display_refresh "144.00Hz"
+    echo " -> Display eDP-1: 144Hz"
+
+    # Save state
+    echo "ac" > "$STATE_FILE" 2>/dev/null || true
+
+    # Desktop notification
+    notify_desktop "AC Profile Active" "CPU: 4.5GHz Turbo | GPU: Full Boost | 144Hz Display" "battery-charging" "low"
+    echo "AC profile applied successfully."
+}
+
+show_status() {
+    local ac_status current_state cpu_boost epp cur_draw refresh_rate bat_cap bat_stat cur_gpu_clock
+
+    ac_status="$(find_ac_online)"
+    current_state="$(cat "$STATE_FILE" 2>/dev/null || echo "unknown")"
+    cpu_boost="$(cat /sys/devices/system/cpu/cpufreq/boost 2>/dev/null || echo "N/A")"
+    epp="$(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference 2>/dev/null || echo "N/A")"
+    
+    if command -v nvidia-smi >/dev/null 2>&1; then
+        cur_draw="$(nvidia-smi --query-gpu=power.draw --format=csv,noheader,nounits 2>/dev/null || echo "N/A") W"
+        cur_gpu_clock="$(nvidia-smi --query-gpu=clocks.gr --format=csv,noheader,nounits 2>/dev/null || echo "N/A") MHz"
+    else
+        cur_draw="N/A"
+        cur_gpu_clock="N/A"
+    fi
+
+    refresh_rate="$(get_display_hz)"
+    bat_cap="$(cat /sys/class/power_supply/BAT1/capacity 2>/dev/null || echo "N/A")%"
+    bat_stat="$(cat /sys/class/power_supply/BAT1/status 2>/dev/null || echo "N/A")"
+
+    cat <<EOF
+======================================================
+  Power & Stability Profile Status
+======================================================
+  Active Profile      : $current_state
+  AC Adapter Online   : $([ "$ac_status" = "1" ] && echo "Yes (Plugged In)" || echo "No (On Battery)")
+  Battery Level       : $bat_cap ($bat_stat)
+  Display (eDP-1)     : $refresh_rate
+------------------------------------------------------
+  CPU Boost (Turbo)   : $([ "$cpu_boost" = "1" ] && echo "Enabled (Up to 4.5 GHz)" || echo "Disabled (Capped at 3.1 GHz)")
+  AMD P-State EPP     : $epp
+  NVIDIA GPU Clock    : $cur_gpu_clock (Draw: $cur_draw)
+======================================================
+EOF
+}
+
+auto_detect_and_apply() {
+    local online
+    online="$(find_ac_online)"
+    local cur_state
+    cur_state="$(cat "$STATE_FILE" 2>/dev/null || echo "none")"
+
+    if [ "$online" = "1" ]; then
+        if [ "$cur_state" != "ac" ] || [ "${FORCE:-0}" = "1" ]; then
+            apply_ac_profile
+        else
+            echo "Already in AC mode."
+        fi
+    else
+        if [ "$cur_state" != "battery" ] || [ "${FORCE:-0}" = "1" ]; then
+            apply_battery_profile
+        else
+            echo "Already in Battery mode."
+        fi
+    fi
+}
+
+check_root() {
+    if [ "$(id -u)" -ne 0 ]; then
+        echo "Error: Modifying hardware power profiles requires root privileges." >&2
+        echo "Please run: sudo $0 $*" >&2
+        exit 1
+    fi
+}
+
+main() {
+    local cmd="${1:-auto}"
+
+    case "$cmd" in
+        battery|powersave|bat)
+            check_root
+            apply_battery_profile
+            ;;
+        ac|performance|plugged)
+            check_root
+            apply_ac_profile
+            ;;
+        auto)
+            check_root
+            auto_detect_and_apply
+            ;;
+        status)
+            show_status
+            ;;
+        toggle)
+            check_root
+            local cur
+            cur="$(cat "$STATE_FILE" 2>/dev/null || echo "ac")"
+            if [ "$cur" = "battery" ]; then
+                apply_ac_profile
+            else
+                apply_battery_profile
+            fi
+            ;;
+        update)
+            check_root
+            local src="${2:-/home/Krish/.local/bin/power-profile-manager}"
+            if [ -f "$src" ]; then
+                cp "$src" /usr/local/bin/power-profile-manager
+                chmod 0755 /usr/local/bin/power-profile-manager
+                echo "Successfully updated /usr/local/bin/power-profile-manager from $src"
+            else
+                echo "Error: Source file $src not found." >&2
+                exit 1
+            fi
+            ;;
+        *)
+            echo "Usage: $0 {auto|battery|ac|toggle|status|update}"
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"

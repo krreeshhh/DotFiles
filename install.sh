@@ -730,6 +730,34 @@ configure_sddm_theme() {
         sudo udevadm trigger --subsystem-match=leds 2>/dev/null || true
     fi
 
+    if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-power-profile.rules" ]; then
+        log_substep "Configuring /etc/udev/rules.d/99-power-profile.rules (Automated AC/Battery Power Switcher)..."
+        sudo mkdir -p /etc/udev/rules.d
+        sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-power-profile.rules" /etc/udev/rules.d/99-power-profile.rules
+        sudo udevadm control --reload-rules 2>/dev/null || true
+    fi
+
+    if [ -f "$DOTFILES_DIR/system/etc/systemd/system/power-profile.service" ]; then
+        log_substep "Configuring and enabling /etc/systemd/system/power-profile.service..."
+        sudo mkdir -p /etc/systemd/system
+        sudo cp "$DOTFILES_DIR/system/etc/systemd/system/power-profile.service" /etc/systemd/system/power-profile.service
+        sudo systemctl daemon-reload 2>/dev/null || true
+        sudo systemctl enable --now power-profile.service 2>/dev/null || true
+    fi
+
+    if [ -f "$DOTFILES_DIR/system/etc/sudoers.d/99-power-profile" ]; then
+        log_substep "Configuring /etc/sudoers.d/99-power-profile (Passwordless Power Switching)..."
+        sudo mkdir -p /etc/sudoers.d
+        sudo cp "$DOTFILES_DIR/system/etc/sudoers.d/99-power-profile" /etc/sudoers.d/99-power-profile
+        sudo chmod 0440 /etc/sudoers.d/99-power-profile
+    fi
+
+    if [ -f "$DOTFILES_DIR/bin/power-profile-manager" ]; then
+        log_substep "Installing /usr/local/bin/power-profile-manager..."
+        sudo cp "$DOTFILES_DIR/bin/power-profile-manager" /usr/local/bin/power-profile-manager
+        sudo chmod 0755 /usr/local/bin/power-profile-manager
+    fi
+
     if [ -f "$DOTFILES_DIR/system/etc/pacman.d/hooks/99-hyprland-blur.hook" ]; then
         log_substep "Configuring /etc/pacman.d/hooks/99-hyprland-blur.hook (Hyprland Blur Protocol Fix)..."
         sudo mkdir -p /etc/pacman.d/hooks

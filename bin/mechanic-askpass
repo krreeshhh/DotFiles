@@ -20,8 +20,8 @@ cleanup() {
 trap cleanup EXIT
 
 # 1. Try Quickshell Native Auth Screen
-if command -v quickshell >/dev/null 2>&1 && pgrep -u "$(id -u)" -x quickshell >/dev/null 2>&1; then
-    quickshell ipc -p "$HOME/.config/quickshell" call shell promptAuth "$FIFO" "$PROMPT" >/dev/null 2>&1 &
+if quickshell ipc show >/dev/null 2>&1; then
+    quickshell ipc call shell promptAuth "$FIFO" "$PROMPT" >/dev/null 2>&1 &
     
     # Read response with 60s timeout
     if read -t 60 -r PASSWORD < "$FIFO"; then

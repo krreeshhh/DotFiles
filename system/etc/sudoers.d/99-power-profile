@@ -1,0 +1,2 @@
+# Allow user Krish to switch hardware power profiles without password
+Krish ALL=(ALL) NOPASSWD: /usr/local/bin/power-profile-manager

@@ -1,0 +1,3 @@
+# Automated Power Profile Switcher for ASUS TUF A15
+SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ACTION=="change", RUN+="/usr/local/bin/power-profile-manager auto"
+SUBSYSTEM=="power_supply", KERNEL=="ACAD", ACTION=="change", RUN+="/usr/local/bin/power-profile-manager auto"

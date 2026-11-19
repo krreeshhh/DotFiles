@@ -69,6 +69,7 @@ check_battery() {
     # State transitions: Charger plugged in / unplugged
     if [ -n "$LAST_STATUS" ] && [ "$status" != "$LAST_STATUS" ]; then
         if [ "$status" = "Charging" ]; then
+            sudo /usr/local/bin/power-profile-manager ac >/dev/null 2>&1 || true
             notify-send -a "Battery" -u low -i "battery-charging" "Charger Connected" "Battery is charging at ${capacity}%." 2>/dev/null || true
             if command -v canberra-gtk-play >/dev/null 2>&1; then
                 canberra-gtk-play -i power-plug 2>/dev/null &
@@ -80,6 +81,7 @@ check_battery() {
             NOTIFIED_10=0
             NOTIFIED_5=0
         elif [ "$status" = "Discharging" ] && [ "$LAST_STATUS" = "Charging" ]; then
+            sudo /usr/local/bin/power-profile-manager battery >/dev/null 2>&1 || true
             notify-send -a "Battery" -u low -i "battery" "Charger Disconnected" "Running on battery at ${capacity}%." 2>/dev/null || true
             if command -v canberra-gtk-play >/dev/null 2>&1; then
                 canberra-gtk-play -i power-unplug 2>/dev/null &
