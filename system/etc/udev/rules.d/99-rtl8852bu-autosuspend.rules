@@ -1,3 +1,13 @@
-# Realtek RTL8852BU Bluetooth (Foxconn 0489:e123) - disable USB autosuspend.
-# The chip firmware crashes when autosuspended (fw download fails, hci0 dies).
+# ==============================================================================
+# Universal Bluetooth USB Controller Keepalive & Autosuspend Prevention
+# ==============================================================================
+# Prevents kernel btusb and USB Bluetooth radio firmware from sleeping or disconnecting.
+
+# Foxconn / Hon Hai Realtek RTL8852BU Bluetooth (0489:e123)
 ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0489", ATTR{idProduct}=="e123", TEST=="power/control", ATTR{power/control}="on"
+
+# Realtek Semiconductor USB Bluetooth Controllers (0bda:*)
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="0bda", DRIVERS=="btusb", TEST=="power/control", ATTR{power/control}="on"
+
+# Generic USB Bluetooth (btusb driver) keepalive
+ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="btusb", TEST=="power/control", ATTR{power/control}="on"

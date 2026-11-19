@@ -1,6 +1,6 @@
 # Universal Hardware Detection & Driver Matrix Reference
 
-This repository features an automated Universal Hardware Detection & Driver Engine (`install.sh`) that dynamically interrogates the system architecture, CPU microcode, GPU vendor/generation, chassis type, kernel flavor, and hardware quirks to deploy the exact matching driver and configuration stack on any Arch Linux machine.
+This repository features an automated Universal Hardware Detection & Driver Engine (`install.sh`) that dynamically interrogates the system architecture, CPU microcode, GPU vendor/generation, Wi-Fi and Bluetooth chipsets, chassis type, kernel flavor, and hardware quirks to deploy the exact matching driver and configuration stack on any Arch Linux machine.
 
 ---
 
@@ -40,18 +40,36 @@ The engine scans PCI devices via `lspci` for all display controllers (VGA/3D):
   * QEMU/KVM: `qemu-guest-agent`, `spice-vdagent`
   * VMware: `open-vm-tools`, `xf86-video-vmware`
 
-### D. Audio DSP & Sound Open Firmware
+### D. Universal Wi-Fi Drivers & Firmware Suite
+The engine scans PCI (`lspci -nnk`) and USB (`lsusb`) buses for all 802.11 wireless adapters:
+* **Complete Vendor Firmware Suite:** Automatically installs all vendor firmware subpackages:
+  * `linux-firmware` (Default base firmware)
+  * `linux-firmware-realtek` (Realtek rtw88, rtw89, rtl8xxx)
+  * `linux-firmware-intel` (Intel iwlwifi AX200, AX210, BE200, AC 9260)
+  * `linux-firmware-mediatek` (MediaTek mt7921, mt7922, AMD RZ608/RZ616)
+  * `linux-firmware-atheros` (Qualcomm Atheros ath9k, ath10k, ath11k, ath12k)
+  * `linux-firmware-broadcom` (Broadcom / Cypress wireless)
+  * `linux-firmware-marvell` (Marvell Avastar 88W8897 / 88W8797)
+* **Regulatory Compliance & Tools:** Installs `wireless-regdb`, `iw`, and `wpa_supplicant`.
+* **Broadcom STA Driver:** Detects Broadcom chips requiring proprietary drivers (`14e4:43xx`) and installs `broadcom-wl-dkms`.
+* **Wi-Fi Power Management Optimization:** Deploys `/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf` (`wifi.powersave = 2`), universally eliminating latency spikes and random disconnects across all wireless hardware.
+* **Realtek ASPM Stability:** Configures `/etc/modprobe.d/rtw89.conf` and `rtw88.conf` disabling ASPM L1/L1ss sleep lockups.
+
+### E. Universal Bluetooth Stack & High-Resolution Audio
+* **BlueZ Daemon:** Installs `bluez`, `bluez-utils`, and `bluez-hid2hci` (for dual-mode HID/HCI USB dongles).
+* **Auto-Power Policy:** Ensures `AutoEnable=true` in `/etc/bluetooth/main.conf` so Bluetooth adapters power on automatically upon boot or hotplug.
+* **USB Bluetooth Keepalive:** Deploys universal udev rules matching `DRIVERS=="btusb"` and vendor IDs (Realtek `0bda`, Foxconn `0489:e123`) setting `power/control="on"`, preventing USB autosuspend crashes.
+* **PipeWire Bluetooth Audio Codecs:** Installs `pipewire-audio` providing high-resolution SPA codecs (LDAC, AptX, AptX-HD, AAC, LC3, SBC, SBC-XQ).
+* **RFKill Unblock:** Automatically unblocks Wi-Fi and Bluetooth transmitters during installation.
+
+### F. Audio DSP & Sound Open Firmware
 * Scans PCI devices for Intel DSP / AMD ACP audio controllers:
   * Automatically installs `sof-firmware` and `alsa-ucm-conf` for modern digital microphones and multi-speaker DSP arrays.
 
-### E. Vendor-Specific Hardware Quirks
+### G. Vendor-Specific Platform Quirks
 * **ASUS TUF / ROG Laptops:**
   * Detects ASUS DMI product / chassis strings
   * Deploys `asusctl`, `supergfxctl`, and white keyboard backlight persistence service (`asus-kbd-white.service`).
-* **Realtek RTL8852BE / RTL8852CE Wi-Fi:**
-  * Automatically applies power-save and ASPM disable options in `/etc/modprobe.d/rtw89.conf` to prevent intermittent Wi-Fi drops.
-* **Realtek RTL8852BU USB Bluetooth:**
-  * Deploys udev keepalive rule (`99-rtl8852bu-bluetooth.rules`) preventing aggressive USB autosuspend and disconnects.
 
 ---
 

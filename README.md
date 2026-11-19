@@ -157,6 +157,8 @@ The suite features an Intelligent Hardware Detection Engine (`install.sh`) that 
   * **AMD Radeon:** Deploys Mesa, Vulkan (`vulkan-radeon`), and VA-API acceleration.
   * **Intel Graphics:** Configures Iris Xe / Arc graphics with `vulkan-intel` and `intel-media-driver`.
   * **Virtual Machines:** Detects QEMU, KVM, VirtualBox, and VMware, deploying matching guest integration daemons.
+* **Universal Wi-Fi Stack:** Installs full vendor firmware (`linux-firmware` Realtek, Intel, MediaTek, Qualcomm Atheros, Broadcom, Marvell), `wireless-regdb`, `iw`, `wpa_supplicant`, Broadcom STA drivers (`broadcom-wl-dkms`), and NetworkManager sleep-drop fixes.
+* **Universal Bluetooth & Audio Codecs:** BlueZ daemon with `AutoEnable=true`, universal USB Bluetooth keepalive udev rules (`btusb`), and PipeWire high-definition Bluetooth audio codecs (`pipewire-audio` for LDAC, AptX, AAC).
 * **Chassis & Power Management:** Automatically scales CPU boost, display refresh rate, and power states for laptops vs desktops.
 * **Hardware Quirks:** Auto-detects and patches Realtek Wi-Fi/Bluetooth power bugs, ASUS WMI platforms, and audio DSP controllers (`sof-firmware`).
 

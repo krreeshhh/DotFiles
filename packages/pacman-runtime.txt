@@ -50,6 +50,7 @@ parted
 pipewire
 pipewire-pulse
 pipewire-alsa
+pipewire-audio
 wireplumber
 pavucontrol
 pamixer
@@ -59,8 +60,12 @@ alsa-utils
 # Network & Bluetooth
 networkmanager
 network-manager-applet
+wpa_supplicant
+wireless-regdb
+iw
 bluez
 bluez-utils
+bluez-hid2hci
 blueman
 
 # Look, Theming & Engine Libraries
@@ -97,6 +102,12 @@ hyprpicker
 base
 base-devel
 linux-firmware
+linux-firmware-atheros
+linux-firmware-broadcom
+linux-firmware-intel
+linux-firmware-marvell
+linux-firmware-mediatek
+linux-firmware-realtek
 dkms
 
 # Essential Desktop Tools & System Libs

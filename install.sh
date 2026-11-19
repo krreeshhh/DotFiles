@@ -70,8 +70,25 @@ IS_VM="false"
 VM_TYPE=""
 HAS_SOF_AUDIO="false"
 HAS_ASUS_HARDWARE="false"
+HAS_WIFI="false"
+WIFI_MODEL=""
+WIFI_VENDOR=""
+WIFI_DRIVER=""
 HAS_REALTEK_WIFI="false"
+HAS_BROADCOM_WIFI="false"
+HAS_BROADCOM_STA="false"
+HAS_INTEL_WIFI="false"
+HAS_MEDIATEK_WIFI="false"
+HAS_ATHEROS_WIFI="false"
+HAS_BLUETOOTH="false"
+BT_MODEL=""
+BT_VENDOR=""
+BT_DRIVER=""
 HAS_REALTEK_BT="false"
+HAS_INTEL_BT="false"
+HAS_BROADCOM_BT="false"
+HAS_MEDIATEK_BT="false"
+HAS_ATHEROS_BT="false"
 BOOTLOADER_TYPE=""
 
 # ------------------------------------------------------------------------------
@@ -334,21 +351,99 @@ detect_system_hardware() {
         HAS_ASUS_HARDWARE="false"
     fi
 
-    # Realtek RTL8852 PCIe Wi-Fi
-    if lspci -nn 2>/dev/null | grep -iq "10ec:b852"; then
-        HAS_REALTEK_WIFI="true"
+    # 7. Wi-Fi & Wireless Network Controllers
+    local pci_wifi usb_wifi
+    pci_wifi="$(lspci -nnk 2>/dev/null | grep -iA 3 -E 'network controller|wireless|wi-fi|802\.11' || true)"
+    usb_wifi="$(lsusb 2>/dev/null | grep -iE 'wireless|802\.11|wifi|wlan' || true)"
+
+    if [ -n "$pci_wifi" ] || [ -n "$usb_wifi" ] || [ -d /sys/class/net/wlan0 ] || compgen -G "/sys/class/net/wl*" >/dev/null 2>&1; then
+        HAS_WIFI="true"
+        if [ -n "$pci_wifi" ]; then
+            WIFI_MODEL="$(echo "$pci_wifi" | grep -m1 -i "Network controller" | sed -E 's/^[0-9a-f:.]+ Network controller \[[0-9a-f]+\]: //; s/ \[.*//')"
+            [ -z "$WIFI_MODEL" ] && WIFI_MODEL="$(echo "$pci_wifi" | grep -m1 -iE 'wireless|wi-fi' | sed -E 's/^[0-9a-f:.]+ //; s/ \[.*//')"
+            WIFI_DRIVER="$(echo "$pci_wifi" | grep -m1 -i "Kernel driver in use:" | sed 's/.*Kernel driver in use: //')"
+        elif [ -n "$usb_wifi" ]; then
+            WIFI_MODEL="$(echo "$usb_wifi" | head -n1 | sed -E 's/^Bus [0-9]+ Device [0-9]+: ID [0-9a-f:]+ //')"
+            WIFI_DRIVER="usb"
+        else
+            WIFI_MODEL="Generic 802.11 Wireless Interface"
+            WIFI_DRIVER="cfg80211"
+        fi
+
+        # Check vendor families
+        if echo "$pci_wifi $usb_wifi" | grep -iqE '10ec:|Realtek'; then
+            HAS_REALTEK_WIFI="true"
+            WIFI_VENDOR="Realtek"
+        elif echo "$pci_wifi $usb_wifi" | grep -iqE '14e4:|Broadcom'; then
+            HAS_BROADCOM_WIFI="true"
+            WIFI_VENDOR="Broadcom"
+            if echo "$pci_wifi" | grep -iqE '14e4:43[0-9a-f]{2}'; then
+                HAS_BROADCOM_STA="true"
+            fi
+        elif echo "$pci_wifi $usb_wifi" | grep -iqE '8086:|Intel'; then
+            HAS_INTEL_WIFI="true"
+            WIFI_VENDOR="Intel"
+        elif echo "$pci_wifi $usb_wifi" | grep -iqE '14c3:|1814:|MediaTek|Ralink|RZ608|RZ616|MT79'; then
+            HAS_MEDIATEK_WIFI="true"
+            WIFI_VENDOR="MediaTek"
+        elif echo "$pci_wifi $usb_wifi" | grep -iqE '168c:|17cb:|Qualcomm|Atheros'; then
+            HAS_ATHEROS_WIFI="true"
+            WIFI_VENDOR="Qualcomm/Atheros"
+        elif echo "$pci_wifi $usb_wifi" | grep -iqE '1b4b:|Marvell'; then
+            WIFI_VENDOR="Marvell"
+        else
+            WIFI_VENDOR="Standard"
+        fi
     else
-        HAS_REALTEK_WIFI="false"
+        HAS_WIFI="false"
+        WIFI_MODEL="No Wi-Fi Controller (Ethernet only)"
+        WIFI_VENDOR="None"
     fi
 
-    # Realtek RTL8852 USB Bluetooth
-    if lsusb 2>/dev/null | grep -iq "0489:e123"; then
-        HAS_REALTEK_BT="true"
+    # 8. Bluetooth Controllers
+    local usb_bt pci_bt
+    usb_bt="$(lsusb 2>/dev/null | grep -iE 'bluetooth|btusb|0489:e123|0489:e102|0bda:' || true)"
+    pci_bt="$(lspci -nnk 2>/dev/null | grep -iA 2 'bluetooth' || true)"
+
+    if [ -n "$usb_bt" ] || [ -n "$pci_bt" ] || [ -d /sys/class/bluetooth ] || { command -v rfkill >/dev/null 2>&1 && rfkill list bluetooth 2>/dev/null | grep -iq bluetooth; }; then
+        HAS_BLUETOOTH="true"
+        if [ -n "$usb_bt" ]; then
+            BT_MODEL="$(echo "$usb_bt" | head -n1 | sed -E 's/^Bus [0-9]+ Device [0-9]+: ID [0-9a-f:]+ //')"
+            BT_DRIVER="btusb"
+        elif [ -n "$pci_bt" ]; then
+            BT_MODEL="$(echo "$pci_bt" | grep -m1 -i "Bluetooth" | sed -E 's/^[0-9a-f:.]+ //; s/ \[.*//')"
+            BT_DRIVER="$(echo "$pci_bt" | grep -m1 -i "Kernel driver in use:" | sed 's/.*Kernel driver in use: //')"
+        else
+            BT_MODEL="Generic Bluetooth HCI Adapter"
+            BT_DRIVER="bluez"
+        fi
+
+        # Check vendor families
+        if echo "$usb_bt $pci_bt" | grep -iqE '0bda:|0489:e123|0489:e102|Realtek'; then
+            HAS_REALTEK_BT="true"
+            BT_VENDOR="Realtek"
+        elif echo "$usb_bt $pci_bt" | grep -iqE '8087:|Intel'; then
+            HAS_INTEL_BT="true"
+            BT_VENDOR="Intel"
+        elif echo "$usb_bt $pci_bt" | grep -iqE '0489:e0e2|0e8d:|MediaTek'; then
+            HAS_MEDIATEK_BT="true"
+            BT_VENDOR="MediaTek"
+        elif echo "$usb_bt $pci_bt" | grep -iqE '0a5c:|Broadcom'; then
+            HAS_BROADCOM_BT="true"
+            BT_VENDOR="Broadcom"
+        elif echo "$usb_bt $pci_bt" | grep -iqE '0cf3:|Qualcomm|Atheros'; then
+            HAS_ATHEROS_BT="true"
+            BT_VENDOR="Qualcomm/Atheros"
+        else
+            BT_VENDOR="Standard"
+        fi
     else
-        HAS_REALTEK_BT="false"
+        HAS_BLUETOOTH="false"
+        BT_MODEL="No Bluetooth Controller"
+        BT_VENDOR="None"
     fi
 
-    # 8. Bootloader Detection
+    # 9. Bootloader Detection
     if [ -f /etc/default/grub ] || [ -d /boot/grub ]; then
         BOOTLOADER_TYPE="GRUB"
     elif [ -d /boot/loader/entries ] || [ -f /boot/loader/loader.conf ]; then
@@ -391,11 +486,28 @@ print_hardware_report() {
         printf "${BOLD}| Graphics/GPU   :${NC} %-56s |\n" "Standard Display Adapter (Mesa/KMS llvmpipe)"
     fi
 
+    # Wi-Fi Probing Display
+    if [ "$HAS_WIFI" = "true" ]; then
+        local wf_drv="${WIFI_DRIVER:-cfg80211}"
+        printf "${BOLD}| Wi-Fi Adapter  :${NC} %-56s |\n" "${WIFI_MODEL:0:36} [${WIFI_VENDOR}/${wf_drv}]"
+    else
+        printf "${BOLD}| Wi-Fi Adapter  :${NC} %-56s |\n" "None detected (Wired Ethernet)"
+    fi
+
+    # Bluetooth Probing Display
+    if [ "$HAS_BLUETOOTH" = "true" ]; then
+        local bt_drv="${BT_DRIVER:-btusb}"
+        printf "${BOLD}| Bluetooth Radio:${NC} %-56s |\n" "${BT_MODEL:0:36} [${BT_VENDOR}/${bt_drv}]"
+    else
+        printf "${BOLD}| Bluetooth Radio:${NC} %-56s |\n" "None detected / Inactive"
+    fi
+
     # Hardware Quirks Display
     local quirk_items=()
     [ "$HAS_ASUS_HARDWARE" = "true" ] && quirk_items+=("ASUS TUF/ROG Platform WMI")
-    [ "$HAS_REALTEK_WIFI" = "true" ] && quirk_items+=("Realtek RTL8852BE PCIe Wi-Fi (rtw89 stability)")
-    [ "$HAS_REALTEK_BT" = "true" ] && quirk_items+=("Realtek RTL8852BU USB BT (Autosuspend fix)")
+    [ "$HAS_REALTEK_WIFI" = "true" ] && quirk_items+=("Realtek Wi-Fi (rtw89/rtw88 ASPM & powersave fix)")
+    [ "$HAS_BROADCOM_STA" = "true" ] && quirk_items+=("Broadcom BCM43xx STA Driver (broadcom-wl-dkms)")
+    [ "$HAS_BLUETOOTH" = "true" ] && quirk_items+=("Universal USB Bluetooth Keepalive (btusb / AutoEnable)")
     [ "$HAS_SOF_AUDIO" = "true" ] && quirk_items+=("Sound Open Firmware / Audio DSP")
 
     if [ "${#quirk_items[@]}" -eq 0 ]; then
@@ -427,9 +539,33 @@ install_and_configure_drivers() {
         driver_pkgs+=("$CPU_MICROCODE")
     fi
 
-    # 2. Kernel Headers & DKMS Base
+    # 2. Kernel Headers, DKMS & Universal Firmware Suite
     log_substep "Selected kernel build headers: ${KERNEL_HEADERS}"
-    driver_pkgs+=("$KERNEL_HEADERS" "base-devel" "dkms" "linux-firmware")
+    driver_pkgs+=(
+        "$KERNEL_HEADERS"
+        "base-devel"
+        "dkms"
+        "linux-firmware"
+        "linux-firmware-atheros"
+        "linux-firmware-broadcom"
+        "linux-firmware-intel"
+        "linux-firmware-marvell"
+        "linux-firmware-mediatek"
+        "linux-firmware-realtek"
+        "wireless-regdb"
+        "iw"
+        "wpa_supplicant"
+        "bluez"
+        "bluez-utils"
+        "bluez-hid2hci"
+        "pipewire-audio"
+    )
+
+    # Broadcom STA Wireless Driver
+    if [ "$HAS_BROADCOM_STA" = "true" ]; then
+        log_substep "Broadcom BCM43xx STA wireless chipset detected: adding broadcom-wl-dkms..."
+        driver_pkgs+=("broadcom-wl-dkms")
+    fi
 
     # 3. Audio DSP Firmware
     if [ "$HAS_SOF_AUDIO" = "true" ]; then
@@ -561,31 +697,53 @@ install_and_configure_drivers() {
         fi
     fi
 
-    # 6. Hardware Quirks & Vendor Integration
-    # Realtek RTL8852 Wi-Fi Fix
+    # 6. Universal Wi-Fi & Bluetooth Stability Integration
+    # Universal Wi-Fi Power Management Optimization
+    log_substep "Applying Universal Wi-Fi power-save disable policy (NetworkManager)..."
+    sudo mkdir -p /etc/NetworkManager/conf.d
+    if [ -f "$DOTFILES_DIR/system/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf" ]; then
+        sudo cp "$DOTFILES_DIR/system/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf" /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf
+    else
+        echo -e "[connection]\nwifi.powersave = 2" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf >/dev/null
+    fi
+    command -v nmcli >/dev/null 2>&1 && sudo nmcli general reload 2>/dev/null || true
+
+    # Realtek Wi-Fi ASPM & Sleep Stability Options
     if [ "$HAS_REALTEK_WIFI" = "true" ]; then
-        log_substep "Applying Realtek RTL8852BE PCIe firmware and ASPM stability fix..."
-        if [ -f "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" ]; then
-            sudo mkdir -p /etc/modprobe.d
-            sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" /etc/modprobe.d/rtw89.conf
-        fi
-        if [ -f "$DOTFILES_DIR/system/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf" ]; then
-            sudo mkdir -p /etc/NetworkManager/conf.d
-            sudo cp "$DOTFILES_DIR/system/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf" /etc/NetworkManager/conf.d/default-wifi-powersave-off.conf
-            sudo nmcli general reload 2>/dev/null || true
-        fi
+        log_substep "Applying Realtek Wi-Fi ASPM and power saving stability parameters..."
+        sudo mkdir -p /etc/modprobe.d
+        [ -f "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" ] && sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" /etc/modprobe.d/rtw89.conf
+        [ -f "$DOTFILES_DIR/system/etc/modprobe.d/rtw88.conf" ] && sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/rtw88.conf" /etc/modprobe.d/rtw88.conf
     fi
 
-    # Realtek RTL8852 Bluetooth USB Autosuspend
-    if [ "$HAS_REALTEK_BT" = "true" ]; then
-        log_substep "Applying Realtek RTL8852BU Bluetooth USB autosuspend keepalive rule..."
-        if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules" ]; then
-            sudo mkdir -p /etc/udev/rules.d
-            sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules" /etc/udev/rules.d/99-rtl8852bu-autosuspend.rules
-            sudo udevadm control --reload-rules 2>/dev/null || true
-            sudo udevadm trigger --subsystem-match=usb 2>/dev/null || true
-        fi
+    # Universal Bluetooth USB Keepalive & Autosuspend Protection
+    log_substep "Applying Universal Bluetooth USB autosuspend keepalive udev rules..."
+    sudo mkdir -p /etc/udev/rules.d
+    if [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules" ]; then
+        sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules" /etc/udev/rules.d/99-rtl8852bu-autosuspend.rules
+        sudo udevadm control --reload-rules 2>/dev/null || true
+        sudo udevadm trigger --subsystem-match=usb 2>/dev/null || true
     fi
+
+    # Bluetooth AutoEnable Policy Configuration
+    if [ -f /etc/bluetooth/main.conf ]; then
+        log_substep "Ensuring Bluetooth AutoEnable=true in /etc/bluetooth/main.conf..."
+        if grep -q "^#AutoEnable=true" /etc/bluetooth/main.conf; then
+            sudo sed -i 's/^#AutoEnable=true/AutoEnable=true/' /etc/bluetooth/main.conf
+        elif ! grep -q "^AutoEnable=true" /etc/bluetooth/main.conf; then
+            sudo sed -i '/^\[Policy\]/a AutoEnable=true' /etc/bluetooth/main.conf 2>/dev/null || true
+        fi
+    elif [ -d /etc/bluetooth ]; then
+        log_substep "Creating /etc/bluetooth/main.conf with AutoEnable=true..."
+        echo -e "[Policy]\nAutoEnable=true" | sudo tee /etc/bluetooth/main.conf >/dev/null
+    fi
+
+    # Unblock RFKill for Wireless & Bluetooth
+    command -v rfkill >/dev/null 2>&1 && {
+        log_substep "Unblocking Wi-Fi and Bluetooth via rfkill..."
+        sudo rfkill unblock wifi 2>/dev/null || true
+        sudo rfkill unblock bluetooth 2>/dev/null || true
+    }
 
     # ASUS WMI Keyboard Backlight
     if [ "$HAS_ASUS_HARDWARE" = "true" ]; then
