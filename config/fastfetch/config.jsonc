@@ -3,8 +3,8 @@
   "logo": {
     "source": "arch2",
     "color": {
-      "1": "38;2;248;212;170",
-      "2": "38;2;252;162;129"
+      "1": "38;2;243;161;113",
+      "2": "38;2;249;195;132"
     },
     "padding": {
       "top": 1,
@@ -14,7 +14,7 @@
   "display": {
     "separator": "  \udb80\udd3e  ",
     "color": {
-      "separator": "38;2;65;56;47"
+      "separator": "38;2;65;53;47"
     },
     "key": {
       "width": 14
@@ -26,87 +26,87 @@
   "modules": [
     {
       "type": "title",
-      "format": "  {#38;2;248;212;170}\udb82\udcc7 {#1}{user-name}{#38;2;252;162;129}@{host-name}{#}"
+      "format": "  {#38;2;243;161;113}\udb82\udcc7 {#1}{user-name}{#38;2;249;195;132}@{host-name}{#}"
     },
     {
       "type": "custom",
-      "format": "{#38;2;65;56;47}{$1}{#}"
+      "format": "{#38;2;65;53;47}{$1}{#}"
     },
     {
       "type": "os",
       "key": "\uf303  OS",
-      "keyColor": "38;2;248;212;170"
+      "keyColor": "38;2;243;161;113"
     },
     {
       "type": "host",
       "key": "\udb80\udf22  Host",
-      "keyColor": "38;2;248;212;170",
+      "keyColor": "38;2;243;161;113",
       "format": "{2}"
     },
     {
       "type": "kernel",
       "key": "\uf013  Kernel",
-      "keyColor": "38;2;248;212;170"
+      "keyColor": "38;2;243;161;113"
     },
     {
       "type": "uptime",
       "key": "\udb80\udd50  Uptime",
-      "keyColor": "38;2;248;212;170"
+      "keyColor": "38;2;243;161;113"
     },
     {
       "type": "wm",
       "key": "\uf488  WM",
-      "keyColor": "38;2;252;162;129"
+      "keyColor": "38;2;249;195;132"
     },
     {
       "type": "terminal",
       "key": "\ue795  Terminal",
-      "keyColor": "38;2;252;162;129"
+      "keyColor": "38;2;249;195;132"
     },
     {
       "type": "terminalfont",
       "key": "\uf031  Font",
-      "keyColor": "38;2;252;162;129"
+      "keyColor": "38;2;249;195;132"
     },
     {
       "type": "shell",
       "key": "\uf489  Shell",
-      "keyColor": "38;2;252;162;129"
+      "keyColor": "38;2;249;195;132"
     },
     {
       "type": "cpu",
       "key": "\udb83\udee0  CPU",
-      "keyColor": "38;2;248;212;170"
+      "keyColor": "38;2;243;161;113"
     },
     {
       "type": "gpu",
       "key": "\udb82\udcae  GPU",
-      "keyColor": "38;2;248;212;170"
+      "keyColor": "38;2;243;161;113"
     },
     {
       "type": "memory",
       "key": "\uefc5  Memory",
-      "keyColor": "38;2;248;212;170"
+      "keyColor": "38;2;243;161;113"
     },
     {
       "type": "disk",
       "key": "\udb80\ude49  Disk",
-      "keyColor": "38;2;248;212;170",
+      "keyColor": "38;2;243;161;113",
       "folders": "/"
     },
     {
       "type": "battery",
       "key": "\udb80\udc80  Battery",
-      "keyColor": "38;2;252;162;129"
+      "keyColor": "38;2;249;195;132"
     },
     {
       "type": "packages",
       "key": "\udb80\udfd6  Packages",
-      "keyColor": "38;2;252;162;129"
+      "keyColor": "38;2;249;195;132"
     },
     {
       "type": "custom",
-      "format": "{#38;2;65;56;47}{$1}{#}"
+      "format": "{#38;2;65;53;47}{$1}{#}"
     },
     {
       "type": "colors",

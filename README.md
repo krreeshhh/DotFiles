@@ -29,11 +29,11 @@ A reproducible, fully-integrated Wayland desktop environment built on Arch Linux
 | <img width="1920" height="1080" alt="Clean Desktop & Bar" src="assets/screenshots/desktop.png" /> | <img width="1920" height="1080" alt="Window Management & Monitoring" src="assets/screenshots/window_management.png" /> |
 
 <details>
-  <summary>More Screenshots (Session Menu)</summary>
+  <summary>More Screenshots (App Launcher & Session Menu)</summary>
 
-  | Session Menu & Power Controls |
-  | :---: |
-  | <img width="1920" height="1080" alt="Session Menu & Power Controls" src="assets/screenshots/session.png" /> |
+  | Quickshell App Launcher | Session Menu & Power Controls |
+  | :---: | :---: |
+  | <img width="1920" height="1080" alt="Quickshell Application Launcher" src="assets/screenshots/launcher.png" /> | <img width="1920" height="1080" alt="Session Menu & Power Controls" src="assets/screenshots/session.png" /> |
 
 </details>
 

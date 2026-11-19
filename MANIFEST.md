@@ -26,6 +26,7 @@ Total tracked dotfiles items: **1425**
 | `assets/hypr-pip/extension/popup.js` | `DOTFILES/assets/hypr-pip/extension/popup.js` | Config / Data | Yes |
 | `assets/screenshots/desktop.png` | `DOTFILES/assets/screenshots/desktop.png` | Asset / Media | Yes |
 | `assets/screenshots/fastfetch.png` | `DOTFILES/assets/screenshots/fastfetch.png` | Asset / Media | Yes |
+| `assets/screenshots/launcher.png` | `DOTFILES/assets/screenshots/launcher.png` | Asset / Media | Yes |
 | `assets/screenshots/session.png` | `DOTFILES/assets/screenshots/session.png` | Asset / Media | Yes |
 | `assets/screenshots/sidebar.png` | `DOTFILES/assets/screenshots/sidebar.png` | Asset / Media | Yes |
 | `assets/screenshots/window_management.png` | `DOTFILES/assets/screenshots/window_management.png` | Asset / Media | Yes |
