@@ -17,10 +17,6 @@ WindowDialog {
     id: root
     backgroundHeight: 600
 
-    Component.onCompleted: {
-        Quickshell.execDetached(["bluetoothctl", "--timeout", "10", "scan", "on"]);
-    }
-
     WindowDialogTitle {
         text: Translation.tr("Bluetooth devices")
     }
@@ -61,6 +57,15 @@ WindowDialog {
     }
     WindowDialogSeparator {}
     WindowDialogButtonRow {
+        DialogButton {
+            buttonText: (Bluetooth.defaultAdapter?.discovering ?? false) ? Translation.tr("Scanning…") : Translation.tr("Scan")
+            onClicked: {
+                if (Bluetooth.defaultAdapter) {
+                    Bluetooth.defaultAdapter.discovering = !Bluetooth.defaultAdapter.discovering;
+                }
+            }
+        }
+
         DialogButton {
             buttonText: Translation.tr("Details")
             onClicked: {

@@ -711,9 +711,12 @@ install_and_configure_drivers() {
     # Realtek Wi-Fi ASPM & Sleep Stability Options
     if [ "$HAS_REALTEK_WIFI" = "true" ]; then
         log_substep "Applying Realtek Wi-Fi ASPM and power saving stability parameters..."
-        sudo mkdir -p /etc/modprobe.d
+        sudo mkdir -p /etc/modprobe.d /etc/udev/rules.d
         [ -f "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" ] && sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/rtw89.conf" /etc/modprobe.d/rtw89.conf
         [ -f "$DOTFILES_DIR/system/etc/modprobe.d/rtw88.conf" ] && sudo cp "$DOTFILES_DIR/system/etc/modprobe.d/rtw88.conf" /etc/modprobe.d/rtw88.conf
+        [ -f "$DOTFILES_DIR/system/etc/udev/rules.d/99-rtl8852be-pci.rules" ] && sudo cp "$DOTFILES_DIR/system/etc/udev/rules.d/99-rtl8852be-pci.rules" /etc/udev/rules.d/99-rtl8852be-pci.rules
+        sudo udevadm control --reload-rules 2>/dev/null || true
+        sudo udevadm trigger --subsystem-match=pci 2>/dev/null || true
     fi
 
     # Universal Bluetooth USB Keepalive & Autosuspend Protection

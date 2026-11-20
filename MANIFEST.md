@@ -1430,11 +1430,13 @@ Total tracked dotfiles items: **1425**
 | `scripts/webapp-manager.sh` | `DOTFILES/scripts/webapp-manager.sh` | Script | Yes |
 | `system/etc/environment` | `DOTFILES/system/etc/environment` | System Configuration | Yes |
 | `system/etc/modprobe.d/nvidia.conf` | `DOTFILES/system/etc/modprobe.d/nvidia.conf` | System Configuration | Yes |
+| `system/etc/modprobe.d/rtw89.conf` | `DOTFILES/system/etc/modprobe.d/rtw89.conf` | System Configuration | Yes |
 | `system/etc/pacman.d/hooks/99-hyprland-blur.hook` | `DOTFILES/system/etc/pacman.d/hooks/99-hyprland-blur.hook` | System Configuration | Yes |
 | `system/etc/sddm.conf.d/hyprland-sddm.conf` | `DOTFILES/system/etc/sddm.conf.d/hyprland-sddm.conf` | System Configuration | Yes |
 | `system/etc/sddm.conf.d/theme.conf` | `DOTFILES/system/etc/sddm.conf.d/theme.conf` | System Configuration | Yes |
 | `system/etc/systemd/logind.conf.d/lid.conf` | `DOTFILES/system/etc/systemd/logind.conf.d/lid.conf` | System Configuration | Yes |
 | `system/etc/udev/rules.d/99-asus-kbd-backlight.rules` | `DOTFILES/system/etc/udev/rules.d/99-asus-kbd-backlight.rules` | System Configuration | Yes |
+| `system/etc/udev/rules.d/99-rtl8852be-pci.rules` | `DOTFILES/system/etc/udev/rules.d/99-rtl8852be-pci.rules` | System Configuration | Yes |
 | `system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules` | `DOTFILES/system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules` | System Configuration | Yes |
 | `system/system-services.txt` | `DOTFILES/system/system-services.txt` | System Configuration | Yes |
 | `system/usr/lib/systemd/system-sleep/hyprland-suspend` | `DOTFILES/system/usr/lib/systemd/system-sleep/hyprland-suspend` | System Configuration | Yes |
