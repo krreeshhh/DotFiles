@@ -81,9 +81,11 @@ Follow this exact dependency order when rebuilding the desktop environment from 
 * Copy SDDM theme `assets/themes/sddm/hyprland-sddm` to `/usr/share/sddm/themes/hyprland-sddm/`.
 * Deploy `/etc/sddm.conf.d/theme.conf` and `/etc/sddm.conf.d/hyprland-sddm.conf` pointing to `hyprland-sddm`.
 * Deploy `/etc/modprobe.d/nvidia.conf` for S0ix Modern Standby and VRAM allocation preservation.
+* Deploy `/etc/modprobe.d/rtw89.conf` for Realtek RTL8852BE PCIe Wi-Fi ASPM, CLKREQ, and low power mode stability.
 * Deploy `/etc/systemd/logind.conf.d/lid.conf` to configure lid close system suspend.
 * Deploy `/usr/lib/systemd/system-sleep/hyprland-suspend` to pause/resume Hyprland around GPU sleep.
 * Deploy `/etc/udev/rules.d/99-asus-kbd-backlight.rules` for rootless ASUS TUF keyboard backlight access (`sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=leds`).
+* Deploy `/etc/udev/rules.d/99-rtl8852be-pci.rules` to prevent PCIe D3cold power collapse and RF bus desync (`sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=pci`).
 * Deploy `/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules` to disable USB autosuspend for the Realtek RTL8852BU Bluetooth radio (Foxconn 0489:e123), preventing `rtl8852bu: download fw command failed (-19)` drops (`sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=usb`).
 * Populate `~/.wallpaper/` with wallpapers (see `assets/wallpapers/WALLPAPER_MANIFEST.txt`).
 

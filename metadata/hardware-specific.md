@@ -53,12 +53,14 @@ The engine scans PCI (`lspci -nnk`) and USB (`lsusb`) buses for all 802.11 wirel
 * **Regulatory Compliance & Tools:** Installs `wireless-regdb`, `iw`, and `wpa_supplicant`.
 * **Broadcom STA Driver:** Detects Broadcom chips requiring proprietary drivers (`14e4:43xx`) and installs `broadcom-wl-dkms`.
 * **Wi-Fi Power Management Optimization:** Deploys `/etc/NetworkManager/conf.d/default-wifi-powersave-off.conf` (`wifi.powersave = 2`), universally eliminating latency spikes and random disconnects across all wireless hardware.
-* **Realtek ASPM Stability:** Configures `/etc/modprobe.d/rtw89.conf` and `rtw88.conf` disabling ASPM L1/L1ss sleep lockups.
+* **Realtek ASPM & D3cold Stability:** Configures `/etc/modprobe.d/rtw89.conf` (disabling ASPM L1, L1SS, CLKREQ#, and low power mode) and `/etc/udev/rules.d/99-rtl8852be-pci.rules` (preventing D3cold sleep state and runtime suspend lockups on AMD Zen PCIe root ports).
 
 ### E. Universal Bluetooth Stack & High-Resolution Audio
 * **BlueZ Daemon:** Installs `bluez`, `bluez-utils`, and `bluez-hid2hci` (for dual-mode HID/HCI USB dongles).
 * **Auto-Power Policy:** Ensures `AutoEnable=true` in `/etc/bluetooth/main.conf` so Bluetooth adapters power on automatically upon boot or hotplug.
 * **USB Bluetooth Keepalive:** Deploys universal udev rules matching `DRIVERS=="btusb"` and vendor IDs (Realtek `0bda`, Foxconn `0489:e123`) setting `power/control="on"`, preventing USB autosuspend crashes.
+* **WirePlumber Autoconnect & Dual Connectivity:** Deploys `wireplumber.conf.d/50-bluez.conf` with `bluez5.auto-connect = [ hfp_hf, hsp_hs, a2dp_sink ]`, ensuring instantaneous reconnection for multipoint dual-paired earbuds and headsets.
+* **Multipoint Bluetooth Connection Tool:** Includes `bin/bluetooth-connect` for seamless command-line device scanning, pairing, and targeted connection.
 * **PipeWire Bluetooth Audio Codecs:** Installs `pipewire-audio` providing high-resolution SPA codecs (LDAC, AptX, AptX-HD, AAC, LC3, SBC, SBC-XQ).
 * **RFKill Unblock:** Automatically unblocks Wi-Fi and Bluetooth transmitters during installation.
 

@@ -129,6 +129,7 @@ test('environment.d configs present', os.path.isfile(f'{DOTFILES}/config/environ
 test('clipse/config.json present', os.path.isfile(f'{DOTFILES}/config/clipse/config.json'))
 test('yazi/theme.toml present', os.path.isfile(f'{DOTFILES}/config/yazi/theme.toml'))
 test('herdr/config.toml present', os.path.isfile(f'{DOTFILES}/config/herdr/config.toml'))
+test('wireplumber/wireplumber.conf.d/50-bluez.conf present', os.path.isfile(f'{DOTFILES}/config/wireplumber/wireplumber.conf.d/50-bluez.conf'))
 test('mimeapps.list present', os.path.isfile(f'{DOTFILES}/config/mimeapps.list'))
 
 # 7. Standalone Binaries & Systemd Units
@@ -137,6 +138,7 @@ bin_dir = f'{DOTFILES}/bin'
 test('bin/hypr-pip-helper present and executable', os.path.isfile(f'{bin_dir}/hypr-pip-helper') and os.access(f'{bin_dir}/hypr-pip-helper', os.X_OK))
 test('bin/clipse present and executable', os.path.isfile(f'{bin_dir}/clipse') and os.access(f'{bin_dir}/clipse', os.X_OK))
 test('bin/agent present and executable', os.path.isfile(f'{bin_dir}/agent') and os.access(f'{bin_dir}/agent', os.X_OK))
+test('bin/bluetooth-connect present and executable', os.path.isfile(f'{bin_dir}/bluetooth-connect') and os.access(f'{bin_dir}/bluetooth-connect', os.X_OK))
 test('bin/crash present and executable', os.path.isfile(f'{bin_dir}/crash') and os.access(f'{bin_dir}/crash', os.X_OK))
 test('bin/crash-watch present and executable', os.path.isfile(f'{bin_dir}/crash-watch') and os.access(f'{bin_dir}/crash-watch', os.X_OK))
 test('bin/ledge present and executable', os.path.isfile(f'{bin_dir}/ledge') and os.access(f'{bin_dir}/ledge', os.X_OK))

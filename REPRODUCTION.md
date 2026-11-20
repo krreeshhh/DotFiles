@@ -82,10 +82,12 @@ sudo cp system/etc/sddm.conf.d/hyprland-sddm.conf /etc/sddm.conf.d/hyprland-sddm
 sudo cp system/etc/sddm.conf.d/theme.conf /etc/sddm.conf.d/theme.conf
 sudo cp system/etc/systemd/logind.conf.d/lid.conf /etc/systemd/logind.conf.d/lid.conf
 sudo cp system/etc/modprobe.d/nvidia.conf /etc/modprobe.d/nvidia.conf
+sudo cp system/etc/modprobe.d/rtw89.conf /etc/modprobe.d/rtw89.conf
 sudo cp system/usr/lib/systemd/system-sleep/hyprland-suspend /usr/lib/systemd/system-sleep/hyprland-suspend
 sudo cp system/etc/udev/rules.d/99-asus-kbd-backlight.rules /etc/udev/rules.d/99-asus-kbd-backlight.rules
+sudo cp system/etc/udev/rules.d/99-rtl8852be-pci.rules /etc/udev/rules.d/99-rtl8852be-pci.rules
 sudo cp system/etc/udev/rules.d/99-rtl8852bu-autosuspend.rules /etc/udev/rules.d/99-rtl8852bu-autosuspend.rules
-sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=leds && sudo udevadm trigger --subsystem-match=usb
+sudo udevadm control --reload-rules && sudo udevadm trigger --subsystem-match=leds && sudo udevadm trigger --subsystem-match=usb && sudo udevadm trigger --subsystem-match=pci
 sudo chmod +x /usr/lib/systemd/system-sleep/hyprland-suspend
 
 # 10. Configure GTK & Cursor GSettings
