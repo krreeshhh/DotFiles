@@ -1,7 +1,8 @@
 # ==============================================================================
-# Realtek RTL8852BE PCIe Wi-Fi Controller Power Management & D3cold Prevention
+# Realtek RTL8852BE PCIe Wi-Fi Controller Power Management & ASPM Prevention
 # ==============================================================================
 # Prevents PCI power management from forcing the RTL8852BE into D3cold on AMD Zen
-# platforms, which causes RF bus desynchronization and unrecoverable firmware hangs.
+# platforms, and disables PCIe Link ASPM states (L1/L1SS/CLKPM) which cause
+# TLP/DLLP bus errors and RF crystal oscillator desynchronization lockups.
 
-ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10ec", ATTR{device}=="0xb852", ATTR{d3cold_allowed}="0", ATTR{power/control}="on"
+ACTION=="add|change", SUBSYSTEM=="pci", ATTR{vendor}=="0x10ec", ATTR{device}=="0xb852", ATTR{d3cold_allowed}="0", ATTR{power/control}="on", ATTR{link/l1_aspm}="0", ATTR{link/l1_1_aspm}="0", ATTR{link/l1_2_aspm}="0", ATTR{link/clkpm}="0"

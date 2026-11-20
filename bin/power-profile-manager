@@ -156,7 +156,7 @@ notify_desktop() {
 }
 
 ensure_wifi_stability() {
-    # Keep Realtek RTL8852BE stable by enforcing disable_ps_mode and disable_aspm_l1/l1ss
+    # Keep Realtek RTL8852BE stable by enforcing disable_ps_mode, disable_aspm_l1/l1ss, and disable_clkreq
     if [ -w /sys/module/rtw89_core/parameters/disable_ps_mode ]; then
         echo "Y" > /sys/module/rtw89_core/parameters/disable_ps_mode 2>/dev/null || true
     fi
@@ -165,6 +165,20 @@ ensure_wifi_stability() {
     fi
     if [ -w /sys/module/rtw89_pci/parameters/disable_aspm_l1ss ]; then
         echo "Y" > /sys/module/rtw89_pci/parameters/disable_aspm_l1ss 2>/dev/null || true
+    fi
+    if [ -w /sys/module/rtw89_pci/parameters/disable_clkreq ]; then
+        echo "Y" > /sys/module/rtw89_pci/parameters/disable_clkreq 2>/dev/null || true
+    fi
+    # Disable hardware PCIe Link ASPM and Clock PM states
+    if [ -d /sys/bus/pci/devices/0000:03:00.0/link ]; then
+        for link_file in /sys/bus/pci/devices/0000:03:00.0/link/*; do
+            if [ -w "$link_file" ]; then
+                echo 0 > "$link_file" 2>/dev/null || true
+            fi
+        done
+    fi
+    if [ -w /sys/bus/pci/devices/0000:03:00.0/d3cold_allowed ]; then
+        echo 0 > /sys/bus/pci/devices/0000:03:00.0/d3cold_allowed 2>/dev/null || true
     fi
 }
 
@@ -206,8 +220,10 @@ apply_battery_profile() {
 
     # 5. PCIe ASPM & Wi-Fi Stability (Keep default to prevent Realtek RTL8852BE Wi-Fi PCIe link corruptions)
     if [ -f /sys/module/pcie_aspm/parameters/policy ]; then
-        echo "default" > /sys/module/pcie_aspm/parameters/policy 2>/dev/null || true
-        echo " -> PCIe ASPM: default (prevents Wi-Fi PCIe bus errors)"
+        if ! grep -q '\[default\]' /sys/module/pcie_aspm/parameters/policy 2>/dev/null; then
+            echo "default" > /sys/module/pcie_aspm/parameters/policy 2>/dev/null || true
+            echo " -> PCIe ASPM: default (prevents Wi-Fi PCIe bus errors)"
+        fi
     fi
     ensure_wifi_stability
 
@@ -285,8 +301,10 @@ apply_ac_profile() {
 
     # 5. Restore PCIe ASPM policy & maintain Wi-Fi stability
     if [ -f /sys/module/pcie_aspm/parameters/policy ]; then
-        echo "default" > /sys/module/pcie_aspm/parameters/policy 2>/dev/null || true
-        echo " -> PCIe ASPM: default"
+        if ! grep -q '\[default\]' /sys/module/pcie_aspm/parameters/policy 2>/dev/null; then
+            echo "default" > /sys/module/pcie_aspm/parameters/policy 2>/dev/null || true
+            echo " -> PCIe ASPM: default"
+        fi
     fi
     ensure_wifi_stability
 
@@ -335,7 +353,7 @@ fix_wifi() {
 # for Realtek RTL8852BE 802.11ax PCIe Wireless Network Controller on AMD Zen platforms.
 
 options rtw89_core disable_ps_mode=y
-options rtw89_pci disable_aspm_l1=y disable_aspm_l1ss=y
+options rtw89_pci disable_aspm_l1=y disable_aspm_l1ss=y disable_clkreq=y
 EOF
     echo " -> Created /etc/modprobe.d/rtw89.conf"
 
